@@ -36,7 +36,7 @@ if battle_state == 0
 			{
 				var spare_col = "[c_white]";
 				if enemy[| i].enemy_is_spareable
-				spare_col = "[c_yellow]";
+				spare_col = global.SpareTextColor;
 				draw_text_scribble(96,272+(32*i)-decrease_y, spare_col + "[font_dt_mono]* " + _enemy_name);
 				var xwrite = 450;
 				if menu_state == 1 and enemy_draw_hp_bar[| i] == 1
@@ -82,7 +82,7 @@ if battle_state == 0
 		{
 			if enemy[| i] != noone
 			if enemy[| i].enemy_is_spareable
-			spare_col = "[c_yellow]";
+			spare_col = global.SpareTextColor;
 		}
 		draw_text_scribble(96, 272, spare_col+"[font_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
 	}

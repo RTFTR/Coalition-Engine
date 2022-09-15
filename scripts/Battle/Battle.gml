@@ -34,7 +34,7 @@ function Soul_Hurt(dmg = 1,kr = 1)
 		//if place_meeting(x, y, obj_battle_soul)
 		{
 			sfx_play(snd_hurt);
-			global.inv = global.assign_inv;
+			global.inv = global.assign_inv + global.player_inv_boost;
 			
 			{
 				global.hp -= dmg;

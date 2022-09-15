@@ -4,6 +4,7 @@ function Item_Info_Load(){
 		Item_Info(global.item[i]);
 		item_name[i] = name;
 		item_heal[i] = heal;
+		item_desc[i] = desc;
 	}
 }
 
@@ -11,29 +12,35 @@ function Item_Info(item){
 	name = "";
 	heal = 0;
 	stats = "";
+	desc = "";
 	
 	switch item
 	{
 		case 1:
 			name = "Pie";
 			heal = global.hp_max;
+			desc = "Random slice of pie which is so cold you cant eat it.";
 			break;
 		case 2:
 			name = "I. Noodles"
 			heal = 90;
+			desc = "Hard noodles, your teeth broke";
 			break;
 		case 3:
 			name = "Steak";
 			heal = 60;
+			desc = "Steak that looks like a MTT which somehow fits in your pocket";
 			break;
 		case 4:
 			name = "SnowPiece";
 			heal = 45;
+			desc = "Bring this to the end of the world, but the world isnt round";
 			break;
 		case 5:
 			name = "L. Hero"
 			heal = 40;
 			stats = "Your ATK raised by 4!";
+			desc = "You arent legendary nor a hero.";
 			break;
 	}
 }

@@ -8,7 +8,7 @@ activate_turn = [1, 0, 0, 1];
 
 time = 0;
 
-global.item = [1,2,3,4,4,4,5,5];
+
 global.kr_activation = true;
 global.kr = 0;
 global.hp = global.hp_max;
