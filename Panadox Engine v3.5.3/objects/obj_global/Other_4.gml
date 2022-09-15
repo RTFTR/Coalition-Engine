@@ -1,0 +1,2 @@
+room_persistent = false;
+

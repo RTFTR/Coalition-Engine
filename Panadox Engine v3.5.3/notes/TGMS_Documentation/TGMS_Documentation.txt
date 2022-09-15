@@ -1,0 +1,54 @@
+
+TweenGMS v1.20
+
+Learning Resources for TweenGMS can be found at the following links:
+
+	[Starter Guide]
+		http://stephenloney.com/_/TweenGMS/120/TGMS_Starter_Guide.html
+
+	[Script Reference]
+		http://stephenloney.com/_/TweenGMS/120/TGMS_Script_Reference.html
+		
+	[Video Tutorial Series]
+	    https://www.youtube.com/playlist?list=PLX4uKTcINfBYVRaYyWbev0rj_9XygYtPK
+
+	[Examples Project]
+	    http://www.stephenloney.com/_/TweenGMS/120/TGMS_Examples_120.yyz
+
+	[Game Project]
+	    http://www.stephenloney.com/_/TweenGMS/120/TGMS_AlienOdds_120.yyz
+		
+	[Discord Server] (8BitWarrior)
+		https://discord.gg/CW45d5bAhj
+		
+	[GameMaker Community]
+		https://forum.yoyogames.com/index.php?threads/tweengms-tweening-engine.15740/
+		
+	[Previous TweenGMS Version 1.12]
+		https://stephenloney.com/_/TweenGMS/112/TweenGMS_Pro_v112.yymps
+	
+	
+	
+	
+====================
+== Special Thanks ==
+====================
+
+Matthew Humphries
+	twitter: @mthwgeek
+
+BeveledEdgeCo
+	twitter: @bevelededgeco
+
+TeamSteeve
+	twitter: @teamsteeve
+
+Davide Massara
+	galladhan
+
+Jaime Pascual
+	jaimitoes
+	site: https://www.solostudio.tech/
+	YouTube: https://www.youtube.com/channel/UCGb1IVJFuVrs_pY7NTc6bSQ?
+
+@Tsugumo_BPO (breaker of things)
