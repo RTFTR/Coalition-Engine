@@ -25,7 +25,7 @@ part_type_gravity(p, 0.12, 270);
 alarm[0] = 40;
 
 gameover_text = "[pause]You cannot give\nup just yet...[pause][/page]" +string(global.name)+ "![delay,500]\nStay determined...";
-gameover_text_voice = snd_text_voice_asgore;
+gameover_text_voice = snd_txtAsgore;
 gameover_writer = scribble(gameover_text);
 if gameover_writer.get_page() != 0 gameover_writer.page(0);
 

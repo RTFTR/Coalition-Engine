@@ -40,7 +40,7 @@ menu_text = "Just a basic test that's\n  long enough for a functional\n  typist 
 default_menu_text = menu_text;
 menu_text_typist = scribble_typist()
 	.in(0.5, 0)
-	.sound_per_char(snd_text_voice_typer, 1, 1," ^!.?,:/\\|*")
+	.sound_per_char(snd_txtTyper, 1, 1," ^!.?,:/\\|*")
 
 //text_writer = scribble("* " + menu_text);
 //if text_writer.get_page() != 0 text_writer.page(0);
@@ -159,7 +159,7 @@ function end_battle()
 		if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
 		battle_end_text_typist = scribble_typist()
 			.in(0.5, 0)
-			.sound_per_char(snd_text_voice_typer, 1, 1," ^!.?,:/\\|*")
+			.sound_per_char(snd_txtTyper, 1, 1," ^!.?,:/\\|*")
 	}
 	else
 	{

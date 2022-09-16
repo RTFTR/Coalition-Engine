@@ -31,7 +31,7 @@ function dialog_init()
 dialog_init();
 dialog_text_typist = scribble_typist()
 	.in(0.5, 0)
-	.sound_per_char(snd_text_voice_sans, 1, 1," ^!.?,:/\\|*")
+	.sound_per_char(snd_txtSans, 1, 1," ^!.?,:/\\|*")
 
 //Under Attack
 is_being_attacked = false;

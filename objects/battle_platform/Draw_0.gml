@@ -1,5 +1,5 @@
 var _color = sticky == true ? c_lime : c_fuchsia;	
-var	_sprite = spr_battle_platform;
+var	_sprite = spr_platform;
 var _angle = image_angle;
 var _alpha = image_alpha;
 var _length = length / 4;

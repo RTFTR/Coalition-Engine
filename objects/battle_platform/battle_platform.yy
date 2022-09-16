@@ -1,7 +1,7 @@
 {
   "spriteId": {
-    "name": "spr_battle_platform",
-    "path": "sprites/spr_battle_platform/spr_battle_platform.yy",
+    "name": "spr_platform",
+    "path": "sprites/spr_platform/spr_platform.yy",
   },
   "solid": false,
   "visible": true,
@@ -29,8 +29,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Sans",
-    "path": "folders/Objects/Battle/Bullet/Sans.yy",
+    "name": "Bullet",
+    "path": "folders/Objects/Battle/Bullet.yy",
   },
   "resourceVersion": "1.0",
   "name": "battle_platform",
