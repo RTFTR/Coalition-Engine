@@ -13,6 +13,7 @@ function Initialize()
 	global.inv = 2; // Invincibility frames
 	global.item_heal_override_kr = false; //Does kr reduce when max heal or not
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
+	global.BossFight = false;
 	
 	global.SaveFile = ds_map_create();
 	global.SaveFile[? "Name"] = "Chara";
@@ -25,7 +26,7 @@ function Initialize()
 	global.SaveFile[? "Arm"] = "Bandage";
 	var Item_Preset = [1,2,3,4,4,4,5,5];
 	for (var i = 0; i < 8; i++)
-	global.SaveFile[? i] = Item_Preset[i];
+	global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
 	
 	if !file_exists("Data.dat") Save_Datas(); else Load_Datas();
 	
@@ -39,7 +40,7 @@ function Initialize()
 	global.DefenseItem = global.SaveFile[? "Arm"];
 	ConvertItemNameToStat();
 	for (var i = 0; i < 8; i++)
-	global.item[i] = global.SaveFile[? i];
+	global.item[i] = global.SaveFile[? ("Item "+string(i))];
 	
 	global.battle_encounter = 0;
 	

@@ -86,6 +86,11 @@ allow_run = 0;
 dialog_is_end = 0;
 }
 
+//Battle Variables
+Total_Exp = 0;
+Total_Gold = 0;
+
+
 function Move_Noise() { audio_play(snd_menu_switch); };
 function Confirm_Noise() { audio_play(snd_menu_confirm); };
 function scr_enemy_choice()
@@ -147,11 +152,18 @@ function begin_spare(activate_the_turn)
 function end_battle()
 {
 	battle_state = 3;
-	battle_end_text = "You WON!";
-	battle_end_text_writer = scribble("* " + battle_end_text);
-	if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
-	battle_end_text_typist = scribble_typist()
-		.in(0.5, 0)
-		.sound_per_char(snd_text_voice_typer, 1, 1," ^!.?,:/\\|*")
+	if !global.BossFight
+	{
+		battle_end_text = "You WON![delay,333]\n* You earned "+string(Total_Exp)+" XP and "+string(Total_Gold)+" gold.";
+		battle_end_text_writer = scribble("* " + battle_end_text);
+		if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
+		battle_end_text_typist = scribble_typist()
+			.in(0.5, 0)
+			.sound_per_char(snd_text_voice_typer, 1, 1," ^!.?,:/\\|*")
+	}
+	else
+	{
+		Fader_Fade(0, 1, 40, 0, c_black);
+	}
 }
 

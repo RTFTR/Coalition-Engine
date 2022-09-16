@@ -8,6 +8,9 @@ _enemy_hp = 100;
 enemy_draw_hp_bar = 1;
 enemy_defense = 1;
 enemy_in_battle = true;
+is_boss = false;
+Exp_Give = 100;
+Gold_Give = 100;
 
 //Temp var
 enemy_total_height = 100;

@@ -174,6 +174,8 @@ if is_being_spared
 	if !died and !is_spared
 	if enemy_is_spareable
 	{
+		obj_battle_controller.Total_Gold += Gold_Give;
+		obj_battle_controller.Total_Exp += Exp_Give;
 		is_spared = true;
 		sfx_play(snd_vaporize);
 		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
@@ -192,7 +194,7 @@ if is_being_spared
 	{
 		if spare_end_begin_turn
 		{
-			if !is_spared {obj_battle_controller.battle_turn++; obj_battle_controller.dialog_start();}
+			if !is_spared {obj_battle_controller.dialog_start();}
 		}
 	}
 	

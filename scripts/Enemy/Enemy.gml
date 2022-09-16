@@ -28,6 +28,7 @@ function Enemy_Function_Load(encounter_number){
 				enemy_act[i, ii] = enemies[i].enemy_act[ii];
 				enemy_act_text[i, ii] = enemies[i].enemy_act_text[ii];
 			}
+			if enemies[i].is_boss = true global.BossFight = true;
 		}
 		else
 		{

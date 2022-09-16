@@ -185,22 +185,26 @@ if battle_state == 0
 }
 if battle_state == 3
 {
-	battle_end_text_writer.starting_format("font_dt_mono",c_white)
-	battle_end_text_writer.draw(52, 272, battle_end_text_typist)
+	if !global.BossFight
+	{
+		battle_end_text_writer.starting_format("font_dt_mono",c_white)
+		battle_end_text_writer.draw(52, 272, battle_end_text_typist)
 		
 		
-	if input_check_pressed("cancel")
-	{
-		battle_end_text_writer.page(battle_end_text_writer.get_page_count() - 1);
-		battle_end_text_typist.skip();
+		if input_check_pressed("cancel")
+		{
+			battle_end_text_writer.page(battle_end_text_writer.get_page_count() - 1);
+			battle_end_text_typist.skip();
+		}
+		if battle_end_text_typist.get_state() == 1 and battle_end_text_writer.get_page() < (battle_end_text_writer.get_page_count() - 1)
+			battle_end_text_writer.page(battle_end_text_writer.get_page() + 1)
+		if battle_end_text_typist.get_state() == 1
+		{
+			if input_check_pressed("confirm")
+				game_restart();
+		}
 	}
-	if battle_end_text_typist.get_state() == 1 and battle_end_text_writer.get_page() < (battle_end_text_writer.get_page_count() - 1)
-		battle_end_text_writer.page(battle_end_text_writer.get_page() + 1)
-	if battle_end_text_typist.get_state() == 1
-	{
-		if input_check_pressed("confirm")
-			game_restart();
-	}
+	else if obj_global.fader_alpha == 1 game_restart();
 }
 // Buttons 
 {
