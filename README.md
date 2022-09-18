@@ -16,5 +16,4 @@ Not yet, We'll consider making it after we finish the engine.
 Creators:
 Maxin, Panthervention, Supereden, Pilzdeshimmels, RTF, (etc)
 
-Special thanks to Scarm for the board system.
-Special thanks to snesmocha for the initial engine design.
+Special thanks to Scarm and snesmocha for the initial engine design and the board system.
