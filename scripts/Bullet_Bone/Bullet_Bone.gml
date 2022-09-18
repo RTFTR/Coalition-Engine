@@ -29,3 +29,4 @@ function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 
 }
 
 		
+

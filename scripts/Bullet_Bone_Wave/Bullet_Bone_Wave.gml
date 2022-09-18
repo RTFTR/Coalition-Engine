@@ -42,3 +42,4 @@ function Bullet_Bone_Wave_V(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT
 		Bullet_Bone_Bottom(X,GAP_B,VSPEED,TYPE,OUT,0,false,DURATION);
 	}
 }
+

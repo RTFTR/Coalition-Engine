@@ -9,7 +9,7 @@ if array_length(turn_time) >= (_turn + 1)
 else end_turn();
 
 // Down here you can make your turn codes
-if _turn = 0
+if _turn == 0
 {
 	if time == 1
 	{
@@ -17,4 +17,9 @@ if _turn = 0
 		for(var i=0;i < 50; i++)
 		Bullet_Bone_Gap_V(390+i*10,320,-3,10)
 	}
+}
+if _turn == 1
+{
+	if time == 1
+	Battle_SetSoulPos(380, 380, 30, EaseOutQuad);
 }

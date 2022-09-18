@@ -117,8 +117,7 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
 	var damage = global.player_attack + global.player_attack_boost;
 	var target = enemy[| enemy_under_attack];
 	var enemy_def = target.enemy_defense;
-	if target.enemy_is_spareable == true //Check if enemy can be spared
-	enemy_def *= -30;
+	if target.enemy_is_spareable enemy_def *= -30; //Check if enemy is spareable -> reduce the DEF
 	damage -= enemy_def;
 	damage *= 2;
 	if distance_to_center > 15

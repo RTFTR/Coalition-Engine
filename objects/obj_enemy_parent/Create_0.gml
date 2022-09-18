@@ -57,15 +57,4 @@ is_being_spared = false;
 spare_end_begin_turn = false;
 is_spared = false;
 
-//Functions
-function Enemy_SetStats(max_hp, current_hp = max_hp, draw_hp_bar = 1)
-{
-	enemy_hp_max = max_hp;
-	enemy_hp = current_hp;
-	_enemy_hp = enemy_hp;
-	enemy_draw_hp_bar = draw_hp_bar;
-}
-function Enemy_SetDamage(damage){ damage = damage;}
-
-function Enemy_SetSpareable(spareable){ enemy_is_spareable = spareable;}
 

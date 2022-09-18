@@ -1,6 +1,6 @@
 gpu_set_blendenable(false);
 
-if pause == true
+if pause
 {
 	surface_set_target(application_surface);
 	if surface_exists(pauseSurf) draw_surface(pauseSurf, 0, 0);
@@ -15,7 +15,7 @@ if pause == true
 if keyboard_check_pressed(ord("P"))
 {
 
-	if pause == false
+	if !pause
 	{
 		pause = true;
 	
@@ -27,7 +27,7 @@ if keyboard_check_pressed(ord("P"))
 		surface_reset_target();
 	
 		if buffer_exists(pauseSurfBuffer) buffer_delete(pauseSurfBuffer);
-		pauseSurfBuffer = buffer_create(640 * 480 * 4, buffer_fixed, 1);
+			pauseSurfBuffer = buffer_create(640 * 480 * 4, buffer_fixed, 1);
 		buffer_get_surface(pauseSurfBuffer, pauseSurf, 1);
 	}
 	else

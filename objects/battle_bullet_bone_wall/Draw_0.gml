@@ -20,7 +20,7 @@ if active
 	var board_l = board_x - board_margin[2]; 
 	var board_r = board_x + board_margin[3]; 
 
-	if time_warn > 0
+	if time_warn
 	{
 		time_warn--;
 			
@@ -110,8 +110,7 @@ if active
 							  or floor(obj_battle_soul.y) != floor(obj_battle_soul.yprevious));
 					collision = (_type == 1 ? collision : !collision);
 				}
-				if collision
-					Soul_Hurt();
+				if collision Soul_Hurt();
 			}
 			
 			// Hitbox
@@ -147,8 +146,7 @@ if active
 							  or floor(obj_battle_soul.y) != floor(obj_battle_soul.yprevious));
 					collision = (_type == 1 ? collision : !collision);
 				}
-				if collision
-					Soul_Hurt();
+				if collision Soul_Hurt();
 			}
 			
 			// Hitbox
@@ -166,12 +164,12 @@ if active
 }	
 if state == 2
 {
-	if timer == 0
+	if !timer
 	{
 		audio_stop_sound(snd_bonewall);
 		audio_play_sound(snd_bonewall, 50, false);
 	}
-	if timer >= 0
+	else
 	{
 		if timer < time_move
 		{

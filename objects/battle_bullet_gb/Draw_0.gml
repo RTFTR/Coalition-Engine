@@ -18,7 +18,7 @@ if state = 0
 	
 	var _timer = timer_move;
 	
-	if charge_sound == 1
+	if charge_sound
 	{
 		audio_stop_sound(snd_gb_charge);
 		var beam_sfx = audio_play_sound(snd_gb_charge,50,0);
@@ -33,19 +33,19 @@ if state = 0
 		_y += (_target_y - _y) * (5 / time_move)
 		_angle += (_target_angle - _angle) * (5 / time_move)
 		
-		if _x < _target_x _x += 0.5;
-		if _x > _target_x _x -= 0.5;
-		if _y < _target_y _y += 0.5;
-		if _y > _target_y _y -= 0.5;
-		if _angle < _target_angle _angle += 0.5;
-		if _angle > _target_angle _angle -= 0.5;
-		if abs(_x - _target_x) < 1.5 _x = _target_x;
-		if abs(_y - _target_y) < 1.5 _y = _target_y;
-		if abs(_angle - _target_angle) < 1.5 _angle = _target_angle;
+		if _x < _target_x  _x += 0.5;
+		if _x > _target_x  _x -= 0.5;
+		if _y < _target_y  _y += 0.5;
+		if _y > _target_y  _y -= 0.5;
+		if _angle < _target_angle  _angle += 0.5;
+		if _angle > _target_angle  _angle -= 0.5;
+		if abs(_x - _target_x) < 1.5  _x = _target_x;
+		if abs(_y - _target_y) < 1.5  _y = _target_y;
+		if abs(_angle - _target_angle) < 1.5  _angle = _target_angle;
 		
 		_timer++
 	}
-	if _timer = time_move or time_move = 0
+	if _timer = time_move or !time_move
 	{
 		state = 1;
 		_timer = 0;
@@ -99,10 +99,9 @@ if state = 4
 		if _yscale >= 2
 		{
 			global.shake = 5;
-			if blurring = true
-				Blur_Screen(time_blast, _yscale);
+			if blurring	Blur_Screen(time_blast, _yscale);
 		}
-		if release_sound == 1
+		if release_sound
 		{
 			audio_stop_sound(snd_gb_release);
 			var beam_up_sfx = audio_play_sound(snd_gb_release,50,0);
@@ -122,8 +121,7 @@ if state = 4
 	if _exit_timer >= time_stay and _exit_timer < time_stay + 10 speed += 0.5
 	else if _exit_timer >= time_stay + 10 speed *= 1.1
 	
-	if _blast_timer < 10
-		_size += ((30 * _yscale) / 8);
+	if _blast_timer < 10 _size += ((30 * _yscale) / 8);
 	
 	if _blast_timer >= 10 + time_blast
 	{
@@ -133,7 +131,7 @@ if state = 4
 		if _size <= 2 destroy = 1;
 	}
 	
-	var beam_siner = (((sin(_blast_timer / pi)) * _size) / 4);
+	var beam_siner = sin(_blast_timer / pi) * _size / 4;
 	
 	var rx = 0//(random(2) - random(2))
     var ry = 0//(random(2) - random(2))
@@ -155,8 +153,8 @@ if state = 4
 	draw_line_width(x + xs + rx, y + ys + ry, x + xa + rx, y + ya + ry, (_size / 2) + beam_siner);
 	draw_line_width(x + xs + rx, y + ys + ry, x + xb + rx, y + yb + ry, (_size / 1.25) + beam_siner);
 	
-	var collisiondir_x = lengthdir_x(1, image_angle - 90)
-	var collisiondir_y = lengthdir_y(1, image_angle - 90)
+	var collisiondir_x = lengthdir_x(1, image_angle - 90);
+	var collisiondir_y = lengthdir_y(1, image_angle - 90);
 	if global.inv <= 0
 	{
 		for (var c = 0; c < 5; c++)
@@ -164,21 +162,12 @@ if state = 4
 			var x_f = ((collisiondir_x * (beam_scale + beam_siner)) / 2) * (c / 8);
 			var y_f = ((collisiondir_y * (beam_scale + beam_siner)) / 2) * (c / 8);
 			
-			
-			draw_set_color(c_red)
-			//draw_line_width((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f, 10)
-			//draw_line_width((x + xs + rx) + x_f, (y + ys + ry) + y_f, (x + xe + rx) + x_f, (y + ye + ry) - y_f, 10)
-			draw_rectangle((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f,0)
-			draw_set_color(color)
-
-			//if collision_line((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f, obj_battle_soul, false, false)
-			//or collision_line((x + xs + rx) + x_f, (y + ys + ry) + y_f, (x + xe + rx) + x_f, (y + ye + ry) - y_f, obj_battle_soul, false, false)
 			var sx = obj_battle_soul.x;
 			var sy = obj_battle_soul.y;
 			if rectangle_in_rectangle((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f,sx-4,sy-4,sx+4,sy+4)
 			{
-				Soul_Hurt()
-				if beam_alpha >= 0.8// and beam_scale > 2
+				Soul_Hurt();
+				if beam_alpha >= 0.8
 				{
 					var collision = true;
 					if _type != 0 and _type != 3
@@ -187,8 +176,7 @@ if state = 4
 									or floor(obj_battle_soul.y) != floor(obj_battle_soul.yprevious));
 						collision = (_type == 1 ? collision : !collision);
 					}
-					if collision
-						Soul_Hurt();
+					if collision Soul_Hurt();
 				}
 				
 				//draw_set_color(c_green)

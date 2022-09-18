@@ -11,7 +11,7 @@ global.camera_y = global.zoom_height * 0.5;
 global.shake = 0;
 global.shake_length = 1;
 global.shake_random = 0;
-global.shake_magnitude = 1;
+global.shake_magnitude = 1.5;
 
 global.soul_x = 0;
 global.soul_y = 0;

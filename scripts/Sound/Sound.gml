@@ -8,5 +8,6 @@ function audio_play(soundid,single = false,loops = false,volume = 1,pitch = 1,ti
 }
 function sfx_play(soundid, volume = 1)
 {
-	audio_sound_gain(audio_play_sound(soundid, 1, 0), volume, 0);
+	var audio = audio_play_sound(soundid, 1, 0)
+	audio_sound_gain(audio, volume, 0);
 }

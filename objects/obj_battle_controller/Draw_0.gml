@@ -29,14 +29,13 @@ if battle_state == 0
 	if menu_state == 1 or menu_state == 2 // Fight - Act
 	{	
 		var decrease_y = 0;
-		for (var i = 0; i < ds_list_size(enemy_name); i++) // Draw enemy hp bar in Fight state
+		for (var i = 0, n = ds_list_size(enemy_name); i < n; i++) // Draw enemy hp bar in Fight state
 		{
 			var _enemy_name = enemy_name[| i];
 			if instance_exists(enemy[| i]) // Check if the enemy slot is valid before name drawing
 			{
 				var spare_col = "[c_white]";
-				if enemy[| i].enemy_is_spareable
-				spare_col = global.SpareTextColor;
+				if enemy[| i].enemy_is_spareable spare_col = global.SpareTextColor;
 				draw_text_scribble(96,272+(32*i)-decrease_y, spare_col + "[font_dt_mono]* " + _enemy_name);
 				var xwrite = 450;
 				if menu_state == 1 and enemy_draw_hp_bar[| i] == 1
@@ -60,14 +59,15 @@ if battle_state == 0
 		var coord = menu_choice[2];
 		var c_div = floor(coord / 4);
 		var itm_ln = Item_Space();
+		var _coord = c_div * 4;
 		Item_Info_Load();
-	
-		for (var i = 0; i < min(4, itm_ln - (c_div * 4)); ++i)
+		
+		for (var i = 0, n = min(4, itm_ln - _coord); i < n; ++i)
 		{
 			var xx = (64 + ((i % 2) * 256)) + 32
 			var yy = 272 + (floor(i / 2) * 32)
 		
-			draw_text_scribble(xx, yy, "[font_dt_mono]* " + item_name[i + (c_div * 4)])
+			draw_text_scribble(xx, yy, "[font_dt_mono]* " + item_name[i + _coord])
 		}
 		
 		// Heal text and Page
@@ -78,24 +78,23 @@ if battle_state == 0
 	{
 		// Sets the color of Spare
 		var spare_col = "[c_white]";
-		for (var i = 0; i < ds_list_size(enemy); i++)
+		for (var i = 0, n = ds_list_size(enemy); i < n; i++)
 		{
 			if enemy[| i] != noone
-			if enemy[| i].enemy_is_spareable
-			spare_col = global.SpareTextColor;
+				if enemy[| i].enemy_is_spareable
+					spare_col = global.SpareTextColor;
 		}
 		draw_text_scribble(96, 272, spare_col+"[font_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
 	}
 	if menu_state == 6		// Draw Act Texts
 	{
 		var enemy_check_texts = "";
-		var act_num = array_length(enemy_act[target_option]);
-		for (var i = 0; i < act_num; ++i)
+		for (var i = 0, act_num = array_length(enemy_act[target_option]); i < act_num; ++i)
 		{
 			var assign_act_text = enemy_act[target_option, i];
 			if assign_act_text != "" enemy_check_texts += "* " + assign_act_text;
 			if (i % 2) enemy_check_texts += "\n";
-			else for (var ii = 14; ii > string_length(enemy_act[target_option, i]); --ii)
+			else for (var ii = 14, n = string_length(enemy_act[target_option, i]); ii > n; --ii)
 				enemy_check_texts += " ";
 		}
 		draw_text_scribble(96, 272, "[font_dt_mono]" + enemy_check_texts)
@@ -133,7 +132,7 @@ if battle_state == 0
 						target_buffer = 3;
 						_target_state = 2;
 						if _aim_distance < 15
-						Blur_Screen(45, (15 - _aim_distance) / 2);
+							Blur_Screen(45, (15 - _aim_distance) / 2);
 						alarm[0] = 60
 						
 						var strike_target_x = 160 * (target_option + 1);
@@ -149,12 +148,10 @@ if battle_state == 0
 			else
 			{
 				_target_alpha -= 0.04;
-				if _target_retract_method == 0
-				_target_xscale -= 0.03;
+				if _target_retract_method == 0 _target_xscale -= 0.03;
 				else _target_yscale -= 0.03;
 				
-				if _aim_scale > 0
-				_aim_scale -= 0.075;
+				if _aim_scale > 0 _aim_scale -= 0.075;
 				else _aim_scale = 0;
 				_aim_angle += _aim_retract * 3;
 				
@@ -190,7 +187,6 @@ if battle_state == 3
 		battle_end_text_writer.starting_format("font_dt_mono",c_white)
 		battle_end_text_writer.draw(52, 272, battle_end_text_typist)
 		
-		
 		if input_check_pressed("cancel")
 		{
 			battle_end_text_writer.page(battle_end_text_writer.get_page_count() - 1);
@@ -217,7 +213,7 @@ if battle_state == 3
 	var _state = menu_state;
 	var _menu = menu_button_choice; 
 
-	for (var i = 0; i < array_length(_button_spr); ++i) // Button initialize
+	for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 	{	
 		// If no item left then item button commit gray
 		if global.item[0] <= 0 and i == 2 button_color_target[2] = [ [54,54,54],[54,54,54] ];
@@ -263,7 +259,7 @@ if battle_state == 3
 {
 	time++;
 	// Credits to Scarm for all the help and this epico code!
-	var hp_x = global.kr_activation != true ? ui_x : (ui_x - 20);
+	var hp_x = ui_x - global.kr_activation * 20;
 	var hp_y = ui_y;
 	var name_x = ui_x - 245;
 	var name_y = ui_y;
@@ -279,6 +275,7 @@ if battle_state == 3
 	var bar_multiplier = 1.2; //Default multiplier from UNDERTALE
 	var hp_text = "HP";
 	var kr_text = "KR";
+	var _alpha = ui_alpha;
 
 	// Linear health updating / higher refill_speed = faster refill / max refill_speed is 1
 	hp += (global.hp - hp) * refill_speed;
@@ -287,50 +284,52 @@ if battle_state == 3
 	hp = clamp(hp, 0, global.hp_max);
 	hp_max = clamp(hp_max, 0, global.hp_max);
 	kr = clamp(kr, 0, max_kr);
+	var _hp = hp * bar_multiplier;
+	var _hp_max = hp_max * bar_multiplier;
+	var _kr = kr * bar_multiplier;
 	//Prevent long decimals
 	if abs(hp - global.hp) < 1 hp = global.hp;
 	if abs(kr - global.kr) < 1 kr = global.kr;
 	
 	draw_set_font(font_mnc); // Name - LV Font
 	// Name
-	draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, ui_alpha);
+	draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, _alpha);
 	// LV Icon
-	draw_text_color(name_x + string_width(name), name_y, "   LV ", lv_col, lv_col, lv_col, lv_col, ui_alpha);
+	draw_text_color(name_x + string_width(name), name_y, "   LV ", lv_col, lv_col, lv_col, lv_col, _alpha);
 	// LV Counter
-	draw_text_color(name_x + string_width(name + "   LV "), name_y, string(global.lv), lv_counter_col, lv_counter_col, lv_counter_col, lv_counter_col, ui_alpha);
+	draw_text_color(name_x + string_width(name + "   LV "), name_y, string(global.lv), lv_counter_col, lv_counter_col, lv_counter_col, lv_counter_col, _alpha);
 
 	draw_set_font(font_uicon); // Icon Font
 	// HP Icon
-	draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, ui_alpha);
+	draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, _alpha);
 
 	// Background bar
-	draw_rectangle_color(hp_x, hp_y, hp_x + (hp_max * bar_multiplier), hp_y + 20, hp_max_col, hp_max_col, hp_max_col, hp_max_col, false);
+	draw_rectangle_color(hp_x, hp_y, hp_x + _hp_max, hp_y + 20, hp_max_col, hp_max_col, hp_max_col, hp_max_col, false);
 	// HP bar
-	draw_rectangle_color(hp_x, hp_y, hp_x + (hp * bar_multiplier), hp_y + 20, hp_col, hp_col, hp_col, hp_col, false);
+	draw_rectangle_color(hp_x, hp_y, hp_x + _hp, hp_y + 20, hp_col, hp_col, hp_col, hp_col, false);
 	
 	if menu_state == 3
 	{
 		hp_predict += (item_heal[coord] - hp_predict) * refill_speed;
 		//Healing thing
 		draw_set_alpha(abs(sin(time / 40) * 0.4) + 0.1);
-		draw_rectangle_color(hp_x + hp * bar_multiplier, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, c_lime, c_lime, c_lime, c_lime, false);
+		draw_rectangle_color(hp_x + _hp, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, c_lime, c_lime, c_lime, c_lime, false);
 		draw_set_alpha(1);
 	}
 	
 	// KR bar
-	if global.kr_activation = true
+	if global.kr_activation
 	{
-		if round(kr) > 0 krr_col = kr_col;
-		else krr_col = c_white;
+		krr_col = (round(kr) ? kr_col : c_white);
 	
 		global.kr = clamp(global.kr, 0, min(max_kr, global.hp_max - global.hp));
 	
 		// Draw the bar
-		if round(kr) > 0
-		draw_rectangle_color(hp_x + (hp * bar_multiplier) + 1, hp_y, max((hp_x + ((hp * bar_multiplier) - (kr * bar_multiplier))), hp_x), hp_y + 20, krr_col, krr_col, krr_col, krr_col, false);
+		if round(kr)
+		draw_rectangle_color(hp_x + _hp + 1, hp_y, max(hp_x + _hp - _kr, hp_x), hp_y + 20, krr_col, krr_col, krr_col, krr_col, false);
 	
 		// Draw icon
-		draw_text_color((hp_x + 10) + (hp_max * bar_multiplier), hp_y + 5, kr_text, krr_col, krr_col, krr_col, krr_col, ui_alpha);
+		draw_text_color((hp_x + 10) + _hp_max, hp_y + 5, kr_text, krr_col, krr_col, krr_col, krr_col, _alpha);
 	}
 
 	// Zeropadding
@@ -345,8 +344,8 @@ if battle_state == 3
 	// Draw the health counter
 	draw_set_color(krr_col);
 	draw_set_font(font_mnc); // Counter Font
-	var offset = global.kr_activation = false ? 15 : (20 + string_width(kr_text));
-	draw_text((hp_x + offset) + (hp_max * bar_multiplier), hp_y, hp_counter + " / " + hp_max_counter);
+	var offset = global.kr_activation ? (20 + string_width(kr_text)) : 15;
+	draw_text(hp_x + offset + _hp_max, hp_y, hp_counter + " / " + hp_max_counter);
 }
 
 draw_set_color(c_white);

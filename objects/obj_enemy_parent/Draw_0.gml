@@ -1,6 +1,6 @@
 #region Enemy Status
 // Check if other enemies are dying
-for (var i = 0; i < instance_number(obj_enemy_parent); ++i)
+for (var i = 0, n = instance_number(obj_enemy_parent); i < n; ++i)
 {
 	var enemy_find;
 	enemy_find[i] = instance_find(obj_enemy_parent, i);
@@ -36,17 +36,17 @@ if is_dialog == 1 and !died and !is_spared
 	draw_set_color(c_white);
 	var spike_pos=
 	[
-	[right_pos, down_pos-spike_height-10],
-	[left_pos + spike_width + 10, top_pos],
-	[left_pos, down_pos-spike_height-10],
-	[right_pos - spike_width - 10, down_pos],
+		[right_pos, down_pos-spike_height-10],
+		[left_pos + spike_width + 10, top_pos],
+		[left_pos, down_pos-spike_height-10],
+		[right_pos - spike_width - 10, down_pos],
 	]
 	var spike_scan=
 	[
-	[-1, 1, 0],
-	[-1, 1, 90],
-	[1, 1, 0],
-	[1, 1, 90],
+		[-1, 1, 0],
+		[-1, 1, 90],
+		[1, 1, 0],
+		[1, 1, 90],
 	]
 	var fin_dir = dialog_dir / 90;
 	draw_sprite_ext(spike_spr,0,spike_pos[fin_dir, 0],spike_pos[fin_dir, 1],spike_scan[fin_dir, 0],spike_scan[fin_dir, 1],spike_scan[fin_dir, 2],c_white,1);
@@ -158,12 +158,12 @@ if is_being_attacked
 			//instance_destroy();
 			enemy_in_battle = false;
 			if instance_exists(obj_battle_controller)
-			with(obj_battle_controller)
-			{
-				var enemy_slot = other.x / 160 - 1;
-				enemy[| enemy_slot] = noone;
-				enemy_draw_hp_bar[| enemy_slot] = 0;
-			}
+				with(obj_battle_controller)
+				{
+					var enemy_slot = other.x / 160 - 1;
+					enemy[| enemy_slot] = noone;
+					enemy_draw_hp_bar[| enemy_slot] = 0;
+				}
 		}
 	}
 }
@@ -172,14 +172,14 @@ if is_being_attacked
 if is_being_spared
 {
 	if !died and !is_spared
-	if enemy_is_spareable
-	{
-		obj_battle_controller.Total_Gold += Gold_Give;
-		obj_battle_controller.Total_Exp += Exp_Give;
-		is_spared = true;
-		sfx_play(snd_vaporize);
-		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
-	}
+		if enemy_is_spareable
+		{
+			obj_battle_controller.Total_Gold += Gold_Give;
+			obj_battle_controller.Total_Exp += Exp_Give;
+			is_spared = true;
+			sfx_play(snd_vaporize);
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
+		}
 	//Check for any un-spared enemies
 	var continue_battle = false;
 	for (var i = 0; i < instance_number(obj_enemy_parent); ++i)
@@ -204,12 +204,12 @@ if is_spared and image_alpha == 0.5
 {
 	enemy_in_battle = false;
 	if instance_exists(obj_battle_controller)
-	with(obj_battle_controller)
-	{
-		var enemy_slot = other.x / 160 - 1;
-		enemy[| enemy_slot] = noone;
-		enemy_draw_hp_bar[| enemy_slot] = 0;
-	}
+		with(obj_battle_controller)
+		{
+			var enemy_slot = other.x / 160 - 1;
+			enemy[| enemy_slot] = noone;
+			enemy_draw_hp_bar[| enemy_slot] = 0;
+		}
 }
 #endregion
 

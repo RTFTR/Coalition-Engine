@@ -1,4 +1,4 @@
-if time_warn > 0
+if time_warn
 {
 	warn_color = warn_color == c_red ? c_yellow : c_red;
 	warn_alpha_filled = warn_alpha_filled == 0.5 ? 0.25 : 0.5;

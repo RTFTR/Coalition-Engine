@@ -4,12 +4,12 @@ input_tick(); // Input handler, do not delete!
 
 if keyboard_check(vk_escape)
 {
-    quit_timer++
-    if quit_timer >= 60 game_end();
+	quit_timer++
+	if quit_timer >= 60 game_end();
 }
 else
 {
-	if quit_timer > 0 quit_timer--;
+	if quit_timer quit_timer--;
 	else quit_timer = 0;
 }
 

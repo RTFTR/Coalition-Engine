@@ -36,3 +36,30 @@ function Enemy_Function_Load(encounter_number){
 		}
 	}
 }
+
+function Enemy_SetName(name)
+{
+	enemy_name = name;
+}
+
+function Enemy_SetActTexts(name, text)
+{
+	enemy_act = name;
+	enemy_act_text = text;
+}
+
+function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = 1)
+{
+	enemy_hp_max = max_hp;
+	enemy_hp = current_hp;
+	_enemy_hp = enemy_hp;
+	enemy_draw_hp_bar = draw_hp_bar;
+}
+
+function Enemy_SetDefense(value) { enemy_defense = value;}
+
+function Enemy_SetDamage(damage){ damage = damage;}
+
+function Enemy_SetSpareable(spareable){ enemy_is_spareable = spareable;}
+
+function Enemy_SetReward(Exp, Gold) { Exp_Give = Exp; Gold_Give = Gold;}

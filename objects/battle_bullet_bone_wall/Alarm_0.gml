@@ -28,7 +28,7 @@ if dir == DIR.LEFT or dir == DIR.RIGHT
 target_x = x;
 target_y = y;
 
-if sound_warn == true
+if sound_warn
 {
 	audio_stop_sound(snd_warning);
 	audio_play_sound(snd_warning, 50, false);

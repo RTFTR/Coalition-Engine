@@ -1,5 +1,3 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function Bullet_Bone_Gap_H(X,Y,VSPEED,X_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURATION = -1)
 {
 	var board = obj_battle_board;
@@ -25,4 +23,5 @@ function Bullet_Bone_Gap_V(X,Y,HSPEED,Y_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DU
 	Bullet_Bone_Top(X,LENGTH_T,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
 	Bullet_Bone_Bottom(X,LENGTH_B,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
 }
+
 

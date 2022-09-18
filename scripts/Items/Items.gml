@@ -17,7 +17,7 @@ function Item_Info(item){
 	switch item
 	{
 		case 1:
-			name = "Pie";
+			name = "Pie"
 			heal = global.hp_max;
 			desc = "Random slice of pie which is so cold you cant eat it.";
 			break;
@@ -43,6 +43,8 @@ function Item_Info(item){
 			desc = "You arent legendary nor a hero.";
 			break;
 	}
+	if global.item_uses_left[item] > 1
+	name += " x" + string(global.item_uses_left[item])
 }
 
 function Item_Use(item){
@@ -51,7 +53,15 @@ function Item_Use(item){
 	switch item
 	{
 		case 1:
-			heal_text = "You ate the Butterscotch Pie.";
+			switch global.item_uses_left[item]
+			{
+				case 2:
+				heal_text = "You ate the Butterscotch Pie.";
+				break
+				case 1:
+				heal_text = "You eat the Butterscotch Pie.";
+				break
+			}
 			break;
 		case 2:
 			heal_text = "You ate the Instant Noodles.";
@@ -67,6 +77,7 @@ function Item_Use(item){
 			global.player_attack_boost += 4;
 			break;
 	}
+	global.item_uses_left[item]--;
 	Item_Info(item);
 	audio_play(snd_item_heal);
 	
@@ -80,7 +91,7 @@ function Item_Use(item){
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."
 	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
 	
-	Item_Shift(menu_choice[2], 0);
+	if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
 	
 	default_menu_text = menu_text;
 	menu_choice[2] = 0;

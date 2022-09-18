@@ -1,4 +1,4 @@
-event_inherited()
+event_inherited();
 length = 20;
 image_angle = 90;
 destroyable = false;

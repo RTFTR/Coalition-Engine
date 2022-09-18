@@ -11,39 +11,25 @@ function Battle_SetMenuDialog(text)
 function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 15, ease = EaseOutQuad)
 {
 	var board = obj_battle_board;
-	if time > 0
-	{
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up);
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "down", board.down,down);
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "left", board.left, left);
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "right", board.right, right);
-	}
-	else
-	{
-		board.up = up;
-		board.down = down;
-		board.left = left;
-		board.right = right;
-	}
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up);
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "down", board.down,down);
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "left", board.left, left);
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "right", board.right, right);
 }
 
 function Soul_Hurt(dmg = 1,kr = 1)
 {
-	if (global.inv == 0) and obj_battle_soul.visible
+	if !global.inv and obj_battle_soul.visible
 	{
-		//if place_meeting(x, y, obj_battle_soul)
+		sfx_play(snd_hurt);
+		global.inv = global.assign_inv + global.player_inv_boost;
+			
 		{
-			sfx_play(snd_hurt);
-			global.inv = global.assign_inv + global.player_inv_boost;
-			
-			{
-				global.hp -= dmg;
-				if global.hp > 1
-				global.kr += kr;
-			}
-			
-			if hit_destroy instance_destroy();
+			global.hp -= dmg;
+			if global.hp > 1 global.kr += kr;
 		}
+			
+		if hit_destroy instance_destroy();
 	}
 }
 
@@ -70,7 +56,6 @@ function Battle_Masking_Start(spr = false) {
 
 function Battle_Masking_End(){
 	var board = obj_battle_board;
-	if instance_exists(board)
-		shader_reset();
+	if instance_exists(board) shader_reset();
 }
 

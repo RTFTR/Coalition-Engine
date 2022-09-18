@@ -11,8 +11,8 @@ var view_h = global.zoom_level * global.zoom_height
 // Screen shaking
 if global.shake > 0
 {
-	xx += random_range(-global.shake, global.shake)
-	yy += random_range(-global.shake, global.shake)
+	xx = random_range(-global.shake, global.shake)
+	yy = random_range(-global.shake, global.shake)
 	
 	global.shake = max(0, global.shake - ((1 / global.shake_length) * global.shake_magnitude))
 }

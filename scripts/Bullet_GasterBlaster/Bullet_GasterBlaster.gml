@@ -1,19 +1,4 @@
-///@arg x
-///@arg y
-///@arg angle
-///@arg xscale
-///@arg yscale
-///@arg x_target
-///@arg y_target
-///@arg angle_target
-///@arg pause
-///@arg blast_time
-///@arg duration
-///@arg type
-///@arg blur
-///@arg *c_sound
-///@arg *r_sound
-function Bullet_GasterBlaster(X,Y,ANGLE,XSCALE,YSCALE,IDEALX,IDEALY,IDEALROT,PAUSE,BLAST,DURATION,TYPE = 0,BLUR = false,C = 1,R = 1) 
+function Bullet_GasterBlaster(X,Y,ANGLE,XSCALE,YSCALE,IDEALX,IDEALY,IDEALROT,PAUSE,BLAST,DURATION,TYPE = 0,BLUR = false,C_SOUND = 1,R_SOUND = 1) 
 {	
 	var DEPTH = -1000;
 	
@@ -35,10 +20,11 @@ function Bullet_GasterBlaster(X,Y,ANGLE,XSCALE,YSCALE,IDEALX,IDEALY,IDEALROT,PAU
 		
 		type = TYPE;
 		
-		charge_sound = C;
-		release_sound = R;
+		charge_sound = C_SOUND;
+		release_sound = R_SOUND;
 		blurring = BLUR;
 	}
 
 	return blaster;
 }
+

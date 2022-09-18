@@ -1,4 +1,4 @@
-if quit_timer >= 1
+if quit_timer
 	draw_sprite_ext(spr_quit_msg, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
 
 draw_set_color(fader_color);

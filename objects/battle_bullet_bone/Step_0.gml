@@ -7,14 +7,12 @@ if place_meeting(x,y,obj_battle_soul) and image_alpha >= 1
 				  or floor(obj_battle_soul.y) != floor(obj_battle_soul.yprevious));
 		collision = (type == 1 ? collision : !collision);
 	}
-	if collision
-		Soul_Hurt();
+	if collision Soul_Hurt();
 }
 
-if timer > 0
-    timer--
+if timer timer--;
 
-image_angle += rotate
+image_angle += rotate;
 
 if lenable
 {
@@ -22,8 +20,7 @@ if lenable
     len += len_speed;
     x = len_x + lengthdir_x(len,len_dir);  
     y = len_y + lengthdir_y(len,len_dir);
-    if (len_angle)
-        image_angle += len_dir_move;
+    if len_angle image_angle += len_dir_move;
 }
 else if mode != 0
 {
