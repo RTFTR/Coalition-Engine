@@ -5,7 +5,7 @@ This engine is still unstable.
 
 # The purpose of making this engine:
 
-To make Low-End PCs work properly, TML's Engine too unoptimized..
+To make Low-End PCs work properly, TML's Engine is too unoptimized..
 
 # Where to get contact/support:
 
