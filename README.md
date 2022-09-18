@@ -5,7 +5,7 @@ This engine is still unstable.
 
 # The purpose of making this engine:
 
-To make Low-End PCs work properly, TML's Engine is too unoptimized..
+To make Low-End PCs work properly, Because TML's Engine is too unoptimized, Even Windows 7 VM with ram 4gb and 4 cores is laggy.
 
 # Where to get contact/support:
 
