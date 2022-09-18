@@ -1,6 +1,6 @@
 # Paradox-Undertale-Engine
 
-This engine is based on Undertale, Created by toby fox.
+This engine is based on Undertale, Created by Toby Fox.
 This engine is still unstable.
 
 # The purpose of making this engine:
