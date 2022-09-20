@@ -17,12 +17,12 @@ function Item_Info(item){
 	switch item
 	{
 		case 1:
-			name = "Pie"
+			name = "Pie";
 			heal = global.hp_max;
 			desc = "Random slice of pie which is so cold you cant eat it.";
 			break;
 		case 2:
-			name = "I. Noodles"
+			name = "I. Noodles";
 			heal = 90;
 			desc = "Hard noodles, your teeth broke";
 			break;
@@ -37,19 +37,17 @@ function Item_Info(item){
 			desc = "Bring this to the end of the world, but the world isnt round";
 			break;
 		case 5:
-			name = "L. Hero"
+			name = "L. Hero";
 			heal = 40;
 			stats = "Your ATK raised by 4!";
 			desc = "You arent legendary nor a hero.";
 			break;
 	}
-	if global.item_uses_left[item] > 1
-	name += " x" + string(global.item_uses_left[item])
+	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])
 }
 
 function Item_Use(item){
 	var heal_text = "";
-	
 	switch item
 	{
 		case 1:
@@ -73,7 +71,7 @@ function Item_Use(item){
 			heal_text = "You ate the Snow Piece.";
 			break;
 		case 5:
-			heal_text = "You ate the Legendary Hero."
+			heal_text = "You ate the Legendary Hero.";
 			global.player_attack_boost += 4;
 			break;
 	}
@@ -82,10 +80,7 @@ function Item_Use(item){
 	audio_play(snd_item_heal);
 	
 	if global.item_heal_override_kr
-	{
-		if global.hp + heal >= global.hp_max
-		global.kr = 0
-	}
+		if global.hp + heal >= global.hp_max global.kr = 0;
 	global.hp = min(global.hp + heal, global.hp_max);
 	var hp_text = "[delay, 333]\n* You recovered " + string(heal) + " HP!";
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."
@@ -105,15 +100,13 @@ function Item_Use(item){
 }
 
 function Item_Shift(item,coord){
-	var n = array_length(global.item);
 	global.item[n] = coord;
-	for (var i = item; i < n; ++i) global.item[i] = global.item[i + 1];
+	for (var i = item, n = array_length(global.item); i < n; ++i) global.item[i] = global.item[i + 1];
 }
 
 function Item_Space(){
-	var n = array_length(global.item);
 	var space = 0;
 	
-	for (var i = 0; i < n; ++i) if global.item[i] != 0 space += 1;
+	for (var i = 0, n = array_length(global.item); i < n; ++i) if global.item[i] != 0 space += 1;
 	return space;
 }

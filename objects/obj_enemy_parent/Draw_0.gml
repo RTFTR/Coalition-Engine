@@ -1,4 +1,5 @@
 #region Enemy Status
+#region Dialog
 // Check if other enemies are dying
 for (var i = 0, n = instance_number(obj_enemy_parent); i < n; ++i)
 {
@@ -73,12 +74,13 @@ if is_dialog == 1 and !died and !is_spared
 		}
 	}
 }
+#endregion
 
-//When the enemy is under attack
+#region When the enemy is under attack
 if !died and !is_spared
 if is_being_attacked
 {
-	if is_dodge
+	if is_dodge // The movement for dodge
 	{
 		draw_damage = true;
 		damage_color = c_ltgray;
@@ -132,7 +134,7 @@ if is_being_attacked
 		draw_set_color(c_white);
 	}
 	
-	if enemy_hp > 0
+	if enemy_hp > 0 // Check if the enemy is going to die
 	{
 		if attack_time == attack_end_time
 		{
@@ -142,21 +144,23 @@ if is_being_attacked
 	}
 	else
 	{
+		//If is gonna die
 		is_dying = true;
 		death_time++;
 		if death_time = 1 + attack_end_time
 		{
+			//Play sound and stop damage display
 			draw_damage = false;
 			sfx_play(snd_vaporize);
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0);
 		}
-		if death_time = 31 + attack_end_time
+		if death_time = 1 + attack_end_time + dust_speed + 60
 		{
+			//Set enemy is throughly dead when dust is gone
 			is_dying = false;
 			died = true
 			is_being_attacked = false;
-			//instance_destroy();
 			enemy_in_battle = false;
+			//Remove enemy
 			if instance_exists(obj_battle_controller)
 				with(obj_battle_controller)
 				{
@@ -167,20 +171,22 @@ if is_being_attacked
 		}
 	}
 }
+#endregion
 
-//When being spared
+#region When being spared
 if is_being_spared
 {
 	if !died and !is_spared
 		if enemy_is_spareable
 		{
+			//Add Reward
 			obj_battle_controller.Total_Gold += Gold_Give;
 			obj_battle_controller.Total_Exp += Exp_Give;
 			is_spared = true;
 			sfx_play(snd_vaporize);
 			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
 		}
-	//Check for any un-spared enemies
+	//Check for any un-spared enemies, if yes then resume battle
 	var continue_battle = false;
 	for (var i = 0; i < instance_number(obj_enemy_parent); ++i)
 	{
@@ -194,6 +200,7 @@ if is_being_spared
 	{
 		if spare_end_begin_turn
 		{
+			//Begins turn if it's set to be
 			if !is_spared {obj_battle_controller.dialog_start();}
 		}
 	}
@@ -202,6 +209,7 @@ if is_being_spared
 }
 if is_spared and image_alpha == 0.5
 {
+	//Remove enemy
 	enemy_in_battle = false;
 	if instance_exists(obj_battle_controller)
 		with(obj_battle_controller)
@@ -213,7 +221,50 @@ if is_spared and image_alpha == 0.5
 }
 #endregion
 
-//Here you draw the enemy sprite
-draw_set_alpha(image_alpha);
-draw_rectangle(x-20,y-20,x+20,y,0)
-draw_set_alpha(1);
+#endregion
+
+//Dusting
+var total_height = enemy_total_height;
+if !died
+{
+	if !is_dying or (is_dying and death_time < 1 + attack_end_time)
+	{
+		//If not dying then normal drawing
+		event_user(0);
+	}
+	else
+	if death_time >= 1 + attack_end_time
+	{
+		//Dust height adding
+		if dust_height < total_height
+		{
+			var Height_decrease = total_height / dust_speed;
+			dust_height += Height_decrease * 6;
+		}
+		//Main dust drawing
+		for (var i = 0; i < dust_height * dust_amount / total_height; i += 6)
+		{
+			if dust_alpha[i] > 0
+			{
+				draw_set_alpha(dust_alpha[i]);
+				draw_sprite(spr_pixel, 0, dust_pos[i, 0], dust_pos[i, 1]);
+				dust_pos[i, 0] += dust_displace[i, 0];
+				dust_pos[i, 1] += dust_displace[i, 1];
+				dust_alpha[i] -= 1 / dust_life[i];
+				dust_being_drawn = true;
+			}
+			else dust_being_drawn = false;
+		}
+		draw_set_alpha(1);
+		
+		//Make the enemy sprite fade from top to bottom by surface because
+		//draw_sprite_part_ext takes too much math and i dont have a brain
+		if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);
+		surface_set_target(dust_surface);
+		draw_clear_alpha(c_black, 0);
+		event_user(0);
+		surface_reset_target();
+		var Drawing_Height = dust_height * 480 / dust_speed;
+		draw_surface_part(dust_surface, 0, Drawing_Height, 640, 480 - Drawing_Height, 0, Drawing_Height);
+	}
+}

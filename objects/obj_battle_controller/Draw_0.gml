@@ -322,7 +322,7 @@ if battle_state == 3
 	{
 		krr_col = (round(kr) ? kr_col : c_white);
 	
-		global.kr = clamp(global.kr, 0, min(max_kr, global.hp_max - global.hp));
+		global.kr = clamp(global.kr, 0, max_kr);
 	
 		// Draw the bar
 		if round(kr)

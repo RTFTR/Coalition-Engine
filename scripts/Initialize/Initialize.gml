@@ -1,6 +1,6 @@
 function Initialize()
 {
-	randomize()
+	randomize();
 
 	global.player_attack_boost = 0;
 	global.player_def_boost = 0;
@@ -11,7 +11,7 @@ function Initialize()
 	global.last_dmg_time = 0;
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
-	global.item_heal_override_kr = false; //Does kr reduce when max heal or not
+	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
 	global.item_uses_left = [1,1,1,1,1,1];
 	global.item_uses_left[ITEM.PIE] = 2;
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
