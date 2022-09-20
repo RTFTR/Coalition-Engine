@@ -1,17 +1,19 @@
 # Paradox-Undertale-Engine
 
-Engine is created because TML's UTE is trash for low-end pc's like me (Eden), h.
-Engine Contributors (According to alphabet order):
-Maxin
-Panthervention
-Pilzdeshimmels
-RTF
-Snesmocha
-Supereden (Eden's Studio)
+This engine is based on Undertale, Created by Toby Fox.
+This engine is still unstable.
 
-idk
-Most codes are original(?) and is very kind to low-end PC users (Eden: yayyy)
-But functions are very cringe.
+# The purpose of making this engine:
 
-This engine is based on Undertale, Created by toby fox.
-THIS ENGINE IS NOT COMPLETED YET. YOU MAY FIND BUGS!
+To make Low-End PCs work properly, Because TML's Engine is too unoptimized, Even Windows 7 VM with ram 4gb and 4 cores is laggy.
+
+# Where to get contact/support:
+
+Not yet, We'll consider making it after we finish the engine.
+
+# Credits:
+
+Creators:
+Maxin, Panthervention, Supereden, Pilzdeshimmels, RTF, (etc)
+
+Special thanks to Scarm and snesmocha for the initial engine design and the board system.
