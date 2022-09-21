@@ -124,7 +124,7 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
 	damage *= (1 - distance_to_center/273);
 	damage *= random_range(0.9, 1.1); //Sets damage to be random of the actual damage (idk what im saying)
 	damage = clamp(round(damage), 1, infinity);
-	target.damage = damage;
+	Enemy_SetDamage(target, damage);
 }
 
 function dialog_start(){ obj_enemy_parent.is_dialog = 1; battle_state = 1;}

@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "char_frisk_right_dark",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,15 +27,13 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"9ddde210-ace8-4793-adc5-2ddd099101da","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"LayerId":null,"resourceVersion":"1.0","name":"composite","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"9ddde210-ace8-4793-adc5-2ddd099101da","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"LayerId":{"name":"8410145d-a8d1-4e9a-9883-6debaf37d9e2","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"char_frisk_right_dark","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","name":"9ddde210-ace8-4793-adc5-2ddd099101da","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"087e22e7-8631-493f-bda6-e5c1ccb16069","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"LayerId":null,"resourceVersion":"1.0","name":"composite","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"087e22e7-8631-493f-bda6-e5c1ccb16069","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"LayerId":{"name":"8410145d-a8d1-4e9a-9883-6debaf37d9e2","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"char_frisk_right_dark","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","name":"087e22e7-8631-493f-bda6-e5c1ccb16069","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"9ddde210-ace8-4793-adc5-2ddd099101da",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"087e22e7-8631-493f-bda6-e5c1ccb16069",},
   ],
   "sequence": {
-    "spriteId": {"name":"char_frisk_right_dark","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "char_frisk_right_dark",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 15.0,
@@ -43,10 +44,10 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"b4603124-a1bd-49dd-835d-377e3d525c1d","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"9ddde210-ace8-4793-adc5-2ddd099101da","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"ebec087a-f925-47e9-838d-b9886afb0a73","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"087e22e7-8631-493f-bda6-e5c1ccb16069","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -62,22 +63,13 @@
     "yorigin": 30,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"char_frisk_right_dark","path":"sprites/char_frisk_right_dark/char_frisk_right_dark.yy",},
-    "resourceVersion": "1.4",
-    "name": "char_frisk_right_dark",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"8410145d-a8d1-4e9a-9883-6debaf37d9e2","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"8410145d-a8d1-4e9a-9883-6debaf37d9e2","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Frisk",
     "path": "folders/Sprites/Overworld Player/Frisk.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "char_frisk_right_dark",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

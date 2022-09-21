@@ -1,6 +1,6 @@
 /// @description Global
 
-input_tick(); // Input handler, do not delete!
+//input_tick(); // Input handler, do not delete!
 
 if keyboard_check(vk_escape)
 {

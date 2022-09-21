@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSprite",
+  "resourceVersion": "1.0",
+  "name": "spr_button_mercy",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -24,15 +27,13 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"compositeImage":{"FrameId":{"name":"adcd8b88-ed01-43d0-bdb0-a38bedae7619","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"adcd8b88-ed01-43d0-bdb0-a38bedae7619","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"LayerId":{"name":"71211f6e-ae1b-4fde-b9f8-24e1b514e0f0","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_button_mercy","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","name":"adcd8b88-ed01-43d0-bdb0-a38bedae7619","tags":[],"resourceType":"GMSpriteFrame",},
-    {"compositeImage":{"FrameId":{"name":"b6b4ebb6-d5fa-497b-aad2-aac198254a15","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"LayerId":null,"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},"images":[
-        {"FrameId":{"name":"b6b4ebb6-d5fa-497b-aad2-aac198254a15","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"LayerId":{"name":"71211f6e-ae1b-4fde-b9f8-24e1b514e0f0","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMSpriteBitmap",},
-      ],"parent":{"name":"spr_button_mercy","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","name":"b6b4ebb6-d5fa-497b-aad2-aac198254a15","tags":[],"resourceType":"GMSpriteFrame",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"adcd8b88-ed01-43d0-bdb0-a38bedae7619",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b6b4ebb6-d5fa-497b-aad2-aac198254a15",},
   ],
   "sequence": {
-    "spriteId": {"name":"spr_button_mercy","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},
+    "resourceType": "GMSequence",
+    "resourceVersion": "1.4",
+    "name": "spr_button_mercy",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -43,10 +44,10 @@
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
-      {"name":"frames","spriteId":null,"keyframes":{"Keyframes":[
+      {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"49766d8f-a9c8-4936-bf59-141b353ee458","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"adcd8b88-ed01-43d0-bdb0-a38bedae7619","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"ab7ae7fd-2ddb-48e3-99f7-6167c5c94f0f","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"b6b4ebb6-d5fa-497b-aad2-aac198254a15","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"resourceVersion":"1.0","tags":[],"resourceType":"GMSpriteFramesTrack","modifiers":[],},
+          ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
     "lockOrigin": false,
@@ -62,22 +63,13 @@
     "yorigin": 21,
     "eventToFunction": {},
     "eventStubScript": null,
-    "parent": {"name":"spr_button_mercy","path":"sprites/spr_button_mercy/spr_button_mercy.yy",},
-    "resourceVersion": "1.4",
-    "name": "spr_button_mercy",
-    "tags": [],
-    "resourceType": "GMSequence",
   },
   "layers": [
-    {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"71211f6e-ae1b-4fde-b9f8-24e1b514e0f0","tags":[],"resourceType":"GMImageLayer",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"71211f6e-ae1b-4fde-b9f8-24e1b514e0f0","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,
   "parent": {
     "name": "Button",
     "path": "folders/Sprites/Battle/Button.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "spr_button_mercy",
-  "tags": [],
-  "resourceType": "GMSprite",
 }

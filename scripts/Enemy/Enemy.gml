@@ -1,3 +1,5 @@
+///@desc Loads the datas of an encounter that you have stored in this script
+///@param {real} encounter_number Loads the data of the argument
 function Enemy_Function_Load(encounter_number){	
 	
 	enemy = ds_list_create();
@@ -37,18 +39,27 @@ function Enemy_Function_Load(encounter_number){
 	}
 }
 
+///@desc Sets the name of the enemy
+///@param {string} name The name of the enemy
 function Enemy_SetName(name)
 {
 	enemy_name = name;
 }
 
+///@desc Sets the ACT texts of the enemy
+///@param {string} name		The name of the ACT option
+///@param {string} text		The text that appears when the ACT option is selected
 function Enemy_SetActTexts(name, text)
 {
 	enemy_act = name;
 	enemy_act_text = text;
 }
 
-function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = 1)
+///@desc Sets the (Max) HP and the visibility of the hp bar of the enemy
+///@param {real} max_hp		Sets the Max HP of the enemy
+///@param {real} current_hp	Sets the Current HP of the enemy (i.e. the enemy has only 40 of 90 hp in the beginning)
+///@param {bool} draw_hp_bar	Sets whether the HP bar is visible during the attack
+function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = true)
 {
 	enemy_hp_max = max_hp;
 	enemy_hp = current_hp;
@@ -56,10 +67,23 @@ function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = 1)
 	enemy_draw_hp_bar = draw_hp_bar;
 }
 
-function Enemy_SetDefense(value) { enemy_defense = value;}
+///@desc Sets the Defense of the enemy
+///@param target		The enemy to set the stats for
+///@param {real} value	The defense value
+function Enemy_SetDefense(target, value) { target.enemy_defense = value;}
 
-function Enemy_SetDamage(damage){ damage = damage;}
+///@desc Sets the Damage of the enemy
+///@param target		The enemy to set the stats for
+///@param {real} value	The attack value
+function Enemy_SetDamage(target, damage){ target.damage = damage;}
 
-function Enemy_SetSpareable(spareable){ enemy_is_spareable = spareable;}
+///@desc Sets the Damage of the enemy
+///@param target			The enemy to set the stats for
+///@param {bool} spareable	Can the enemy be spared
+function Enemy_SetSpareable(target, spareable){ target.enemy_is_spareable = spareable;}
 
-function Enemy_SetReward(Exp, Gold) { Exp_Give = Exp; Gold_Give = Gold;}
+///@desc Sets the Damage of the enemy
+///@param target		The enemy to set the stats for
+///@param {real} Exp	Rewarded EXP points
+///@param {real} Gold	Rewarded Gold
+function Enemy_SetReward(target, Exp, Gold) { with(target){ Exp_Give = Exp; Gold_Give = Gold;}}

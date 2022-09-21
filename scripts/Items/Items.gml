@@ -1,3 +1,4 @@
+///@desc Loads the Info of the Items
 function Item_Info_Load(){
 	for (var i = 0, n = array_length(global.item); i < n; ++i)
 	{
@@ -8,6 +9,8 @@ function Item_Info_Load(){
 	}
 }
 
+///@desc Gets the Infos of the Item
+///@param {real} Item The Item to get the info
 function Item_Info(item){
 	name = "";
 	heal = 0;
@@ -46,6 +49,8 @@ function Item_Info(item){
 	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])
 }
 
+///@desc Use the item
+///@param {real} item The item to use
 function Item_Use(item){
 	var heal_text = "";
 	switch item
@@ -99,6 +104,7 @@ function Item_Use(item){
 	menu_state = -1;
 }
 
+///@desc Shifts the Item position
 function Item_Shift(item,coord){
 	global.item[n] = coord;
 	for (var i = item, n = array_length(global.item); i < n; ++i) global.item[i] = global.item[i + 1];

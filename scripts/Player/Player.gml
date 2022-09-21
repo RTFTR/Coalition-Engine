@@ -1,3 +1,4 @@
+///@desc Converts the Item name into Stats of the Item
 function ConvertItemNameToStat()
 {
 	switch global.AttackItem

@@ -1,14 +1,17 @@
 depth = -10000;
 global.timer = 0;
 
-global.zoom_level = 1;
-global.cam_width = 640;
-global.cam_height = 480;
+global.camera_scale_x = 1;
+global.camera_scale_y = 1;
+global.camera_view_width = 640;
+global.camera_view_height = 480;
+global.camera_shake_i = 0;
+global.camera_shake_t = 0;
 
 global.camera_x = 0;
 global.camera_y = 0;
 global.camera_angle = 0;
-global.cam_target = noone;
+global.camera_target = noone;
 view_camera[0] = camera_create_view(x,y,640,480,0,noone,-1,-1,320,240);
 global.Main_Camera = view_camera[0];
 

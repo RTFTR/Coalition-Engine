@@ -1,3 +1,7 @@
+///@desc Returns a Positive Quotient of the 2 values
+///@param {real} a The number to bde divided
+///@param {real} a The number to divide
+///@return {real}
 function Posmod(a,b)
 {
 	var value = a % b;
@@ -6,6 +10,7 @@ function Posmod(a,b)
 	return value;
 }
 
+///@desc idk but it's for board so don't touch i guess
 function point_xy(p_x, p_y)
 {
 	var angle = image_angle

@@ -1,5 +1,6 @@
-global.zoom_level = 2;
-global.cam_target = id;
+global.camera_scale_x = 2
+global.camera_scale_y = 2
+global.camera_target = id;
 char_moveable = true;
 dir_sprite = [char_frisk_up,  char_frisk_down, char_frisk_left];
 last_sprite = -1
