@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMFont",
+  "resourceVersion": "1.0",
+  "name": "font_dt_mono",
   "hinting": 0,
   "glyphOperations": 0,
   "interpreter": 0,
@@ -132,8 +135,4 @@
     "name": "Fonts",
     "path": "folders/Fonts.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "font_dt_mono",
-  "tags": [],
-  "resourceType": "GMFont",
 }

@@ -18,3 +18,15 @@ function point_xy(p_x, p_y)
 	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x
 	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y
 }
+
+///@desc Adds all the values from a to b of an array
+///@param {array} array		The name of the array
+///@param {real}  begin		The slot to begin
+///@param {real}  end		The slot to end
+function Sigma(arr, n, k)
+{
+	var value = 0;
+	for(var i = n; i <= k; ++i)
+		value += arr[i];
+	return value;
+}

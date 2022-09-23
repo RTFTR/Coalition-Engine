@@ -10,11 +10,17 @@ dir = DIR.DOWN;
 image_speed = 0;
 allow_run = true
 
-pause = false;
-pauseSurf = surface_create(640, 480);
-pauseSurfBuffer = buffer_create(640 * 480 * 4, buffer_fixed, 1);
+draw_menu = false;
+menu_choice = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+menu_state = 0;
+soul_target = [(x - camera_get_view_x(view_camera[0])) * global.camera_scale_x,
+				(y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * global.camera_scale_y
+				];
 
-OW_Dialog("overworld text");
+OW_Dialog("Welcome to the\n  Underg- Overworld!");
 
 
 function Is_Dialog(){return obj_overworld_controller.is_dialog;}
+function Is_Boxing(){return obj_overworld_controller.is_boxing;}
+function Move_Noise() { audio_play(snd_menu_switch); };
+function Confirm_Noise() { audio_play(snd_menu_confirm); };

@@ -14,6 +14,6 @@ if destroyable
 	if destroy
 		instance_destroy();
 }
-if (battle_state == 0)
+if (Battle_GetState() == 0)
 	instance_destroy();
 

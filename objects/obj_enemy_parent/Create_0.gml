@@ -29,7 +29,7 @@ for (var i = 0, n = array_length(enemy_sprites); i < n; ++i)
 }
 enemy_sprite_pos =
 [
-[x, y]
+[0, 0]
 ];
 
 //Dusts

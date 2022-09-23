@@ -1,11 +1,12 @@
 ///@desc Loads the Info of the Items
 function Item_Info_Load(){
-	for (var i = 0, n = array_length(global.item); i < n; ++i)
+	for (var i = 0, n = Item_Count(); i < n; ++i)
 	{
 		Item_Info(global.item[i]);
 		item_name[i] = name;
 		item_heal[i] = heal;
 		item_desc[i] = desc;
+		item_throw_txt[i] = throw_txt;
 	}
 }
 
@@ -16,34 +17,40 @@ function Item_Info(item){
 	heal = 0;
 	stats = "";
 	desc = "";
+	throw_txt = "";
 	
 	switch item
 	{
 		case 1:
 			name = "Pie";
 			heal = global.hp_max;
-			desc = "Random slice of pie which is so cold you cant eat it.";
+			desc = "Random slice of pie which is so\n  cold you cant eat it.";
+			throw_txt = "Throw pie";
 			break;
 		case 2:
 			name = "I. Noodles";
 			heal = 90;
 			desc = "Hard noodles, your teeth broke";
+			throw_txt = "Throw IN";
 			break;
 		case 3:
 			name = "Steak";
 			heal = 60;
-			desc = "Steak that looks like a MTT which somehow fits in your pocket";
+			desc = "Steak that looks like a MTT which\n  somehow fits in your pocket";
+			throw_txt = "Throw expensive mis-steak";
 			break;
 		case 4:
 			name = "SnowPiece";
 			heal = 45;
-			desc = "Bring this to the end of the world, but the world isnt round";
+			desc = "Bring this to the end of the world,\n  but the world isnt round";
+			throw_txt = "snowball fight go brr";
 			break;
 		case 5:
 			name = "L. Hero";
 			heal = 40;
 			stats = "Your ATK raised by 4!";
 			desc = "You arent legendary nor a hero.";
+			throw_txt = "congrats you now bad guy";
 			break;
 	}
 	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])
@@ -91,28 +98,56 @@ function Item_Use(item){
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."
 	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
 	
-	if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
+	if instance_exists(obj_battle_controller)
+	{
+		if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
 	
-	default_menu_text = menu_text;
-	menu_choice[2] = 0;
-	menu_text_typist.reset();
-	menu_text = heal_text + hp_text + stat_text;
-	text_writer = scribble("* " + menu_text);
-	menu_text = default_menu_text;
-	if text_writer.get_page() != 0 text_writer.page(0);
+		default_menu_text = menu_text;
+		menu_choice[2] = 0;
+		menu_text_typist.reset();
+		menu_text = heal_text + hp_text + stat_text;
+		text_writer = scribble("* " + menu_text);
+		menu_text = default_menu_text;
+		if text_writer.get_page() != 0 text_writer.page(0);
 	
-	menu_state = -1;
+		menu_state = -1;
+	}
+	if instance_exists(obj_overworld_controller)
+	{
+		if !global.item_uses_left[item] Item_Shift(menu_choice[1], 0);
+		healing_text = heal_text + hp_text;
+		return healing_text;
+	}
 }
 
 ///@desc Shifts the Item position
 function Item_Shift(item,coord){
+	var n = Item_Count();
 	global.item[n] = coord;
-	for (var i = item, n = array_length(global.item); i < n; ++i) global.item[i] = global.item[i + 1];
+	for (var i = item; i < n; ++i) global.item[i] = global.item[i + 1];
+	array_resize(global.item, n - 1);
 }
 
 function Item_Space(){
 	var space = 0;
 	
-	for (var i = 0, n = array_length(global.item); i < n; ++i) if global.item[i] != 0 space += 1;
+	for (var i = 0, n = Item_Count(); i < n; ++i) if global.item[i] != 0 space += 1;
 	return space;
 }
+
+///@desc Adds an item on the selected position
+///@param {real} Item		The item to add (Use the Item ID from Item_Info)
+///@param {real} Position	The item position to add (Default last)
+function Item_Add(item, pos = Item_Count() + 1){global.item[pos] = item;}
+
+///@desc Removes an item on the selected position
+///@param {real} Position	The item position to remove
+function Item_Remove(item){Item_Shift(item, 0);}
+
+
+///@desc Gets the number of items
+function Item_Count() { return array_length(global.item);}
+
+///@desc Converts item Slot to item ID
+///@param slot
+function Item_SlotToId(item){return global.item[item];}

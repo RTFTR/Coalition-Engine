@@ -1,3 +1,14 @@
+/// @desc Creates a Vertical Bone Wave
+/// @param {real} y			The y position of the first bone
+/// @param {real} length	The length of the first bone
+/// @param {real} hspeed	The hspeed of the bones
+/// @param {real} space		The space between bones
+/// @param {real} amount	The amount of bones
+/// @param {real} gap		The size of the bone gap
+/// @param {real} udf		Sine wave multiplier
+/// @param {real} uds		Sine wave intensity
+/// @param {real} type		Color of the bones (Default White)
+/// @param {real} out		Whether the bones are outside the board (Default 0)
 function Bullet_Bone_Wave_H(Y,X_GAP,HSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
 {
 	var board = obj_battle_board;
@@ -20,6 +31,17 @@ function Bullet_Bone_Wave_H(Y,X_GAP,HSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT
 	}
 }
 
+/// @desc Creates a Horizontal Bone Wave
+/// @param {real} x			The x position of the first bone
+/// @param {real} length	The length of the first bone
+/// @param {real} vspeed	The vspeed of the bones
+/// @param {real} space		The space between bones
+/// @param {real} amount	The amount of bones
+/// @param {real} gap		The size of the bone gap
+/// @param {real} udf		Sine wave multiplier
+/// @param {real} uds		Sine wave intensity
+/// @param {real} type		Color of the bones (Default White)
+/// @param {real} out		Whether the bones are outside the board (Default 0)
 function Bullet_Bone_Wave_V(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
 {
 	var board = obj_battle_board;

@@ -68,22 +68,22 @@ function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = true)
 }
 
 ///@desc Sets the Defense of the enemy
-///@param target		The enemy to set the stats for
-///@param {real} value	The defense value
+///@param {id.instance} target	The enemy to set the stats for
+///@param {real}  value			The defense value
 function Enemy_SetDefense(target, value) { target.enemy_defense = value;}
 
 ///@desc Sets the Damage of the enemy
-///@param target		The enemy to set the stats for
-///@param {real} value	The attack value
+///@param {id.instance} target	The enemy to set the stats for
+///@param {real}  value			The attack value
 function Enemy_SetDamage(target, damage){ target.damage = damage;}
 
 ///@desc Sets the Damage of the enemy
-///@param target			The enemy to set the stats for
-///@param {bool} spareable	Can the enemy be spared
+///@param {id.instance} target	The enemy to set the stats for
+///@param {bool}  spareable		Can the enemy be spared
 function Enemy_SetSpareable(target, spareable){ target.enemy_is_spareable = spareable;}
 
 ///@desc Sets the Damage of the enemy
-///@param target		The enemy to set the stats for
-///@param {real} Exp	Rewarded EXP points
-///@param {real} Gold	Rewarded Gold
+///@param {id.instance} target	The enemy to set the stats for
+///@param {real}  Exp			Rewarded EXP points
+///@param {real}  Gold			Rewarded Gold
 function Enemy_SetReward(target, Exp, Gold) { with(target){ Exp_Give = Exp; Gold_Give = Gold;}}

@@ -67,14 +67,12 @@ if (STATE == 2)
 		image_angle = _angle;
 	}
 	
-	if mode == SOUL_MODE.BLUE // Blue
+	else if mode == SOUL_MODE.BLUE // Blue
 	{
-		//if (dir == DIR.DOWN) image_angle=0;
-		//else if (dir == DIR.UP) image_angle=180;
-		//else if (dir == DIR.LEFT) image_angle=270;
-		//else if (dir == DIR.RIGHT) image_angle=90;
-		image_angle = dir + 90;
-		image_angle %= 360;
+		if (dir == DIR.DOWN) image_angle=0;
+		else if (dir == DIR.UP) image_angle=180;
+		else if (dir == DIR.LEFT) image_angle=270;
+		else if (dir == DIR.RIGHT) image_angle=90;
 			
 		var _on_ground = false;
 		var _on_ceil = false;
@@ -162,12 +160,12 @@ if (STATE == 2)
 			_on_ceil = false;
 		}
 		
-		var platform_check = instance_position(x + platform_check_x[0], y + platform_check_y[0], obj_battle_bullet_platform);
+		var platform_check = instance_position(x + platform_check_x[0], y + platform_check_y[0], battle_platform);
 		
-		if position_meeting(x + platform_check_x[0], y + platform_check_y[0], obj_battle_bullet_platform) and _fall_spd >= 0
+		if position_meeting(x + platform_check_x[0], y + platform_check_y[0], battle_platform) and _fall_spd >= 0
 		{
 			_on_platform = true;
-			while position_meeting(x + platform_check_x[1], y + platform_check_y[1], obj_battle_bullet_platform)
+			while position_meeting(x + platform_check_x[1], y + platform_check_y[1], battle_platform)
 			{
 				with platform_check
 				{
@@ -178,7 +176,7 @@ if (STATE == 2)
 		}
 		with platform_check
 		{
-			if platform_check.sticky = true
+			if platform_check.sticky
 			{
 				other.x += hspeed;
 				other.y += vspeed;

@@ -1,8 +1,16 @@
 ///@desc Sets the Mode of the Soul (Macros are given, i.e. SOUL_MODE.RED)
-///@param {real} mode The mode of the soul to set to
-function Battle_SoulMode(mode)
+///@param {real} mode	The mode of the soul to set to
+///@param {bool} effect	Whether to create the soul effect or not (Default True)
+function Battle_SoulMode(soul_mode, effect = true)
 {
-	obj_battle_soul.mode = mode;
+	with(obj_battle_soul)
+	{
+		if soul_mode = SOUL_MODE.RED image_blend = c_red;
+		if soul_mode = SOUL_MODE.BLUE image_blend = c_blue;
+		if soul_mode = SOUL_MODE.ORANGE image_blend = c_orange;
+		mode = soul_mode;
+		alarm[0] = effect
+	}
 }
 
 ///@desc Sets the position of the soul, can choose to animate the position

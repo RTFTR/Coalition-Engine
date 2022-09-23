@@ -1,4 +1,7 @@
 {
+  "resourceType": "GMSound",
+  "resourceVersion": "1.0",
+  "name": "snd_txtAsgore",
   "conversionMode": 0,
   "compression": 0,
   "volume": 1.0,
@@ -17,8 +20,4 @@
     "name": "Text Voices",
     "path": "folders/Sounds/SFX/Text Voices.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "snd_txtAsgore",
-  "tags": [],
-  "resourceType": "GMSound",
 }

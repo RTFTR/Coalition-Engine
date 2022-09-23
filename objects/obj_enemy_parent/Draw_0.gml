@@ -160,6 +160,7 @@ if is_being_attacked
 			died = true
 			is_being_attacked = false;
 			enemy_in_battle = false;
+			global.Kills++;
 			//Remove enemy
 			if instance_exists(obj_battle_controller)
 				with(obj_battle_controller)
