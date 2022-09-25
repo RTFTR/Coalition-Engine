@@ -8,7 +8,7 @@
         cam_width  = global.camera_view_width/cam_scale_x,
         cam_height = global.camera_view_height/cam_scale_y,
         
-        cam_angle  = global.camera_angle,
+        cam_angle  = camera_angle,
         
         cam_target = global.camera_target,
         

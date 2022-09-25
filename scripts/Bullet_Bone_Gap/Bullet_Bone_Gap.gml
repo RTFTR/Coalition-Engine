@@ -40,8 +40,8 @@ function Bullet_Bone_Gap_V(X,Y,HSPEED,Y_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DU
 	var LENGTH_T = Y - board_y + board_margin[0] - GAP;
 	var LENGTH_B = board_y + board_margin[1] - GAP - Y;
 
-	Bullet_Bone_Top(X,LENGTH_T,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
-	Bullet_Bone_Bottom(X,LENGTH_B,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
+	bone_top = Bullet_Bone_Top(X,LENGTH_T,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
+	bone_bottom = Bullet_Bone_Bottom(X,LENGTH_B,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
 }
 
 

@@ -10,7 +10,7 @@ global.camera_shake_t = 0;
 
 global.camera_x = 0;
 global.camera_y = 0;
-global.camera_angle = 0;
+camera_angle = 0;
 global.camera_target = noone;
 view_camera[0] = camera_create_view(x,y,640,480,0,noone,-1,-1,320,240);
 global.Main_Camera = view_camera[0];

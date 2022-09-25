@@ -5,7 +5,7 @@ if type == 2 _color = c_orange;
 var _x = x;
 var _y = y;
 
-var _angle = image_angle;
+var _angle = image_angle + axis_angle + len_angle_extra;
 var _alpha = image_alpha;
 var _length = length / 14;
 

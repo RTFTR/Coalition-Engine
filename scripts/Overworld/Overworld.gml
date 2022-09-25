@@ -21,6 +21,37 @@ function OW_Dialog(text, font = "font_dt_mono", char_sound = snd_txtTyper, top_b
 		
 		dialog_is_down = top_bottom;
 		is_dialog = true;
+		scribble_typists_add_event(string_char_at(text, string_length(text)), Option)
+	}
+}
+
+function Option(amount, ver = 0)
+{
+	obj_overworld_controller.is_dialog_a_option = true;
+}
+
+///@desc Sets the name of the options
+///@param is_vertical	Whether the options are verical or not
+///@param Option	The name of the options
+function Dialog_SetOptionName(ver = false)
+{
+	var i = 1;
+	while i < argument_count
+	{obj_overworld_controller.option_name[i - 1] = argument[i]; i++;}
+	with(obj_overworld_controller)
+	{
+		option_typist = scribble_typist()
+						.in(0, 0)
+		var text = "";
+		var temp = "* ";
+		for (var i = 0, n = array_length(option_name); i < n; ++i)
+		{
+			text += temp + option_name[i];
+			text += (ver ? "\n" : "    ");
+			option_length[i] = string_width("* " + option_name[i]) / global.camera_scale_x;
+		}
+		option_text = scribble(text)
+		option = 0;
 	}
 }
 

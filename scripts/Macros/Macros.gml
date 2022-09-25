@@ -25,6 +25,10 @@ function Macro_Soul()
 		RED = 1,
 		BLUE = 2,
 		ORANGE = 3,
+		YELLOW = 4,
+		GREEN = 5,
+		PURPLE = 6,
+		CYAN = 7,
 	}
 }
 

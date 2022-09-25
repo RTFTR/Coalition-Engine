@@ -47,7 +47,7 @@ for (var i = 0; i < dust_amount; i += 6)
 	dust_alpha[i] = 1;
 }
 dust_speed = 30;
-dust_surface = surface_create(640, 480);
+dust_surface = -1;
 dust_being_drawn = false;
 
 //Dialogs

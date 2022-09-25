@@ -15,7 +15,15 @@ if is_dialog
 					dialog_box_y + dialog_height - dialog_box_frame, false);
 
 	text_writer.starting_format(dialog_font,c_white)
-	text_writer.draw(dialog_box_x + 20, dialog_box_y + 15, dialog_typist)
+	text_writer.draw(dialog_box_x + 20, dialog_box_y + 20, dialog_typist)
+	if is_dialog_a_option
+	{
+		option_text.starting_format(dialog_font, c_white)
+		option_text.draw(dialog_box_x + 20, dialog_box_y + 130, option_typist)
+		if input_check_pressed("left") or input_check_pressed("right")
+		option = !option;
+		draw_sprite_ext(spr_soul, 0, dialog_box_x + 20 + Sigma(option_length, 0, option), 320, 1, 1, 0, c_red, 1);
+	}
 		
 		
 	if input_check_pressed("cancel")
@@ -27,7 +35,10 @@ if is_dialog
 		text_writer.page(text_writer.get_page() + 1)
 	if dialog_typist.get_state() == 1
 	{
-		if input_check_pressed("confirm"){ is_dialog = false; obj_player.char_moveable = true;}
+		if input_check_pressed("confirm")
+		{
+			is_dialog = false; obj_player.char_moveable = true;
+		}
 	}
 }
 if is_boxing

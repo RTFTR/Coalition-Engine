@@ -15,7 +15,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_alert.wav",
-  "duration": 0.091689,
+  "duration": 0.086689,
   "parent": {
     "name": "SFX",
     "path": "folders/Sounds/SFX.yy",

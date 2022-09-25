@@ -77,6 +77,7 @@ hp_max = global.hp_max;
 kr = global.kr;
 refill_speed = 0.2;
 hp_predict = 0;
+board_cover_hp_bar = false;
 }
 
 allow_run = 0;
@@ -154,6 +155,16 @@ function end_battle()
 	if !global.BossFight
 	{
 		battle_end_text = "You WON![delay,333]\n* You earned "+string(Total_Exp)+" XP and "+string(Total_Gold)+" gold.";
+		if global.Exp + Total_Exp >= Player_GetExpNext()
+		{
+			var maxhp = 0;
+			global.lv++;
+			if global.hp == global.hp_max maxhp = 1;
+			global.hp_max = (global.lv = 20 ? 99 : global.lv * 4 + 16);
+			if maxhp global.hp = global.hp_max
+			battle_end_text += "\n You LOVE increased!";
+			sfx_play(snd_level_up);
+		}
 		battle_end_text_writer = scribble("* " + battle_end_text);
 		if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
 		battle_end_text_typist = scribble_typist()
@@ -166,3 +177,6 @@ function end_battle()
 	}
 }
 
+
+
+Camera_RotateTo(360, 120)

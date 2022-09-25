@@ -1,5 +1,6 @@
 ///@desc UI Drawing
-char_moveable = !draw_menu;
+if !Is_Dialog()
+	char_moveable = !draw_menu;
 
 var relative_pos = [
 (x - camera_get_view_x(view_camera[0])) * global.camera_scale_x,
@@ -11,7 +12,7 @@ if draw_menu
 	var input_vertical =   input_check_pressed("down") - input_check_pressed("up");
 	var input_confirm =    input_check_pressed("confirm");
 	var input_cancel =     input_check_pressed("cancel");
-	var menu_at_top = y < camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2;
+	var menu_at_top = y < camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2 + 10;
 	var ui_box_x = 30;
 	var ui_box_y = menu_at_top ? 45 : 315;
 	var ui_width = 130;
@@ -276,7 +277,7 @@ if draw_menu
 		draw_set_color(exist_color[i, bool(exists[i])]);
 		draw_text(ui_box_x + 45, ui_box_y + 40 + i * 30, menu_text[i]);
 	}
-	draw_sprite_ext(spr_soul, 0, soul_target[0], soul_target[1], 1, 1, 0, c_red, _alpha[menu_state]);
+	draw_sprite_ext(spr_soul, 0, menu_soul_x[menu_state], menu_soul_y[menu_state], 1, 1, 0, c_red, _alpha[menu_state]);
 	draw_set_valign(fa_top);
 }
 else
@@ -285,3 +286,8 @@ else
 	soul_target[1] = relative_pos[1];
 	menu_choice = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 }
+
+//Encounter begin drawing
+if encounter_draw[0] draw_rectangle_color(0, 0, 640, 480, c_black, c_black, c_black, c_black, 0);
+if encounter_draw[1] draw_sprite_ext(sprite_index, image_index, relative_pos[0], relative_pos[1], global.camera_scale_x, global.camera_scale_y, image_angle, c_white, 1);
+if encounter_draw[2] draw_sprite_ext(spr_soul, 0 , encounter_soul_x, encounter_soul_y, 1, 1, 0, c_red, 1);

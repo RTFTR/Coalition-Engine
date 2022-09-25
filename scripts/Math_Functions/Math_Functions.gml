@@ -19,7 +19,7 @@ function point_xy(p_x, p_y)
 	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y
 }
 
-///@desc Adds all the values from a to b of an array
+///@desc Returns the summation of an array from a to b
 ///@param {array} array		The name of the array
 ///@param {real}  begin		The slot to begin
 ///@param {real}  end		The slot to end

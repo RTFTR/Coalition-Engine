@@ -351,3 +351,9 @@ if battle_state == 3
 draw_set_color(c_white);
 draw_set_alpha(1);
 
+
+Battle_Masking_Start(true)
+var board = obj_battle_board;
+if !(board.left + board.right >= 640 and board.up + board.down >= 480)
+	draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0)
+Battle_Masking_End()

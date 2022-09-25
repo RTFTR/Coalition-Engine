@@ -1,4 +1,4 @@
-if keyboard_check_pressed(vk_space) room_goto(room_battle);
+if keyboard_check_pressed(vk_space) Encounter_Begin();
 var input_horizontal = input_check("right") - input_check("left");
 var input_vertical =   input_check("down") - input_check("up");
 var input_confirm =    input_check("confirm");
@@ -11,6 +11,7 @@ var assign_sprite = last_sprite;
 if !Is_Dialog()
 	if input_menu
 	{
+		Move_Noise();
 		draw_menu = !draw_menu; menu_choice[0] = 0;
 		soul_target[1] = (y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * global.camera_scale_y;
 		menu_state = 0;
@@ -45,3 +46,41 @@ draw_self();
 
 last_sprite = assign_sprite;
 last_dir = scale_x;
+
+if encounter_state
+{
+	char_moveable = false;
+	draw_menu = false
+	encounter_time++;
+	if encounter_state == 1
+	{
+		draw_sprite(spr_encounter_exclaim, 0, x, y - sprite_height);
+		if encounter_time == 30 {encounter_state++; encounter_time = 0;}
+	}
+	if encounter_state == 2
+	{
+		encounter_draw[0] = 1;
+		if !(encounter_time % 5) and encounter_time < 15
+		{
+			sfx_play(snd_noise);
+			encounter_draw[2] = !encounter_draw[2];
+		}
+		if encounter_time == 15
+		{
+			encounter_draw[1] = 0;
+			encounter_draw[2] = 1;
+			sfx_play(snd_encounter_soul_move);
+			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_x", encounter_soul_x, 48);
+			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_y", encounter_soul_y, 454);
+		}
+		if encounter_time == 45 {encounter_state++; encounter_time = 0;}
+	}
+	if encounter_state == 3
+	{
+		if encounter_time == 1
+		{
+			Fader_Fade(1, 0 , 20, 0, c_black);
+			room_goto(room_battle);
+		}
+	}
+}

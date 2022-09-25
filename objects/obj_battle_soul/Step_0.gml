@@ -200,7 +200,7 @@ if (STATE == 2)
 			}
 		
 			_fall_spd = 0;
-			if (_on_ground or _on_platform) and ((mode == 2 and jump_input) or (mode == 3 and !Input_Check(INPUT.CONFIRM))) 
+			if (_on_ground or _on_platform) and ((mode == 2 and jump_input) or (mode == 3 and !input_check("confirm"))) 
 				_fall_spd = -3;
 		}
 		else if !jump_input and _fall_spd < -0.5 
@@ -223,6 +223,68 @@ if (STATE == 2)
 		}
 	}
 	
+	if mode == SOUL_MODE.ORANGE // Orange
+	{
+		if (Battle_GetState() == 2 && moveable)
+		{
+			if !(global.timer % 5)
+			{
+				part_type_color1(p, image_blend);
+				part_type_scale(p, image_xscale, image_yscale);
+				part_particles_create(ps, x, y, p, 1);
+			}
+			var input=[keyboard_check(vk_right),keyboard_check(vk_up),
+						keyboard_check(vk_left),keyboard_check(vk_down)];
+			if input[0] && input[1]			dir = 45;
+			else if input[1] && input[2]	dir = 135;
+			else if input[2] && input[3]	dir = 225;
+			else if input[3] && input[0]	dir = -45;
+			else if input[3]				dir = 270;
+			else if input[2]			    dir = 180;
+			else if input[1]			    dir = 90;
+			else if input[0]			    dir = 0;
+			x += lengthdir_x(move_spd, dir + image_angle);
+			y += lengthdir_y(move_spd, dir + image_angle);
+		}
+	}
+	
+	if mode = SOUL_MODE.YELLOW
+	{
+		move_x = h_spd * move_spd;
+		move_y = v_spd * move_spd;
+		var _angle = image_angle;
+		
+		if moveable == true
+		{
+			x += lengthdir_x(move_x, _angle - 180);
+			y += lengthdir_x(move_y, _angle - 180);
+		}
+		image_angle = _angle;
+		
+		if !timer
+			if input_check_pressed("confirm")
+				with(instance_create_depth(x, y, 0, yellow_bullet))
+					image_angle = other.image_angle - 180;
+	}
+	
+	if mode = SOUL_MODE.GREEN
+	{
+		x = board.x;
+		y = board.y;
+		var input = [input_check_pressed("right"), input_check_pressed("up"),
+					input_check_pressed("left"), input_check_pressed("down")];
+		var LastTarget = ShieldTargetAngle;
+		for (var i = 0; i < 4; ++i)
+			if input[i]	ShieldTargetAngle = i * 90;
+		
+		if LastTarget > 180 and ShieldTargetAngle == 0			ShieldDrawAngle -= 360;
+		if LastTarget < -5 and ShieldTargetAngle == 90			ShieldDrawAngle += 360;
+		if LastTarget < 90 and ShieldTargetAngle == 270		ShieldDrawAngle += 360;
+		
+		ShieldDrawAngle = lerp(ShieldDrawAngle, ShieldTargetAngle, 0.24);
+		if ShieldIndex > 0 ShieldIndex -= 1/5;
+	}
+	
 	if check_board
 	{
 		var _dist = point_distance(board_x, board_y, x, y);
@@ -230,8 +292,8 @@ if (STATE == 2)
 		var r_x = clamp(lengthdir_x(_dist, _dir - board_angle) + board_x, board_left_limit, board_right_limit);
 		var r_y = clamp(lengthdir_y(_dist, _dir - board_angle) + board_y, board_top_limit, board_bottom_limit);
 		
-		var _dist = point_distance(board_x, board_y, r_x, r_y);
-		var _dir = point_direction(board_x, board_y, r_x, r_y);
+			_dist = point_distance(board_x, board_y, r_x, r_y);
+			_dir = point_direction(board_x, board_y, r_x, r_y);
 		
 		x = lengthdir_x(_dist, _dir + board_angle) + board_x;
 		y = lengthdir_y(_dist, _dir + board_angle) + board_y;

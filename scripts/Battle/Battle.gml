@@ -14,15 +14,44 @@ function Battle_SetMenuDialog(text)
 ///@param {real} down		The Disatance Downards (Default 65)
 ///@param {real} left		The Disatance Leftwards (Default 283)
 ///@param {real} right		The Disatance Rightwards (Default 283)
-///@param {real} time		The duration of the Anim (0 = instant, Default 15)
-///@param {struct} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 15, ease = EaseOutQuad)
+///@param {real} time		The duration of the Anim (0 = instant, Default 30)
+///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
+function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad)
 {
 	var board = obj_battle_board;
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up);
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "down", board.down,down);
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "left", board.left, left);
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "right", board.right, right);
+}
+
+///@desc Sets the angle of the board with Anim (optional)
+///@param {real} angle		The target angle (Default 0)
+///@param {real} time		The duration of the Anim (0 = instant, Default 30)
+///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
+function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad)
+{
+	var board = obj_battle_board;
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "image_angle", board.image_angle, angle);
+}
+
+///@desc Sets the x and y position of the board
+///@param {real} x	The x position
+///@param {real} y	The y position
+///@param {real} time	The time taken for the anim
+///@param {function} ease	The easing
+function Set_BoardPos(xx = 320, yy = 320, time = 30, ease = EaseOutQuad)
+{
+	var board = obj_battle_board;
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "x", board.x, xx);
+	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "y", board.y, yy);
+}
+
+function Set_GreenBox()
+{
+	Set_BoardAngle();
+	Set_BoardSize(42, 42, 42, 42, 20);
+	Set_BoardPos(320, 240, 20);
 }
 
 ///@desc Deals damage to the soul
@@ -72,9 +101,7 @@ function Battle_Masking_End(){
 
 ///@desc Gets the State of the battle
 function Battle_GetState()
-{
-	return (instance_exists(obj_battle_controller) ? obj_battle_controller.battle_state : -1);
-}
+{return (instance_exists(obj_battle_controller) ? obj_battle_controller.battle_state : -1);}
 
 ///@desc Sets the State of the battle
 ///@param {real} state	The state to set it to
