@@ -1,4 +1,4 @@
-# Paradox-Undertale-Engine
+# Coalition-Engine
 
 This engine is based on Undertale, Created by Toby Fox.
 
