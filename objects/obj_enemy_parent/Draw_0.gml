@@ -245,7 +245,7 @@ if !died
 		//Main dust drawing
 		for (var i = 0; i < dust_height * dust_amount / total_height; i += 6)
 		{
-			if dust_alpha[i] > 0
+			if dust_alpha[i] > 1 / dust_life[i]
 			{
 				draw_set_alpha(dust_alpha[i]);
 				draw_sprite(spr_pixel, 0, dust_pos[i, 0], dust_pos[i, 1]);

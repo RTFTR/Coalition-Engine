@@ -68,6 +68,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Frisk",
-    "path": "folders/Sprites/Overworld Player/Frisk.yy",
+    "path": "folders/Sprites/Overworld/Frisk.yy",
   },
 }

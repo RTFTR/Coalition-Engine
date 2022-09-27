@@ -106,3 +106,22 @@ function Battle_GetState()
 ///@desc Sets the State of the battle
 ///@param {real} state	The state to set it to
 function Battle_SetState(state){obj_battle_controller.battle_state = state;}
+
+///@desc Check whether an obj is collidiing with a board
+///@param {real} direction	The direction of the board (0 - right, 1 - up...)
+///@param {Asset.GMObject} object	The object to check
+///@param {bool} precise	Whether it checks based on precise check
+///@param {bool} notme		Whether the object is not themselves or yes
+function collision_board(dir, obj, prec, notme)
+{
+	var board = obj_battle_board;
+	var board_pos = [board.x + board.right, board.y - board.up, board.x - board.left, board.down + board.y]
+	var dir_check =
+	[
+		[board_pos[0], board_pos[1], board_pos[0], board_pos[3]],
+		[board_pos[0], board_pos[1], board_pos[2], board_pos[1]],
+		[board_pos[2], board_pos[1], board_pos[2], board_pos[3]],
+		[board_pos[0], board_pos[3], board_pos[2], board_pos[3]],
+	]
+	return collision_line(dir_check[dir, 0],dir_check[dir, 1], dir_check[dir, 2], dir_check[dir, 3], obj, prec, notme);
+}

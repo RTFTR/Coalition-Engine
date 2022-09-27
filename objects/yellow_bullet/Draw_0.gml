@@ -7,3 +7,5 @@ with(obj_battle_bullet_parents)
 
 motion_blur(speed * 2, image_angle - 90);
 draw_self();
+
+show_hitbox(c_green)

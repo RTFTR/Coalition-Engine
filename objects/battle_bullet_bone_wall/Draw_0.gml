@@ -114,9 +114,12 @@ if active
 			}
 			
 			// Hitbox
-			//draw_set_alpha(0.5)
-			//draw_set_color(c_yellow)
-			//draw_rectangle(board_l, pos[0] + 2, board_r, pos[1] - 2, false)
+			if global.show_hitbox
+			{
+				//draw_set_alpha(0.5)
+				draw_set_color(c_yellow)
+				draw_rectangle(board_l, pos[0] + 2, board_r, pos[1] - 2, false)
+			}
 		}
 		
 		if _dir == DIR.LEFT or _dir == DIR.RIGHT

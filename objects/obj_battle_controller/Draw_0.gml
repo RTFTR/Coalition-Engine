@@ -202,6 +202,66 @@ if battle_state == 3
 	}
 	else if obj_global.fader_alpha == 1 game_restart();
 }
+
+//Debug
+if !debug debug_alpha -= debug_alpha / 6;
+else debug_alpha += (1 - debug_alpha) / 6;
+
+if keyboard_check_pressed(vk_f3)
+{
+    debug = !debug;
+	room_speed = 60;
+}
+global.debug = (debug == true and debug_alpha >= 1);
+{
+	draw_set_alpha(debug_alpha)
+	draw_set_font(font_mnc)
+	var ca = global.timer;
+	var col = make_color_hsv(ca % 255, 255, 255);
+	var dis = cos(degtorad(global.timer * 3)) * 20;
+	var debug_pos =
+	[
+		[ui_x - 245 + sin(degtorad(ca)) * -dis,		  ui_y + cos(degtorad(ca)) * dis],
+		[ui_x - 245 + sin(degtorad(ca + 120)) * -dis, ui_y + cos(degtorad(ca + 120)) * dis],
+		[ui_x - 245 + sin(degtorad(ca + 240)) * -dis, ui_y + cos(degtorad(ca + 240)) * dis]
+	];
+	gpu_set_blendmode(bm_add)
+	var color = 
+	[
+		make_color_rgb(255, 0, 0),
+		make_color_rgb(0, 255, 0),
+		make_color_rgb(0, 0, 255)
+	];
+	for(var i = 0; i < 3; ++i)
+		draw_text_ext_transformed_color(debug_pos[2 - i, 0], debug_pos[2 - i, 1], "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2- i], debug_alpha);
+	
+	
+	draw_text_ext_transformed_color(5, 10, "SPEED: " + string(room_speed/60)+"x ("+string(room_speed)+" FPS)", -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
+	draw_text_ext_transformed_color(5, 35, "FPS: " + string(fps), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
+	draw_text_ext_transformed_color(5, 60, "TURN: " + string(battle_turn), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
+	draw_text_ext_transformed_color(5, 85, "INSTANCES: " + string(instance_count), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
+	gpu_set_blendmode(bm_normal)
+	if debug
+	{
+		if keyboard_check(vk_shift)
+		{
+			if keyboard_check_pressed(vk_left)
+				{if room_speed > 5 room_speed -= 5;}
+			else if keyboard_check_pressed(vk_right) room_speed += 5;
+			else if keyboard_check(ord("R")) room_speed = 60;
+			else if keyboard_check(ord("F")) room_speed = 600;
+		}
+		if keyboard_check(vk_control)
+		{
+			battle_turn += keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left);
+			battle_turn = clamp(battle_turn, 0, infinity);
+		}
+		if global.hp == 1 {global.hp = global.hp_max; sfx_play(snd_item_heal);}
+	}
+	draw_set_color(c_white)
+	draw_set_alpha(1)
+}
+
 // Buttons 
 {
 	// Credits to Scarm for the base code
@@ -231,33 +291,29 @@ if battle_state == 3
 			{
 				_button_scale[_menu] += (button_scale_target[1] - _button_scale[_menu]) / 6;
 				_button_alpha[_menu] += (button_alpha_target[1] - _button_alpha[_menu]) / 6;
-				_button_color[_menu][0] += (button_color_target[_menu][1][0] - _button_color[_menu][0]) / 6;
-				_button_color[_menu][1] += (button_color_target[_menu][1][1] - _button_color[_menu][1]) / 6;
-				_button_color[_menu][2] += (button_color_target[_menu][1][2] - _button_color[_menu][2]) / 6;
+				for(var  ii = 0; ii < 3; ++ii)
+					_button_color[_menu][ii] += (button_color_target[_menu][1][ii] - _button_color[_menu][ii]) / 6;
 			}
 			else // Other buttons if they aren't chosen
 			{
 				_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
 				_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-				_button_color[i][0] += ((button_color_target[i][0][0]) - (_button_color[i][0])) / 6;
-				_button_color[i][1] += ((button_color_target[i][0][1]) - (_button_color[i][1])) / 6;
-				_button_color[i][2] += ((button_color_target[i][0][2]) - (_button_color[i][2])) / 6;
+				for(var  ii = 0; ii < 3; ++ii)
+					_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 			}
 		}
 		else // If the menu state is over
 		{
 			_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
 			_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-			_button_color[i][0] += ((button_color_target[i][0][0]) - (_button_color[i][0])) / 6;
-			_button_color[i][1] += ((button_color_target[i][0][1]) - (_button_color[i][1])) / 6;
-			_button_color[i][2] += ((button_color_target[i][0][2]) - (_button_color[i][2])) / 6;
+			for(var  ii = 0; ii < 3; ++ii)
+				_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 		}
 	}
 }
 
 // UI (Name - Lv - Hp - Kr)
 {
-	time++;
 	// Credits to Scarm for all the help and this epico code!
 	var hp_x = ui_x - global.kr_activation * 20;
 	var hp_y = ui_y;
@@ -272,6 +328,7 @@ if battle_state == 3
 	var hp_col = c_yellow;
 	var kr_col = c_fuchsia;
 	var krr_col = c_white;
+	var hp_pre_col = merge_color(c_lime, c_white, 0.25);
 	var bar_multiplier = 1.2; //Default multiplier from UNDERTALE
 	var hp_text = "HP";
 	var kr_text = "KR";
@@ -294,6 +351,7 @@ if battle_state == 3
 	draw_set_font(font_mnc); // Name - LV Font
 	// Name
 	draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, _alpha);
+	draw_text_color(name_x, name_y, name, col, col, col, col, debug_alpha);
 	// LV Icon
 	draw_text_color(name_x + string_width(name), name_y, "   LV ", lv_col, lv_col, lv_col, lv_col, _alpha);
 	// LV Counter
@@ -311,9 +369,9 @@ if battle_state == 3
 	if menu_state == 3
 	{
 		hp_predict += (item_heal[coord] - hp_predict) * refill_speed;
-		//Healing thing
-		draw_set_alpha(abs(sin(time / 40) * 0.4) + 0.1);
-		draw_rectangle_color(hp_x + _hp, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, c_lime, c_lime, c_lime, c_lime, false);
+		//Healing Prediction
+		draw_set_alpha(abs(sin(degtorad(global.timer * 2)) * .5) + .2);
+		draw_rectangle_color(hp_x + _hp, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, hp_pre_col, hp_pre_col, hp_pre_col, hp_pre_col, false);
 		draw_set_alpha(1);
 	}
 	
@@ -352,8 +410,11 @@ draw_set_color(c_white);
 draw_set_alpha(1);
 
 
-Battle_Masking_Start(true)
-var board = obj_battle_board;
-if !(board.left + board.right >= 640 and board.up + board.down >= 480)
-	draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0)
-Battle_Masking_End()
+if board_cover_hp_bar
+{
+	Battle_Masking_Start(true)
+	var board = obj_battle_board;
+	if !(board.left + board.right >= 640 and board.up + board.down >= 480)
+		draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0)
+	Battle_Masking_End()
+}

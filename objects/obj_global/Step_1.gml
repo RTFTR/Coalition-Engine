@@ -17,4 +17,5 @@ global.timer++;
 
 if keyboard_check_pressed(vk_f2) game_restart();
 if keyboard_check_pressed(vk_f4) { window_set_fullscreen(!window_get_fullscreen()) alarm[1] = 1}//Fullscreen
+if keyboard_check_pressed(vk_f9) global.show_hitbox = !global.show_hitbox;
 

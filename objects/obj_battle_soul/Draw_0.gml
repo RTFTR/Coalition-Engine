@@ -37,3 +37,5 @@ if effect
 	var _y = effect_y;
 	draw_sprite_ext(_sprite,0,_x,_y,_xscale,_yscale,_angle,_color,_alpha);
 }
+
+show_hitbox()

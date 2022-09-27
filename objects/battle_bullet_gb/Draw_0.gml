@@ -164,7 +164,13 @@ if state = 4
 			
 			var sx = obj_battle_soul.x;
 			var sy = obj_battle_soul.y;
-			if rectangle_in_rectangle((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f,sx-4,sy-4,sx+4,sy+4)
+			var true_colli = false;
+			var ldx = lengthdir_x(_size + beam_siner, image_angle + 90);
+			var ldy = lengthdir_y(_size + beam_siner, image_angle + 90);
+			if collision_line(x + xs + rx + ldx, y + ys + ry, x + xe + rx - ldx, y + ye + ry, obj_battle_soul, false, false)
+				true_colli = true
+			//if rectangle_in_rectangle((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) + y_f,sx-4,sy-4,sx+4,sy+4)
+			if true_colli
 			{
 				Soul_Hurt();
 				if beam_alpha >= 0.8
@@ -179,9 +185,11 @@ if state = 4
 					if collision Soul_Hurt();
 				}
 				
-				//draw_set_color(c_green)
-				//draw_line((x + xs + rx) - x_f, (y + ys + ry) - y_f, (x + xe + rx) - x_f, (y + ye + ry) - y_f)
-				//draw_line((x + xs + rx) + x_f, (y + ys + ry) + y_f, (x + xe + rx) + x_f, (y + ye + ry) + y_f)
+			}
+			if global.show_hitbox
+			{
+				draw_set_color(c_red)
+				draw_line_width(x + xs + rx + ldx, y + ys + ry, x + xe + rx - ldx, y + ye + ry, 3)
 			}
 		}
 	}

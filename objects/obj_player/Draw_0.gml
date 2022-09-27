@@ -8,6 +8,7 @@ var spd = 2 + input_cancel;
 var scale_x = last_dir;
 var assign_sprite = last_sprite;
 
+
 if !Is_Dialog()
 	if input_menu
 	{
@@ -23,6 +24,7 @@ if input_horizontal != 0
 {
 	assign_sprite = dir_sprite[2];
 	scale_x = -sign(input_horizontal);
+	
 	x += input_horizontal * spd;
 }
 if input_vertical != 0
@@ -32,6 +34,17 @@ if input_vertical != 0
 	if input_vertical == -1 assign_sprite = dir_sprite[0];
 	y += input_vertical * spd
 }
+
+with(obj_ow_collision)
+	if place_meeting(x, y, other)
+	{
+		with(other)
+		{
+			x = xprevious;
+			y = yprevious;
+		}
+		collide = true
+	}
 
 
 if !char_moveable {assign_sprite = last_sprite; scale_x = last_dir;}
@@ -43,6 +56,7 @@ else image_index = 0;
 
 
 draw_self();
+show_hitbox(c_purple)
 
 last_sprite = assign_sprite;
 last_dir = scale_x;

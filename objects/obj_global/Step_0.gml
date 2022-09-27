@@ -1,4 +1,4 @@
-// Camera movement
+///@desc Camera movement
 {
     var cam = view_camera[0],
     

@@ -2,7 +2,7 @@
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
   "name": "char_frisk_left",
-  "bboxMode": 0,
+  "bboxMode": 2,
   "collisionKind": 1,
   "type": 0,
   "origin": 7,
@@ -12,7 +12,7 @@
   "swfPrecision": 2.525,
   "bbox_left": 0,
   "bbox_right": 16,
-  "bbox_top": 0,
+  "bbox_top": 20,
   "bbox_bottom": 28,
   "HTile": false,
   "VTile": false,
@@ -70,6 +70,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Frisk",
-    "path": "folders/Sprites/Overworld Player/Frisk.yy",
+    "path": "folders/Sprites/Overworld/Frisk.yy",
   },
 }

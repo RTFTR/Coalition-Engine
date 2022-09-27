@@ -6,9 +6,6 @@ menu_button_choice = 0;
 menu_choice = [0, 0, 0, 0] // Fight - Act - Item - Mercy
 activate_turn = [1, 0, 0, 1];
 
-time = 0;
-
-
 global.kr_activation = true;
 global.kr = 0;
 global.hp = global.hp_max;
@@ -69,6 +66,10 @@ button_color_target = [ [ [242,101,34], [255,255,0] ],
 
 //UI Functions
 {
+debug = false;
+debug_alpha = 0;
+ca = 0;
+global.debug = false;
 ui_x = 275;
 ui_y = 400;
 ui_alpha = 1;
@@ -178,5 +179,3 @@ function end_battle()
 }
 
 
-
-Camera_RotateTo(360, 120)

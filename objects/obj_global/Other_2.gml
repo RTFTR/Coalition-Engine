@@ -2,7 +2,7 @@
 
 Initialize();
 
-window_set_caption("Paradox Engine");
+window_set_caption("Coalition Engine");
 
 window_center();
 

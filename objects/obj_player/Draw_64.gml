@@ -1,6 +1,7 @@
 ///@desc UI Drawing
 if !Is_Dialog()
 	char_moveable = !draw_menu;
+else char_moveable = 0;
 
 var relative_pos = [
 (x - camera_get_view_x(view_camera[0])) * global.camera_scale_x,

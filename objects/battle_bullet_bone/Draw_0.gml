@@ -26,6 +26,29 @@ draw_sprite_ext(spr_bone,1,_x,_y,_xscale,_yscale,_angle,_color_outline,_alpha);
 	
 Battle_Masking_End();
 
+var ldx = lengthdir_x(length/2, _angle);
+var ldy = lengthdir_y(length/2, _angle);
+if collision_line(x + ldx, y + ldy, x-ldx,y-ldy, obj_battle_soul, 0, 0)
+and image_alpha >= 1
+{
+	var collision = true;
+	if type != 0 and type != 3
+	{
+		collision = (floor(obj_battle_soul.x) != floor(obj_battle_soul.xprevious) 
+				  or floor(obj_battle_soul.y) != floor(obj_battle_soul.yprevious));
+		collision = (type == 1 ? collision : !collision);
+	}
+	if collision Soul_Hurt();
+}
+
+
+if global.show_hitbox
+{
+	draw_set_color(c_red)
+	draw_line_width(x + ldx, y + ldy, x-ldx,y-ldy, 5)
+	draw_set_color(c_white)
+}
+
 
 
 

@@ -1,6 +1,6 @@
 ///@desc Returns a Positive Quotient of the 2 values
 ///@param {real} a The number to bde divided
-///@param {real} a The number to divide
+///@param {real} b The number to divide
 ///@return {real}
 function Posmod(a,b)
 {

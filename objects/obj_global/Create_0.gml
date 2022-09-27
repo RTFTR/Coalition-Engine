@@ -23,13 +23,22 @@ global.shake_magnitude = 1.5;
 global.soul_x = 0;
 global.soul_y = 0;
 
+global.show_hitbox = 0;
+
 quit_timer = 0;
 
 fader_color = c_black;
 fader_alpha = 0;
 
-pause = false;
-pauseSurf = surface_create(640, 480);
-pauseSurfBuffer = buffer_create(640 * 480 * 4, buffer_fixed, 1);
+effect_shader =
+[
+	shd_intensity
+];
+effect_surf = [-1, -1];
+effect_param =
+[
+	["intensity", 1],
+	["", 1],
+];
 
 
