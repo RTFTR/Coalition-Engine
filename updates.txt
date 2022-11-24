@@ -1,0 +1,183 @@
+Update Logs
+
+v4.0.1 (Eden)
+Some optimisations
+Fixed camera (FINALLY!!!)
+Fixed soul effect
+Changed some scripts and code (better/more readability)
+Added more comments
+
+v4.0.0(Eden)
+Added Demo of Board Cover
+Green Soul System v0.9 (Supports multi-key and rhythm creating)
+stuff i forgot
+
+v3.9.3 (Eden)
+Bug fixes
+
+v3.9.2 (Eden)
+Fixed bug where enemy draws inside the board/is so stupid it draws inside the board
+more forgot
+
+v3.9.1.1 (Eden)
+Fixed Bonewall collision bug
+
+v3.9.1 (Eden)
+Slams Anims are now fully functional
+
+v3.9.05 (Eden)
+forgot, but slams are demo
+
+v3.9 (Eden)
+Changed Turn method from classic timer to time source
+TurnCreate() can be used for creating the attacks in User Event 1 (Not on Create for obvious reasons)
+Fixed bugs
+forgot.
+
+v3.8.8 (Eden)
+Fixed Bugs
+Changed some scripts naming
+
+v3.8.7 (Eden)
+Fixed Camera Scaling Bug
+Added a Bone Cube (Modded from Siki)
+Changing naming convections
+Changed Enemy data from DS Lists to Arrays
+Changed Music playing from GM built in playing to external playing (Reduces both Game and Project size, just remember to put audio_destroy_stream after you are done with the audio or else memory leak)
+forgot again
+
+v3.8.6 (Eden)
+Functional Camera, along with 2 scripts to make settings easier
+
+v3.8.5 (Eden)
+Added some scripts for easier access to stuff
+
+v3.8.4 (Eden)
+Fixed GB Collision bug (again)
+Fixed platform collision bug
+I forgot.
+
+v3.8.3 (Eden)
+Fixed enemy contain number bug
+Merged Turn into enemy Step/Event
+
+v3.8.2 (Eden)
+Added Overworld Collision Object (Just use if sprite_index == in draw event)
+Added placeholder Save Point in the OWCP (No actual functions yet)
+Collision is trash
+
+v3.8.1 (Eden)
+Added Debug function (Heals to full hp when at 1 hp and view battle stats)
+Optimised UI Drawing
+Fixed Healing Prediction Alpha bug
+
+v3.8.1.1
+Reduced File Size
+
+v3.8 (Eden)
+Added a few shaders (Gaussian Blur is broken still)
+Added settings in logo
+Small changes in battle (Forgot)
+Forgot
+
+v3.7.9 (Eden)
+Fixed GB hitbox bug
+Fixed Bone hitbox bug
+Added show hitbox function (Press F9)
+
+v3.7.8 (Eden)
+Added option for the ui whether the board covers the ui or not
+Added axis functions (for cool attack design thing idk)
+Made more functions
+Camera useless af fix when.
+
+v3.7.7 (Eden)
+Fixed OW UI bugs
+FIxed OW bugs
+Fixed battle damage showing bug
+Added Orange and Green Soul (arrows not yet)
+i forgot.
+
+v3.7.6 (Eden)
+Box UI is done
+
+v3.7.6.1
+Added menu sound
+
+v3.7.6.2
+Removed OW UI Lerp
+
+v3.7.5 (Eden)
+Stats are almost done, only a geno detector needs to be made
+Better alignment
+Phone 40% done
+
+v3.7.4 (Eden)
+Improved OW UI (Items, armor stats and phone not complete, alignment is trash)
+
+v3.7.3 (Eden)
+Basic Overworld UI
+
+v3.7.2 (Eden)
+Basic camera by Maxin
+Fixed Overworld dialog since camera is changed
+Added Descriptions and Parameter Desc's for the scripts (Note: Feather thing)
+
+v3.7.1 (Eden)
+Basic Overworld
+
+v3.7(Eden)
+Added Dust system for enemy (very stupid)
+
+v3.6.5
+Fixed bug of KR still becomes 0 when global.item_reduce_kr set to false
+
+v3.6.4
+Optimised the engine slightly
+Made some codes more viewable
+
+v3.6.3
+Improved item UI
+
+v3.6.2
+Removed useless stuff
+
+v3.6.1
+Fixed some bugs
+
+v3.6 (Eden)
+Added Save File, can be accessed via Save_Datas() Load_Datas()
+
+v3.5.9 (Eden)
+Functional Spare and Attack system
+Fixed Healing Green Bar thing
+Improved enemy selection
+
+v3.5.9.1
+Removed joke codes for UTMT
+Fixed small bug
+
+v3.5.7 (Eden)
+Added actual damage calculation system, spare text color, fixed some hp bar bugs
+
+v3.5.5 (Eden)
+Added movement for enemy while under attack (the damage and miss)
+
+v3.5.3 (Panthervention)
+Proper Game Over added, adjusted and fixing KR, adjusting enemy hp bar on menu. (Do not touch KR mechanic!)
+
+v3.5 (Eden)
+Added angled soul in menu, modified item ui, fixed dialog bug, fixed kr, fixed blaster (basically brute force the bugs, h)
+
+v3.4 (Eden)
+Added dialog system
+(v3.41: fixed Enemey_Function_Load)
+
+v3.3 (Eden)
+Added color/retraction to aiming, fixed item text became menu text, added enemy hp bar drawing on menu (is optional), fixed some enemy data bugs (i++ and ++i, imagine)
+
+v3.2 (Eden)
+Polished Menu Dialog System, Turn System and gameover
+
+v3.1 (Eden)
+Made Structure of Turn System, Bullet System
