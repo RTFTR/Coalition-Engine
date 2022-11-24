@@ -1,8 +1,0 @@
-v3.7.2
-Basic camera by Maxin
-Fixed Overworld dialog since camera is changed
-Added Descriptions and Parameter Desc's for the scripts (Note: Feather thing)
-v3.7.1
-Basic Overworld
-v3.7
-Added Dust system for enemy (Not finished, Unstable function)
