@@ -1,0 +1,262 @@
+
+[Update Log]
+
+Welcome, fellow log enthusiast!  
+
+[!! Breaking Changes !!]
+	
+	#1  GameMaker 2022 is now required.
+		If you need to revert to the previous version (1.12)
+		you can download it from this link: https://stephenloney.com/_/TweenGMS/112/TweenGMS_Pro_v112.yymps
+
+	#2	(As of v1.11) Please be aware that target handling for tween callbacks has been modified.
+		Methods used as a callback script will now use the specified callback target, overriding its calling environment/self.
+		Previously, the callback target would not affect methods with a defined 'self'.
+		To maintain a method's existing 'self', please use the keyword [undefined] as the callback target.
+		You can find more information about this in the log below or under TweenAddCallback() in the Script Reference.
+		If upgrading an existing project, please validate that your tween callbacks still work as intended.
+		
+	#3 TGMS_BuildProperty() now requires a GETTER to be supplied
+
+
+[Version 1.20]
+
+- Removed function setter/getting functions (x__ / __x, image_angle__ / __image_angle, etc..)
+	* Property strings ("x", "image_angle") are now required
+	* This clears up conflicts with other libraries in the global namespace
+
+- TPUser() user events no longer need to use the TWEEN_USER_TARGET macro
+	* The calling target environment is now used automatically
+
+- TPExt() can now take methods
+	* Note that they are stripped of their calling environment
+
+- Changed name to TweenGMS Legacy
+	* This is in preparation for TweenGMS 2
+	
+- TGMS_BuildProperty() now requires a GETTER function to be provided
+- Error will no longer occur if instance associated with TPInst() is destroyed
+- Removed again 'Syntax Errors' for pre-feather environment
+- Added system functions to Feather @ignore list
+- Updated system initialization
+- Removed function TGMS_Null__()
+- Documentation tweaks
+
+
+[Version 1.12]
+
+- Updated code for GML's removal of array "copy-on-write"
+- Improved JSDoc support for GMLive
+- Disabled Feather (Should hide most false warnings)
+- Removed unused internal "getter" functions
+
+- TweensTarget() now supports [self] and [other]
+	* e.g. TweenPause(TweensTarget(self));
+	
+- Optimisations to various systems
+	* Various Ease Functions, TPArray, TPPath, TweenExists, TweenGet, TweenSet, TweenPause, TweenResume
+
+
+[Version 1.11]
+
+- Added TPStruct() for easing struct properties
+	* Note: This will not make use of optimised/custom property functions for easing struct values
+	* e.g.
+		some_struct = {value: 0}
+		TweenFire(id, EaseInSine, 0, true, 0, 1, TPStruct(some_struct, "value"), 0, 100);
+		
+- Added TPInst() for easing values belonging to other specific instances
+	* Note: Normalized properties are not supported -- "image_blend" will not work with this function
+	* e.g.
+		TweenFire(self, EaseInSine, 0, true, 0, 1, "x", 0, 10, TPInst(obj_Enemy, "x"), 0, 100);
+		
+- TweenAddCallback() now supports struct targets
+	* e.g.
+		some_struct = {value: 0}
+		t = TweenFire(id, EaseInSine, 0, true, 0, 1, "x", 0, 100);
+		TweenAddCallback(t, TWEEN_EV_FINISH, some_struct, func_PrintValue);
+
+- Callback methods now use assigned targets as the calling environment
+	* Methods were previously always using their 'self' environment
+	* The use of function/script ids are not affected by this change
+	* Mentioned below, the 'undefined' keyword can be used to keep the method's existing instance/struct environment
+	* e.g.
+		// Set up struct with method and fire a tween
+		some_struct = { my_method: function(){ show_message(self); } }
+		t = TweenFire(id, EaseInSine, 0, true, 0, 1, "x", 0, 100);
+		
+		// Add callback method, using obj_Player as calling environment instead of method's "self"
+		TweenAddCallback(t, TWEEN_EV_FINISH, obj_Player, some_struct.my_method);
+
+- Added the keyword 'undefined' as a valid callback target
+	* This will use a function's or method's existing instance/struct 'self' as the callback target environment
+	* If the method's 'self' is undefined, then the current environment's self will be used as the target
+	* e.g.
+		// Create a new struct with a value and method
+		some_struct = {value: 100, my_method: function(){ show_message(value); }}
+		
+		// Fire a tween
+		t = TweenFire(id, EaseInSine, 0, true, 0, 1, "x", 0, 100);
+		
+		// Add a callback but retain the method's 'self' as the calling target environment
+		TweenAddCallback(t, TWEEN_EV_FINISH, undefined, some_struct.my_method
+		
+		// Omitting the target argument will do the same thing
+		TweenAddCallback(t, TWEEN_EV_FINISH, , some_struct.my_method
+		
+		// With a function id, undefined will simply be the same as using 'self'
+		TweenAddCallback(t, TWEEN_EV_FINISH, undefined, show_message, "Done!");
+		
+- Added "z" as a default optimised property
+- Fixed various state checks returning 'undefined' instead of 'false'
+- Changed internal naming of some properties to prevent chance of naming conflicts
+
+
+[Version 1.10.1]
+
+- Fixed crash when firing a tween at very start of game
+- Fixed issue when using game_restart() with YYC
+
+
+[Version 1.10]
+
+	* Warning *
+	If obj_SharedTweener is destroyed, system-wide variables will now be reset when obj_SharedTweener is created.
+	Please update any affected code as needed.
+	e.g. 
+		TweenSystemSet("time_scale", 0.5); // Will be reset back to 1.0
+		TweenEasyUseDelta(true);		   // Will be reset back to false
+
+- Callbacks can now use methods
+- Removed syntax error warnings
+- Improved project organization
+- Removed TweenGMS Extension resource
+- Fixed YYC error when using game_restart()
+- Minor optimisation
+- Removed documentation from Included Files
+	* Now accessed as downloadable files from TGMS_Documentation note
+	* [TweenGMS] -> [Docs] -> TGMS_Documentation
+
+
+[Version 1.0.7]
+
+-Fixed issue where TweenPlay failed to play tweens more than once when using TWEEN_MODE_BOUNCE
+
+
+[Version 1.0.6]
+
+-Added "fix" for HTML5 which could cause tweens to fail due to unexpected delta timing
+
+
+[Version 1.0.5]
+
+-Fixed YYC warnings
+-Resolved syntax errors caused by unused variables
+-Updated TweenMore to define tweens when first initiated
+-Fixed tweens racing a frame ahead when using TweenMore
+-Stopped "Safe To Delete Scripts.txt" from being included with builds
+-Updated example projects
+
+
+[Version 1.0.3]
+
+- Added TweenScript() and TweenMoreScript() for scheduling script calls
+    * Using the tweening system, these scripts return a regular tween id
+    * Can be used together with TweenMore() for more intricate sequence control
+
+- Updated TGMS_ExecuteEvent() to support more callback arguments
+    * Allows for TweenMore() to support up to 10 properties
+    * Increases max number of arguments that can be passed to TweenAddCallback()
+
+- Updated Demo Project
+    * Added tween sequence example
+    * Updated various examples
+
+- Added document to clarify which scripts can be safely deleted
+
+
+[Version 1.0.2]
+
+- Added TweenMore() script for chaining tweens
+- Added TweenDefine() for defining or redefining tweens
+- Documentation tweaks 
+
+
+[Version 1.0.1]
+
+- Fixed crash related to TweensTarget() selection script
+- Added missing platform targets
+
+
+[Version 1.0.0]
+
+- Official Launch
+
+
+[Key Changes From v0.9.7 To v1.0.0]
+
+- Property setter scripts are no longer required.
+
+- TweenSimple*() scripts have been changed to TweenEasy*() variants and now support an optional [mode] argument.
+
+- TweenFire, TweenCreate, TweenPlay have all been overhauled and are NOT backwards compatible.
+  * They now support multiple properties in a single tween
+  * TweenFire has To/From variants which make use of new property getters
+  * They now support "x"/"y"/"etc" stringed properties instead of x__/y__ script names.
+	Example:
+		TweenFire(id, EaseLinear, 0, true, 0, 1, "x", x, mouse_x, "y", y, mouse_y);
+	
+		// You can use up to 10 properties with a single tween call
+		TweenFireTo(id, EaseLinear, 0, true, 0, 1,
+							  "x", mouse_x,
+						          "y", mouse_y,
+							  "image_angle", 360,
+							  "image_scale", 2.0)
+
+		
+- TweenSet() and TweenGet() have replaced the various TweenGet*() and TweenSet*() scripts.
+  * They now receive string labels for modifying the appropriate tween setting.
+  * Please open and read the respective TweenGet() and TweenSet() scripts to find all supported string labels.
+	e.g.
+		TweenSet(tween, "time_scale", 0.5);
+		TweenSet(tween, "duration", 3.0);
+		destination = TweenGet(tween, "destination");
+
+- Tweens(), TweensAll(), TweensGroup, and TweensTarget() have replaced the *All, *Group, *Target script variants.
+  * Any script with the tween[s] argument supports them
+	e.g.
+		TweenPause(TweensAll());
+		TweenDestroy(TweensGroup(5));
+		TweenResume(TweensTarget(id));
+		TweenReverse(TweensTarget(obj_Player));
+
+  	* TweensAll() has a shorthand version using the keyword [all]
+	e.g.
+		TweenResume(all);
+
+- User Events can now be used as property setters/getters using the TPUser() property script
+  with TWEEN_USER_TARGET and TWEEN_USER_VALUE macros. 
+	e.g.
+		// Some Event
+		TweenFire(id, EaseLinear, 0, false, 0, 1, TPUser(0), 0, 100);
+
+		// User Event 0
+		TWEEN_USER_TARGET.someVariable = TWEEN_USER_VALUE;
+  
+  * Here is a quick example showing how to set up a getter/setter version to support TweenFireTo/From()
+	e.g.
+		// User Event 0
+		if (TWEEN_USER_GET)
+		{   // Getter
+		    TWEEN_USER_GET = TWEEN_USER_TARGET.someVariable;
+		}
+		else
+		{   // Setter
+		    TWEEN_USER_TARGET.coolVariable = TWEEN_USER_VALUE;
+		}
+
+
+
+
+
+
