@@ -11,10 +11,19 @@ global.inv = 0;
 global.assign_inv = 60;		// Sets the inv time for soul
 global.deadable = true;
 
+EffectS = part_system_create();
+part_system_depth(EffectS, depth);
+EffectT = part_type_create();
+part_type_sprite(EffectT, sprite_index, 0, 0, 0);
+part_type_life(EffectT, 1/0.035,1/0.035);
+part_type_size(EffectT, 1, 1, 0.15, 0);
+part_type_alpha2(EffectT, 1, 0)
+
 mode = SOUL_MODE.RED;
 
 move_x = 0;
 move_y = 0;
+
 function BasicMovement() {
 	
 	var h_spd = input_check("right") - input_check("left");
@@ -45,22 +54,6 @@ moveable = true;
 
 allow_outside = false;
 
-effect = false;
-effect_xscale = 1;
-effect_yscale = 1;
-effect_alpha = 1;
-effect_angle = image_angle;
-effect_x = x;
-effect_y = y;
-
-ps = part_system_create();
-part_system_depth(ps, depth + 1);
-p = part_type_create();
-part_type_alpha2(p, 1, 0);
-part_type_life(p, 25, 25);
-part_type_sprite(p, sprite_index, 0, 0, 0);
-part_type_orientation(p, image_angle, image_angle, 0, 0, 0);
-
 timer = 0;
 
 ShieldDrawAngle = 0;
@@ -70,7 +63,7 @@ ShieldIndex = 0;
 global.Autoplay = true;
 global.Autoplay = 0;
 function DestroyArrow(obj) {
-	sfx_play(snd_ding);
+	audio_play(snd_ding);
 	ShieldIndex = 2;
 	instance_destroy(obj);
 }

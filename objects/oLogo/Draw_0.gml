@@ -52,7 +52,7 @@ if is_setting
 {
 	setting += input_v;
 	setting = Posmod(setting, array_length(setting_name));
-	if input != 0 sfx_play(snd_menu_switch);
+	if input != 0 audio_play(snd_menu_switch);
 
 	if setting == 0 setting_var[0] += InputH_h;
 	if setting == 1 setting_var[1] += input;

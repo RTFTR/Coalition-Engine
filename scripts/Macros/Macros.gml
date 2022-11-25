@@ -43,6 +43,7 @@ function Macro_Direction()
 	}
 }
 
+//Optional, just for better coding experience for idiots like me (Eden)
 function Macro_Items()
 {
 	enum ITEM

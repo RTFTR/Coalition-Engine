@@ -199,7 +199,7 @@ if battle_state == 3 {
 if !debug debug_alpha -= debug_alpha / 6;
 else debug_alpha += (1 - debug_alpha) / 6;
 
-if keyboard_check_pressed(vk_f3) {
+if keyboard_check_pressed(vk_f3) and allow_debug{
 	debug = !debug;
 	room_speed = 60;
 }
@@ -243,7 +243,7 @@ global.debug = (debug and debug_alpha >= 1); {
 		}
 		if global.hp <= 1 {
 			global.hp = global.hp_max;
-			sfx_play(snd_item_heal);
+			audio_play(snd_item_heal);
 		}
 	}
 	draw_set_color(c_white);

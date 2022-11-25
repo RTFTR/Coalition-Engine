@@ -18,17 +18,13 @@ function Make_Platform(X,Y,HSPEED,VSPEED,LENGTH,OUT = 0,ANGLE = 0,STICKY = true)
 		if OUT DEPTH -= 1
 	}
 	
-	var platform = instance_create_depth(X, Y, DEPTH, oPlatform)
-	with platform
+	var platform = instance_create_depth(X, Y, DEPTH, oPlatform,
 	{
-		x = X;
-		y = Y;
-		hspeed = HSPEED;
-		vspeed = VSPEED;
-		image_angle = ANGLE;
-		
-		length = LENGTH;
-		sticky = STICKY;
-	}
+		hspeed : HSPEED,
+		vspeed : VSPEED,
+		image_angle : ANGLE,
+		length : LENGTH,
+		sticky : STICKY
+	})
 	return platform;
 }

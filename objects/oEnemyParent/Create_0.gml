@@ -72,7 +72,7 @@ SlamSpriteTargetIndex = [
 ];
 SlamSpriteNumber = 1;
 
-//Dust
+//Dust (AUTOMATICALLY DISABLED)
 if !variable_instance_exists(self, "ContainsDust")
 	ContainsDust = 0;
 if ContainsDust {
@@ -160,6 +160,7 @@ function end_turn() {
 	oBattleController.battle_state = 0;
 	oBattleController.menu_state = 0;
 	Set_BoardSize();
+	oBoard.image_angle %= 360;
 	Set_BoardAngle();
 	Set_BoardPos();
 	with(oBulletBone)

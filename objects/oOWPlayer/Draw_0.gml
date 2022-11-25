@@ -79,14 +79,14 @@ if encounter_state
 		encounter_draw[0] = 1;
 		if !(encounter_time % 5) and encounter_time < 15
 		{
-			sfx_play(snd_noise);
+			audio_play(snd_noise);
 			encounter_draw[2] = !encounter_draw[2];
 		}
 		if encounter_time == 15
 		{
 			encounter_draw[1] = 0;
 			encounter_draw[2] = 1;
-			sfx_play(snd_encounter_soul_move);
+			audio_play(snd_encounter_soul_move);
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_x", encounter_soul_x, 48);
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_y", encounter_soul_y, 454);
 		}

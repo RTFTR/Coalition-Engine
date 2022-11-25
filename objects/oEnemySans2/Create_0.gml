@@ -11,31 +11,3 @@ Set_BoardSize(70, 70, 70, 70, 0);
 oBoard.image_alpha = 0;
 oSoul.image_alpha = 0;
 oSoul.moveable = false;
-BGM = audio_create_stream("Music/MusSans.ogg");
-t = -1;
-with oBattleController {
-	button_override_alpha=[0, 0, 0, 0];
-	button_alpha=[0, 0, 0, 0];
-	ui_override_alpha=[0, 0, 0, 0, 0, 0];
-}
-
-Battle_SetTurnTime(
-[
-infinity,
-]
-);
-Battle_SetTurnBoardSize(
-[
-	[70, 70, 70, 70],
-]);
-
-Battle_EnemyDialog(0, [
-	""
-]);
-global.name = "Frisk";
-global.lv = 19;
-global.hp_max = 92;
-global.hp = 92;
-draw_papyrus = 0;
-papyrus_x = 320;
-enemy_sprite_index[2] = 4;

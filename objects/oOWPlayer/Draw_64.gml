@@ -229,7 +229,7 @@ if draw_menu
 				{
 					menu_state = 6
 					OW_Dialog(Cell_GetText(menu_choice[3]), "fnt_dt_mono", snd_txtTyper, menu_at_top);
-					sfx_play(snd_phone_call);
+					audio_play(snd_phone_call);
 				}
 				else
 				{
@@ -239,7 +239,7 @@ if draw_menu
 						is_boxing = 1;
 						Box_ID = Cell_GetBoxID(other.menu_choice[3]);
 					}
-					sfx_play(snd_phone_box);
+					audio_play(snd_phone_box);
 				}
 				input_confirm = 0;
 			}

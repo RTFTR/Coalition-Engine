@@ -7,13 +7,13 @@ function Battle_SoulMode(soul_mode, effect = true)
 	{
 		dir = DIR.DOWN;
 		image_angle = 0;
-		if soul_mode = SOUL_MODE.RED image_blend = c_red;
-		if soul_mode = SOUL_MODE.BLUE image_blend = c_blue;
-		if soul_mode = SOUL_MODE.ORANGE image_blend = c_orange;
-		if soul_mode = SOUL_MODE.YELLOW {image_blend = c_yellow; image_angle = 180;}
-		if soul_mode = SOUL_MODE.GREEN image_blend = c_lime;
-		if soul_mode = SOUL_MODE.PURPLE image_blend = c_purple;
-		if soul_mode = SOUL_MODE.CYAN image_blend = c_aqua;
+		if soul_mode = SOUL_MODE.RED		image_blend = c_red;
+		if soul_mode = SOUL_MODE.BLUE		image_blend = c_blue;
+		if soul_mode = SOUL_MODE.ORANGE		image_blend = c_orange;
+		if soul_mode = SOUL_MODE.YELLOW		{image_blend = c_yellow; draw_angle = 180;}
+		if soul_mode = SOUL_MODE.GREEN		image_blend = c_lime;
+		if soul_mode = SOUL_MODE.PURPLE		image_blend = c_purple;
+		if soul_mode = SOUL_MODE.CYAN		image_blend = c_aqua;
 		mode = soul_mode;
 		alarm[0] = effect
 	}
@@ -28,10 +28,15 @@ function Battle_SoulMode(soul_mode, effect = true)
 ///@self
 function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
-	with oSoul
-	{
+	with oSoul {
 		TweenFire(id, Easing, TWEEN_MODE_ONCE, false, delay, duration, "x", x, target_x);
 		TweenFire(id, Easing, TWEEN_MODE_ONCE, false, delay, duration, "y", y, target_y);
 	}
+}
+
+///@desc Return whether is soul moving or not
+function IsSoulMoving() {
+	return (floor(oSoul.x) != floor(oSoul.xprevious)
+			or floor(oSoul.y) != floor(oSoul.yprevious));
 }
 

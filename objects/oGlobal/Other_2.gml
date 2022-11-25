@@ -3,6 +3,7 @@
 Initialize();
 
 window_set_caption("Coalition Engine");
+window_set_caption("Undertale");
 
 window_center();
 

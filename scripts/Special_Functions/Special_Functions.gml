@@ -54,5 +54,20 @@ function is_val()
 	return 0;
 }
 
-
+//Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
+function check_outside(){
+	var cam = view_camera[0];
+	var view_x = camera_get_view_x(cam);
+	var view_y = camera_get_view_y(cam);
+	var view_w = camera_get_view_width(cam);
+	var view_h = camera_get_view_height(cam);
+	
+	return !rectangle_in_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, view_x, view_y, view_x + view_w, view_y + view_h) 
+	and (
+		(x < -sprite_width) or 
+		(x > (room_width + sprite_width)) or
+		(y > (room_height + sprite_height)) or
+		(y < (-sprite_height))
+		)
+}
 

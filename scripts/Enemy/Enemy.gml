@@ -1,7 +1,6 @@
 ///@desc Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
-function Enemy_Function_Load(encounter_number){	
-	
+function Enemy_Function_Load(encounter_number) {
 	enemy = [];
 	enemy_name = [];
 	enemy_hp = [];
@@ -29,11 +28,17 @@ function Enemy_Function_Load(encounter_number){
 			enemy_draw_hp_bar[i] =	enemies[i].enemy_draw_hp_bar;
 			for(var ii = 0; ii < 6; ++ii)
 			{
-				enemy_act[i, ii] = enemies[i].enemy_act[ii];
+				enemy_act[i, ii] =		enemies[i].enemy_act[ii];
 				enemy_act_text[i, ii] = enemies[i].enemy_act_text[ii];
 			}
 			if enemies[i].is_boss = true global.BossFight = true;
-			if enemies[i].begin_at_turn { menu_state = -1; battle_turn++; begin_at_turn = true; dialog_start(); oSoul.visible = true;}
+			if enemies[i].begin_at_turn {
+				menu_state = -1;
+				battle_turn++;
+				begin_at_turn = true;
+				dialog_start();
+				oSoul.visible = true;
+			}
 		}
 		else
 		{

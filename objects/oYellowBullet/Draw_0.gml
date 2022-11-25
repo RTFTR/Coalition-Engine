@@ -5,7 +5,9 @@ with(oBulletParents)
 		instance_destroy(other);
 	}
 
-motion_blur(speed * 2, image_angle - 90);
+TrailStep(10);
 draw_self();
 
 show_hitbox(c_green)
+
+if check_outside() instance_destroy();

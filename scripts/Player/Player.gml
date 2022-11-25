@@ -17,7 +17,7 @@ function ConvertItemNameToStat()
 }
 
 
-///@desc Gets the base ATK and DEF of the player
+///@desc Gets the base ATK and DEF of the player and then automatically sets it
 function Player_GetBaseStats()
 {
 	global.player_base_atk = global.lv * 2 - 2;

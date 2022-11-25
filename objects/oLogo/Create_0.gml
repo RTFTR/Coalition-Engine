@@ -1,4 +1,4 @@
-sfx_play(snd_logo);
+audio_play(snd_logo);
 hint = 0;
 TweenFire(self,EaseLinear,TWEEN_MODE_ONCE,false,0,120,"hint",0,1)
 y = 480;

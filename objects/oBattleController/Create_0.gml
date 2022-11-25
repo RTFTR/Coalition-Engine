@@ -50,19 +50,20 @@ hp_previous = global.hp;
 
 //Button Functions
 {
-	button_spr = [spr_button_fight, spr_button_act, spr_button_item, spr_button_mercy];
-	button_pos = [[87, 453], [240, 453], [400, 453], [555, 453]];
-	button_alpha = [0.25, 0.25, 0.25, 0.25];
-	button_scale = [1, 1, 1, 1];
-	button_color = [[242, 101, 34], [242, 101, 34], [242, 101, 34], [242, 101, 34]];
+	button_spr			= [spr_button_fight, spr_button_act, spr_button_item, spr_button_mercy];
+	button_pos			= [[87, 453], [240, 453], [400, 453], [555, 453]];
+	button_alpha		= [0.25, 0.25, 0.25, 0.25];
+	button_scale		= [1, 1, 1, 1];
+	button_color		= [[242, 101, 34], [242, 101, 34], [242, 101, 34], [242, 101, 34]];
 	button_alpha_target = [0.25, 1];
 	button_scale_target = [1, 1.2];
-	button_color_target = [[[242, 101, 34], [255, 255, 0]],
+	button_color_target = [
+						[[242, 101, 34], [255, 255, 0]],
 						[[242, 101, 34], [255, 255, 0]],
 						[[242, 101, 34], [255, 255, 0]],
 						[[242, 101, 34], [255, 255, 0]]
 					  ];
-	button_override_alpha = [1, 1, 1, 1];
+	button_override_alpha = [1, 1, 1, 1]
 }
 
 //UI Functions
@@ -99,7 +100,7 @@ Total_Gold = 0;
 
 
 
-
+//Local Functions
 function Move_Noise() {
 	audio_play(snd_menu_switch);
 };
@@ -183,7 +184,7 @@ function end_battle() {
 			global.hp_max = (global.lv = 20 ? 99 : global.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
 			battle_end_text += "\n You LOVE increased!";
-			sfx_play(snd_level_up);
+			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);
 		if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
@@ -195,3 +196,6 @@ function end_battle() {
 		Fader_Fade(0, 1, 40, 0, c_black);
 	}
 }
+
+allow_debug = false;
+allow_debug = 1;

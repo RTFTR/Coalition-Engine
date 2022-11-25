@@ -59,7 +59,7 @@ function sprite_getpixel() {
 	}
 
 	//Create sprite array
-	if (exists == 0){
+	if !exists {
 	    var arr = array_create(_subimg + 1);
     
 	    for(var i=0; i<_subimg+1; i++){

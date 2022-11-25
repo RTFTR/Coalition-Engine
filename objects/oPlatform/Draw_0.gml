@@ -29,7 +29,7 @@ if effect
 		effect = 2;
 	if effect == 2
 	{
-		sfx_play(snd_ding);
+		audio_play(snd_ding);
 		effect_xscale = _image_xscale;
 		effect_yscale = _image_yscale;
 		effect_alpha = 1;

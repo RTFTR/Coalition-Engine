@@ -87,15 +87,19 @@ function Item_Use(item){
 			global.player_attack_boost += 4;
 			break;
 	}
+	
 	global.item_uses_left[item]--;
 	Item_Info(item);
 	audio_play(snd_item_heal);
 	
 	if global.item_heal_override_kr
 		if global.hp + heal >= global.hp_max global.kr = 0;
+	
 	global.hp = min(global.hp + heal, global.hp_max);
 	var hp_text = "[delay, 333]\n* You recovered " + string(heal) + " HP!";
+	
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."
+	
 	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
 	
 	if instance_exists(oBattleController)
@@ -125,29 +129,37 @@ function Item_Shift(item,coord){
 	var n = Item_Count();
 	global.item[n] = coord;
 	for (var i = item; i < n; ++i) global.item[i] = global.item[i + 1];
-	array_resize(global.item, n - 1);
+		array_resize(global.item, n - 1);
 }
 
 function Item_Space(){
 	var space = 0;
 	
-	for (var i = 0, n = Item_Count(); i < n; ++i) if global.item[i] != 0 space += 1;
+	for (var i = 0, n = Item_Count(); i < n; ++i)
+		if global.item[i] != 0 space ++;
 	return space;
 }
 
 ///@desc Adds an item on the selected position
 ///@param {real} Item		The item to add (Use the Item ID from Item_Info)
 ///@param {real} Position	The item position to add (Default last)
-function Item_Add(item, pos = Item_Count() + 1){global.item[pos] = item;}
+function Item_Add(item, pos = Item_Count() + 1) {
+	global.item[pos] = item;
+}
 
 ///@desc Removes an item on the selected position
 ///@param {real} Position	The item position to remove
-function Item_Remove(item){Item_Shift(item, 0);}
-
+function Item_Remove(item) {
+	Item_Shift(item, 0);
+}
 
 ///@desc Gets the number of items
-function Item_Count() { return array_length(global.item);}
+function Item_Count() {
+	return array_length(global.item);
+}
 
 ///@desc Converts item Slot to item ID
 ///@param slot
-function Item_SlotToId(item){return global.item[item];}
+function Item_SlotToId(item) {
+	return global.item[item];
+}

@@ -91,7 +91,7 @@ if is_being_attacked {
 	} else {
 		if !instance_exists(oStrike) {
 			if attack_time == 0 {
-				sfx_play(snd_damage);
+				audio_play(snd_damage);
 				_enemy_hp = enemy_hp;
 				enemy_hp -= damage;
 				draw_damage = true;
@@ -138,7 +138,7 @@ if is_being_attacked {
 		if death_time = 1 + attack_end_time {
 			//Play sound and stop damage display
 			draw_damage = false;
-			sfx_play(snd_vaporize);
+			audio_play(snd_vaporize);
 		}
 		if death_time = 1 + attack_end_time + dust_speed + 60 {
 			//Set enemy is throughly dead when dust is gone
@@ -166,7 +166,7 @@ if is_being_spared {
 			oBattleController.Total_Gold += Gold_Give;
 			oBattleController.Total_Exp += Exp_Give;
 			is_spared = true;
-			sfx_play(snd_vaporize);
+			audio_play(snd_vaporize);
 			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
 		}
 	//Check for any un-spared enemies, if yes then resume battle

@@ -170,8 +170,7 @@ if state = 4
 					var collision = true;
 					if _type != 0 and _type != 3
 					{
-						collision = (floor(oSoul.x) != floor(oSoul.xprevious) 
-									or floor(oSoul.y) != floor(oSoul.yprevious));
+						collision = IsSoulMoving();
 						collision = (_type == 1 ? collision : !collision);
 					}
 					if collision Soul_Hurt();

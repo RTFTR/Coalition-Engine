@@ -37,8 +37,7 @@ and image_alpha >= 1
 	var collision = true;
 	if type != 0 and type != 3
 	{
-		collision = (floor(oSoul.x) != floor(oSoul.xprevious) 
-				  or floor(oSoul.y) != floor(oSoul.yprevious));
+		collision = IsSoulMoving();
 		collision = (type == 1 ? collision : !collision);
 	}
 	if collision Soul_Hurt(damage);

@@ -80,4 +80,10 @@ function Initialize()
 	
 	global.text_face = 0;
 	global.text_emotion = 0;
+	
+	//Particles
+	global.TrailS = part_system_create();
+	global.TrailP = part_type_create();
+	part_type_life(global.TrailP, 30, 30);
+	part_type_alpha2(global.TrailP, 1, 0);
 }

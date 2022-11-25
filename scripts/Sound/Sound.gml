@@ -8,19 +8,9 @@
 function audio_play(soundid,single = false,loops = false,volume = 1,pitch = 1,time = 0)
 {
 	if single audio_stop_sound(soundid);
-	var audio = audio_play_sound(soundid, 50, loops);
+	var audio = audio_play_sound(soundid, 50, loops, volume, 0, pitch);
 	audio_sound_gain(audio,volume,time);
-	audio_sound_pitch(audio,pitch);
 	return audio;
-}
-
-///@desc Plays a sound effect
-///@param {Asset.GMSound} soundid		The ID of the sound (i.e. snd_hurt)
-///@param {real} volume					The volume of the audio (Max 1, Min 0, Default 1)
-function sfx_play(soundid, volume = 1)
-{
-	var audio = audio_play_sound(soundid, 1, 0)
-	audio_sound_gain(audio, volume, 0);
 }
 
 ///@desc Sticks the audio to given time

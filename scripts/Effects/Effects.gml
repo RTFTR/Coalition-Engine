@@ -31,8 +31,8 @@ return shader_blur;
 }
 
 ///@desc Creates a motion blur of a sprite
-///@param length	The length of the blur
-///@param direction	The direction of the blur
+///@param {real} length	The length of the blur
+///@param {real} direction	The direction of the blur
 function motion_blur(length,direction){
     if (length > 0) {
 		var step,dir,px,py,a;
@@ -60,17 +60,17 @@ function motion_blur(length,direction){
 }
 
 ///@desc Creates a motion blur of a sprite
-///@param sprite	The sprite to blur
-///@param subimg	The image index of the sprite
-///@param x			The x position
-///@param y			The y position
-///@param xscale	The xscale of the sprite
-///@param yscale	The yscale of the sprite
-///@param angle		The angle fo the sprite
-///@param blend		The image blend of the sprite
-///@param alpha		The alpha of the sprite
-///@param length	The length of the blur
-///@param direction	The direction of the blur
+///@param {real} sprite				The sprite to blur
+///@param {real} subimg				The image index of the sprite
+///@param {real} x					The x position
+///@param {real} y					The y position
+///@param {real} xscale				The xscale of the sprite
+///@param {real} yscale				The yscale of the sprite
+///@param {real} angle				The angle fo the sprite
+///@param {Constant.color} blend	The image blend of the sprite
+///@param {real} alpha				The alpha of the sprite
+///@param {real} length	The			length of the blur
+///@param {real} direction			The direction of the blur
 function motion_blur_ext(sprite,subimg,xx,yy,xscale,yscale,angle,blend,alpha,length,direction){
     if (length > 0) {
 		var step,dir,px,py,a;
@@ -147,29 +147,36 @@ function Effect_SetParam()
 }
 
 ///@desc Shakes the Camera
-///@param Amount	The amount in pixels to shake
+///@param {real} Amount		The amount in pixels to shake
 function Camera_Shake(amount)
 {
 	oGlobal.camera_shake_i = ceil(amount);
-	//oGlobal.camera_shake_t++;
 }
 
 ///@desc Sets the scale of the Camera
-///@param Scale_X		The X scale of the camera
-///@param Scale_Y		The Y scale of the camera
-function Camera_Scale(sx, sy)
+///@param {real} Scale_X		The X scale of the camera
+///@param {real} Scale_Y		The Y scale of the camera
+///@param {real} duration		The anim duration of the scaling
+///@param {function} ease		The easing of the animation
+function Camera_Scale(sx, sy, duration = 0, ease = EaseLinear)
 {
-	oGlobal.camera_scale_x = sx;
-	oGlobal.camera_scale_y = sy;
+	with oGlobal {
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_scale_x", camera_scale_x, sx);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_scale_y", camera_scale_y, sy);
+	}
 }
 
 ///@desc Sets the X and Y position of the Camera
-///@param x The x position
-///@param y The y position
-function Camera_SetPos(xx, yy)
+///@param {real}				x The x position
+///@param {real}				y The y position
+///@param {real} duration		The anim duration of the movement
+///@param {function} ease		The easing of the animation
+function Camera_SetPos(x, y, duration = 0, ease = EaseLinear)
 {
-	oGlobal.camera_x = xx;
-	oGlobal.camera_y = yy;
+	with oGlobal {
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_x", camera_scale_x, x);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_y", camera_scale_y, y);
+	}
 }
 
 ///@desc Draws a outline of a cube
@@ -306,4 +313,14 @@ function draw_circle_width(x,y,radius=100, thickness=4,segments=20)
 	    draw_vertex(x+lengthdir_x(radius+thickness,j),y+lengthdir_y(radius+thickness,j));
 	}
 	draw_primitive_end();
+}
+
+//@desc Creates a trail of the object
+///@param {real} duration		The duration of the effect
+function TrailStep(duration = 30) {
+	part_system_depth(global.TrailS, depth + 1);
+	part_type_sprite(global.TrailP, sprite_index, 0, 0, 0);
+	part_type_life(global.TrailP, duration, duration);
+	part_type_orientation(global.TrailP, image_angle, image_angle, 0, 0, 0);
+	part_particles_create_color(global.TrailS, x, y, global.TrailP, image_blend, 1);
 }

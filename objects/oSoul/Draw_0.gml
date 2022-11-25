@@ -54,18 +54,6 @@ if mode = SOUL_MODE.GREEN
 			}
 	}
 
-if effect
-{
-	var _sprite = sprite_index;
-	var _xscale = effect_xscale;
-	var _yscale = effect_yscale;
-	var _alpha = effect_alpha;
-	var _angle = effect_angle;
-	var _color = image_blend;
-	var _x = effect_x;
-	var _y = effect_y;
-	draw_sprite_ext(_sprite,0,_x,_y,_xscale,_yscale,_angle,_color,_alpha);
-}
 
 show_hitbox()
 

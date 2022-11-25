@@ -32,5 +32,5 @@ function Encounter_Begin(exclaim = 1, move = 1)
 	encounter_soul_x = 	(x - camera_get_view_x(view_camera[0])) * oGlobal.camera_scale_x;
 	encounter_soul_y = 	(y - camera_get_view_y(view_camera[0]) - sprite_height / 2) * oGlobal.camera_scale_y;
 	encounter_state = 3 - move - exclaim;
-	if encounter_state == 1 sfx_play(snd_exclamation)
+	if encounter_state == 1 audio_play(snd_exclamation)
 }

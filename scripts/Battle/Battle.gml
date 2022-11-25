@@ -58,7 +58,7 @@ function Soul_Hurt(dmg = 1,kr = 1)
 {
 	if !global.inv and oSoul.visible and can_hurt
 	{
-		sfx_play(snd_hurt);
+		audio_play(snd_hurt);
 		global.inv = global.assign_inv + global.player_inv_boost;
 		global.hp -= dmg;
 		if global.hp > 1 global.kr += kr;
@@ -78,6 +78,7 @@ function Slam(direction, move = 20, hurt = false)
 	with(oSoul)
 	{
 		dir = direction;
+		image_angle = (direction + 90) % 360
 		fall_spd = move;
 		slam = 1;
 	}
