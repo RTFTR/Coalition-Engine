@@ -7,13 +7,19 @@ function Battle_SoulMode(soul_mode, effect = true)
 	{
 		dir = DIR.DOWN;
 		image_angle = 0;
-		if soul_mode = SOUL_MODE.RED		image_blend = c_red;
-		if soul_mode = SOUL_MODE.BLUE		image_blend = c_blue;
-		if soul_mode = SOUL_MODE.ORANGE		image_blend = c_orange;
-		if soul_mode = SOUL_MODE.YELLOW		{image_blend = c_yellow; draw_angle = 180;}
-		if soul_mode = SOUL_MODE.GREEN		image_blend = c_lime;
-		if soul_mode = SOUL_MODE.PURPLE		image_blend = c_purple;
-		if soul_mode = SOUL_MODE.CYAN		image_blend = c_aqua;
+		switch soul_mode
+		{
+			case SOUL_MODE.RED:			Blend = c_red;		break
+			case SOUL_MODE.BLUE:		Blend = c_blue;		break
+			case SOUL_MODE.ORANGE:		Blend = c_orange;	break
+			case SOUL_MODE.YELLOW:		{Blend = c_yellow; draw_angle = 180;} break
+			case SOUL_MODE.GREEN:		Blend = c_lime;		break
+			case SOUL_MODE.PURPLE:		Blend = c_purple;	break
+			case SOUL_MODE.CYAN:		Blend = c_aqua;		break
+		}
+		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "r", r, color_get_red(Blend));
+		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "g", g, color_get_green(Blend));
+		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "b", b, color_get_blue(Blend));
 		mode = soul_mode;
 		alarm[0] = effect
 	}
@@ -25,7 +31,6 @@ function Battle_SoulMode(soul_mode, effect = true)
 ///@param {real} duration	The duration of the Anim (Default 0, which is instant movement)
 ///@param {function} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
 ///@param {real} delay		The delay of executing the Anim (Default 0)
-///@self
 function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
 	with oSoul {

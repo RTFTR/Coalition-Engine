@@ -2,7 +2,7 @@
 ///@param {string} text The Menu text
 function Battle_SetMenuDialog(text)
 {
-	with(oBattleController)
+	with oBattleController
 	{
 		text_writer = scribble("* " + text);
 		if text_writer.get_page() != 0 text_writer.page(0);

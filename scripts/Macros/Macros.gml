@@ -53,6 +53,9 @@ function Macro_Items()
 		STEAK = 3,
 		SNOWP = 4,
 		LHERO = 5,
+		SEATEA = 6,
 	}
 }
+//Change this value when more items are added
+#macro ITEM_COUNT 6
 

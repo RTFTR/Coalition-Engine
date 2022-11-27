@@ -11,12 +11,11 @@ function sprite_data_end(){
 	// Deletes all data required for sprite_getpixel
 
 	//Delete all buffers
-	for(var i=0,n=ds_map_size(global.sprBuff); i<n; i++){
+	for(var i = 0,n = ds_map_size(global.sprBuff); i < n; i++){
 	    var arr = global.sprBuff[? i];
     
-	    for(var j=0,k=array_length_1d(arr); j<k; j++)
-	        if buffer_exists(arr[j])
-	            buffer_delete(arr[j]);
+	    for(var j = 0,k = array_length_1d(arr); j < k; j++)
+	        if buffer_exists(arr[j]) buffer_delete(arr[j]);
 	}
 
 	//Delete map
@@ -51,7 +50,7 @@ function sprite_getpixel() {
 	if (ds_map_exists(global.sprBuff, key)){
 	    var arr = global.sprBuff[? key];
     
-	    exists = 1;
+	    exists++;
     
 	    if (array_length_1d(arr) > _subimg && buffer_exists(arr[_subimg])){
 	        exists = 2;
@@ -62,13 +61,13 @@ function sprite_getpixel() {
 	if !exists {
 	    var arr = array_create(_subimg + 1);
     
-	    for(var i=0; i<_subimg+1; i++){
+	    for(var i = 0, n = _subimg+1; i < n; i++){
 	        arr[i] = -1;
 	    }
     
 	    global.sprBuff[? key] = arr;
     
-	    exists = 1;
+	    exists++;
 	}
 
 	//Create buffer
@@ -96,21 +95,19 @@ function sprite_getpixel() {
     
 	    surface_free(surf);
     
-	    exists = 2;
+	    exists++;
 	}
 
 	//Get pixel
 	if (exists == 2){
-	    var arr = global.sprBuff[? key];
-	    var buff = arr[_subimg];
+	    var arr = global.sprBuff[? key],
+			buff = arr[_subimg];
     
 	    buffer_seek(buff, buffer_seek_start, 4*((sprW*_y)+_x));
     
 	    var clr;
-	    clr[0] = buffer_read(buff, buffer_u8);
-	    clr[1] = buffer_read(buff, buffer_u8);
-	    clr[2] = buffer_read(buff, buffer_u8);
-	    clr[3] = buffer_read(buff, buffer_u8);
+		for(var i = 0; i < 4; ++i)
+			clr[i] = buffer_read(buff, buffer_u8);
     
 	    return clr;
 	}

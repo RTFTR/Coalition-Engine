@@ -26,32 +26,39 @@ function Item_Info(item){
 			heal = global.hp_max;
 			desc = "Random slice of pie which is so\n  cold you cant eat it.";
 			throw_txt = "Throw pie";
-			break;
+		break;
 		case 2:
 			name = "I. Noodles";
 			heal = 90;
 			desc = "Hard noodles, your teeth broke";
 			throw_txt = "Throw IN";
-			break;
+		break;
 		case 3:
 			name = "Steak";
 			heal = 60;
 			desc = "Steak that looks like a MTT which\n  somehow fits in your pocket";
 			throw_txt = "Throw expensive mis-steak";
-			break;
+		break;
 		case 4:
 			name = "SnowPiece";
 			heal = 45;
 			desc = "Bring this to the end of the world,\n  but the world isnt round";
 			throw_txt = "snowball fight go brr";
-			break;
+		break;
 		case 5:
 			name = "L. Hero";
 			heal = 40;
 			stats = "Your ATK raised by 4!";
 			desc = "You arent legendary nor a hero.";
 			throw_txt = "congrats you now bad guy";
-			break;
+		break;
+		case 6:
+			name = "Sea Tea";
+			heal = 10;
+			stats = "Your SPD increased!";
+			desc = "HOW U HOLD A TEA WITHOUT CUP OMG";
+			throw_txt = "you threw liquid.";
+		break;
 	}
 	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])
 }
@@ -66,26 +73,36 @@ function Item_Use(item){
 			switch global.item_uses_left[item]
 			{
 				case 2:
-				heal_text = "You ate the Butterscotch Pie.";
+					heal_text = "You ate the Butterscotch Pie.";
 				break
 				case 1:
-				heal_text = "You eat the Butterscotch Pie.";
+					heal_text = "You eat the Butterscotch Pie.";
 				break
 			}
-			break;
+		break;
 		case 2:
 			heal_text = "You ate the Instant Noodles.";
-			break;
+		break;
 		case 3:
 			heal_text = "You ate the Face Steak.";
-			break;
+		break;
 		case 4:
 			heal_text = "You ate the Snow Piece.";
-			break;
+		break;
 		case 5:
 			heal_text = "You ate the Legendary Hero.";
 			global.player_attack_boost += 4;
-			break;
+		break;
+		case 6:
+			heal_text = "You drank the sea tea.";
+			global.spd *= 2;
+			audio_play(snd_spdup)
+			with oBattleController
+				{
+					Effect.SeaTea = true;
+					Effect.SeaTeaTurns = 4;
+				}
+		break;
 	}
 	
 	global.item_uses_left[item]--;
@@ -102,6 +119,7 @@ function Item_Use(item){
 	
 	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
 	
+	//If is in battle
 	if instance_exists(oBattleController)
 	{
 		if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
@@ -116,6 +134,8 @@ function Item_Use(item){
 	
 		menu_state = -1;
 	}
+	
+	//IKf is in overworld
 	if instance_exists(oOWController)
 	{
 		if !global.item_uses_left[item] Item_Shift(menu_choice[1], 0);
@@ -133,10 +153,8 @@ function Item_Shift(item,coord){
 }
 
 function Item_Space(){
-	var space = 0;
-	
-	for (var i = 0, n = Item_Count(); i < n; ++i)
-		if global.item[i] != 0 space ++;
+	for (var i = 0, space = 0, n = Item_Count(); i < n; ++i)
+		if global.item[i] != 0 space++;
 	return space;
 }
 

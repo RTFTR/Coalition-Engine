@@ -34,7 +34,8 @@ enemy_sprite_draw_method = [
 ]
 enemy_total_height = 0;
 enemy_max_width = 0
-for (var i = 0, n = array_length(enemy_sprites); i < n; ++i) {
+for (var i = 0, n = array_length(enemy_sprites); i < n; ++i)
+{
 	enemy_total_height += sprite_get_height(enemy_sprites[i]) * enemy_sprite_scale[i, 1];
 	enemy_max_width = max(sprite_get_width(enemy_sprites[i]) * enemy_sprite_scale[i, 0],
 							enemy_max_width);
@@ -73,12 +74,13 @@ SlamSpriteTargetIndex = [
 SlamSpriteNumber = 1;
 
 //Dust (AUTOMATICALLY DISABLED)
-if !variable_instance_exists(self, "ContainsDust")
+if !variable_instance_exists(id, "ContainsDust")
 	ContainsDust = 0;
 if ContainsDust {
 	dust_height = 0;
 	dust_amount = enemy_total_height * enemy_max_width;
-	for (var i = 0; i < dust_amount; i += 6) {
+	for (var i = 0; i < dust_amount; i += 6)
+	{
 		dust_pos[i] = [random_range(-enemy_max_width, enemy_max_width) / 2 + x,
 					   round(y - enemy_total_height + (i / enemy_max_width))];
 		dust_direction[i] = random_range(55, 125);
@@ -99,13 +101,15 @@ dialog_size[3] = 80;
 dialog_dir = DIR.LEFT;
 dialog_text = [""];
 
-function Battle_EnemyDialog(turn, text) {
+function Battle_EnemyDialog(turn, text)
+{
 	if !is_array(text) dialog_text[turn] = text;
 	else dialog_text = text;
 	dialog_init(dialog_text[oBattleController.battle_turn]);
 }
 
-function dialog_init(text = "") {
+function dialog_init(text = "")
+{
 	dialog = "[c_black][/f][fnt_sans]";
 	dialog += text;
 	text_writer = scribble(dialog)
@@ -142,7 +146,8 @@ spare_end_begin_turn = false;
 is_spared = false;
 
 //Turn
-function end_turn() {
+function end_turn()
+{
 	var turn = oBattleController.battle_turn - 1;
 	var end_turn_menu_text = [
 	"turn 2 text",
@@ -151,20 +156,32 @@ function end_turn() {
 	if array_length(end_turn_menu_text) >= (turn + 1) and turn > -1
 	Battle_SetMenuDialog(end_turn_menu_text[turn]);
 	else {
-		with oBattleController {
+		with oBattleController
+		{
 			menu_text_typist.reset();
 			text_writer.page(0);
 			Battle_SetMenuDialog(default_menu_text);
 		}
 	}
-	oBattleController.battle_state = 0;
-	oBattleController.menu_state = 0;
+	with oBattleController
+	{
+		battle_state = 0;
+		menu_state = 0;
+		//Effect removal
+		if Effect.SeaTea
+		{
+			Effect.SeaTeaTurns--;
+			if !Effect.SeaTeaTurns
+				global.spd /= 2;
+		}
+	}
 	Set_BoardSize();
 	oBoard.image_angle %= 360;
 	Set_BoardAngle();
 	Set_BoardPos();
 	with(oBulletBone)
-		if retract_on_end {
+		if retract_on_end
+		{
 			destroy_on_turn_end = false;
 			can_hurt = 0;
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 45, "length", length, 0);
@@ -198,10 +215,12 @@ AttacksLoaded = false;
 start = 1;
 time = -1;
 
-function Battle_SetTurnTime() {
+function Battle_SetTurnTime()
+{
 	turn_time = argument0;
 }
 
-function Battle_SetTurnBoardSize() {
+function Battle_SetTurnBoardSize()
+{
 	board_size = argument0;
 }

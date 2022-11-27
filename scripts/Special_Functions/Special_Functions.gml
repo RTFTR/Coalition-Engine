@@ -1,7 +1,7 @@
-///@desc Returns a Positive Quotient of the 2 values
-///@param {real} a The number to be divided
-///@param {real} b The number to divide
-///@return {real}
+/// @description			Returns a Positive Quotient of the 2 values
+/// @param {real} a The number to be divided
+/// @param {real} b The number to divide
+/// @return {real}
 function Posmod(a,b)
 {
 	var value = a % b;
@@ -9,7 +9,6 @@ function Posmod(a,b)
 		value += b;
 	return value;
 }
-
 ///@desc idk but it's for board so don't touch i guess
 function point_xy(p_x, p_y)
 {
@@ -54,7 +53,7 @@ function is_val()
 	return 0;
 }
 
-//Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
+///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
 function check_outside(){
 	var cam = view_camera[0];
 	var view_x = camera_get_view_x(cam);

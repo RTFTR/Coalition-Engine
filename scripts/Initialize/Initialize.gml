@@ -12,7 +12,8 @@ function Initialize()
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
-	global.item_uses_left = [1,1,1,1,1,1];
+	for(var i = 0; i < ITEM_COUNT; ++i)
+		global.item_uses_left[i] = 1;
 	global.item_uses_left[ITEM.PIE] = 2;
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
 	global.BossFight = false;
@@ -27,13 +28,14 @@ function Initialize()
 	global.SaveFile[? "EXP"] = 0;
 	global.SaveFile[? "Wep"] = "Stick";
 	global.SaveFile[? "Arm"] = "Bandage";
-	var Item_Preset = [1,2,3,4,4,4,5,5];
+	var Item_Preset = [1,2,3,4,4,4,5,6];
+	
 	for (var i = 0; i < 8; i++)
-	global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
+		global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
 	
 	var Cell_Preset = [1,2,0,0,0,0,0,0];
 	for (var i = 0; i < 8; i++)
-	global.SaveFile[? ("Cell "+string(i))] = Cell_Preset[i];
+		global.SaveFile[? ("Cell "+string(i))] = Cell_Preset[i];
 	
 	var Box_Preset =
 	[

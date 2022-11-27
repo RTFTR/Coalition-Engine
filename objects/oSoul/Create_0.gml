@@ -1,7 +1,10 @@
 if instance_exists(oBoard)
 	depth = oBoard.depth - oBattleController.depth - 1;
 image_speed = 0;
-image_blend = c_red;
+Blend = c_red;
+r = 255;
+g = 0;
+b = 0;
 draw_angle = 0;
 
 dir = DIR.DOWN;

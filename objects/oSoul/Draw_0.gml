@@ -1,6 +1,7 @@
 var STATE = oBattleController.battle_state;
 var MENU = oBattleController.menu_state;
 image_angle += draw_angle;
+image_blend = make_color_rgb(r, g, b);
 if (STATE = 0 or STATE = 2) and (MENU != 5)
 	draw_self();
 image_angle -= draw_angle;

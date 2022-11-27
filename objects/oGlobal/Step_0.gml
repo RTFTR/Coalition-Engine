@@ -1,6 +1,6 @@
 ///@desc Camera movement
 {
-	var cam = view_camera[0],
+	var cam = Main_Camera,
 	
 		cam_scale_x = camera_scale_x,
 		cam_scale_y = camera_scale_y,
@@ -22,7 +22,6 @@
 	if (cam_target != noone and instance_exists(cam_target)) {
 		camToX = cam_target.x-cam_width *0.5;
 		camToY = cam_target.y-cam_height*0.5;
-		camera_set_view_pos   (cam, camToX, camToY);
 	}
 	
 	//Shaking
@@ -31,9 +30,9 @@
 	camera_shake_i = max(0, camera_shake_i);
 	cam_shake_x = random_range(-shake, shake);
 	cam_shake_y = random_range(-shake, shake);
-	camera_set_view_pos(cam, camera_x + cam_shake_x, camera_y + cam_shake_y);
+	camera_set_view_pos(cam, camToX + cam_shake_x, camToY + cam_shake_y);
 	
 	// You know
-	camera_set_view_size (cam,  cam_width, cam_height);
-	camera_set_view_angle(cam, cam_angle			 );
+	camera_set_view_size (cam,	cam_width, cam_height);
+	camera_set_view_angle(cam,	cam_angle			 );
 }

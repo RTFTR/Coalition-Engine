@@ -16,4 +16,5 @@ function Bullet_Arrow(Time, Spd, Dir, Mode = 0)
 			dir -= 180;
 		len = Time * spd;
 	}
-	return arrow;}
+	return arrow;
+}

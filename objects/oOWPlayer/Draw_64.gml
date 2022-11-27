@@ -83,7 +83,7 @@ if draw_menu
 			{
 				var allow = true;
 				if menu_choice[0] == 0
-					if !Item_Count() then allow = false
+					if !Item_Count() allow = false
 				if allow menu_state = menu_choice[0] + 1;
 				if menu_state != 2 Confirm_Noise();
 				input_confirm = 0;
@@ -122,11 +122,11 @@ if draw_menu
 			if !Is_Dialog()
 			{
 				menu_state = 1; menu_choice[5] = 0; input_confirm = 0;
-				if !Item_Count() then { menu_state = 0; exit}
+				if !Item_Count() { menu_state = 0; exit}
 				menu_choice[1] = Posmod(menu_choice[1], Item_Count());
 			}
 		if menu_state == 6	//Cell
-			if !Is_Dialog() then {menu_state = 3; input_confirm = 0;}
+			if !Is_Dialog() {menu_state = 3; input_confirm = 0;}
 		if menu_state == 7 or menu_state == 8
 		{
 			if !Is_Boxing() menu_state = 3;
@@ -192,7 +192,7 @@ if draw_menu
 					OW_Dialog(item_use_text[menu_choice[4]], "fnt_dt_mono", snd_txtTyper, menu_at_top);
 					input_confirm = 0;
 				}
-				if input_cancel then {menu_state = 1; menu_choice[4] = 0; input_cancel = 0;}
+				if input_cancel {menu_state = 1; menu_choice[4] = 0; input_cancel = 0;}
 			}
 		}
 		if menu_state == 2	//Stats

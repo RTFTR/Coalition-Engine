@@ -1,7 +1,6 @@
 ///@desc Gets the amount of phone numbers you have
 function Cell_Count() {
-	var cnt = 0;
-	for (var i = 0; i < 8; i++)
+	for (var i = 0, cnt = 0; i < 8; i++)
 		if global.cell[i] != 0 cnt++;
 	return cnt;
 }
@@ -30,12 +29,10 @@ function Is_CellABox(slot) {
 ///@desc Check the BOx ID of the Cell if it's a D.Box
 ///@param {real} slot The slot to get the data of
 function Cell_GetBoxID(slot) {
-	var Name = Cell_GetText(slot);
-	var Name_To_ID = ["Dimensional Box A"];
-	var ID = [1, 2];
-	var target = 0;
-	for (var i = 0, n = array_length(Name_To_ID); i < n; ++i)
-		if Name == Name_To_ID[i] {
+	var NameToID = ["Dimensional Box A"],
+		ID = [1, 2];
+	for (var i = 0, Name = Cell_GetText(slot), target = 0, n = array_length(NameToID); i < n; ++i)
+		if Name == NameToID[i] {
 		target = 1;
 		continue
 	}

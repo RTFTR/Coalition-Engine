@@ -98,35 +98,46 @@ allow_run = 0;
 Total_Exp = 0;
 Total_Gold = 0;
 
-
+//Effects in battle
+Effect = 
+{
+	SeaTea : false,
+	SeaTeaTurns : 4,
+};
 
 //Local Functions
-function Move_Noise() {
+function Move_Noise()
+{
 	audio_play(snd_menu_switch);
 };
 
-function Confirm_Noise() {
+function Confirm_Noise()
+{
 	audio_play(snd_menu_confirm);
 };
 
-function scr_enemy_choice() {
+function scr_enemy_choice()
+{
 	for (var i = 0, n = 0; i < 2; ++i)
 		if instance_exists(enemy[i]) n++;
 	return n;
 }
 
-function scr_enemy_num() {
+function scr_enemy_num()
+{
 	for (var i = 0, n = 1; i < 2; i++)
 		if enemy[i] != noone
 			n++;
 	return n;
 }
 
-function enemy_under_attack(enemy_number) {
+function enemy_under_attack(enemy_number)
+{
 	enemy[enemy_number].is_being_attacked = true;
 }
 
-function Calculate_MenuDamage(distance_to_center, enemy_under_attack) {
+function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
+{
 	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost;
 	var target = enemy[enemy_under_attack];
 	var enemy_def = target.enemy_defense;
@@ -161,7 +172,7 @@ function gameover() {
 	global.soul_y = oSoul.y;
 	audio_stop_all();
 	room_goto(room_gameover);
-	// Insert file saving and events
+	// Insert file saving and events if needed
 }
 
 function begin_spare(activate_the_turn) {
@@ -197,5 +208,6 @@ function end_battle() {
 	}
 }
 
+//Debug
 allow_debug = false;
 allow_debug = 1;

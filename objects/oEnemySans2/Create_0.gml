@@ -1,13 +1,1 @@
 event_inherited();
-enemy_name = "Sans";
-enemy_act = ["Check","SAns 1","sans2","sans3","sans4","sans5"];
-enemy_act_text = ["funny skeleton man[delay,1000] 1 ATK 1 DEF","sans 1 text","sans2twxt","sans3text","sans4text","sans5tex"];
-Enemy_SetHPStats(680, 680, 0);
-damage = irandom_range(300,500);
-is_dodge = true;
-begin_at_turn = true;
-wiggle = false;
-Set_BoardSize(70, 70, 70, 70, 0);
-oBoard.image_alpha = 0;
-oSoul.image_alpha = 0;
-oSoul.moveable = false;

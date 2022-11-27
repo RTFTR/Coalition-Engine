@@ -1,5 +1,12 @@
 Update Logs
 
+v4.0.3 (Eden)
+Optimised more code
+Fixed some JSDoc comments
+Added blend changing for soul
+Fixed camera bug where it can't shake if target is set
+Added Sea Tea (Basically a template for items that gives you effects)
+
 v4.0.2 (Eden)
 Fixed bugs
 Changed some with statements to structs

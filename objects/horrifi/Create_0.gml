@@ -197,7 +197,7 @@ function horrifi_chromaticab_get_strength() {
 function horrifi_chromaticab_set(e, s) {
 	///@func horrifi_chromaticab_set(enable, strength)
 	horrifi_chromaticab_enable(e);
-	horrifi_chromaticab_strength(s);
+	horrifi_chromaticab_strength(snd_spdup);
 }
 
 // Noise functions
@@ -222,7 +222,7 @@ function horrifi_noise_get_strength() {
 function horrifi_noise_set(e, s) {
 	///@func horrifi_noise_set(enable, strength)
 	horrifi_noise_enable(e);
-	horrifi_noise_strength(s);
+	horrifi_noise_strength(snd_spdup);
 }
 
 // Vignette functions
@@ -256,7 +256,7 @@ function horrifi_vignette_get_intensity() {
 function horrifi_vignette_set(e, s, i) {
 	///@func horrifi_vignette_set(enable, strength, intensity)
 	horrifi_vignette_enable(e);
-	horrifi_vignette_strength(s);
+	horrifi_vignette_strength(snd_spdup);
 	horrifi_vignette_intensity(i);
 }
 
@@ -282,7 +282,7 @@ function horrifi_vhs_get_strength() {
 function horrifi_vhs_set(e, s) {
 	///@func horrifi_vhs_set(enable, strength)
 	horrifi_vhs_enable(e);
-	horrifi_vhs_strength(s);
+	horrifi_vhs_strength(snd_spdup);
 }
 
 // Scanlines functions
@@ -307,7 +307,7 @@ function horrifi_scanlines_get_strength() {
 function horrifi_scanlines_set(e, s) {
 	///@func horrifi_scanlines_set(enable, strength)
 	horrifi_scanlines_enable(e);
-	horrifi_scanlines_strength(s);
+	horrifi_scanlines_strength(snd_spdup);
 }
 
 // CRT functions

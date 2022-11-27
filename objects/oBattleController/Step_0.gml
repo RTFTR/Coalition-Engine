@@ -15,6 +15,7 @@ for (var i = 0; i < 2; i++) {
 }
 var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
 
+
 if battle_state = 0 // Menu
 {
 	if menu_state = 0 // Button selection
@@ -167,12 +168,14 @@ if battle_state = 0 // Menu
 	menu_state == 6
 	target_soul_angle = 90;
 	oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
-} else if battle_state == 1 // Dialog
+}
+else if battle_state == 1 // Dialog
 {
 	menu_text_typist.reset();
 	if menu_text_typist.get_paused() = false
 		menu_text_typist.pause();
-} else if battle_state == 2 // In-Turn
+}
+else if battle_state == 2 // In-Turn
 {
 	menu_text_typist.reset();
 	if menu_text_typist.get_paused() = false
