@@ -7,18 +7,24 @@ is_dodge = 1;
 
 Battle_SetTurnTime(
 [
-600,
-300,
-600,
-300,
-700,
-900,
-infinity,
+	600,
+	300,
+	600,
+	300,
+	700,
+	900,
+	600,
+	600,
+	600,
+	600,
 ]
 );
 
 Battle_SetTurnBoardSize(
 [
+	[70, 70, 70, 70],
+	[70, 70, 70, 70],
+	[70, 70, 70, 70],
 	[70, 70, 70, 70],
 	[70, 70, 70, 70],
 	[70, 70, 70, 70],
@@ -37,4 +43,8 @@ Battle_EnemyDialog(0, [
 	"turn 4 text",
 	"turn 5 text",
 	"turn 6 text",
+	"turn 7 text",
+	"turn 8 text",
+	"turn 9 text",
+	"turn 10 text",
 ]);

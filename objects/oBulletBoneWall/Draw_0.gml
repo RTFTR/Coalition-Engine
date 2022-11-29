@@ -100,16 +100,15 @@ if active
 				draw_sprite_ext(sprite, index, i, ((pos[0] + pos[1]) / 2), (_height + 12) / 14, 1, _angle, color, _alpha);
 				draw_sprite_ext(sprite, index + 1, i, ((pos[0] + pos[1]) / 2), (_height + 12) / 14, 1, _angle, color_outline, _alpha);
 			}
-			
 			if collision_rectangle(board_l, pos[0] + 2, board_r, pos[1] - 2, oSoul, false, true)
 			{
 				var collision = true;
-				if _type != 0 and _type != 3
+				if type != 0 and type != 3
 				{
 					collision = IsSoulMoving();
-					collision = (_type == 1 ? collision : !collision);
+					collision = (type == 1 ? collision : !collision);
 				}
-				if collision Soul_Hurt();
+				if collision Soul_Hurt(damage);
 			}
 			
 			// Hitbox
@@ -141,12 +140,12 @@ if active
 			if collision_rectangle(pos[0] - 10, board_u - 10, pos[1] + 10, board_d + 10, oSoul, false, true)
 			{
 				var collision = true;
-				if _type != 0 and _type != 3
+				if type != 0 and type != 3
 				{
 					collision = IsSoulMoving();
-					collision = (_type == 1 ? collision : !collision);
+					collision = (type == 1 ? collision : !collision);
 				}
-				if collision Soul_Hurt();
+				if collision Soul_Hurt(damage);
 			}
 			
 			// Hitbox

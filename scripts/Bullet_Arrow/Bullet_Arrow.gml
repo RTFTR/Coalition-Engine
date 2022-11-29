@@ -2,7 +2,7 @@
 ///@param {real} time	The time (in frames) taken for the arrow to reach the soul
 ///@param {real} speed	The speed of the arrow
 ///@param {real} direction	The direction of the Arrow
-///@param {real} mode	The mode of the arrow (0 - Normal, 1 - Flip sides, 2 - Diagonal, 3 - Diagonal Flip)
+///@param {real} mode	The mode of the arrow (Macros provided by ARROW_MODE)
 function Bullet_Arrow(Time, Spd, Dir, Mode = 0)
 {
 	Dir *= 90;
@@ -17,4 +17,13 @@ function Bullet_Arrow(Time, Spd, Dir, Mode = 0)
 		len = Time * spd;
 	}
 	return arrow;
+}
+
+
+enum ARROW_TYPE
+{
+	NORMAL = 0,
+	FLIP = 1,
+	DIAGONAL = 2,
+	DIAGONAL_FLIP = 3,
 }

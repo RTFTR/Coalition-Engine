@@ -2,7 +2,7 @@
 //
 // CHECK VARIABLE DEFITIONS WINDOW
 //
-
+image_speed = 0;
 // Shader Uniforms
 uniUvs = shader_get_uniform(shdDust, "uvs");
 uniVal = shader_get_uniform(shdDust, "val");
@@ -15,7 +15,7 @@ uniTex = shader_get_sampler_index(shdDust, "tex");
 // Don't feel so good
 animVal = 0.2; // Animation progress, from 0-1
 animSpeed = sprite_width / 6000; // Animation speed
-animSpread = 0.12; // How much the effect is spread out / feathered
+animSpread = 0.01; // How much the effect is spread out / feathered
 
 animStart = false; // Whether the animation has been started
 animStart = true;

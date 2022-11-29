@@ -24,3 +24,5 @@ point_x = 0;
 point_y = 0;
 
 contains_soul = false;
+
+rotate = 0;

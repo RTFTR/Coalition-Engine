@@ -282,7 +282,7 @@ if draw_menu
 			draw_set_color(exist_color[i, bool(exists[i])]);
 			draw_text(ui_box_x + 45, ui_box_y + 40 + i * 30, menu_text[i]);
 		}
-	draw_sprite_ext(spr_soul, 0, soul_target[0], soul_target[1], 1, 1, 0, c_red, _alpha[menu_state]);
+	draw_sprite_ext(sprSoul, 0, soul_target[0], soul_target[1], 1, 1, 0, c_red, _alpha[menu_state]);
 	draw_set_valign(fa_top);
 }
 else
@@ -296,4 +296,4 @@ else
 if encounter_draw[0] draw_rectangle_color(0, 0, 640, 480, c_black, c_black, c_black, c_black, 0);
 if encounter_draw[1] draw_sprite_ext(sprite_index, image_index, relative_pos[0], relative_pos[1],
 					oGlobal.camera_scale_x, oGlobal.camera_scale_y, image_angle, c_white, 1);
-if encounter_draw[2] draw_sprite_ext(spr_soul, 0 , encounter_soul_x, encounter_soul_y, 1, 1, 0, c_red, 1);
+if encounter_draw[2] draw_sprite_ext(sprSoul, 0 , encounter_soul_x, encounter_soul_y, 1, 1, 0, c_red, 1);

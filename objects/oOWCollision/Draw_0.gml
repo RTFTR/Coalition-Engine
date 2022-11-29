@@ -16,7 +16,8 @@ if sprite_index == spr_ow_save
 	shader_set_uniform_f(bloomblurSize, 1/display_get_width());
 	draw_self();
 	shader_reset();
-	if texted and !oOWController.is_dialog then texted = false;
+	if texted and !oOWController.is_dialog
+		texted = false;
 }
 
 show_hitbox(c_purple);

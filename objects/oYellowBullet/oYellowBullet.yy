@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oYellowBullet",
   "spriteId": {
-    "name": "spr_yellow_bullet",
-    "path": "sprites/spr_yellow_bullet/spr_yellow_bullet.yy",
+    "name": "sprYellowBullet",
+    "path": "sprites/sprYellowBullet/sprYellowBullet.yy",
   },
   "solid": false,
   "visible": true,

@@ -67,7 +67,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Global",
-    "path": "folders/Sprites/Global.yy",
+    "name": "Effect_Usage",
+    "path": "folders/Sprites/Effect_Usage.yy",
   },
 }

@@ -26,7 +26,7 @@ if is_dialog
 		option_text.draw(dialog_box_x + 20, dialog_box_y + 130, option_typist)
 		if input_check_pressed("left") or input_check_pressed("right")
 			option = !option;
-		draw_sprite_ext(spr_soul, 0, dialog_box_x + 20 + Sigma(option_length, 0, option), 320, 1, 1, 0, c_red, 1);
+		draw_sprite_ext(sprSoul, 0, dialog_box_x + 20 + Sigma(option_length, 0, option), 320, 1, 1, 0, c_red, 1);
 	}
 		
 	//Dialog skipping

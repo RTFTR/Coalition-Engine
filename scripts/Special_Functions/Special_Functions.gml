@@ -70,3 +70,8 @@ function check_outside(){
 		)
 }
 
+function Screenshot(filename = "") {
+	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
+		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
+	screen_save("Screenshots/" + string(filename) + date + ".png")
+}

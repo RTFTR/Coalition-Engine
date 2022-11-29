@@ -104,7 +104,8 @@ TurnCreate(5, 1, 120, function() {
 	}
 	oBulletBone.axis = 1;
 	Set_BoardAngle(-540, 720, EaseLinear);
-	oSoul.image_blend = c_blue;
+	oSoul.Blend = c_blue;
+	oSoul.ChangeColor();
 	oSoul.alarm[0] = 1
 	TweenFire(oSoul, EaseLinear, TWEEN_MODE_ONCE, false, 0, 720, "draw_angle", 270, -270);
 });
@@ -113,14 +114,31 @@ TurnCreate(5, 1, 120, function() {
 TurnCreate(6, 0, 30, function() {
 	Battle_SoulMode(SOUL_MODE.YELLOW)
 	with instance_create_depth(360,320,0,oBoardCover) {
-		up = irandom_range(10,20)
-		down = irandom_range(10,20)
-		left = irandom_range(10,20)
-		right = irandom_range(10,20)
+		up = irandom_range(10,20);
+		down = irandom_range(10,20);
+		left = irandom_range(10,20);
+		right = irandom_range(10,20);
 	}
 	instance_create_depth(250,320,0,oBoardCover,
 	{
 		image_angle : 45
 	});
+});
+TurnCreate(6, 1, 570, function() {
+	with oBoardCover
+	{
+		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "up", up, 0);
+		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "down", down, 0);
+		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "left", left, 0);
+		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "right", right, 0);
+	}
+});
+TurnCreate(6, 2, 599, function() {
+	instance_destroy(oBoardCover);
+});
+#endregion
+#region Turn 7 Cyan Soul
+TurnCreate(7, 0, 1, function() {
+	Battle_SoulMode(SOUL_MODE.PURPLE);
 });
 #endregion

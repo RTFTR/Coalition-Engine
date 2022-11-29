@@ -1,7 +1,7 @@
 len_step();
 axis_step();
 var _color = sticky ? c_lime : c_fuchsia;	
-var	_sprite = spr_platform;
+var	_sprite = sprPlatform;
 var _angle = image_angle;
 var _alpha = image_alpha;
 var _length = length / 4;

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oSoul",
   "spriteId": {
-    "name": "spr_soul",
-    "path": "sprites/spr_soul/spr_soul.yy",
+    "name": "sprSoul",
+    "path": "sprites/sprSoul/sprSoul.yy",
   },
   "solid": false,
   "visible": true,

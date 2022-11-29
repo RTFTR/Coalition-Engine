@@ -64,7 +64,7 @@ global.easy = setting_var[1];
 global.easy = 1;
 
 global.Volume = setting_var[0];
-
+Save_Settings();
 
 audio_master_gain(setting_var[0] / 100);
 

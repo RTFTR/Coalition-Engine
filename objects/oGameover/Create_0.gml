@@ -20,7 +20,7 @@ ps = part_system_create();
 part_system_depth(ps, 0);
 
 p = part_type_create();
-part_type_sprite(p, spr_soul_slice, true, true, true);
+part_type_sprite(p, sprSoulSlice, true, true, true);
 part_type_direction(p, 0, 360, 0, 0);
 part_type_speed(p, 1, 3, 0, 0);
 part_type_gravity(p, 0.12, 270);

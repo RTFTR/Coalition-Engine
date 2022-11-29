@@ -24,3 +24,5 @@ thickness_frame = 5;
 point_x = 0;
 point_y = 0;
 
+rotate = 0;
+

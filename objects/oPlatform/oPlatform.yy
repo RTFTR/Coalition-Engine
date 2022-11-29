@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oPlatform",
   "spriteId": {
-    "name": "spr_platform",
-    "path": "sprites/spr_platform/spr_platform.yy",
+    "name": "sprPlatform",
+    "path": "sprites/sprPlatform/sprPlatform.yy",
   },
   "solid": false,
   "visible": true,

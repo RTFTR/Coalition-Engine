@@ -20,7 +20,7 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 		
 		dialog_is_down = top_bottom;
 		is_dialog = true;
-		scribble_typists_add_event(string_char_at(text, string_length(text)), Option)
+		//scribble_typists_add_event(string_char_at(text, string_length(text)), Option)
 	}
 }
 

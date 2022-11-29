@@ -11,10 +11,11 @@ time = time;
 ///@param {real} Interval		The Interval bewteen the repeats (Acts as the "xx" in      ^) 
 function TurnCreate(turn, attack, delay, content, repeat_times = 1, interval = 1)
 {
-	turntsDelay[turn, attack] = delay;
-	turntsRep[turn, attack] = round(repeat_times);
-	turntsRepC[turn, attack] = 0;
-	turntsInterval[turn, attack] = round(interval);
-	turnts[turn, attack] =
+	TurnData.TSDelay[turn, attack] = delay;
+	TurnData.TSRep[turn, attack] = round(repeat_times);
+	TurnData.TSRepC[turn, attack] = 0;
+	TurnData.TSInterval[turn, attack] = round(interval);
+	TurnData.TimeSources[turn, attack] =
 	time_source_create(time_source_game, 1, time_source_units_frames, content, []);
 }
+TurnData.AttacksLoaded = true;

@@ -6,6 +6,7 @@ function Enemy_Function_Load(encounter_number) {
 	enemy_hp = [];
 	enemy_hp_max = [];
 	enemy_draw_hp_bar = [];
+	enemy_name_extra = ["", "", ""];
 	
 	var enemy_presets=
 	[
@@ -31,7 +32,7 @@ function Enemy_Function_Load(encounter_number) {
 				enemy_act[i, ii] =		enemies[i].enemy_act[ii];
 				enemy_act_text[i, ii] = enemies[i].enemy_act_text[ii];
 			}
-			if enemies[i].is_boss = true global.BossFight = true;
+			global.BossFight = enemies[i].is_boss;
 			if enemies[i].begin_at_turn {
 				menu_state = -1;
 				battle_turn++;
@@ -45,6 +46,7 @@ function Enemy_Function_Load(encounter_number) {
 			enemy_act[i] = [""];
 		}
 	}
+	Enemy_NameUpdate();
 }
 
 ///@desc Sets the name of the enemy
@@ -52,6 +54,30 @@ function Enemy_Function_Load(encounter_number) {
 function Enemy_SetName(name)
 {
 	enemy_name = name;
+}
+
+//@desc UNUSED
+function Enemy_NameUpdate() {
+	////Check which slot doesn't have enemy
+	//with oBattleController {
+	//	for(var i = 0; i < 3; ++i)
+	//		enemy_name_extra[i] = "";
+	//	var temp_enemy = [],
+	//		Txt = [" A", " B", " C"]
+	//	for (var i = 0; i < 3; ++i) { //Selects the enemy obj to check
+	//		if instance_number(enemy[i]) > 1
+	//		{
+	//			//Stores the enemy
+	//			for(var ii = 0; ii < 3; ++ii) temp_enemy[i] = instance_find(enemy[i], ii);
+	//			//Adds the text
+	//			for(var n = 0, k = array_length(temp_enemy), j = 0; n < k; ++n) {
+	//					if enemy[n] = noone j++;
+	//						enemy_name_extra[j] = Txt[n];
+	//					j++;
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 ///@desc Sets the ACT texts of the enemy

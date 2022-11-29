@@ -14,20 +14,21 @@ if state == 2 {
 		if array_height_2d(board_size) >= _turn {
 			Set_BoardSize(board_size[_turn, 0], board_size[_turn, 1], board_size[_turn, 2],
 				board_size[_turn, 3]);
-			if !AttacksLoaded event_user(1);
+			if !TurnData.AttacksLoaded event_user(1);
 		}
-	if array_length(turnts) > _turn {
-		for (var i = 0, n = array_length(turnts[_turn]); i < n; ++i) {
-			if turntsInterval[_turn, i] == 1 {
-				if time == turntsDelay[_turn, i]
-					time_source_start(turnts[_turn, i]);
+	if array_length(TurnData.TimeSources) > _turn {
+		for (var i = 0, n = array_length(TurnData.TimeSources[_turn]); i < n; ++i) {
+			if TurnData.TSInterval[_turn, i] == 1 {
+				if time == TurnData.TSDelay[_turn, i]
+					time_source_start(TurnData.TimeSources[_turn, i]);
 			}
 			else {
-				if turntsRep[_turn, i] {
-					if time == turntsDelay[_turn, i] + turntsInterval[_turn, i] * turntsRepC[_turn, i] {
-						time_source_start(turnts[_turn, i]);
-						turntsRepC[_turn, i]++;
-						turntsRep[_turn, i]--;
+				if TurnData.TSRep[_turn, i] {
+					if time == TurnData.TSDelay[_turn, i] + 
+								TurnData.TSInterval[_turn, i] * TurnData.TSRepC[_turn, i] {
+						time_source_start(TurnData.TimeSources[_turn, i]);
+						TurnData.TSRepC[_turn, i]++;
+						TurnData.TSRep[_turn, i]--;
 					}
 				}
 			}

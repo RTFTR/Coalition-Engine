@@ -11,8 +11,11 @@ function Initialize()
 	global.last_dmg_time = 0;
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
+	global.EnableGrazing = true;
+	global.EnableGrazing = false;
+	global.TP = 0;
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
-	for(var i = 0; i < ITEM_COUNT; ++i)
+	for(var i = 0; i <= ITEM_COUNT; ++i)
 		global.item_uses_left[i] = 1;
 	global.item_uses_left[ITEM.PIE] = 2;
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
@@ -20,34 +23,31 @@ function Initialize()
 	global.Kills = 0;
 	
 	global.SaveFile = ds_map_create();
-	global.SaveFile[? "Name"] = "Chara";
-	global.SaveFile[? "LV"] = 20;
-	global.SaveFile[? "HP"] = 99;
-	global.SaveFile[? "Max HP"] = 99;
-	global.SaveFile[? "Gold"] = 0;
-	global.SaveFile[? "EXP"] = 0;
-	global.SaveFile[? "Wep"] = "Stick";
-	global.SaveFile[? "Arm"] = "Bandage";
+	global.SaveFile[? "Name"] =			"Chara";
+	global.SaveFile[? "LV"] =			20;
+	global.SaveFile[? "HP"] =			99;
+	global.SaveFile[? "Max HP"] =		99;
+	global.SaveFile[? "Gold"] =			0;
+	global.SaveFile[? "EXP"] =			0;
+	global.SaveFile[? "Wep"] =			"Stick";
+	global.SaveFile[? "Arm"] =			"Bandage";
+	global.SaveFile[? "Kills"] =		0;
 	var Item_Preset = [1,2,3,4,4,4,5,6];
-	
-	for (var i = 0; i < 8; i++)
-		global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
-	
 	var Cell_Preset = [1,2,0,0,0,0,0,0];
-	for (var i = 0; i < 8; i++)
-		global.SaveFile[? ("Cell "+string(i))] = Cell_Preset[i];
-	
-	var Box_Preset =
+	var Box_Preset =  //Insert the items
 	[
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// OW Box
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// Dimensional Box A
 		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]		// Dimensional Box B
 	];
-	for (var i = 0; i < 3; i++)
-		for (var ii = 0; ii < 8; ii++)
-			global.SaveFile[? "Box "+string(i) + "_" + string(ii)];
+	for (var i = 0; i < 8; i++) {
+		if i < 3
+			for (var ii = 0; ii < 8; ii++)
+				global.SaveFile[? "Box "+string(i) + "_" + string(ii)];
+		global.SaveFile[? ("Cell "+string(i))] = Cell_Preset[i];
+		global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
+	}
 	
-	global.SaveFile[? "Kills"] = 0;
 	
 	if !file_exists("Data.dat") Save_Datas(); else Load_Datas();
 	
@@ -62,21 +62,21 @@ function Initialize()
 	global.Kills = global.SaveFile[? "Kills"];
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
-	for (var i = 0; i < 8; i++)
-	{
-		global.item[i] = global.SaveFile[? ("Item "+string(i))];
-		global.cell[i] = global.SaveFile[? ("Cell "+string(i))];
-	}
-	for (var i = 0; i < 10; i++)
+	
+	for (var i = 0; i < 10; i++) {
 		for (var ii = 0; ii < 3; ii++)
 			global.Box[ii, i] = global.SaveFile[? "Box "+string(i) + "_" + string(ii)];
+		if i < 8
+		{
+			global.item[i] = global.SaveFile[? ("Item "+string(i))];
+			global.cell[i] = global.SaveFile[? ("Cell "+string(i))];
+		}
+	}
 	
 	global.Settings = ds_map_create();
-	global.Settings[? "Volume"] = 100;
+	global.Volume = 100;
 	
 	if !file_exists("Settings.dat") Save_Settings(); else Load_Settings();
-	
-	global.Volume = global.Settings[? "Volume"];
 	
 	global.battle_encounter = 0;
 	

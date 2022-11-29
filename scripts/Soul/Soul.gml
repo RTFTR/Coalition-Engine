@@ -6,6 +6,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 	with oSoul
 	{
 		dir = DIR.DOWN;
+		draw_angle = 0;
 		image_angle = 0;
 		switch soul_mode
 		{
@@ -17,9 +18,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 			case SOUL_MODE.PURPLE:		Blend = c_purple;	break
 			case SOUL_MODE.CYAN:		Blend = c_aqua;		break
 		}
-		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "r", r, color_get_red(Blend));
-		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "g", g, color_get_green(Blend));
-		TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "b", b, color_get_blue(Blend));
+		ChangeColor();
 		mode = soul_mode;
 		alarm[0] = effect
 	}

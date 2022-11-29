@@ -1,6 +1,10 @@
 /// @description Global
 
-//input_tick(); // Input handler, do not delete!
+var ver = string(GM_runtime_version);
+var InputTicking = false;
+if string_copy(ver, 1, 4) != "2022" InputTicking = true
+else if real(string_copy(ver, 6, 1)) < 5 InputTicking = true;
+if InputTicking input_tick(); // Input handler, do not delete!
 
 if keyboard_check(vk_escape)
 {
@@ -17,3 +21,4 @@ global.timer++;
 if keyboard_check_pressed(vk_f2) {instance_destroy(oBulletParents); game_restart();}
 if keyboard_check_pressed(vk_f4) { window_set_fullscreen(!window_get_fullscreen()) alarm[1] = 1}//Fullscreen
 if keyboard_check_pressed(vk_f9) global.show_hitbox = !global.show_hitbox;
+if keyboard_check(vk_alt) if keyboard_check_pressed(ord("S")) Screenshot(room_get_name(room));

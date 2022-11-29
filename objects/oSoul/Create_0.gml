@@ -5,6 +5,11 @@ Blend = c_red;
 r = 255;
 g = 0;
 b = 0;
+function ChangeColor() {
+	TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "r", r, color_get_red(Blend));
+	TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "g", g, color_get_green(Blend));
+	TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 15, "b", b, color_get_blue(Blend));
+}
 draw_angle = 0;
 
 dir = DIR.DOWN;
@@ -27,23 +32,28 @@ mode = SOUL_MODE.RED;
 move_x = 0;
 move_y = 0;
 
-function BasicMovement() {
-	
-	var h_spd = input_check("right") - input_check("left");
-	var v_spd = input_check("down") - input_check("up");
+function BasicMovement(hor = true, ver = true) {
+	if !IsGrazer
+	{
+		var h_spd = input_check("right") - input_check("left");
+		var v_spd = input_check("down") - input_check("up");
 
-	var move_spd = global.spd / (input_check("cancel") + 1);
-	move_x = h_spd * move_spd;
-	move_y = v_spd * move_spd;
-	var _angle = image_angle;
+		var move_spd = global.spd / (input_check("cancel") + 1);
+		move_x = h_spd * move_spd;
+		move_y = v_spd * move_spd;
+		var _angle = image_angle;
 
-	if moveable {
-		x += lengthdir_x(move_x, _angle);
-		y += lengthdir_y(move_y, _angle - 90);
+		if moveable {
+			if hor
+				x += lengthdir_x(move_x, _angle);
+			if ver
+				y += lengthdir_y(move_y, _angle - 90);
+		}
+		image_angle = _angle;
 	}
-	image_angle = _angle;
 }
 
+//Blue soul variables
 fall_spd = 0;
 fall_grav = 0;
 
@@ -59,6 +69,7 @@ allow_outside = false;
 
 timer = 0;
 
+//Green soul variables
 ShieldDrawAngle = 0;
 ShieldTargetAngle = 0;
 ShieldLen = 18;
@@ -70,3 +81,23 @@ function DestroyArrow(obj) {
 	ShieldIndex = 2;
 	instance_destroy(obj);
 }
+
+//Purple soul variables
+Purple =
+{
+	Mode : 1,
+	VLineAmount : 3,
+	CurrentVLine : 1,
+	HLineAmount : 3,
+	CurrentHLine : 1,
+	ForceAlpha : 0,
+	XTarget : 320,
+	YTarget : 320,
+}
+
+//Grazing
+Grazer = -1;
+GrazeObj = noone;
+IsGrazer = false;
+GrazeAlpha = 0;
+GrazeTimer = 0;

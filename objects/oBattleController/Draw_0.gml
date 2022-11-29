@@ -23,8 +23,7 @@ if battle_state == 0 {
 		if menu_text_typist.get_state() == 1 and text_writer.get_page() < (text_writer.get_page_count() - 1)
 			text_writer.page(text_writer.get_page() + 1)
 		if menu_state == -1 and menu_text_typist.get_state() == 1 {
-			if input_check_pressed("confirm")
-			begin_turn();
+			if input_check_pressed("confirm") begin_turn();
 		}
 	}
 
@@ -33,12 +32,12 @@ if battle_state == 0 {
 		var decrease_y = 0;
 		for (var i = 0, n = array_length(enemy_name); i < n; i++) // Draw enemy hp bar in Fight state
 		{
-			var _enemy_name = enemy_name[i];
+			var _enemy_name = string(enemy_name[i]) + enemy_name_extra[i];
 			if instance_exists(enemy[i]) // Check if the enemy slot is valid before name drawing
 			{
 				var spare_col = "[c_white]";
 				if enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
-				draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + "[fnt_dt_mono]* " + _enemy_name);
+					draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + "[fnt_dt_mono]* " + _enemy_name);
 				var xwrite = 450;
 				if menu_state == 1 and enemy_draw_hp_bar[i] == 1 {
 					decrease_y -= 32;

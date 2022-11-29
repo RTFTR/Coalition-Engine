@@ -1,3 +1,5 @@
+image_angle += rotate;
+
 // Frames
 var _frame_x = frame_x;
 var _frame_y = frame_y;

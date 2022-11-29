@@ -21,6 +21,7 @@ function Delete_Datas()
 ///@desc Save the current settings of the game
 function Save_Settings()
 {
+	global.Settings[? "Volume"] = global.Volume;
 	if !file_exists("Settings.dat")	ds_map_secure_save(global.Settings, "Settings.dat");
 }
 
@@ -28,6 +29,7 @@ function Save_Settings()
 function Load_Settings()
 {
 	if file_exists("Settings.dat") global.Settings = ds_map_secure_load("Settings.dat");
+	global.Volume = global.Settings[? "Volume"];
 }
 
 ///@desc Deletes the current settings of the game

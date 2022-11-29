@@ -154,7 +154,7 @@ function end_turn()
 	"turn 3 text",
 	];
 	if array_length(end_turn_menu_text) >= (turn + 1) and turn > -1
-	Battle_SetMenuDialog(end_turn_menu_text[turn]);
+		Battle_SetMenuDialog(end_turn_menu_text[turn]);
 	else {
 		with oBattleController
 		{
@@ -172,14 +172,19 @@ function end_turn()
 		{
 			Effect.SeaTeaTurns--;
 			if !Effect.SeaTeaTurns
+			{
+				Effect.SeaTeaTurns = 4;
+				Effect.SeaTea = false;
 				global.spd /= 2;
+			}
 		}
 	}
 	Set_BoardSize();
 	oBoard.image_angle %= 360;
 	Set_BoardAngle();
 	Set_BoardPos();
-	with(oBulletBone)
+		with oSoul draw_angle = (mode == SOUL_MODE.YELLOW ? 180 : 0);
+	with oBulletBone
 		if retract_on_end
 		{
 			destroy_on_turn_end = false;
@@ -187,14 +192,15 @@ function end_turn()
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 45, "length", length, 0);
 			alarm[1] = 20;
 		}
-	with(oBulletParents)
+	with oBulletParents
 		if destroy_on_turn_end instance_destroy();
 	state = 0;
 	draw_damage = false;
 	time = -1;
-	if array_length(turnts) > turn and turn > 0
-	for (var i = 0, n = array_length(turnts[turn]); i < n; ++i)
-		time_source_destroy(turnts[turn, i]);
+	if array_length(TurnData.TimeSources) > turn and turn > 0
+		for (var i = 0, n = array_length(TurnData.TimeSources[turn]); i < n; ++i)
+			time_source_destroy(TurnData.TimeSources[turn, i]);
+	Enemy_NameUpdate();
 }
 
 
@@ -205,12 +211,15 @@ board_size = [
 [70, 70, 130, 130],
 ];
 
-turnts = [];
-turntsDelay = [];
-turntsRep = [];
-turntsRepC = [];
-turntsInterval = [];
-AttacksLoaded = false;
+TurnData = 
+{
+	TimeSources : [],
+	TSDelay : [],
+	TSRep : [],
+	TSRepC : [],
+	TSInterval : [],
+	AttacksLoaded : false,
+}
 
 start = 1;
 time = -1;

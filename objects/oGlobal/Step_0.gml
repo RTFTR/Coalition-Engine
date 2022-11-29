@@ -1,6 +1,6 @@
 ///@desc Camera movement
 {
-	var cam = Main_Camera,
+	var cam = view_camera[0],
 	
 		cam_scale_x = camera_scale_x,
 		cam_scale_y = camera_scale_y,

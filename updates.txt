@@ -1,5 +1,13 @@
 Update Logs
 
+v4.0.4 (Eden)
+Added purple soul
+Grazing test
+Fixed some bugs
+Enemy ABC naming test
+Added some macros for easier coding
+forgot
+
 v4.0.3 (Eden)
 Optimised more code
 Fixed some JSDoc comments
