@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oOWCollision",
   "spriteId": {
-    "name": "spr_ow_save",
-    "path": "sprites/spr_ow_save/spr_ow_save.yy",
+    "name": "sprHall",
+    "path": "sprites/sprHall/sprHall.yy",
   },
   "solid": false,
   "visible": true,

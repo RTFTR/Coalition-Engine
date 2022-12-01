@@ -24,21 +24,22 @@ if draw_menu
 	//Check if the Current UI os a Box
 	if !Is_Boxing()
 	{
-		draw_set_color(c_white);
-		draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, false);
+		draw_rectangle_width(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, 5);
 		draw_set_color(c_black);
+		draw_set_alpha(0.4);
 		draw_rectangle(ui_box_x + ui_box_frame, ui_box_y + ui_box_frame,
 						ui_box_x + ui_width - ui_box_frame, ui_box_y + ui_height - ui_box_frame,
 						false);
 	
 		// Name Gold Exp Stat Drawing
-		var name = string(global.name);
-		var lv = string(global.lv);
-		var hp = string(global.hp);
-		var max_hp = string(global.hp_max);
-		var gold = string(global.Gold);
+		var name =			string(global.name),
+			lv =			string(global.lv),
+			hp =			string(global.hp),
+			max_hp =		string(global.hp_max),
+			gold =			string(global.Gold);
 		draw_set_font(fnt_dt_sans);
 		draw_set_color(c_white);
+		draw_set_alpha(1);
 		draw_text(ui_box_x + 15, ui_box_y + 15, name);
 		draw_set_font(fnt_cot);
 		draw_text(ui_box_x + 17, ui_box_y + 45, "LV  " + lv);
@@ -50,12 +51,13 @@ if draw_menu
 		ui_width = 130;
 		ui_height = 140;
 		ui_box_frame = 5;
-		draw_set_color(c_white);
-		draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, false);
+		draw_rectangle_width(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, 5);
 		draw_set_color(c_black);
+		draw_set_alpha(0.4);
 		draw_rectangle(ui_box_x + ui_box_frame, ui_box_y + ui_box_frame,
 						ui_box_x + ui_width - ui_box_frame, ui_box_y + ui_height - ui_box_frame,
 						false);
+		draw_set_alpha(1);
 	}
 	
 	//Movement
@@ -111,12 +113,13 @@ if draw_menu
 		ui_box_frame = 5;
 		if menu_state < 5
 		{
-			draw_set_color(c_white);
-			draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, false);
+			draw_rectangle_width(ui_box_x, ui_box_y, ui_box_x + ui_width, ui_box_y + ui_height, 5);
 			draw_set_color(c_black);
+			draw_set_alpha(0.4);
 			draw_rectangle(ui_box_x + ui_box_frame, ui_box_y + ui_box_frame,
 							ui_box_x + ui_width - ui_box_frame, ui_box_y + ui_height - ui_box_frame,
 							false);
+			draw_set_alpha(1);
 		}
 		if menu_state == 5	//Item usage/info/drop
 			if !Is_Dialog()
@@ -297,3 +300,40 @@ if encounter_draw[0] draw_rectangle_color(0, 0, 640, 480, c_black, c_black, c_bl
 if encounter_draw[1] draw_sprite_ext(sprite_index, image_index, relative_pos[0], relative_pos[1],
 					oGlobal.camera_scale_x, oGlobal.camera_scale_y, image_angle, c_white, 1);
 if encounter_draw[2] draw_sprite_ext(sprSoul, 0 , encounter_soul_x, encounter_soul_y, 1, 1, 0, c_red, 1);
+
+//Debug
+{
+	gpu_set_blendmode(bm_add);
+	debug_alpha = lerp(debug_alpha, debug, 0.12);
+	draw_set_alpha(debug_alpha);
+	var col = make_color_hsv(global.timer % 255, 255, 255),
+		mx = window_mouse_get_x(),
+		my = window_mouse_get_y();
+	draw_text_color(5, 5, "Char Position : " + string(x) + ", " + string(y), c_white, col, c_black, col, debug_alpha)
+	draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
+	var inst = instance_position(mouse_x, mouse_y, all);
+	var inst_name = "";
+	//Naming
+	if inst != noone
+	{
+		switch object_get_name(inst.object_index)
+		{
+			case "oOWPlayer":
+			inst_name = "Player";
+			break
+			case "oOWCollision":
+			switch inst.sprite_index
+			{
+				case spr_ow_save:
+				inst_name = "Save Point";
+				break
+			}
+			break
+		}
+	}
+	else inst_name = "Nothing";
+	draw_text_color(5, 45, "Pointing At : " + inst_name, c_white, col, c_black, col, debug_alpha)
+	draw_set_alpha(1);
+	draw_set_color(c_white);
+	gpu_set_blendmode(bm_normal);
+}

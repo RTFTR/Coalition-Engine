@@ -18,6 +18,7 @@ global.soul_y = 0;
 
 global.show_hitbox = 0;
 global.slam_damage = false;
+global.debug = false;
 
 quit_timer = 0;
 

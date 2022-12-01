@@ -1,5 +1,8 @@
 Update Logs
 
+v4.0.5 (Eden)
+Overworld room system test, read oOWCollision Create Event for instructions
+
 v4.0.4 (Eden)
 Added purple soul
 Grazing test

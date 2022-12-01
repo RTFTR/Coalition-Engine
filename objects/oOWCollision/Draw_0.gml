@@ -2,6 +2,7 @@ var input_confirm = input_check_pressed("confirm")
 //Properties of Save (INCOMPLETE)
 if sprite_index == spr_ow_save
 {
+	depth = oOWPlayer.depth + 9;
 	image_speed = .15;
 	if collide and !texted
 		if input_confirm
@@ -23,3 +24,7 @@ if sprite_index == spr_ow_save
 show_hitbox(c_purple);
 
 collide = false;
+if Is_Background
+{
+	draw_self()
+}

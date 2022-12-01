@@ -1,12 +1,12 @@
-if keyboard_check_pressed(vk_space) then Encounter_Begin();
-var input_horizontal = input_check("right") - input_check("left");
-var input_vertical =   input_check("down") - input_check("up");
-var input_confirm =    input_check("confirm");
-var input_cancel =     input_check("cancel");
-var input_menu =	   input_check_pressed("menu");
-var spd = 2 + input_cancel;
-var scale_x = last_dir;
-var assign_sprite = last_sprite;
+if keyboard_check_pressed(vk_space) Encounter_Begin();
+var input_horizontal = input_check("right") - input_check("left"),
+	input_vertical =   input_check("down") - input_check("up"),
+	input_confirm =    input_check("confirm"),
+	input_cancel =     input_check("cancel"),
+	input_menu =	   input_check_pressed("menu"),
+	spd = (2 + input_cancel) * speed_multiplier,
+	scale_x = last_dir,
+	assign_sprite = last_sprite;
 
 //Check if a Overworld Dialog is happening
 if !Is_Dialog()
@@ -38,23 +38,58 @@ if input_vertical != 0
 
 //Checking collision with Overworld objects
 with oOWCollision
-	if place_meeting(x, y, other)
+	if !Is_Background		//Check if the instance is the background or not
+	{						//If not then prevent player from entering
+		if place_meeting(x, y, other)
+		{
+			with other
+			{
+				x = xprevious;
+				y = yprevious;
+			}
+			collide = true
+		}
+	}
+	else					//If it's the background then prevent player from exiting
 	{
 		with other
 		{
-			x = xprevious;
-			y = yprevious;
+			x = clamp(x, sprite_width / 2, other.sprite_width + sprite_width / 2);
+			y = clamp(y, sprite_height, other.sprite_height);
 		}
-		collide = true
 	}
 
 
-if !char_moveable then {assign_sprite = last_sprite; scale_x = last_dir;}
+if !char_moveable
+{
+	assign_sprite = last_sprite;
+	scale_x = last_dir;
+}
 
 image_xscale = scale_x;
 if assign_sprite != -1 sprite_index = assign_sprite;
-if (input_horizontal != 0 or input_vertical != 0) and char_moveable then image_index += 0.2;
+if (input_horizontal != 0 or input_vertical != 0) and char_moveable image_index += 0.2;
 else image_index = 0;
+
+//Menu Idle spriting thing
+if draw_menu
+{
+	switch menu_state
+	{
+		case 0:		//Selection
+			sprite_index = char_frisk_think;
+			image_index = global.timer / 25;
+		break
+		case 1:		//Items
+			sprite_index = char_frisk_pocket;
+			image_index = global.timer / 50;
+		break
+		case 3:		//Cell
+			sprite_index = char_frisk_cell;
+		break
+	}
+}
+else sprite_index = (assign_sprite == -1 ? dir_sprite[2] : assign_sprite)
 
 
 draw_self();
@@ -72,7 +107,11 @@ if encounter_state
 	if encounter_state == 1
 	{
 		draw_sprite(spr_encounter_exclaim, 0, x, y - sprite_height);
-		if encounter_time == 30 then {encounter_state++; encounter_time = 0;}
+		if encounter_time == 30
+		{
+			encounter_state++;
+			encounter_time = 0;
+		}
 	}
 	if encounter_state == 2
 	{
@@ -90,7 +129,11 @@ if encounter_state
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_x", encounter_soul_x, 48);
 			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_y", encounter_soul_y, 454);
 		}
-		if encounter_time == 45 then {encounter_state++; encounter_time = 0;}
+		if encounter_time == 45
+		{
+			encounter_state++;
+			encounter_time = 0;
+		}
 	}
 	if encounter_state == 3
 	{

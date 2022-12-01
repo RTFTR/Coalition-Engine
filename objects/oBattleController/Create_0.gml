@@ -71,7 +71,6 @@ hp_previous = global.hp;
 	debug = false;
 	debug_alpha = 0;
 	ca = 0;
-	global.debug = false;
 	ui_x = 275;
 	ui_y = 400;
 	ui_alpha = 1;

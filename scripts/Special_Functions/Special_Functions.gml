@@ -75,3 +75,15 @@ function Screenshot(filename = "") {
 		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
 	screen_save("Screenshots/" + string(filename) + date + ".png")
 }
+
+///@desc Draws a rectagle with given width
+function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
+{
+	var prev_col = draw_get_color();
+	draw_set_color(color);
+	draw_line_width(x1, y1, x2, y1, width);
+	draw_line_width(x1, y2, x2, y2, width);
+	draw_line_width(x1, y1, x1, y2, width);
+	draw_line_width(x2, y1, x2, y2, width);
+	draw_set_color(prev_col);
+}

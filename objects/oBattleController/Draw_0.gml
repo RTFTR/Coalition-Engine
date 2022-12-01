@@ -195,14 +195,12 @@ if battle_state == 3 {
 }
 
 //Debug
-if !debug debug_alpha -= debug_alpha / 6;
-else debug_alpha += (1 - debug_alpha) / 6;
+debug_alpha = lerp(debug_alpha, debug, 0.12);
 
-if keyboard_check_pressed(vk_f3) and allow_debug{
-	debug = !debug;
-	room_speed = 60;
-}
-global.debug = (debug and debug_alpha >= 1); {
+debug = allow_debug ? global.debug : 0
+
+global.debug = (debug and debug_alpha >= 1);
+{
 	draw_set_alpha(debug_alpha);
 	draw_set_font(fnt_mnc);
 	var ca = global.timer;

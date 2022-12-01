@@ -4,6 +4,7 @@ draw_set_color(c_white);
 draw_set_font(fnt_logo);
 //draw_text(320, y + 200,"Coalition\nEngine");
 draw_text(320, y + 200,"UNDERTALE");
+hint += 1/60;
 if hint
 {
 	draw_set_font(fnt_cot);
