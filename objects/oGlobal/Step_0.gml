@@ -15,16 +15,16 @@
 		cam_shake_x = 0,
 		cam_shake_y = 0;
 	
-	//Targetting
+	// Targetting
 	var camToX = camera_x;
 	var camToY = camera_y;
 	camera_set_view_target(cam, cam_target);
 	if (cam_target != noone and instance_exists(cam_target)) {
-		camToX = cam_target.x-cam_width *0.5;
-		camToY = cam_target.y-cam_height*0.5;
+		camToX = cam_target.x-cam_width /2;
+		camToY = cam_target.y-cam_height/2;
 	}
 	
-	//Shaking
+	// Shaking
 	var shake = round(camera_shake_i);
 	if shake camera_shake_i--;
 	camera_shake_i = max(0, camera_shake_i);

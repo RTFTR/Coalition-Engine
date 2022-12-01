@@ -1,5 +1,5 @@
 oGlobal.camera_target = id;
-Camera_Scale(2.5, 2.5);
+Camera_Scale(2, 2);
 char_moveable = true;
 dir_sprite = [char_frisk_up,  char_frisk_down, char_frisk_left];
 last_sprite = -1

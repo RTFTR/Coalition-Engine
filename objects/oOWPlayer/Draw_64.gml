@@ -311,6 +311,7 @@ if encounter_draw[2] draw_sprite_ext(sprSoul, 0 , encounter_soul_x, encounter_so
 		my = window_mouse_get_y();
 	draw_text_color(5, 5, "Char Position : " + string(x) + ", " + string(y), c_white, col, c_black, col, debug_alpha)
 	draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
+	draw_text_color(5, 65, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha)
 	var inst = instance_position(mouse_x, mouse_y, all);
 	var inst_name = "";
 	//Naming

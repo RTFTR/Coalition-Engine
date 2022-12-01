@@ -1,4 +1,6 @@
 Update Logs
+v4.0.6 (Panther)
+Minor adds and stuffs, struggle hard with tile collision code logic aeious
 
 v4.0.5 (Eden)
 Overworld room system test, read oOWCollision Create Event for instructions
