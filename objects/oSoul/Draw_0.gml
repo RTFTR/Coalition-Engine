@@ -99,4 +99,3 @@ if mode == SOUL_MODE.PURPLE and STATE == 2
 
 
 show_hitbox()
-

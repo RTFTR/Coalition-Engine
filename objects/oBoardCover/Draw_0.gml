@@ -93,3 +93,6 @@ frame_x = _frame_x;
 frame_y = _frame_y;
 frame_w = _frame_w;
 frame_h = _frame_h;
+
+image_xscale = right + left;
+image_yscale = up + down;

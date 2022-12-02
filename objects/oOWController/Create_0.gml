@@ -4,4 +4,4 @@ is_boxing = false;
 Box_ID = 0;
 
 //The Overworld ID (For room changing and stuff)
-OverWorld_ID = 0;
+OverWorld_ID = OVERWORLD.CORRIDOR;

@@ -317,6 +317,7 @@ if STATE == 2 {
 	
 		//Collision check of the Cover Board
 		if instance_exists(oBoardCover) {
+			//Old Collision Checker
 			for (var i = 0, n = instance_number(oBoardCover); i < n; i++) {
 				var board_cover = instance_find(oBoardCover, i);
 				with board_cover {

@@ -51,3 +51,8 @@ enum ITEM
 //Change this value when more items are added
 #macro ITEM_COUNT 6
 
+//Overworld Room ID
+enum OVERWORLD
+{
+	CORRIDOR = 0,
+}

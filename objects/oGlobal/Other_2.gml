@@ -12,4 +12,3 @@ instance_create_depth(0,0,0,obj_SharedTweener); // Tweener
 
 
 room_goto_next();
-
