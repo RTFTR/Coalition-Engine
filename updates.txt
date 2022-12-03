@@ -1,4 +1,10 @@
 Update Logs
+
+v4.0.7(Eden)
+Fixed some stuff
+Added dialog tiling test
+Added Vertical Item List
+
 v4.0.6 (Panther)
 Minor adds and stuffs, struggle hard with tile collision code logic aeious
 

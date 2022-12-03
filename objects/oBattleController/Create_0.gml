@@ -84,6 +84,14 @@ hp_previous = global.hp;
 	board_cover_hp_bar = false;
 	board_cover_button = false;
 	board_full_cover = false;
+	item_scroll_type = 1;
+	
+	enum ITEM_SCROLL
+	{
+		DEFAULT = 0,
+		VERTICAL = 1,
+		CIRCLE = 2
+	}
 }
 
 allow_run = 0;
@@ -93,9 +101,12 @@ allow_run = 0;
 	dialog_is_end = 0;
 }
 
-//Battle Variables
-Total_Exp = 0;
-Total_Gold = 0;
+//Results
+Result =
+{
+	Exp : 0,
+	Gold : 0,
+}
 
 //Effects in battle
 Effect = 
@@ -186,12 +197,12 @@ function begin_spare(activate_the_turn) {
 function end_battle() {
 	battle_state = 3;
 	if !global.BossFight {
-		battle_end_text = "You WON![delay,333]\n* You earned " + string(Total_Exp) + " XP and " + string(Total_Gold) + " gold.";
-		if global.Exp + Total_Exp >= Player_GetExpNext() {
-			var maxhp = 0;
-			global.lv++;
-			if global.hp == global.hp_max maxhp = 1;
-			global.hp_max = (global.lv = 20 ? 99 : global.lv * 4 + 16);
+		battle_end_text = "You WON![delay,333]\n* You earned " + string(Result.Exp) + " XP and " + string(Result.Gold) + " gold.";
+		if global.data.Exp + Result.Exp >= Player_GetExpNext() {
+			var maxhp = false;
+			global.data.lv++;
+			if global.hp == global.hp_max maxhp = true
+			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
 			battle_end_text += "\n You LOVE increased!";
 			audio_play(snd_level_up);

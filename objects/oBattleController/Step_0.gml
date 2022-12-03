@@ -104,28 +104,61 @@ if battle_state = 0 // Menu
 				if global.item[i] != 0 len++;
 		}
 		else {
-			len = 0;
-			for (var i = 0; i < 6; i++) {
-				if enemy_act[target_option, i] != ""
-				len++;
-			}
+			for (var i = 0, len = 0; i < 6; i++) 
+				if enemy_act[target_option, i] != "" len++;
 		}
 		if len > 1 {
-			if input_horizontal != 0 {
-				choice = Posmod(choice + input_horizontal, len);
-				menu_choice[6 / menu_state] = choice;
-				Move_Noise();
+			if menu_state == 6
+			{
+				if input_horizontal != 0 {
+					choice = Posmod(choice + input_horizontal, len);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
+				if input_vertical != 0 {
+					choice = Posmod(choice + (input_vertical * 2), len);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
 			}
-			if input_vertical != 0 {
-				choice = Posmod(choice + (input_vertical * 2), len);
-				menu_choice[6 / menu_state] = choice;
-				Move_Noise()
+			else switch item_scroll_type
+			{
+				case ITEM_SCROLL.DEFAULT:
+				if input_horizontal != 0 {
+					choice = Posmod(choice + input_horizontal, len);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
+				if input_vertical != 0 {
+					choice = Posmod(choice + (input_vertical * 2), len);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
+				break
+				
+				case ITEM_SCROLL.VERTICAL:
+				if input_vertical != 0 {
+					choice = Posmod(choice + input_vertical, len + 1);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
+				break
 			}
 		}
 
 		if menu_state == 3 {
-			oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
-			oSoul.y += ((288 + ((floor(choice / 2) % 2) * 32)) - oSoul.y) / 3;
+			switch item_scroll_type
+			{
+				case ITEM_SCROLL.DEFAULT:
+				oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
+				oSoul.y += ((288 + ((floor(choice / 2) % 2) * 32)) - oSoul.y) / 3;
+				break
+				
+				case ITEM_SCROLL.VERTICAL:
+				oSoul.x += (72 - oSoul.x) / 3;
+				oSoul.y += ((288 + ((choice % 3) * 32)) - oSoul.y) / 3;
+				break
+			}
 		}
 		else {
 			oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;

@@ -62,19 +62,22 @@ function Soul_Hurt(dmg = 1,kr = 1)
 		soul[i] = instance_find(oSoul, i)
 		if !global.inv and can_hurt
 		{
-			if soul[i].GrazeObj.IsGrazer
+			if instance_exists(soul[i].GrazeObj)
 			{
-				with soul[i]
+				if soul[i].GrazeObj.IsGrazer
 				{
-					if !GrazeTimer
+					with soul[i]
 					{
-						GrazeTimer = 3;
-						GrazeAlpha = 1;
-						global.TP++;
-						audio_play(snd_noise);
+						if !GrazeTimer
+						{
+							GrazeTimer = 3;
+							GrazeAlpha = 1;
+							global.TP++;
+							audio_play(snd_noise);
+						}
 					}
+					exit
 				}
-				exit
 			}
 			else
 			{

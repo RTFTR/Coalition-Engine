@@ -20,7 +20,6 @@ function Initialize()
 	global.item_uses_left[ITEM.PIE] = 2;
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
 	global.BossFight = false;
-	global.Kills = 0;
 	
 	global.SaveFile = ds_map_create();
 	global.SaveFile[? "Name"] =			"Chara";
@@ -51,15 +50,19 @@ function Initialize()
 	
 	if !file_exists("Data.dat") Save_Datas(); else Load_Datas();
 	
-	global.name = global.SaveFile[? "Name"];
-	global.lv = global.SaveFile[? "LV"];
-	global.hp = global.SaveFile[? "HP"];
-	global.hp_max = global.SaveFile[? "Max HP"];
-	global.Gold = global.SaveFile[? "Gold"];
-	global.Exp = global.SaveFile[? "EXP"];
-	global.AttackItem = global.SaveFile[? "Wep"];
-	global.DefenseItem = global.SaveFile[? "Arm"];
-	global.Kills = global.SaveFile[? "Kills"];
+	
+	global.hp =			global.SaveFile[? "HP"];
+	global.hp_max =		global.SaveFile[? "Max HP"];
+	global.data =
+	{
+		name :			global.SaveFile[? "Name"],
+		lv :			global.SaveFile[? "LV"],
+		Gold :			global.SaveFile[? "Gold"],
+		Exp :			global.SaveFile[? "EXP"],
+		AttackItem :	global.SaveFile[? "Wep"],
+		DefenseItem :	global.SaveFile[? "Arm"],
+		Kills :			global.SaveFile[? "Kills"],
+	}
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
 	

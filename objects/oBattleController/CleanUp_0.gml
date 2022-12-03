@@ -1,0 +1,2 @@
+delete Result;
+delete Effect;

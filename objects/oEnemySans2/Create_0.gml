@@ -32,8 +32,8 @@ Battle_SetTurnBoardSize(
 Battle_EnemyDialog(0, [
 	""
 ]);
-global.name = "Frisk";
-global.lv = 19;
+global.data.name = "Frisk";
+global.data.lv = 19;
 global.hp_max = 92;
 global.hp = 92;
 draw_papyrus = 0;

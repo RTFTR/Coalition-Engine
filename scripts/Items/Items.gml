@@ -152,6 +152,7 @@ function Item_Shift(item,coord){
 		array_resize(global.item, n - 1);
 }
 
+///@desc Item numbers(?)
 function Item_Space(){
 	for (var i = 0, space = 0, n = Item_Count(); i < n; ++i)
 		if global.item[i] != 0 space++;

@@ -48,7 +48,7 @@ if instance_exists(oBulletParents)
 oBulletParents.can_hurt = 0;
 if time > 14620 and time < 16760 {
 	if !(time % irandom_range(3,7))
-	global.lv = choose(8, 19);
+	global.data.lv = choose(8, 19);
 	papyrus_x = x;
 	if instance_exists(oBulletBone) {
 		with oBulletBone {

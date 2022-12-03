@@ -818,10 +818,11 @@ TurnCreate(0, 132, 16760, function() {
 	Set_BoardSize(50, 50, 320, 320, 0);
 	Battle_SetSoulPos(120,320,0);
 	oSoul.draw_angle += 90;
-	oSoul.image_blend = c_blue;
+	oSoul.Blend = c_blue;
+	oSoul.ChangeColor();
 	oSoul.alarm[0] = 1
 	draw_papyrus = 0;
-	global.lv = 18;
+	global.data.lv = 18;
 	global.kr = 0;
 	global.hp = 88;
 	global.hp_max = 88;
@@ -860,7 +861,8 @@ TurnCreate(0, 137, 17350, function() {
 	hspeed = 0;
 	x = 320;
 	with oSoul {
-		image_blend = c_red;
+		Blend = c_red;
+		ChangeColor();
 		draw_angle = 0;
 	}
 	instance_destroy(oBulletParents);

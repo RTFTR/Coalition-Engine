@@ -146,7 +146,7 @@ if is_being_attacked {
 			died = true
 			is_being_attacked = false;
 			enemy_in_battle = false;
-			global.Kills++;
+			global.data.Kills++;
 			//Remove enemy
 			if instance_exists(oBattleController)
 				with(oBattleController) {
@@ -163,8 +163,8 @@ if is_being_spared {
 		if enemy_is_spareable {
 			wiggle = false;
 			//Add Reward
-			oBattleController.Total_Gold += Gold_Give;
-			oBattleController.Total_Exp += Exp_Give;
+			oBattleController.Result.Gold += Gold_Give;
+			oBattleController.Result.Exp += Exp_Give;
 			is_spared = true;
 			audio_play(snd_vaporize);
 			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);

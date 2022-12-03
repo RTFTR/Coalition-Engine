@@ -1,5 +1,5 @@
 ///@desc UI Drawing
-char_moveable = (Is_Dialog() ? 0 : !draw_menu);
+char_moveable = !Is_Dialog() and !draw_menu and !encounter_state;
 
 var relative_pos = [
 (x - camera_get_view_x(view_camera[0])) * oGlobal.camera_scale_x,
@@ -32,11 +32,11 @@ if draw_menu
 						false);
 	
 		// Name Gold Exp Stat Drawing
-		var name =			string(global.name),
-			lv =			string(global.lv),
+		var name =			string(global.data.name),
+			lv =			string(global.data.lv),
 			hp =			string(global.hp),
 			max_hp =		string(global.hp_max),
-			gold =			string(global.Gold);
+			gold =			string(global.data.Gold);
 		draw_set_font(fnt_dt_sans);
 		draw_set_color(c_white);
 		draw_set_alpha(1);
@@ -203,18 +203,18 @@ if draw_menu
 			draw_set_font(fnt_dt_sans);
 			draw_set_color(c_white);
 			draw_set_valign(fa_middle);
-			draw_text(210, 95,"''" + global.name + "''");
+			draw_text(210, 95,"''" + global.data.name + "''");
 			draw_text(210, 155, "LV " + lv);
 			draw_text(210, 190, "HP " + hp + " / "+ max_hp);
 			draw_text(210, 250, "AT " + string(global.player_base_atk) + " (" + string(global.player_attack) + ")");
 			draw_text(210, 285, "DF " + string(global.player_base_def) + " (" + string(global.player_def) + ")");
-			draw_text(340, 250, "EXP: " + string(global.Exp));
+			draw_text(340, 250, "EXP: " + string(global.data.Exp));
 			draw_text(340, 285, "NEXT: " + string(Player_GetExpNext() - Player_GetLVBaseExp()));
-			draw_text(210, 345, "WEAPON: " + string(global.AttackItem));
-			draw_text(210, 380, "ARMOR: " + string(global.DefenseItem));
+			draw_text(210, 345, "WEAPON: " + string(global.data.AttackItem));
+			draw_text(210, 380, "ARMOR: " + string(global.data.DefenseItem));
 			draw_text(210, 425, "GOLD: " + gold);
-			if global.Kills > 20
-			draw_text(340, 425, "KILLS: " + string(global.Kills));
+			if global.data.Kills > 20
+			draw_text(340, 425, "KILLS: " + string(global.data.Kills));
 		}
 		//Cell
 		if menu_state == 3
