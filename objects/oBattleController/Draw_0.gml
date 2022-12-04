@@ -1,8 +1,6 @@
 // Text Functions
 if battle_state == 0 {
-	var ncontains_enemy = 0,
-		no_enemy_pos = [2];
-	for (var i = 0; i < 2; i++) {
+	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
 		if enemy[i] == noone {
 			ncontains_enemy++;
 			no_enemy_pos[array_length(no_enemy_pos) - 1] = i;
@@ -84,22 +82,35 @@ if battle_state == 0 {
 				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord])
 			}
 			break
+			
+			case ITEM_SCROLL.CIRCLE:
+			c_div = floor(coord / 3);
+			_coord = c_div * 2;
+			for (var i = -1, n = min(3, itm_ln - _coord); i < n - 1; ++i) {
+				var ItemTxtAlTar = (((menu_choice[2] % 3) == i + 1) ? 1 : 0.5),
+					xx = 320 + i * 130,
+					yy = 320 - abs(i * 40);
+				item_scroll_alpha[i + 1] += (ItemTxtAlTar - item_scroll_alpha[i + 1]) / 6;
+				var ItemTxtAl = "[alpha," + string(item_scroll_alpha[i + 1]) +"]";
+				draw_text_scribble(xx, yy, "[fnt_dt_mono][fa_center]" + ItemTxtAl + "* " + item_name[i + 1 + _coord])
+			}
+			break
 		}
 	}
 	if menu_state == 4 {
 		// Sets the color of Spare
 		for (var i = 0, n = array_length(enemy), spare_col = "[c_white]"; i < n; i++) {
 			if enemy[i] != noone
-			if enemy[i].enemy_is_spareable
-			spare_col = global.SpareTextColor;
+				if enemy[i].enemy_is_spareable
+					spare_col = global.SpareTextColor;
 		}
 		draw_text_scribble(96, 272, spare_col + "[fnt_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
 	}
 	if menu_state == 6 // Draw Act Texts
 	{
 		var enemy_check_texts = "";
-		for (var i = 0, act_num = array_length(enemy_act[target_option]); i < act_num; ++i) {
-			var assign_act_text = enemy_act[target_option, i];
+		for (var i = 0, act_num = array_length(enemy_act[target_option]),
+				assign_act_text = enemy_act[target_option, i]; i < act_num; ++i) {
 			if assign_act_text != ""
 				enemy_check_texts += "* " + assign_act_text;
 			if (i % 2) enemy_check_texts += "\n";
@@ -112,35 +123,37 @@ if battle_state == 0 {
 
 	if menu_state == 5 //Fight Anim
 	{
-		var _target_state =		target_state,
-			_aim_scale =		aim_scale,
-			_aim_angle =		aim_angle,
-			_aim_color = 		aim_color,
-			_aim_retract =		aim_retract;
+		var _target_state =		Target.state,
+			_aim_scale =		Aim.scale,
+			_aim_angle =		Aim.angle,
+			_aim_color = 		Aim.color,
+			_aim_retract =		Aim.retract;
+		
 		if _target_state > 0 {
-			var _target_side =				target_side,
-				_target_time =				target_time,
-				_target_xscale =			target_xscale,
-				_target_yscale =			target_yscale,
-				_target_frame =				target_frame,
-				_target_alpha =				target_alpha,
-				_target_retract_method =	target_retract_method,
+			var _target_side =				Target.side,
+				_target_time =				Target.time,
+				_target_xscale =			Target.xscale,
+				_target_yscale =			Target.yscale,
+				_target_frame =				Target.frame,
+				_target_alpha =				Target.alpha,
+				_target_retract_method =	Target.retract_method,
 
 				_aim_target_x = 320 - (_target_side * (290 - _target_time));
-
+			
 			if _target_state < 3 {
 				if _target_state == 1 {
 					_target_time += 6.4;
 					var _aim_distance = abs(320 - _aim_target_x);
 					_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
-					if input_check_pressed("confirm") and target_buffer < 0 {
+					
+					if input_check_pressed("confirm") and Target.buffer < 0 {
 						battle_turn++;
-						target_buffer = 3;
+						Target.buffer = 3;
 						_target_state = 2;
 						if _aim_distance < 15
 							Blur_Screen(45, (15 - _aim_distance) / 2);
 						
-						alarm[0] = 60;
+						Target.WaitTime = 60;
 
 						var strike_target_x = 160 * (target_option + 1);
 						enemy_under_attack(target_option);
@@ -175,18 +188,18 @@ if battle_state == 0 {
 			draw_sprite_ext(spr_target_bg, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
 			draw_sprite_ext(spr_target_aim, _target_frame, _aim_target_x, 320, _aim_scale, _aim_scale, _aim_angle, _aim_color, 1);
 
-			target_side = _target_side;
-			target_time = _target_time;
-			target_xscale = _target_xscale;
-			target_yscale = _target_yscale;
-			target_frame = _target_frame;
-			target_alpha = _target_alpha;
+			Target.side = _target_side;
+			Target.time = _target_time;
+			Target.xscale = _target_xscale;
+			Target.yscale = _target_yscale;
+			Target.frame = _target_frame;
+			Target.alpha = _target_alpha;
 		}
-		target_state = _target_state;
+		Target.state = _target_state;
 
-		aim_scale = _aim_scale;
-		aim_angle = _aim_angle;
-		aim_color = _aim_color;
+		Aim.scale = _aim_scale;
+		Aim.angle = _aim_angle;
+		Aim.color = _aim_color;
 	}
 }
 if battle_state == 3 {
@@ -430,6 +443,6 @@ if board_cover_hp_bar {
 	Battle_Masking_Start(true);
 	var board = oBoard;
 	if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
-	draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0);
+		draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0);
 	Battle_Masking_End();
 }

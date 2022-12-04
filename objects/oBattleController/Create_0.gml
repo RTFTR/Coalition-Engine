@@ -12,22 +12,26 @@ global.hp = global.hp_max;
 max_kr = 40;
 
 // Fight Aiming Functions
+Target = 
 {
 
-	target_state = 0;
-	target_side = 0;
-	target_time = 0;
-	target_xscale = 1;
-	target_yscale = 1;
-	target_frame = 0;
-	target_alpha = 1;
-	target_buffer = 0;
-	target_retract_method = choose(0, 1);
-
-	aim_scale = 1;
-	aim_angle = 0;
-	aim_color = c_white;
-	aim_retract = choose(-1, 1);
+	state			: 0,
+	side			: 0,
+	time			: 0,
+	xscale			: 1,
+	yscale			: 1,
+	frame			: 0,
+	alpha			: 1,
+	buffer			: 0,
+	retract_method	: choose(0, 1),
+	WaitTime		: -1
+}
+Aim =
+{
+	scale	: 1,
+	angle	: 0,
+	color	: c_white,
+	retract : choose(-1, 1)
 
 }
 
@@ -84,7 +88,7 @@ hp_previous = global.hp;
 	board_cover_hp_bar = false;
 	board_cover_button = false;
 	board_full_cover = false;
-	item_scroll_type = 1;
+	item_scroll_type = 2;
 	
 	enum ITEM_SCROLL
 	{
@@ -92,6 +96,8 @@ hp_previous = global.hp;
 		VERTICAL = 1,
 		CIRCLE = 2
 	}
+	
+	item_scroll_alpha = [.5, .5, .5];
 }
 
 allow_run = 0;

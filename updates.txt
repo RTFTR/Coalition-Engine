@@ -1,5 +1,9 @@
 Update Logs
 
+v4.0.8 (Eden)
+Changed some instance variables to structs
+Added semi-circle item list
+
 v4.0.7(Eden)
 Fixed some stuff
 Added dialog tiling test

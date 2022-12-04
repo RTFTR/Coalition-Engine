@@ -1,5 +1,7 @@
 /// @description Resize stuff
 
+window_set_fullscreen(0)
+
 if(window_w != window_get_width() or window_h != window_get_height()){
     __view_set( e__VW.WPort, 0, window_get_width( ));
     __view_set( e__VW.HPort, 0, window_get_height( ));

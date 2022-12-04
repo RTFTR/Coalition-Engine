@@ -189,8 +189,8 @@ function end_turn()
 		{
 			destroy_on_turn_end = false;
 			can_hurt = 0;
-			TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 45, "length", length, 0);
-			alarm[1] = 20;
+			TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 45, "length", length, 0);
+			alarm[1] = 45;
 		}
 	with oBulletParents
 		if destroy_on_turn_end instance_destroy();

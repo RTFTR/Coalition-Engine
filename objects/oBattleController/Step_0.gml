@@ -1,12 +1,10 @@
-var input_horizontal = input_check_pressed("right") - input_check_pressed("left");
-var input_vertical = input_check_pressed("down") - input_check_pressed("up");
-var input_confirm = input_check_pressed("confirm");
-var input_cancel = input_check_pressed("cancel");
+var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
+	input_vertical = input_check_pressed("down") - input_check_pressed("up"),
+	input_confirm = input_check_pressed("confirm"),
+	input_cancel = input_check_pressed("cancel");
 
 //Check for empty slots of enemy
-var ncontains_enemy = 0;
-var no_enemy_pos = [2];
-for (var i = 0; i < 2; i++) {
+for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
 	if enemy[i] == noone {
 		ncontains_enemy++;
 		no_enemy_pos[array_length(no_enemy_pos) - 1] = i;
@@ -45,8 +43,8 @@ if battle_state = 0 // Menu
 		}
 	} else if is_val(menu_state, 1, 2, 4) // Fight - Act - Mercy
 	{
-		var coord = menu_choice[0];
-		var len = 1;
+		var coord = menu_choice[0],
+			len = 1;
 		if is_val(menu_state, 1, 2) len = no_enemy_pos[0];
 		else {
 			coord = menu_choice[3];
@@ -69,19 +67,19 @@ if battle_state = 0 // Menu
 			if menu_state == 1 {
 				menu_state = 5; // Fight Aiming
 
-				target_buffer = 3;
-				target_state = 1;
-				target_side = choose(-1, 1);
-				target_time = 0;
-				target_xscale = 1;
-				target_yscale = 1;
-				target_frame = 0;
-				target_alpha = 1;
-				target_retract_method = choose(0, 1);
-				aim_scale = 1;
-				aim_angle = 0;
-				aim_color = c_white;
-				aim_retract = choose(-1, 1);
+				Target.buffer = 3;
+				Target.state = 1;
+				Target.side = choose(-1, 1);
+				Target.time = 0;
+				Target.xscale = 1;
+				Target.yscale = 1;
+				Target.frame = 0;
+				Target.alpha = 1;
+				Target.retract_method = choose(0, 1);
+				Aim.scale = 1;
+				Aim.angle = 0;
+				Aim.color = c_white;
+				Aim.retract = choose(-1, 1);
 
 				// Insert code that makes soul invincible
 				{
@@ -96,15 +94,14 @@ if battle_state = 0 // Menu
 		oSoul.y += (288 + floor(coord) * 32 - oSoul.y) / 3;
 	} else if is_val(menu_state, 3, 6) // Items - Act Selection
 	{
-		var choice = 0;
-		var len = 0;
-		choice = menu_choice[6 / menu_state];
+		var choice = menu_choice[6 / menu_state],
+			len = 0;
 		if menu_state == 3 {
 			for (var i = 0, n = array_length(global.item); i < n; i++)
 				if global.item[i] != 0 len++;
 		}
 		else {
-			for (var i = 0, len = 0; i < 6; i++) 
+			for (var i = 0; i < 6; i++)
 				if enemy_act[target_option, i] != "" len++;
 		}
 		if len > 1 {
@@ -143,6 +140,14 @@ if battle_state = 0 // Menu
 					Move_Noise();
 				}
 				break
+				
+				case ITEM_SCROLL.CIRCLE:
+				if input_horizontal != 0 {
+					choice = Posmod(choice + input_horizontal, len + 3);
+					menu_choice[6 / menu_state] = choice;
+					Move_Noise();
+				}
+				break
 			}
 		}
 
@@ -158,6 +163,11 @@ if battle_state = 0 // Menu
 				oSoul.x += (72 - oSoul.x) / 3;
 				oSoul.y += ((288 + ((choice % 3) * 32)) - oSoul.y) / 3;
 				break
+				
+				case ITEM_SCROLL.CIRCLE:
+				oSoul.x += (190 + (130 * (choice % 3)) - oSoul.x) / 3;
+				oSoul.y += (310 - (40 * (abs((choice % 3) - 1))) - oSoul.y) / 3;
+				break
 			}
 		}
 		else {
@@ -167,7 +177,7 @@ if battle_state = 0 // Menu
 
 		if input_confirm {
 			oSoul.visible = false;
-			Confirm_Noise()
+			Confirm_Noise();
 			if menu_state == 3 Item_Use(global.item[choice]); // Item-consuming code
 			else // Action-executing code
 			{
@@ -194,12 +204,12 @@ if battle_state = 0 // Menu
 	}
 
 	var target_soul_angle = 0;
-	if menu_state == 1 or
+	if (menu_state == 1 or
 	menu_state == 2 or
-	menu_state == 3 or
+	(menu_state == 3 and !item_scroll_type == ITEM_SCROLL.CIRCLE) or
 	menu_state == 4 or
-	menu_state == 6
-	target_soul_angle = 90;
+	menu_state == 6)
+		target_soul_angle = 90;
 	oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
 }
 else if battle_state == 1 // Dialog
@@ -215,4 +225,11 @@ else if battle_state == 2 // In-Turn
 		menu_text_typist.pause();
 	oSoul.visible = true;
 }
-if target_buffer > -1 target_buffer--;
+if Target.buffer > -1 Target.buffer--;
+if Target.WaitTime Target.WaitTime--
+if Target.WaitTime == 0
+{
+	Target.state = 3;
+	oSoul.visible = true;
+	Target.WaitTime = -1;
+}

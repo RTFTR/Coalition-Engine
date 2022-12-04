@@ -388,7 +388,7 @@ TurnCreate(0,0,1,function(){
 			array_push(modes,mde)
 		}
 		for(var i = 0, n = array_length(delays); i < n; ++i)
-		GSA(speed, direction,mode)
+			GSA(speed, direction,mode)
 		for(var i = 0, n = array_length(delays); i < n; ++i)
 		{
 			if ((delays[i] - delays[max(0,i-1)]) < 10) dirs[i] = dirs[max(0,i-1)]
