@@ -81,10 +81,8 @@ if battle_state = 0 // Menu
 				Aim.color = c_white;
 				Aim.retract = choose(-1, 1);
 
-				// Insert code that makes soul invincible
-				{
-					if instance_exists(oBulletParents) oBulletParents.can_hurt = 0;
-				}
+				//Code that makes soul invincible
+				if instance_exists(oBulletParents) oBulletParents.can_hurt = 0;
 			}
 			if menu_state == 2 menu_state = 6; // Act Selection
 			if menu_state == 4 menu_state = 7; // Spare

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oStrike",
   "spriteId": {
-    "name": "spr_knife_strike",
-    "path": "sprites/spr_knife_strike/spr_knife_strike.yy",
+    "name": "sprSlash",
+    "path": "sprites/sprSlash/sprSlash.yy",
   },
   "solid": false,
   "visible": true,

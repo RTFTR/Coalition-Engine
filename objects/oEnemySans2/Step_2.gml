@@ -52,7 +52,7 @@ if time > 14620 and time < 16760 {
 	papyrus_x = x;
 	if instance_exists(oBulletBone) {
 		with oBulletBone {
-			sprite_index = spr_bone_pap;
+			sprite_index = sprBonePap;
 			hit_destroy = 1;
 			damage = 10;
 		}

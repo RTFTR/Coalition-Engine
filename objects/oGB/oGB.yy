@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oGB",
   "spriteId": {
-    "name": "spr_gb",
-    "path": "sprites/spr_gb/spr_gb.yy",
+    "name": "sprGB",
+    "path": "sprites/sprGB/sprGB.yy",
   },
   "solid": false,
   "visible": true,

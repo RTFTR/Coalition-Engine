@@ -185,8 +185,8 @@ if battle_state == 0 {
 				}
 			}
 
-			draw_sprite_ext(spr_target_bg, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
-			draw_sprite_ext(spr_target_aim, _target_frame, _aim_target_x, 320, _aim_scale, _aim_scale, _aim_angle, _aim_color, 1);
+			draw_sprite_ext(sprTargetBG, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
+			draw_sprite_ext(sprTargetAim, _target_frame, _aim_target_x, 320, _aim_scale, _aim_scale, _aim_angle, _aim_color, 1);
 
 			Target.side = _target_side;
 			Target.time = _target_time;
@@ -215,7 +215,7 @@ if battle_state == 3 {
 		battle_end_text_writer.page(battle_end_text_writer.get_page() + 1)
 		if battle_end_text_typist.get_state() == 1 {
 			if input_check_pressed("confirm")
-			game_restart();
+				game_restart();
 		}
 	}
 	else if oGlobal.fader_alpha == 1 game_restart();
@@ -321,11 +321,11 @@ debug = allow_debug ? global.debug : 0
 		}
 	}
 	if board_cover_button {
-	Battle_Masking_Start(true);
-	var board = oBoard;
-	if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
-	draw_rectangle_color(23, 432, 640, 480, c_black, c_black, c_black, c_black, 0);
-	Battle_Masking_End();
+		Battle_Masking_Start(true);
+		var board = oBoard;
+		if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
+		draw_rectangle_color(23, 432, 640, 480, c_black, c_black, c_black, c_black, 0);
+			Battle_Masking_End();
 }
 }
 

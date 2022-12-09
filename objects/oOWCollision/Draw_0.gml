@@ -1,6 +1,6 @@
 var input_confirm = input_check_pressed("confirm")
 //Properties of Save (INCOMPLETE)
-if sprite_index == spr_ow_save
+if sprite_index == sprOWSave
 {
 	depth = oOWPlayer.depth + 9;
 	image_speed = .15;

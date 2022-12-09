@@ -48,3 +48,12 @@ Battle_EnemyDialog(0, [
 	"turn 9 text",
 	"turn 10 text",
 ]);
+
+function UndoConst(_x, _y) constructor
+{
+	x = _x;
+	y = _y;
+}
+globalvar undoIndex;
+undoIndex = 0;
+undoArray[undoIndex] = new UndoConst(oSoul.x, oSoul.y);

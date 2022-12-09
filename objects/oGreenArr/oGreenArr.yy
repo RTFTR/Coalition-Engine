@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oGreenArr",
   "spriteId": {
-    "name": "spr_GreenArrow",
-    "path": "sprites/spr_GreenArrow/spr_GreenArrow.yy",
+    "name": "sprGreenArrow",
+    "path": "sprites/sprGreenArrow/sprGreenArrow.yy",
   },
   "solid": false,
   "visible": true,

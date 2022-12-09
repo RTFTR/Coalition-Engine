@@ -1,4 +1,4 @@
-draw_sprite_ext(spr_gameover,0,320,124,1,1,0,c_white,alpha);
+draw_sprite_ext(sprGameOver,0,320,124,1,1,0,c_white,alpha);
 if state == 0
 	draw_self();
 

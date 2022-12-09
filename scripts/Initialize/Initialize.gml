@@ -11,7 +11,6 @@ function Initialize()
 	global.last_dmg_time = 0;
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
-	global.EnableGrazing = true;
 	global.EnableGrazing = false;
 	global.TP = 0;
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
@@ -31,14 +30,14 @@ function Initialize()
 	global.SaveFile[? "Wep"] =			"Stick";
 	global.SaveFile[? "Arm"] =			"Bandage";
 	global.SaveFile[? "Kills"] =		0;
-	var Item_Preset = [1,2,3,4,4,4,5,6];
-	var Cell_Preset = [1,2,0,0,0,0,0,0];
-	var Box_Preset =  //Insert the items
-	[
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// OW Box
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// Dimensional Box A
-		[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]		// Dimensional Box B
-	];
+	var Item_Preset = [1,2,3,4,4,4,5,6],
+		Cell_Preset = [1,2,0,0,0,0,0,0],
+		Box_Preset =  //Insert the items
+		[
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// OW Box
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// Dimensional Box A
+			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]		// Dimensional Box B
+		];
 	for (var i = 0; i < 8; i++) {
 		if i < 3
 			for (var ii = 0; ii < 8; ii++)

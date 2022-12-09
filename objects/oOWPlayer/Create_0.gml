@@ -1,7 +1,7 @@
 oGlobal.camera_target = id;
 Camera_Scale(2, 2);
 char_moveable = true;
-dir_sprite = [char_frisk_up,  char_frisk_down, char_frisk_left];
+dir_sprite = [sprFriskUp,  sprFriskDown, sprFriskLeft];
 last_sprite = -1
 last_dir = 1;
 sprite_index = dir_sprite[2];

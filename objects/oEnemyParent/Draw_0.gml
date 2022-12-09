@@ -14,10 +14,10 @@ if state == 1 and!died and!is_spared {
 		oBattleController.end_dialog();
 		exit;
 	}
-	var spike_spr = spr_speechbubble_spike;
+	var spike_spr = sprSpeechBubbleSpike;
 	var spike_width = sprite_get_width(spike_spr);
 	var spike_height = sprite_get_height(spike_spr);
-	var corner_spr = spr_speechbubble_corner;
+	var corner_spr = sprSpeechBubbleCorner;
 	var corner_width = sprite_get_width(corner_spr);
 	var corner_height = sprite_get_height(corner_spr);
 	var e_height = enemy_total_height - dialog_y_from_top;
@@ -218,7 +218,7 @@ if !died {
 		for (var i = 0; i < dust_height * dust_amount / total_height; i += 6) {
 			if dust_alpha[i] > 1 / dust_life[i] {
 				draw_set_alpha(dust_alpha[i]);
-				draw_sprite(spr_pixel, 0, dust_pos[i, 0], dust_pos[i, 1]);
+				draw_sprite(sprPixel, 0, dust_pos[i, 0], dust_pos[i, 1]);
 				dust_pos[i, 0] += dust_displace[i, 0];
 				dust_pos[i, 1] += dust_displace[i, 1];
 				dust_alpha[i] -= 1 / dust_life[i];

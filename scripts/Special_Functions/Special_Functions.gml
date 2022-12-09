@@ -87,3 +87,4 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 	draw_line_width(x2, y1, x2, y2, width);
 	draw_set_color(prev_col);
 }
+

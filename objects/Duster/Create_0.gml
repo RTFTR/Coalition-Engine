@@ -28,7 +28,7 @@ fadeColor = c_white
 partSys = part_system_create();
 
 partDust = part_type_create(); // Create dust particle
-part_type_sprite(partDust, spr_pixel, 0, 0, 0);
+part_type_sprite(partDust, sprPixel, 0, 0, 0);
 part_type_color1(partDust, fadeColor);
 part_type_speed(partDust, 0.15, 0.28, 0, 0.01);
 part_type_direction(partDust, 35, 70, 0.1, 8);

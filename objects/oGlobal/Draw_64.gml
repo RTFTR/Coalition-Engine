@@ -1,6 +1,6 @@
 //Quit Texts
 if quit_timer
-	draw_sprite_ext(spr_quit_msg, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
+	draw_sprite_ext(sprQuitMesssge, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
 
 //Fader
 draw_set_color(fader_color);

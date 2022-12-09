@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oBoardCover",
   "spriteId": {
-    "name": "spr_pixel",
-    "path": "sprites/spr_pixel/spr_pixel.yy",
+    "name": "sprPixel",
+    "path": "sprites/sprPixel/sprPixel.yy",
   },
   "solid": false,
   "visible": true,

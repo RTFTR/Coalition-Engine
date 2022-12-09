@@ -1,6 +1,6 @@
 if active
 {
-	var sprite = spr_bone;
+	var sprite = sprBone;
 	var index = 2;
 	var spacing = 10;
 	var head = cone;

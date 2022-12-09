@@ -1,1 +1,1 @@
-sprite_index = spr_ow_save
+sprite_index = sprOWSave

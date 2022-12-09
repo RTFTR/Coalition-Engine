@@ -14,9 +14,9 @@ max_kr = 40;
 // Fight Aiming Functions
 Target = 
 {
-
+	Count			: global.bar_count,
 	state			: 0,
-	side			: 0,
+	side			: choose(-1,1),
 	time			: 0,
 	xscale			: 1,
 	yscale			: 1,
@@ -24,7 +24,7 @@ Target =
 	alpha			: 1,
 	buffer			: 0,
 	retract_method	: choose(0, 1),
-	WaitTime		: -1
+	WaitTime		: -1,
 }
 Aim =
 {
@@ -43,18 +43,18 @@ Aim =
 		.in(0.5, 0)
 		.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
 
-	//text_writer = scribble("* " + menu_text);
-	//if text_writer.get_page() != 0 text_writer.page(0);
 	Battle_SetMenuDialog(menu_text);
 
 }
 //KR Functions
-kr_timer = 0
-hp_previous = global.hp;
+{
+	kr_timer = 0
+	hp_previous = global.hp;
+}
 
 //Button Functions
 {
-	button_spr			= [spr_button_fight, spr_button_act, spr_button_item, spr_button_mercy];
+	button_spr			= [sprButtonFight, sprButtonAct, sprButtonItem, sprButtonMercy];
 	button_pos			= [[87, 453], [240, 453], [400, 453], [555, 453]];
 	button_alpha		= [0.25, 0.25, 0.25, 0.25];
 	button_scale		= [1, 1, 1, 1];
@@ -154,9 +154,9 @@ function enemy_under_attack(enemy_number)
 
 function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
 {
-	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost;
-	var target = enemy[enemy_under_attack];
-	var enemy_def = target.enemy_defense;
+	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
+		target = enemy[enemy_under_attack],
+		enemy_def = target.enemy_defense;
 	if target.enemy_is_spareable enemy_def *= -30; //Check if enemy is spareable -> reduce the DEF
 	damage -= enemy_def;
 	damage *= 2;

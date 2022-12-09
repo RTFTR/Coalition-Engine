@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oBulletBone",
   "spriteId": {
-    "name": "spr_bone",
-    "path": "sprites/spr_bone/spr_bone.yy",
+    "name": "sprBone",
+    "path": "sprites/sprBone/sprBone.yy",
   },
   "solid": false,
   "visible": true,

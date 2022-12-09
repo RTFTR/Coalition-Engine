@@ -325,7 +325,7 @@ if encounter_draw[2] draw_sprite_ext(sprSoul, 0 , encounter_soul_x, encounter_so
 			case "oOWCollision":
 			switch inst.sprite_index
 			{
-				case spr_ow_save:
+				case sprOWSave:
 				inst_name = "Save Point";
 				break
 			}

@@ -21,7 +21,7 @@ if !Is_Dialog()
 
 if !char_moveable spd = 0;
 
-//Movement spriting (Old)
+#region Movement spriting (Old)
 //if input_horizontal != 0
 //{
 //	assign_sprite = dir_sprite[2];
@@ -59,72 +59,63 @@ if !char_moveable spd = 0;
 //			y = clamp(y, sprite_height, other.sprite_height);
 //		}
 //	}
+#endregion
+
 
 // Check collision with tiles
-var lay_id = [layer_get_id("TileCollision"), layer_get_id("TileCollisionDialog")],
+var lay_id = layer_get_id("TileCollision"),
 	map_id, colliding = [false, false];
-for(var i = 0, n = array_length(lay_id); i < n; ++i)
+//Collision checking
+map_id = layer_tilemap_get_id(lay_id);
+if input_horizontal != 0
 {
-	//Collision checking
-	map_id[i] = layer_tilemap_get_id(lay_id[i]);
-	if input_horizontal != 0
+	var Left =  [true, true],
+		Right = [true, true];
+	if input_check("left")
+		Left =  [tilemap_get_at_pixel(map_id, bbox_left - spd, bbox_top),
+				tilemap_get_at_pixel(map_id, bbox_left - spd, bbox_bottom)];
+	else if input_check("right")
+		Right = [tilemap_get_at_pixel(map_id, bbox_right + spd, bbox_top),
+					tilemap_get_at_pixel(map_id, bbox_right + spd, bbox_bottom)];
+	
+	Left =  !(Left[0] and Left[1]);
+	Right = !(Right[0] and Right[1]);
+	if Right or Left
 	{
-		var Left =  [true, true],
-			Right = [true, true];
-		if input_check("left")
-			Left =  [tilemap_get_at_pixel(map_id[i], bbox_left - spd, bbox_top),
-					tilemap_get_at_pixel(map_id[i], bbox_left - spd, bbox_bottom)];
-		else if input_check("right")
-			Right = [tilemap_get_at_pixel(map_id[i], bbox_right + spd, bbox_top),
-					 tilemap_get_at_pixel(map_id[i], bbox_right + spd, bbox_bottom)];
+		colliding[0] = true;
+	}	 
+}
+if input_vertical != 0
+{
+	var Up =   [true, true],
+		Down = [true, true];
+	if input_check("up")
+		Up =  [tilemap_get_at_pixel(map_id, bbox_left, bbox_top - spd),
+				tilemap_get_at_pixel(map_id, bbox_right, bbox_top - spd)];
+	else if input_check("down")
+		Down = [tilemap_get_at_pixel(map_id, bbox_left, bbox_bottom + spd),
+					tilemap_get_at_pixel(map_id, bbox_right, bbox_bottom + spd)];
 	
-		Left =  !(Left[0] and Left[1]);
-		Right = !(Right[0] and Right[1]);
-		if Right or Left
-		{
-			colliding[0] = true;
-		}	 
-	}
-	if input_vertical != 0
+	Up =   !(Up[0] and Up[1]);
+	Down = !(Down[0] and Down[1]);
+	if Down or Up
 	{
-		var Up =   [true, true],
-			Down = [true, true];
-		if input_check("up")
-			Up =  [tilemap_get_at_pixel(map_id[i], bbox_left, bbox_top - spd),
-					tilemap_get_at_pixel(map_id[i], bbox_right, bbox_top - spd)];
-		else if input_check("down")
-			Down = [tilemap_get_at_pixel(map_id[i], bbox_left, bbox_bottom + spd),
-					 tilemap_get_at_pixel(map_id[i], bbox_right, bbox_bottom + spd)];
+		colliding[1] = true;
+	}	 
+}
+if colliding[0]
+{
+	assign_sprite = dir_sprite[2];
+	scale_x = -sign(input_horizontal);
 	
-		Up =   !(Up[0] and Up[1]);
-		Down = !(Down[0] and Down[1]);
-		if Down or Up
-		{
-			colliding[1] = true;
-		}	 
-	}
-	//Switch statement for tile type
-	switch i
-	{
-		case 0:
-		if colliding[0]
-		{
-			assign_sprite = dir_sprite[2];
-			scale_x = -sign(input_horizontal);
+	x += Right ? spd : -spd;
+}
+if colliding[1]
+{
+	assign_sprite = dir_sprite[max(0, sign(input_vertical))];
+	scale_x = 1
 	
-			x += Right ? spd : -spd;
-		}
-		if colliding[1]
-		{
-			assign_sprite = dir_sprite[max(0, sign(input_vertical))];
-			scale_x = 1
-	
-			y += Down ? spd : -spd;
-		}
-		break
-		if colliding[0] and colliding[1]
-		show_message("dialog");
-	}
+	y += Down ? spd : -spd;
 }
 
 	
@@ -149,15 +140,15 @@ if draw_menu
 	switch menu_state
 	{
 		case 0:		//Selection
-			sprite_index = char_frisk_think;
+			sprite_index = sprFriskThink;
 			image_index = global.timer / 25;
 		break
 		case 1:		//Items
-			sprite_index = char_frisk_pocket;
+			sprite_index = sprFriskPocket;
 			image_index = global.timer / 50;
 		break
 		case 3:		//Cell
-			sprite_index = char_frisk_cell;
+			sprite_index = sprFriskCell;
 		break
 	}
 }
@@ -178,7 +169,7 @@ if encounter_state
 	encounter_time++;
 	if encounter_state == 1
 	{
-		draw_sprite(spr_encounter_exclaim, 0, x, y - sprite_height);
+		draw_sprite(sprEncounterExclaimation, 0, x, y - sprite_height);
 		if encounter_time == 30
 		{
 			encounter_state++;

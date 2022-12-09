@@ -51,11 +51,11 @@ rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
 surface_set_target(surface);
 draw_clear_alpha(c_white, 0);
 draw_clear_alpha(c_black, 0);
-draw_sprite_ext(spr_pixel, 0, bg_x - l5d[0], bg_y - l5d[1], bg_w + 10, bg_h + 10, _angle, c_black, _alpha);
-draw_sprite_ext(spr_pixel, 0, _frame_x[0], _frame_y[0], _frame_w[0], _frame_h[0], _angle, _color, _alpha);
-draw_sprite_ext(spr_pixel, 0, _frame_x[1], _frame_y[1], _frame_w[1], _frame_h[1], _angle, _color, _alpha);
-draw_sprite_ext(spr_pixel, 0, _frame_x[2], _frame_y[2], _frame_w[2], _frame_h[2], _angle, _color, _alpha);
-draw_sprite_ext(spr_pixel, 0, _frame_x[3], _frame_y[3], _frame_w[3], _frame_h[3], _angle, _color, _alpha);
+draw_sprite_ext(sprPixel, 0, bg_x - l5d[0], bg_y - l5d[1], bg_w + 10, bg_h + 10, _angle, c_black, _alpha);
+draw_sprite_ext(sprPixel, 0, _frame_x[0], _frame_y[0], _frame_w[0], _frame_h[0], _angle, _color, _alpha);
+draw_sprite_ext(sprPixel, 0, _frame_x[1], _frame_y[1], _frame_w[1], _frame_h[1], _angle, _color, _alpha);
+draw_sprite_ext(sprPixel, 0, _frame_x[2], _frame_y[2], _frame_w[2], _frame_h[2], _angle, _color, _alpha);
+draw_sprite_ext(sprPixel, 0, _frame_x[3], _frame_y[3], _frame_w[3], _frame_h[3], _angle, _color, _alpha);
 surface_reset_target();
 
 //Shows hitbox

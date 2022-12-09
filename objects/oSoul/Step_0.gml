@@ -19,6 +19,8 @@ else {
 var STATE = oBattleController.battle_state;
 
 if STATE == 2 {
+	
+	
 	var h_spd = input_check("right") - input_check("left");
 	var v_spd = input_check("down") - input_check("up");
 
