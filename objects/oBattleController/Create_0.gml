@@ -32,7 +32,6 @@ Aim =
 	angle	: 0,
 	color	: c_white,
 	retract : choose(-1, 1)
-
 }
 
 //Menu Dialog Funtions

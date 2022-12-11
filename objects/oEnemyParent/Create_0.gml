@@ -179,6 +179,16 @@ function end_turn()
 			}
 		}
 	}
+	//Armor healing
+	if (turn % 2) == 1
+	{
+		if global.data.DefenseItem == "Temmie Armor" or
+			global.data.DefenseItem == "Stained Apron"
+		{
+			global.hp++;
+			audio_play(snd_item_heal);
+		}
+	}
 	Set_BoardSize();
 	oBoard.image_angle %= 360;
 	Set_BoardAngle();

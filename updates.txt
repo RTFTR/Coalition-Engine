@@ -1,5 +1,9 @@
 Update Logs
 
+v4.0.10 (Eden)
+idk i give up making multibar
+but i made the weapons and armor stat and the healing
+
 v4.0.9 (Eden)
 Chenged some assets naming
 
