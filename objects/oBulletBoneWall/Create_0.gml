@@ -22,6 +22,7 @@ time_stay = 16;
 sound_warn = true;
 sound_create = true;
 cone = 1;
+object = sprBone;
 
 alarm[0] = 1;
 alarm[1] = 1;

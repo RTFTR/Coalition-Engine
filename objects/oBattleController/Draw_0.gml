@@ -1,5 +1,5 @@
 // Text Functions
-if battle_state == 0 {
+if battle_state == BATTLE_STATE.MENU {
 	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
 		if enemy[i] == noone {
 			ncontains_enemy++;
@@ -156,7 +156,7 @@ if battle_state == 0 {
 						Target.WaitTime = 60;
 
 						var strike_target_x = 160 * (target_option + 1);
-						enemy_under_attack(target_option);
+						enemy[target_option].is_being_attacked = true;
 						Calculate_MenuDamage(_aim_distance, target_option);
 						instance_create_depth(strike_target_x, 160, -10, oStrike);
 						audio_play_sound(snd_slice, 50, false);
@@ -201,8 +201,21 @@ if battle_state == 0 {
 		Aim.angle = _aim_angle;
 		Aim.color = _aim_color;
 	}
+	if menu_state = 8
+	{
+		draw_text_scribble(96, 272, "[fnt_dt_mono]* " + FleeText[FleeTextNum]);
+		if oSoul.x <= 10 and FleeState == 1
+		{
+			Fader_Fade(0, 1, 30);
+			FleeState++;
+		}
+		if FleeState == 2 and oGlobal.fader_alpha == 1
+		{
+			game_restart();
+		}
+	}
 }
-if battle_state == 3 {
+if battle_state == BATTLE_STATE.RESULT {
 	if !global.BossFight {
 		battle_end_text_writer.starting_format("fnt_dt_mono", c_white)
 		battle_end_text_writer.draw(52, 272, battle_end_text_typist)

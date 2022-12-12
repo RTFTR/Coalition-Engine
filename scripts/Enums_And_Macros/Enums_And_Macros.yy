@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Macros",
+  "name": "Enums_And_Macros",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

@@ -193,14 +193,16 @@ function end_turn()
 	oBoard.image_angle %= 360;
 	Set_BoardAngle();
 	Set_BoardPos();
-		with oSoul draw_angle = (mode == SOUL_MODE.YELLOW ? 180 : 0);
+	with oSoul
+		draw_angle = (mode == SOUL_MODE.YELLOW ? 180 : 0);
 	with oBulletBone
 		if retract_on_end
 		{
+			at_turn_end = true;
 			destroy_on_turn_end = false;
 			can_hurt = 0;
-			TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 45, "length", length, 0);
-			alarm[1] = 45;
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 0);
+			alarm[1] = 25;
 		}
 	with oBulletParents
 		if destroy_on_turn_end instance_destroy();
@@ -217,8 +219,8 @@ function end_turn()
 turn_time = [300, 120];
 
 board_size = [
-[70, 70, 70, 70],
-[70, 70, 130, 130],
+	[70, 70, 70, 70],
+	[70, 70, 130, 130],
 ];
 
 TurnData = 
@@ -242,4 +244,14 @@ function Battle_SetTurnTime()
 function Battle_SetTurnBoardSize()
 {
 	board_size = argument0;
+}
+
+function RemoveEnemy()
+{
+	if instance_exists(oBattleController)
+		with oBattleController {
+			var enemy_slot = other.x / 160 - 1;
+			enemy[enemy_slot] = noone;
+			enemy_draw_hp_bar[enemy_slot] = 0;
+		}
 }

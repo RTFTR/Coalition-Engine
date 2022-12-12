@@ -341,7 +341,7 @@
     {"id":{"name":"__scribble_class_font","path":"scripts/__scribble_class_font/__scribble_class_font.yy",},"order":2,},
     {"id":{"name":"sprOWSave","path":"sprites/sprOWSave/sprOWSave.yy",},"order":0,},
     {"id":{"name":"spr_pap","path":"sprites/spr_pap/spr_pap.yy",},"order":2,},
-    {"id":{"name":"Macros","path":"scripts/Macros/Macros.yy",},"order":4,},
+    {"id":{"name":"Enums_And_Macros","path":"scripts/Enums_And_Macros/Enums_And_Macros.yy",},"order":4,},
     {"id":{"name":"sprSoulGraze","path":"sprites/sprSoulGraze/sprSoulGraze.yy",},"order":5,},
     {"id":{"name":"sprButtonAct","path":"sprites/sprButtonAct/sprButtonAct.yy",},"order":1,},
     {"id":{"name":"Bullet_Functions","path":"scripts/Bullet_Functions/Bullet_Functions.yy",},"order":3,},

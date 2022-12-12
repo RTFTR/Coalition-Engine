@@ -18,3 +18,4 @@ axis_load();
 
 retract_on_end = false;
 angle_to_direction = false;
+at_turn_end = false;

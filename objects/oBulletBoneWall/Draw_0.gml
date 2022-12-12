@@ -1,33 +1,36 @@
 if active
 {
-	var sprite = sprBone;
-	var index = 2;
-	var spacing = 10;
-	var head = cone;
-	if head == 2 { index = 4; spacing = 8; }
-	var color = c_white;
-	var color_outline = c_white;
+	var sprite = object,
+		index = 2,
+		spacing = sprite_get_height(object),
+		head = cone;
+	if head == 2
+	{
+		index = 4;
+		spacing -= 2;
+	}
+	var color = c_white,
+		color_outline = c_white;
 	if type == 1 color = c_aqua;
 	if type == 2 color = c_orange;
 	
-	var board = oBoard;
-	var board_x = board.x;
-	var board_y = board.y;
-	var board_margin = [board.up, board.down, board.left, board.right];	
-	
-	var board_u = board_y - board_margin[0];
-	var board_d = board_y + board_margin[1]; 
-	var board_l = board_x - board_margin[2]; 
-	var board_r = board_x + board_margin[3]; 
+	var board = oBoard,
+		board_x = board.x,
+		board_y = board.y,
+		board_margin = [board.up, board.down, board.left, board.right],
+		board_u = board_y - board_margin[0],
+		board_d = board_y + board_margin[1],
+		board_l = board_x - board_margin[2],
+		board_r = board_x + board_margin[3];
 
 	if time_warn
 	{
 		time_warn--;
 			
-		var x1 = 0;
-		var y1 = 0;
-		var x2 = 0;
-		var y2 = 0;
+		var x1 = 0,
+			y1 = 0,
+			x2 = 0,
+			y2 = 0;
 			
 		if dir == DIR.UP or dir == DIR.DOWN
 		{
@@ -72,14 +75,14 @@ if active
 	}
 	else
 	{
-		var pos = [0, 0];
-		var _angle = 0;
-		var _x = x;
-		var _y = y;
-		var _dir = dir;
-		var _height = height;
-		var _alpha = 1//image_alpha;
-		var _type = type;
+		var pos = [0, 0],
+			_angle = 0,
+			_x = x,
+			_y = y,
+			_dir = dir,
+			_height = height,
+			_alpha = 1,
+			_type = type;
 			
 		Battle_Masking_Start(true);
 			
@@ -110,7 +113,6 @@ if active
 				}
 				if collision Soul_Hurt(damage);
 			}
-			
 			// Hitbox
 			if global.show_hitbox
 			{
@@ -147,7 +149,6 @@ if active
 				}
 				if collision Soul_Hurt(damage);
 			}
-			
 			// Hitbox
 			if global.show_hitbox
 			{
@@ -174,62 +175,38 @@ if state == 2
 		if timer < time_move
 		{
 			var spd = floor((height) / time_move);
-		
-			if dir == DIR.UP y += spd;
-		    if dir == DIR.DOWN y -= spd;
-			if dir == DIR.LEFT x += spd;
-			if dir == DIR.RIGHT x -= spd;
+			
+			x -= lengthdir_x(spd, dir);
+			y -= lengthdir_y(spd, dir);
 		}
 		if (timer >= time_move and timer <= time_move + time_stay)
 		{
-			if dir == DIR.UP
-			{
-				x = target_x;
-				y = target_y + height;
-			}
-		    if dir == DIR.DOWN
-			{
-				x = target_x;
-				y = target_y - height;
-			}
-			if dir == DIR.LEFT
-			{
-				x = target_x + height; 
-				y = target_y;
-			}
-			if dir == DIR.RIGHT
-			{
-				x = target_x - height; 
-				y = target_y;
-			}
+			x = target_x - lengthdir_x(height, dir);
+			y = target_y - lengthdir_y(height, dir);
 		}
 		if timer > time_move + time_stay
 		{
-			var spd = floor(height / time_move);
-			var kill_check = false
-		
-			if dir == DIR.UP
-		    {
-		        y -= spd
+			var spd = floor(height / time_move),
+				kill_check = false;
+			
+			x += lengthdir_x(spd, dir);
+			y += lengthdir_y(spd, dir);
+			switch dir
+			{
+				case DIR.UP:
 		        kill_check = y < target_y;
-		    }
-		    if dir == DIR.DOWN
-		    {
-		        y += spd
+				break
+				case DIR.DOWN:
 		        kill_check = y > target_y;
-		    }
-			if dir == DIR.LEFT
-		    {
-		        x -= spd
+				break
+				case DIR.LEFT:
 		        kill_check = x < target_x;
-		    }
-		    if dir == DIR.RIGHT
-		    {
-		        x += spd
+				break
+				case DIR.RIGHT:
 		        kill_check = x > target_x;
-		    }
-	        
-			if kill_check instance_destroy()
+				break
+			}
+			if kill_check instance_destroy();
 		}
 	}
 	timer++;

@@ -50,9 +50,36 @@ enum ITEM
 }
 //Change this value when more items are added
 #macro ITEM_COUNT 6
-
+//Item Scroll types
+enum ITEM_SCROLL
+{
+	DEFAULT = 0,
+	VERTICAL = 1,
+	CIRCLE = 2
+}
 //Overworld Room ID
 enum OVERWORLD
 {
 	CORRIDOR = 0,
+}
+
+// Batle or Menu States
+enum BATTLE_STATE
+{
+	MENU = 0,
+	DIALOG = 1,
+	IN_TURN = 2,
+	RESULT = 3
+}
+enum MENU_STATE
+{
+	BUTTON_SELECTION = 0,
+	FIGHT = 1,
+	ACT = 2,
+	ITEM = 3,
+	MERCY = 4,
+	FIGHT_AIM = 5,
+	ACT_SELECT = 6,
+	MERCY_END = 7,
+	FLEE = 8
 }

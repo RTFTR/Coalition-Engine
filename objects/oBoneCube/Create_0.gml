@@ -24,9 +24,9 @@ function update_vert()
 	for (var i = 0, n = array_length(vert_list); i < n; i++)
 	{
 		_prop = vert_list[i];
-		var X = _prop[0];
-		var Y = _prop[1];
-		var Z = _prop[2];
+		var X = _prop[0],
+			Y = _prop[1],
+			Z = _prop[2];
 		X *= scalex;
 		Y *= scaley;
 		Z *= scalez;

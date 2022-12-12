@@ -9,7 +9,7 @@ if global.inv > 0 {
 	}
 }
 else {
-	if image_speed != 0 {
+	if image_speed != 0 and sprite_index != sprSoulFlee {
 		image_speed = 0;
 		image_index = 0;
 	}
@@ -19,17 +19,15 @@ else {
 var STATE = oBattleController.battle_state;
 
 if STATE == 2 {
-	
-	
-	var h_spd = input_check("right") - input_check("left");
-	var v_spd = input_check("down") - input_check("up");
-
-	var move_spd = global.spd / (input_check("cancel") + 1);
-
-	var x_offset = sprite_width / 2;
-	var y_offset = sprite_height / 2;
-
-	var check_board = instance_exists(oBoard);
+	var h_spd = input_check("right") - input_check("left"),
+		v_spd = input_check("down") - input_check("up"),
+		
+		move_spd = global.spd / (input_check("cancel") + 1),
+		
+		x_offset = sprite_width / 2,
+		y_offset = sprite_height / 2,
+		
+		check_board = instance_exists(oBoard);
 	if check_board // When the board is real XD
 	{
 		var board = oBoard;

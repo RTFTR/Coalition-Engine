@@ -1,5 +1,10 @@
 Update Logs
 
+v4.0.11 (Eden)
+Added Flee
+Changed some if else to switch
+Added some enums for better understanding
+
 v4.0.10 (Eden)
 idk i give up making multibar
 but i made the weapons and armor stat and the healing

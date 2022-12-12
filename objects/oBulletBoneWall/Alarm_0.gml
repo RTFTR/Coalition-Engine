@@ -1,14 +1,13 @@
 active = true;
 state = 1;
-var board = oBoard;
-var board_x = board.x;
-var board_y = board.y;
-var board_margin = [board.up, board.down, board.left, board.right];
-
-var board_u = board_y - board_margin[0];
-var board_d = board_y + board_margin[1];
-var board_l = board_x - board_margin[2];
-var board_r = board_x + board_margin[3];
+var board = oBoard,
+	board_x = board.x,
+	board_y = board.y,
+	board_margin = [board.up, board.down, board.left, board.right],
+	board_u = board_y - board_margin[0],
+	board_d = board_y + board_margin[1],
+	board_l = board_x - board_margin[2],
+	board_r = board_x + board_margin[3];
 if dir == DIR.UP or dir == DIR.DOWN
 {
 	x = board_x;

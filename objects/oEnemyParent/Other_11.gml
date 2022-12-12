@@ -2,6 +2,7 @@
 // Down here you can make your turn codes using TurnCreate()
 _turn = oBattleController.battle_turn - 1;
 time = time;
+
 ///@desc Creates the attack of the turn
 ///@param {real} Turn			The Turn number to add the attack to
 ///@param {real} Attack			The Attack number of the turn

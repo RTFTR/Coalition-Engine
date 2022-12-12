@@ -88,18 +88,18 @@ Aim =
 	board_cover_button = false;
 	board_full_cover = false;
 	item_scroll_type = 2;
-	
-	enum ITEM_SCROLL
-	{
-		DEFAULT = 0,
-		VERTICAL = 1,
-		CIRCLE = 2
-	}
-	
 	item_scroll_alpha = [.5, .5, .5];
 }
-
-allow_run = 0;
+//Flee
+{
+	allow_run = true;
+	FleeText = [
+		"I have better things to do.",
+		"flee text 2"
+	]
+	FleeTextNum = irandom(array_length(FleeText) - 1);
+	FleeState = 0;
+}
 
 //Dialog Stuff
 {
@@ -146,11 +146,6 @@ function scr_enemy_num()
 	return n;
 }
 
-function enemy_under_attack(enemy_number)
-{
-	enemy[enemy_number].is_being_attacked = true;
-}
-
 function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
 {
 	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
@@ -170,10 +165,6 @@ function dialog_start() {
 	oEnemyParent.state = 1;
 	battle_state = 1;
 	Battle_SetSoulPos(320, 320, 0);
-}
-
-function end_dialog() {
-	begin_turn();
 }
 
 function begin_turn() {
@@ -206,14 +197,16 @@ function end_battle() {
 		if global.data.Exp + Result.Exp >= Player_GetExpNext() {
 			var maxhp = false;
 			global.data.lv++;
-			if global.hp == global.hp_max maxhp = true
+			if global.hp == global.hp_max 
+				maxhp = true
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
-			battle_end_text += "\n You LOVE increased!";
+				battle_end_text += "\n You LOVE increased!";
 			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);
-		if battle_end_text_writer.get_page() != 0 battle_end_text_writer.page(0);
+		if battle_end_text_writer.get_page() != 0
+			battle_end_text_writer.page(0);
 		battle_end_text_typist = scribble_typist()
 			.in(0.5, 0)
 			.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
