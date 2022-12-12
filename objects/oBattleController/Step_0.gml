@@ -149,6 +149,7 @@ switch battle_state {
 						Move_Noise();
 					}
 					break
+
 				}
 			}
 
@@ -168,6 +169,7 @@ switch battle_state {
 					oSoul.x += (190 + (130 * (choice % 3)) - oSoul.x) / 3;
 					oSoul.y += (310 - (40 * (abs((choice % 3) - 1))) - oSoul.y) / 3;
 					break
+
 				}
 			} else {
 				oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
@@ -177,7 +179,13 @@ switch battle_state {
 			if input_confirm {
 				oSoul.visible = false;
 				Confirm_Noise();
-				if menu_state == MENU_STATE.ITEM Item_Use(global.item[choice]); // Item-consuming code
+				if menu_state == MENU_STATE.ITEM // Item-consuming code
+				{
+					var ItemID = choice;
+					if item_scroll_type == ITEM_SCROLL.CIRCLE
+						ItemID *= 8/12
+					Item_Use(global.item[ceil(ItemID)]);
+				}
 				else // Action-executing code
 				{
 					menu_text_typist.reset();
@@ -218,7 +226,8 @@ switch battle_state {
 			var target_soul_angle = 0;
 			if (menu_state == 1 or
 				menu_state == 2 or
-				(menu_state == 3 and item_scroll_type != ITEM_SCROLL.CIRCLE) or
+				(menu_state == 3 and item_scroll_type != ITEM_SCROLL.CIRCLE
+								 and item_scroll_type != ITEM_SCROLL.HORIZONTAL) or
 				menu_state == 4 or
 				menu_state == 6)
 				target_soul_angle = 90;

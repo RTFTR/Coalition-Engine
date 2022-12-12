@@ -137,8 +137,13 @@ TurnCreate(6, 2, 599, function() {
 	instance_destroy(oBoardCover);
 });
 #endregion
-#region Turn 7 Cyan Soul
+#region Turn 7 Purple Soul
 TurnCreate(7, 0, 1, function() {
 	Battle_SoulMode(SOUL_MODE.PURPLE);
+});
+#endregion
+#region Turn 8 360 Blue Soul
+TurnCreate(8, 0, 1, function() {
+	Battle_SoulMode(SOUL_MODE.FREEBLUE);
 });
 #endregion

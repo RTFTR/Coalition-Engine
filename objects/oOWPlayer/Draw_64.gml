@@ -1,26 +1,30 @@
 ///@desc UI Drawing
 char_moveable = !Is_Dialog() and !draw_menu and !encounter_state;
 
-var relative_pos = [
-(x - camera_get_view_x(view_camera[0])) * oGlobal.camera_scale_x,
-(y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * oGlobal.camera_scale_y
-];
+var CamPos = [camera_get_view_x(view_camera[0]),  camera_get_view_y(view_camera[0])],
+	relative_pos = [
+		(x - CamPos[0]) * oGlobal.camera_scale_x,
+		(y - CamPos[1] - sprite_get_height(sprite_index)/2) * oGlobal.camera_scale_y
+	];
 //Menu drawing
-if draw_menu
+BoxX[0] = lerp(BoxX[0], draw_menu ? 0 : -100, 0.12);
+if menu_state < 1
+	for(var i = 0, n = array_length(BoxY) - 1; i < n; ++i)
+		BoxY[i] = lerp(BoxY[i], -950, 0.12);
+if draw_menu and !Is_Dialog()
 {
-	var input_horizontal = input_check_pressed("right") - input_check_pressed("left");
-	var input_vertical =   input_check_pressed("down") - input_check_pressed("up");
-	var input_confirm =    input_check_pressed("confirm");
-	var input_cancel =     input_check_pressed("cancel");
-	//Check if the Menu UI should be on top or bottom
-	var menu_at_top = y < 
-	camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2 + 10;
-	var ui_box_x = 30;
-	var ui_box_y = menu_at_top ? 45 : 315;
-	var ui_width = 130;
-	var ui_height = 110;
-	var ui_box_frame = 5;
-	var gap = [0, 75, 90];
+	var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
+		input_vertical =   input_check_pressed("down") - input_check_pressed("up"),
+		input_confirm =    input_check_pressed("confirm"),
+		input_cancel =     input_check_pressed("cancel"),
+		//Check if the Menu UI should be on top or bottom
+		menu_at_top = y < CamPos[1] + camera_get_view_height(view_camera[0]) / 2 + 10,
+		ui_box_x = 30 + BoxX[0],
+		ui_box_y = menu_at_top ? 45 : 315,
+		ui_width = 130,
+		ui_height = 110,
+		ui_box_frame = 5,
+		gap = [0, 75, 90];
 	//Check if the Current UI os a Box
 	if !Is_Boxing()
 	{
@@ -46,7 +50,7 @@ if draw_menu
 		draw_text(ui_box_x + 17, ui_box_y + 60, "HP  " + hp+"/"+max_hp);
 		draw_text(ui_box_x + 17, ui_box_y + 75, "G   " + gold);
 	
-		ui_box_x = 30;
+		ui_box_x = 30 + BoxX[0];
 		ui_box_y = 165;
 		ui_width = 130;
 		ui_height = 140;
@@ -85,8 +89,10 @@ if draw_menu
 			{
 				var allow = true;
 				if menu_choice[0] == 0
-					if !Item_Count() allow = false
-				if allow menu_state = menu_choice[0] + 1;
+					if !Item_Count()
+						allow = false
+				if allow
+					menu_state = menu_choice[0] + 1;
 				if menu_state != 2 Confirm_Noise();
 				input_confirm = 0;
 			}
@@ -105,8 +111,8 @@ if draw_menu
 	//Box drawing - Item - Stat - Cell
 	if menu_state
 	{
-		ui_box_x = 180;
-		ui_box_y = 45;
+		ui_box_x = 180 + BoxX[0];
+		ui_box_y = BoxY[0] - 15;
 		ui_width = 310;
 		var assign_height = [0, 380, 430, 140 + Cell_Count() * 35, 380, 0, 0, 0, 0];
 		ui_height = assign_height[menu_state]
@@ -125,16 +131,28 @@ if draw_menu
 			if !Is_Dialog()
 			{
 				menu_state = 1; menu_choice[5] = 0; input_confirm = 0;
-				if !Item_Count() { menu_state = 0; exit}
+				if !Item_Count()
+				{
+					menu_state = 0;
+					exit
+				}
 				menu_choice[1] = Posmod(menu_choice[1], Item_Count());
 			}
 		if menu_state == 6	//Cell
-			if !Is_Dialog() {menu_state = 3; input_confirm = 0;}
+			if !Is_Dialog()
+			{
+				menu_state = 3;
+				input_confirm = 0;
+			}
 		if menu_state == 7 or menu_state == 8
 		{
 			if !Is_Boxing() menu_state = 3;
 			if input_horizontal != 0 menu_state = (menu_state == 7 ? 8 : 7);
-			if input_cancel {menu_choice[7] = 0; menu_choice[8] = 0;}
+			if input_cancel
+			{
+				menu_choice[7] = 0;
+				menu_choice[8] = 0;
+			}
 			if input_confirm
 			{
 				var box = Cell_GetBoxID(menu_choice[3]);
@@ -159,20 +177,21 @@ if draw_menu
 		}
 		if menu_state == 1 or menu_state == 4	//Item Drawing
 		{
+			BoxY[0] = lerp(BoxY[0], 60, 0.12);
 			Item_Info_Load()
 			draw_set_font(fnt_dt_sans);
 			draw_set_color(c_white);
 			draw_set_valign(fa_middle);
 			for (var i = 0, n = Item_Count(); i < n; ++i)
 			{
-				draw_text(225, 95 + i * 35, item_name[i]);
+				draw_text(225, BoxY[0] + 35 + i * 35, item_name[i]);
 			}
 			var menu_text = ["USE", "INFO", "DROP"];
 			draw_set_font(fnt_dt_sans);
 			draw_set_color(c_white);
 			draw_set_valign(fa_middle);
 			for(var i = 0; i < 3; i++)
-				draw_text(225 + Sigma(gap, 0, i), 395, menu_text[i]);
+				draw_text(225 + Sigma(gap, 0, i), 335 + BoxY[0], menu_text[i]);
 			if menu_state == 1
 				if input_confirm
 				{
@@ -195,26 +214,32 @@ if draw_menu
 					OW_Dialog(item_use_text[menu_choice[4]], "fnt_dt_mono", snd_txtTyper, menu_at_top);
 					input_confirm = 0;
 				}
-				if input_cancel {menu_state = 1; menu_choice[4] = 0; input_cancel = 0;}
+				if input_cancel
+				{
+					menu_state = 1;
+					menu_choice[4] = 0;
+					input_cancel = 0;
+				}
 			}
 		}
 		if menu_state == 2	//Stats
 		{
+			BoxY[0] = lerp(BoxY[0], 60, 0.12);
 			draw_set_font(fnt_dt_sans);
 			draw_set_color(c_white);
 			draw_set_valign(fa_middle);
-			draw_text(210, 95,"''" + global.data.name + "''");
-			draw_text(210, 155, "LV " + lv);
-			draw_text(210, 190, "HP " + hp + " / "+ max_hp);
-			draw_text(210, 250, "AT " + string(global.player_base_atk) + " (" + string(global.player_attack) + ")");
-			draw_text(210, 285, "DF " + string(global.player_base_def) + " (" + string(global.player_def) + ")");
-			draw_text(340, 250, "EXP: " + string(global.data.Exp));
-			draw_text(340, 285, "NEXT: " + string(Player_GetExpNext() - Player_GetLVBaseExp()));
-			draw_text(210, 345, "WEAPON: " + string(global.data.AttackItem));
-			draw_text(210, 380, "ARMOR: " + string(global.data.DefenseItem));
-			draw_text(210, 425, "GOLD: " + gold);
+			draw_text(210, BoxY[0] + 35,"''" + global.data.name + "''");
+			draw_text(210, BoxY[0] + 95, "LV " + lv);
+			draw_text(210, BoxY[0] + 130, "HP " + hp + " / "+ max_hp);
+			draw_text(210, BoxY[0] + 190, "AT " + string(global.player_base_atk) + " (" + string(global.player_attack) + ")");
+			draw_text(210, BoxY[0] + 225, "DF " + string(global.player_base_def) + " (" + string(global.player_def) + ")");
+			draw_text(340, BoxY[0] + 190, "EXP: " + string(global.data.Exp));
+			draw_text(340, BoxY[0] + 225, "NEXT: " + string(Player_GetExpNext() - Player_GetLVBaseExp()));
+			draw_text(210, BoxY[0] + 285, "WEAPON: " + string(global.data.AttackItem));
+			draw_text(210, BoxY[0] + 320, "ARMOR: " + string(global.data.DefenseItem));
+			draw_text(210, BoxY[0] + 365, "GOLD: " + gold);
 			if global.data.Kills > 20
-			draw_text(340, 425, "KILLS: " + string(global.data.Kills));
+				draw_text(340, BoxY[0] + 365, "KILLS: " + string(global.data.Kills));
 		}
 		//Cell
 		if menu_state == 3
@@ -222,9 +247,10 @@ if draw_menu
 			draw_set_font(fnt_dt_sans);
 			draw_set_color(c_white);
 			draw_set_valign(fa_middle);
+			BoxY[0] = lerp(BoxY[0], 60, 0.12);
 			for (var i = 1; i <= Cell_Count(); ++i)
 			{
-				draw_text(225, 60 + i * 35, Cell_GetName(i));
+				draw_text(225, BoxY[0] + i * 35, Cell_GetName(i));
 			}
 			if input_confirm
 			{
@@ -249,13 +275,13 @@ if draw_menu
 		}
 	}
 	
-	ui_box_x = 30;
+	ui_box_x = 30 + BoxX[0];
 	ui_box_y = 165;
 	ui_width = 130;
 	ui_height = 140;
 	
-	var menu_soul_x = [60, 210, 60, 210, 210 + Sigma(gap, 0, min(menu_choice[4], 2)), 210, 210, 60, 360];
-	var menu_soul_y = [ui_box_y + 37 + menu_choice[0] * 30,
+	var menu_soul_x = [60, 210, 60, 210, 210 + Sigma(gap, 0, min(menu_choice[4], 2)), 210, 210, 60, 360],
+		menu_soul_y = [ui_box_y + 37 + menu_choice[0] * 30,
 						95 + menu_choice[1] * 35,
 						230,
 						95 + menu_choice[3] * 35,
@@ -268,15 +294,15 @@ if draw_menu
 	soul_target[0] = lerp(soul_target[0], menu_soul_x[menu_state], 0.21);
 	soul_target[1] = lerp(soul_target[1], menu_soul_y[menu_state], 0.21);
 	
-	var menu_text = ["ITEM", "STAT", "CELL"];
-	var _alpha = [1, 1, 0, 1, 1, 0, 0, 1, 1];
-	var exist_color =
-	[
-		[c_dkgray, c_white],
-		[c_white, c_white],
-		[c_black, c_white],
-	];
-	var exists = [Item_Count(), 1, Cell_Count()];
+	var menu_text = ["ITEM", "STAT", "CELL"],
+		_alpha = [1, 1, 0, 1, 1, 0, 0, 1, 1],
+		exist_color =
+		[
+			[c_dkgray, c_white],
+			[c_white, c_white],
+			[c_black, c_white],
+		],
+		exists = [Item_Count(), 1, Cell_Count()];
 	draw_set_font(fnt_dt_sans);
 	draw_set_valign(fa_middle);
 	if !Is_Boxing()

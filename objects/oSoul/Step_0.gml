@@ -68,16 +68,16 @@ if STATE == 2 {
 			else if dir == DIR.LEFT image_angle = 270;
 			else if dir == DIR.RIGHT image_angle = 90;
 
-			var _on_ground = false;
-			var _on_ceil = false;
-			var _on_platform = false;
-			var _fall_spd = fall_spd;
-			var _fall_grav = fall_grav;
+			var _on_ground = false,
+				_on_ceil = false,
+				_on_platform = false,
+				_fall_spd = fall_spd,
+				_fall_grav = fall_grav,
 
-			var _angle = image_angle;
+				_angle = image_angle,
 
-			var platform_check_x = [0, 0];
-			var platform_check_y = [0, 0];
+				platform_check_x = [0, 0],
+				platform_check_y = [0, 0];
 		
 			//Soul Gravity
 			if _fall_spd < 4 and _fall_spd > 0.25 _fall_grav = 0.15;
@@ -87,10 +87,10 @@ if STATE == 2 {
 
 			_fall_spd += _fall_grav;
 
-			var _dist = point_distance(board_x, board_y, x, y);
-			var _dir = point_direction(board_x, board_y, x, y);
-			var r_x = lengthdir_x(_dist, _dir - board_dir) + board_x;
-			var r_y = lengthdir_y(_dist, _dir - board_dir) + board_y;
+			var _dist = point_distance(board_x, board_y, x, y),
+				_dir = point_direction(board_x, board_y, x, y),
+				r_x = lengthdir_x(_dist, _dir - board_dir) + board_x,
+				r_y = lengthdir_y(_dist, _dir - board_dir) + board_y;
 			//Input and collision check of different directions of soul
 			if _angle == 0 {
 				if check_board {
@@ -203,8 +203,8 @@ if STATE == 2 {
 			//Movement particle
 			if Battle_GetState() == 2 and moveable {
 				if !(global.timer % 5) TrailStep(25)
-				var input = [keyboard_check(vk_right), keyboard_check(vk_up),
-					keyboard_check(vk_left), keyboard_check(vk_down)
+				var input = [input_check("right"), input_check("up"),
+					input_check("left"), input_check("down")
 				];
 				//Movement
 					 if input[0] && input[1] dir = 45;
@@ -297,6 +297,7 @@ if STATE == 2 {
 			}
 		break
 		}
+		
 	}
 	
 	if !IsGrazer

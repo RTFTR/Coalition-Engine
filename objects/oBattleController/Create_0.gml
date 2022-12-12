@@ -87,7 +87,7 @@ Aim =
 	board_cover_hp_bar = false;
 	board_cover_button = false;
 	board_full_cover = false;
-	item_scroll_type = 2;
+	item_scroll_type = ITEM_SCROLL.VERTICAL;
 	item_scroll_alpha = [.5, .5, .5];
 }
 //Flee

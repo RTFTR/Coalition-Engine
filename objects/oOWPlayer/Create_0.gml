@@ -16,7 +16,8 @@ menu_state = 0;
 soul_target = [(x - camera_get_view_x(view_camera[0])) * oGlobal.camera_scale_x,
 				(y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * oGlobal.camera_scale_y
 				];
-
+BoxX = [-100];
+BoxY = [-950, -950, -950, -950, -950, -950, -950];
 Dialog_SetOptionName(false, "option 1", "option 2");
 OW_Dialog("Welcome to the\n  Underg- Overworld!");
 

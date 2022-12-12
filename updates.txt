@@ -1,5 +1,9 @@
 Update Logs
 
+v4.0.12 (Eden)
+Added lerping in Overworld menu (I tried)
+Fixed bug of Arrow only movement in Orange soul
+
 v4.0.11 (Eden)
 Added Flee
 Changed some if else to switch

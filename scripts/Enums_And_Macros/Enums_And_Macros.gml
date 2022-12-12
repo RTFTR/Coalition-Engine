@@ -26,6 +26,7 @@ enum SOUL_MODE
 	GREEN = 5,
 	PURPLE = 6,
 	CYAN = 7,
+	FREEBLUE = 8,
 }
 
 //Direction
@@ -55,7 +56,8 @@ enum ITEM_SCROLL
 {
 	DEFAULT = 0,
 	VERTICAL = 1,
-	CIRCLE = 2
+	CIRCLE = 2,
+	HORIZONTAL = 3,
 }
 //Overworld Room ID
 enum OVERWORLD
