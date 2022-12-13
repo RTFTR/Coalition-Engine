@@ -1,7 +1,7 @@
 /// @description Global
 
-var ver = string(GM_runtime_version);
-var InputTicking = false;
+var ver = string(GM_runtime_version),
+	InputTicking = false;
 if string_copy(ver, 1, 4) != "2022" InputTicking = true
 else if real(string_copy(ver, 6, 1)) < 5 InputTicking = true;
 if InputTicking input_tick(); // Input handler, do not delete!

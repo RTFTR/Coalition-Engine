@@ -142,8 +142,8 @@ TurnCreate(7, 0, 1, function() {
 	Battle_SoulMode(SOUL_MODE.PURPLE);
 });
 #endregion
-#region Turn 8 360 Blue Soul
+#region Turn 8 Test
 TurnCreate(8, 0, 1, function() {
-	Battle_SoulMode(SOUL_MODE.FREEBLUE);
+	
 });
 #endregion

@@ -201,7 +201,7 @@ if STATE == 2 {
 
 		case SOUL_MODE.ORANGE : {
 			//Movement particle
-			if Battle_GetState() == 2 and moveable {
+			if moveable {
 				if !(global.timer % 5) TrailStep(25)
 				var input = [input_check("right"), input_check("up"),
 					input_check("left"), input_check("down")

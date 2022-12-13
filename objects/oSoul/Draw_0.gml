@@ -1,5 +1,5 @@
-var STATE = oBattleController.battle_state;
-var MENU = oBattleController.menu_state;
+var STATE = oBattleController.battle_state,
+	MENU = oBattleController.menu_state;
 image_angle += draw_angle;
 image_blend = make_color_rgb(r, g, b);
 if (STATE = 0 or STATE = 2) and (MENU != 5) and !IsGrazer
@@ -16,7 +16,7 @@ image_angle -= draw_angle;
 
 //Green soul shield drawing
 if mode = SOUL_MODE.GREEN
-	if Battle_GetState() == 2
+	if STATE == 2
 	{
 		var ShieldAng = ShieldDrawAngle;
 		draw_set_circle_precision(16)
@@ -65,12 +65,12 @@ if mode = SOUL_MODE.GREEN
 
 if mode == SOUL_MODE.PURPLE and STATE == 2
 {
-	var TopLine =		oBoard.y - oBoard.up + 15;
-	var BottomLine =	oBoard.y + oBoard.down - 15;
-	var LeftLine =		oBoard.x - oBoard.left + 15;
-	var RightLine =		oBoard.x + oBoard.right - 15;
-	var XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1);
-	var YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
+	var TopLine =		oBoard.y - oBoard.up + 15,
+		BottomLine =	oBoard.y + oBoard.down - 15,
+		LeftLine =		oBoard.x - oBoard.left + 15,
+		RightLine =		oBoard.x + oBoard.right - 15,
+		XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1),
+		YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
 	draw_set_alpha(Purple.Mode == 0 ? 1 : 0.3);
 	for(var i = TopLine; i <= BottomLine; i += YDifference)
 	{
@@ -93,7 +93,7 @@ if mode == SOUL_MODE.PURPLE and STATE == 2
 					oBoard.x + oBoard.right, oBoard.y + oBoard.down, 0);
 	Battle_Masking_End();
 	draw_set_color(c_white);
-	draw_set_alpha(1)
+	draw_set_alpha(1);
 }
 
 

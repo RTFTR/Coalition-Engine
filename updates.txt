@@ -1,5 +1,11 @@
 Update Logs
 
+v4.1.0 (Eden)
+Removed uneeded assets
+Updated scribble
+Overworld saving testing, someone fix it lol
+forgot
+
 v4.0.12 (Eden)
 Added lerping in Overworld menu (I tried)
 Fixed bug of Arrow only movement in Orange soul

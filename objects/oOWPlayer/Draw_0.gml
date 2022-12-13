@@ -61,7 +61,6 @@ if !char_moveable spd = 0;
 //	}
 #endregion
 
-
 // Check collision with tiles
 var lay_id = layer_get_id("TileCollision"),
 	map_id, colliding = [false, false];

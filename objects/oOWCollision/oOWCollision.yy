@@ -2,10 +2,7 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "oOWCollision",
-  "spriteId": {
-    "name": "sprHall",
-    "path": "sprites/sprHall/sprHall.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,

@@ -16,8 +16,8 @@
 		cam_shake_y = 0;
 	
 	// Targetting
-	var camToX = camera_x;
-	var camToY = camera_y;
+	var camToX = camera_x,
+		camToY = camera_y;
 	camera_set_view_target(cam, cam_target);
 	if (cam_target != noone and instance_exists(cam_target)) {
 		camToX = cam_target.x-cam_width /2;

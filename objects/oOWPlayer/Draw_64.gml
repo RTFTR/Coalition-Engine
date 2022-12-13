@@ -1,5 +1,5 @@
 ///@desc UI Drawing
-char_moveable = !Is_Dialog() and !draw_menu and !encounter_state;
+char_moveable = !Is_Dialog() and !draw_menu and !encounter_state and !oOWController.is_saving;
 
 var CamPos = [camera_get_view_x(view_camera[0]),  camera_get_view_y(view_camera[0])],
 	relative_pos = [

@@ -8,14 +8,12 @@ scalex = 0;
 scaley = 0;
 scalez = 0;
 type = 0;
-function add_vert(argument0, argument1, argument2, argument3)
+function add_vert(X, Y, Z, list)
 {
-	argument3 ??= vert_list;
+	list ??= vert_list;
 	var _prop = ds_list_create();
-	_prop[0] = argument0;
-	_prop[1] = argument1;
-	_prop[2] = argument2;
-	array_push(argument3, _prop);
+	_prop = [X, Y, Z];
+	array_push(list, _prop);
 }
 
 function update_vert()
@@ -30,8 +28,8 @@ function update_vert()
 		X *= scalex;
 		Y *= scaley;
 		Z *= scalez;
-		var YY = Y * dcos(angles[0]) - Z * dsin(angles[0]);
-		var ZZ = Y * dsin(angles[0]) + Z * dcos(angles[0]);
+		var YY = Y * dcos(angles[0]) - Z * dsin(angles[0]),
+			ZZ = Y * dsin(angles[0]) + Z * dcos(angles[0]);
 		Y = YY;
 		Z = ZZ;
 		ZZ = Z * dcos(angles[1]) - X * dsin(angles[1]);
@@ -48,10 +46,7 @@ function update_vert()
 
 function add_edge()
 {
-	_prop = [];
-	_prop[0] = argument0;
-	_prop[1] = argument1;
-	_prop[2] = Bullet_Bone(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+	_prop = [argument0, argument1, Bullet_Bone(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)];
 	_prop[2].retract_on_end = true;
 	array_push(edge_list, _prop);
 }

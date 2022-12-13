@@ -35,13 +35,12 @@ move_y = 0;
 function BasicMovement(hor = true, ver = true) {
 	if !IsGrazer
 	{
-		var h_spd = input_check("right") - input_check("left");
-		var v_spd = input_check("down") - input_check("up");
-
-		var move_spd = global.spd / (input_check("cancel") + 1);
+		var h_spd = input_check("right") - input_check("left"),
+			v_spd = input_check("down") - input_check("up"),
+			move_spd = global.spd / (input_check("cancel") + 1),
+			_angle = image_angle;
 		move_x = h_spd * move_spd;
 		move_y = v_spd * move_spd;
-		var _angle = image_angle;
 
 		if moveable {
 			if hor
