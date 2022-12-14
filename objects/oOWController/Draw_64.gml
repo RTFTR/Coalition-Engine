@@ -147,7 +147,7 @@ if is_saving
 			audio_play(snd_menu_switch);
 			Choice = Posmod(Choice + input, 2);
 		}
-		draw_sprite_ext(sprSoul, 0, 151 + Choice * 180, 255, 1, 1, 90, c_red, abs(sin(degtorad(global.timer))) + 0.3);
+		draw_sprite_ext(sprSoul, 0, 151 + Choice * 180, 255, 1, 1, 90, c_red, abs(dsin(global.timer)) + 0.3);
 		draw_text(170, 240, "Save");
 		draw_text(350, 240, "Return");
 		input = input_check_pressed("confirm")

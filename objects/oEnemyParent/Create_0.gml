@@ -148,8 +148,8 @@ is_spared = false;
 //Turn
 function end_turn()
 {
-	var turn = oBattleController.battle_turn - 1;
-	var end_turn_menu_text = [
+	var turn = oBattleController.battle_turn - 1,
+		end_turn_menu_text = [
 	"turn 2 text",
 	"turn 3 text",
 	];

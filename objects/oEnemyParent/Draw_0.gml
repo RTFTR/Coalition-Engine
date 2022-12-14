@@ -1,6 +1,5 @@
 // Check if other enemies are dying
-for (var i = 0, n = instance_number(oEnemyParent); i < n; ++i) {
-	var enemy_find;
+for (var i = 0, n = instance_number(oEnemyParent), enemy_find; i < n; ++i) {
 	enemy_find[i] = instance_find(oEnemyParent, i);
 	if enemy_find[i].is_dying
 		state = 0.6;
@@ -56,10 +55,10 @@ if state == 1 and!died and!is_spared {
 		[1, 1, 0],
 		[1, 1, 90],
 	],
-	FinalDIrection = dialog_dir / 90;
-	draw_sprite_ext(SpikeSprite, 0, SpikePosition[FinalDIrection, 0], SpikePosition[FinalDIrection, 1],
-					SpikeScaleAngle[FinalDIrection, 0], SpikeScaleAngle[FinalDIrection, 1],
-					SpikeScaleAngle[FinalDIrection, 2], c_white, 1);
+	FinalDirection = dialog_dir / 90;
+	draw_sprite_ext(SpikeSprite, 0, SpikePosition[FinalDirection, 0], SpikePosition[FinalDirection, 1],
+					SpikeScaleAngle[FinalDirection, 0], SpikeScaleAngle[FinalDirection, 1],
+					SpikeScaleAngle[FinalDirection, 2], c_white, 1);
 	//Fill ins
 	draw_set_color(c_white);
 	draw_rectangle(CornerPosition[2] + CornerWidth, CornerPosition[0] + 1,
@@ -102,7 +101,9 @@ if !died and!is_spared
 				TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 35, 25, "x", x - dodge_to, x);
 			}
 			attack_time++;
-		} else {
+		}
+		else
+		{
 			if !instance_exists(oStrike) {
 				if attack_time == 0 {
 					audio_play(snd_damage);
@@ -115,9 +116,7 @@ if !died and!is_spared
 					TweenFire(id, EaseInQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
 				}
 				attack_time++;
-				if attack_time < attack_end_time
-					x = random_range(xstart - 3, xstart + 3);
-				else x = xstart;
+				x = (attack_time < attack_end_time) ? random_range(xstart - 3, xstart + 3) : xstart;
 			}
 		}
 
@@ -145,7 +144,9 @@ if !died and!is_spared
 				attack_time = 0;
 				is_being_attacked = false
 			}
-		} else {
+		}
+		else
+		{
 			//If is gonna die
 			is_dying = true;
 			death_time++;
@@ -178,14 +179,14 @@ if is_being_spared {
 			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "image_alpha", image_alpha, 0.5);
 		}
 	//Check for any un-spared enemies, if yes then resume battle
-	for (var i = 0, n = instance_number(oEnemyParent), continue_battle = false; i < n; ++i) {
-		var enemy_find;
+	for (var i = 0, n = instance_number(oEnemyParent), continue_battle = false, enemy_find; i < n; ++i) {
 		enemy_find[i] = instance_find(oEnemyParent, i);
 		if !enemy_find[i].is_spared continue_battle = true;
 	}
 	if !continue_battle
 		oBattleController.end_battle();
-	else {
+	else
+	{
 		if spare_end_begin_turn {
 			//Begins turn if it's set to be
 			if !is_spared {

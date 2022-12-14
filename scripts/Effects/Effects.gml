@@ -15,19 +15,14 @@ function Fader_Fade(start, target, duration, delay = 0, color = c_black)
 ///@param {real} amount		The amount to blur
 function Blur_Screen(duration, amount)
 {
-var shader_blur=instance_create_depth(0,0,-1000,blur_shader)
-with(shader_blur)
-{
-	duration=duration            //sets duration
-	var_blur_amount=amount       //sets blur amount
-	TweenFire(id, EaseOutSine,	TWEEN_MODE_ONCE, false, 0, duration, "var_blur_amount", amount, 0)
-}
-//var a = Effect_Shader(shd_GaussianBlur, "size", amount)
-//with(a)
-//{
-//	duration = duration;
-//}
-return shader_blur;
+	var shader_blur = instance_create_depth(0,0,-1000,blur_shader)
+	with shader_blur
+	{
+		duration = duration            //sets duration
+		var_blur_amount = amount       //sets blur amount
+		TweenFire(id, EaseOutSine,	TWEEN_MODE_ONCE, false, 0, duration, "var_blur_amount", amount, 0)
+	}
+	return shader_blur;
 }
 
 ///@desc Creates a motion blur of a sprite
@@ -106,7 +101,7 @@ function Camera_RotateTo(target, duration, ease = EaseLinear)
 	TweenFire(oGlobal, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_angle", ooGlobal.camera_angle, target);
 }
 
-///@desc Creates the effect with the shader given, if the shader has multiple params do Effect_Shader(shader, param name, param val, param name, param val...)
+///@desc Creates the effect with the shader given
 ///@param {Assets.GMShader} Shader	The shader to use
 ///@param {string} Parameter_Name	The name of the uniform parameter
 ///@param {real} Parameter_Value	The value of the uniform parameter

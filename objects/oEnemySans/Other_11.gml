@@ -144,6 +144,56 @@ TurnCreate(7, 0, 1, function() {
 #endregion
 #region Turn 8 Test
 TurnCreate(8, 0, 1, function() {
+	for (var i = 0, X = random_range(-10, 10); i < 17; ++i) {
+		Bullet_Bone(X + i * 40, 200, 25, 1.5, 1.5, 0, 0, 0, -45, 0, 0, 300);
+	}
+	audio_play(snd_bone);
+}, 9999, 90);
+TurnCreate(8, 1, 46, function() {
+	for (var i = 0, X = random_range(-10, 10); i < 17; ++i) {
+		Bullet_Bone(X + i * 40, 200, 25, -1.5, 1.5, 0, 0, 0, -135, 0, 0, 300);
+	}
+	audio_play(snd_bone);
+}, 9999, 90);
+#endregion
+#region Turn 9 Test
+TurnCreate(9, 0, 31, function() {
+	Bullet_BoneGapV(245, 320-dsin(time)*30, 4, 30);
+}, 9999, 8);
+TurnCreate(9, 1, 75, function() {
+	var a = Bullet_BoneFullV(240, 0, 0, 0, 0, 1);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 0,  40, "speed", 5, 0);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 40, 40, "speed", 0, -5);
 	
+	var a = Bullet_BoneFullV(400, 0, choose(1,2), 0, 0, 1);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 0,  40, "speed", -3, 0);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 40, 40, "speed", 0, 3);
+}, 9999, 150);
+TurnCreate(9, 2, 150, function() {
+	var a = Bullet_BoneFullV(400, 0, 0, 0, 0, 1);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 0,  40, "speed", -5, 0);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 40, 40, "speed", 0, 5);
+	
+	var a = Bullet_BoneFullV(240, 0, choose(1,2), 0, 0, 1);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 0,  40, "speed", 3, 0);
+	TweenFire(a, EaseLinear, TWEEN_MODE_ONCE, false, 40, 40, "speed", 0, -3);
+}, 9999, 150);
+#endregion
+#region Turn 10 Test
+TurnCreate(10, 0, 1, function() {
+	temp_bone = Bullet_Bone(640, 150, 0, 0, 0);
+	for (var i = 0, spd = random_range(-1, 1); i < 180; ++i) {
+		other_bones[i] = Bullet_Bone(640, 150, 30, -2.5, spd, 0, 1, 0, i * 10);
+	}
 });
+TurnCreate(10, 1, 1, function() {
+	if instance_exists(other_bones[0])
+	{
+		temp_bone.x = other_bones[0].x;
+		temp_bone.y = other_bones[0].y;
+		var a = Bullet_Bone(temp_bone.x, temp_bone.y, 30, 0, 0, 0, 1, 0, random(360), 0, 1);
+		a.direction = a.image_angle;
+		TweenFire(a, EaseOutQuad, TWEEN_MODE_ONCE, false, 320 - time, 60, "speed", 0, 5);
+	}
+},9999, 3);
 #endregion

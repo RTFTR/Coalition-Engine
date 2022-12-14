@@ -4,7 +4,8 @@ TweenFire(self,EaseLinear,TWEEN_MODE_ONCE,false,0,120,"hint",0,1)
 y = 480;
 
 instance_create_depth(0,0,1,RainbowFuture);
-if choose(0,1) instance_create_depth(0,0,1,Bloomer);
+if choose(0,1)
+	instance_create_depth(0,0,1,Bloomer);
 var shd = choose(
 //shdSepia,
 //shdInvert,

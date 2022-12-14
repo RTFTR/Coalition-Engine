@@ -244,11 +244,11 @@ debug = allow_debug ? global.debug : 0
 	draw_set_font(fnt_mnc);
 	var ca = global.timer,
 		col = make_color_hsv(ca % 255, 255, 255),
-		dis = cos(degtorad(global.timer * 3)) * 20,
+		dis = dcos(global.timer * 3) * 20,
 		debug_pos = [
-			[ui_x - 245 + sin(degtorad(ca)) * -dis, ui_y + cos(degtorad(ca)) * dis],
-			[ui_x - 245 + sin(degtorad(ca + 120)) * -dis, ui_y + cos(degtorad(ca + 120)) * dis],
-			[ui_x - 245 + sin(degtorad(ca + 240)) * -dis, ui_y + cos(degtorad(ca + 240)) * dis]
+			[ui_x - 245 + dsin(ca)		 * -dis, ui_y + dcos(ca) * dis],
+			[ui_x - 245 + dsin(ca + 120) * -dis, ui_y + dcos(ca + 120) * dis],
+			[ui_x - 245 + dsin(ca + 240) * -dis, ui_y + dcos(ca + 240) * dis]
 		],
 		color = [
 			make_color_rgb(255, 0, 0),

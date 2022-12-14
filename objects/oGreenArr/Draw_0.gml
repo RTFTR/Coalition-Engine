@@ -1,5 +1,5 @@
-var soul = oSoul;
-var dir_e = ((mode == 2 or mode == 3) ? 45 : 0);
+var soul = oSoul,
+	dir_e = ((mode == 2 or mode == 3) ? 45 : 0);
 if id = instance_nearest(soul.x, soul.y, oGreenArr) if len <= 170 index = 4;
 image_index = index + mode;
 image_angle = dir + dir_e + dir_a;
