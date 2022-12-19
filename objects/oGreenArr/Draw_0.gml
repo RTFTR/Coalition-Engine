@@ -8,9 +8,9 @@ len -= spd;
 //Yellow or Diagonal Yellow
 if mode == 1 or mode == 3
 {
-	if len <= spd*30 and !flipped
+	if len <= spd * 30 and !flipped
 	{
-		TweenFire(id, spd > 7 ? EaseOutBack : EaseOutSine, TWEEN_MODE_ONCE, false, 0, 105/spd, "dir", dir, dir - 180)
+		TweenFire(id, spd > 7 ? EaseOutBack : EaseOutSine, TWEEN_MODE_ONCE, false, 0, 105 / spd, "dir", dir, dir - 180)
 		flipped = 1;
 	}
 }

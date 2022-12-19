@@ -180,7 +180,7 @@ TurnCreate(0, 36, 3750, function() {
 	Bullet_BoneBottom(510, 60, -1.5);
 });
 TurnCreate(0, 37, 3920, function() {
-	audio_play(snd_exclamation);
+	audio_play(snd_warning);
 	Bullet_Bone(oSoul.x, min(oSoul.y - 130, 190), 25, 0, 6, 0, 0, 0, 0, 3);
 	Bullet_Bone(max(oSoul.x + 130, 510), oSoul.y, 25, -6, 0, 0, 0, 0, 90, -3);
 });

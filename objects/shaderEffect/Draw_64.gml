@@ -1,4 +1,4 @@
-//Very cringe attempt, ignore
+///@desc Very cringe attempt, ignore
 if !surface_exists(surf) surf = surface_create(640, 960);
 surface_set_target(surf)
 shader_set(effect_shader);

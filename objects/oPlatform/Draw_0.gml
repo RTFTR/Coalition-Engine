@@ -1,20 +1,20 @@
 len_step();
 axis_step();
-var _color = sticky ? c_lime : c_fuchsia;	
-var	_sprite = sprPlatform;
-var _angle = image_angle;
-var _alpha = image_alpha;
-var _length = length / 4;
+var _color = sticky ? c_lime : c_fuchsia,
+	_sprite = sprPlatform,
+	_angle = image_angle,
+	_alpha = image_alpha,
+	_length = length / 4;
 
 image_xscale = _length;
 image_yscale = 1;
 
-var _image_xscale = image_xscale;
-var _image_yscale = image_yscale;
+var _image_xscale = image_xscale,
+	_image_yscale = image_yscale;
 
 
-var _x = x;
-var _y = y;
+var _x = x,
+	_y = y;
 
 Battle_Masking_Start(true);
 
@@ -45,8 +45,8 @@ if effect
 			effect_alpha -= 0.035;
 		else effect = false;
 	}
-	var _xscale = effect_xscale;
-	var _yscale = effect_yscale;
+	var _xscale = effect_xscale,
+		_yscale = effect_yscale;
 	_alpha = effect_alpha;
 	 _color = image_blend;
 	_x = effect_x;

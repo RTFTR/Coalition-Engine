@@ -17,7 +17,7 @@
   "soundFile": "snd_encounter_soul_move",
   "duration": 0.333787,
   "parent": {
-    "name": "SFX",
-    "path": "folders/Sounds/SFX.yy",
+    "name": "Overworld",
+    "path": "folders/Sounds/SFX/Overworld.yy",
   },
 }

@@ -369,29 +369,37 @@ if STATE == 2 {
 	
 }
 
-//Grazing
 if global.EnableGrazing
 {
-	if !IsGrazer
-	{
-		if Grazer == -1
-		{
-			GrazeObj = instance_create_depth(x, y, depth, oSoul)
-			Grazer = 1;
-		}
-		with GrazeObj
-		{
-			IsGrazer = true;
-			x = x;
-			y = y;
-			image_xscale = 4;
-			image_yscale = 4;
-			image_alpha = 0;
-		}
-		if Grazer
-		{
-			GrazeObj.x = x;
-			GrazeObj.y = y;
-		}
-	}
+	if !instance_exists(oGrazer)
+		instance_create_depth(x, y, depth, oGrazer);
+	oGrazer.x = x;
+	oGrazer.y = y;
 }
+
+//Grazing (Unused, unless a better method is found)
+//if global.EnableGrazing
+//{
+//	if !IsGrazer
+//	{
+//		if Grazer == -1
+//		{
+//			GrazeObj = instance_create_depth(x, y, depth, oSoul)
+//			Grazer = 1;
+//		}
+//		with GrazeObj
+//		{
+//			IsGrazer = true;
+//			x = x;
+//			y = y;
+//			image_xscale = 4;
+//			image_yscale = 4;
+//			image_alpha = 0;
+//		}
+//		if Grazer
+//		{
+//			GrazeObj.x = x;
+//			GrazeObj.y = y;
+//		}
+//	}
+//}

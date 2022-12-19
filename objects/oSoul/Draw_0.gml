@@ -4,13 +4,13 @@ image_angle += draw_angle;
 image_blend = make_color_rgb(r, g, b);
 if (STATE = 0 or STATE = 2) and (MENU != 5) and !IsGrazer
 	draw_self();
-//Grazing
-if GrazeTimer GrazeTimer--;
-if IsGrazer
-{
-	draw_sprite_ext(sprSoulGraze, 0, x, y, 2, 2, image_angle, c_white, GrazeAlpha);
-	GrazeAlpha -= 1/40;
-}
+//Grazing (Unused, unless a better method is found)
+//if GrazeTimer GrazeTimer--;
+//if IsGrazer
+//{
+//	draw_sprite_ext(sprSoulGraze, 0, x, y, 2, 2, image_angle, c_white, GrazeAlpha);
+//	GrazeAlpha -= 1/40;
+//}
 image_angle -= draw_angle;
 
 

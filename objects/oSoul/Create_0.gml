@@ -95,8 +95,8 @@ Purple =
 }
 
 //Grazing
-Grazer = -1;
-GrazeObj = noone;
 IsGrazer = false;
-GrazeAlpha = 0;
-GrazeTimer = 0;
+//Grazer = -1;
+//GrazeObj = noone;
+//GrazeAlpha = 0;
+//GrazeTimer = 0;

@@ -17,7 +17,7 @@
   "soundFile": "snd_phone_box",
   "duration": 0.290249,
   "parent": {
-    "name": "SFX",
-    "path": "folders/Sounds/SFX.yy",
+    "name": "Overworld",
+    "path": "folders/Sounds/SFX/Overworld.yy",
   },
 }

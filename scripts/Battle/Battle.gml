@@ -56,39 +56,14 @@ function Set_GreenBox()
 ///@param {real} kr		The Damage to Purple KR (Default 1)
 function Soul_Hurt(dmg = 1,kr = 1)
 {
-	var soul;
-	for(var i = 0, n = instance_number(oSoul); i < n; ++i)
+	if !global.inv and can_hurt
 	{
-		soul[i] = instance_find(oSoul, i)
-		if !global.inv and can_hurt
-		{
-			if instance_exists(soul[i].GrazeObj)
-			{
-				if soul[i].GrazeObj.IsGrazer
-				{
-					with soul[i]
-					{
-						if !GrazeTimer
-						{
-							GrazeTimer = 3;
-							GrazeAlpha = 1;
-							global.TP++;
-							audio_play(snd_noise);
-						}
-					}
-					exit
-				}
-			}
-			else
-			{
-				audio_play(snd_hurt);
-				global.inv = global.assign_inv + global.player_inv_boost;
-				global.hp -= dmg;
-				if global.hp > 1 global.kr += kr;
+		audio_play(snd_hurt);
+		global.inv = global.assign_inv + global.player_inv_boost;
+		global.hp -= dmg;
+		if global.hp > 1 global.kr += kr;
 			
-				if hit_destroy instance_destroy();
-			}
-		}
+		if hit_destroy instance_destroy();
 	}
 }
 

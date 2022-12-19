@@ -12,6 +12,7 @@ function Initialize()
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
 	global.EnableGrazing = false;
+	global.EnableGrazing = true;
 	global.TP = 0;
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
 	for(var i = 0; i <= ITEM_COUNT; ++i)

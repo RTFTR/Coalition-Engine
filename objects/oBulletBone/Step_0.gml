@@ -8,16 +8,16 @@ if !lenable
 	switch mode
 	{
 		case 1:
-		y = (board.y - board.up) + (length / 2);
+		y = board.y - board.up + (length / 2);
 		break
 		case 2:
-		y = (board.y + board.down) - (length / 2);
+		y = board.y + board.down - (length / 2);
 		break
 		case 3:
-		x = (board.x - board.left) + (length / 2);
+		x = board.x - board.left + (length / 2);
 		break
 		case 4:
-		x = (board.x + board.right) - (length / 2);
+		x = board.x + board.right - (length / 2);
 		break
 	}
 }

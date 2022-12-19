@@ -1,14 +1,13 @@
 if destroyable
 {
-	var destroy = false;
-	var end_point = length;
+	var destroy = false
 	
 	if (destroydir == DIR.UP and y < 0)
 	or (destroydir == DIR.DOWN and y > 480)
 	or (destroydir == DIR.LEFT and x < 0)
 	or (destroydir == DIR.RIGHT and y > 640)
 		destroy = true;
-	else if y < -end_point or y > (480 + end_point) or x < -end_point or x > (640 + end_point)
+	else if y < -length or y > (480 + length) or x < -length or x > (640 + length)
 		destroy = true;
 	
 	if destroy

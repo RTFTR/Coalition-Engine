@@ -17,7 +17,7 @@
   "soundFile": "snd_warning",
   "duration": 1.256553,
   "parent": {
-    "name": "SFX",
-    "path": "folders/Sounds/SFX.yy",
+    "name": "Overworld",
+    "path": "folders/Sounds/SFX/Overworld.yy",
   },
 }
