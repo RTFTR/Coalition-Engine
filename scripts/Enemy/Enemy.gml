@@ -13,10 +13,10 @@ function Enemy_Function_Load(encounter_number) {
 		[noone, oEnemySans, noone],
 		[noone, oEnemySans2, noone],
 		[noone, oRhythm, noone],
+		[noone, oEnemyTest, noone],
 	];
-	var enemies
 	
-	for (var i = 0; i < 3; ++i)
+	for (var i = 0, enemies; i < 3; ++i)
 	{
 		enemies[i] = enemy_presets[encounter_number, i];
 		enemy[i] = enemies[i];
@@ -27,10 +27,11 @@ function Enemy_Function_Load(encounter_number) {
 			enemy_hp[i] =			enemies[i].enemy_hp;
 			enemy_hp_max[i] =		enemies[i].enemy_hp_max;
 			enemy_draw_hp_bar[i] =	enemies[i].enemy_draw_hp_bar;
-			for(var ii = 0; ii < 6; ++ii)
+			for(var ii = 0, kk = array_length(enemies[i].enemy_act); ii < kk; ++ii)
 			{
-				enemy_act[i, ii] =		enemies[i].enemy_act[ii];
-				enemy_act_text[i, ii] = enemies[i].enemy_act_text[ii];
+				enemy_act[i, ii] =			enemies[i].enemy_act[ii];
+				enemy_act_text[i, ii] =		enemies[i].enemy_act_text[ii];
+				enemy_act_function[i, ii] = enemies[i].enemy_act_function[ii];
 			}
 			global.BossFight = enemies[i].is_boss;
 			if enemies[i].begin_at_turn {
@@ -104,20 +105,53 @@ function Enemy_SetHPStats(max_hp, current_hp = max_hp, draw_hp_bar = true)
 ///@desc Sets the Defense of the enemy
 ///@param {id.instance} target	The enemy to set the stats for
 ///@param {real}  value			The defense value
-function Enemy_SetDefense(target, value) { target.enemy_defense = value;}
+function Enemy_SetDefense(target, value)
+{
+	target.enemy_defense = value;
+}
 
 ///@desc Sets the Damage of the enemy
 ///@param {id.instance} target	The enemy to set the stats for
 ///@param {real}  value			The attack value
-function Enemy_SetDamage(target, damage){ target.damage = damage;}
+function Enemy_SetDamage(target, damage)
+{
+	target.damage = damage;
+}
 
 ///@desc Sets the Damage of the enemy
 ///@param {id.instance} target	The enemy to set the stats for
 ///@param {bool}  spareable		Can the enemy be spared
-function Enemy_SetSpareable(target, spareable){ target.enemy_is_spareable = spareable;}
+function Enemy_SetSpareable(target, spareable)
+{
+	target.enemy_is_spareable = spareable;
+}
 
 ///@desc Sets the Damage of the enemy
 ///@param {id.instance} target	The enemy to set the stats for
 ///@param {real}  Exp			Rewarded EXP points
 ///@param {real}  Gold			Rewarded Gold
-function Enemy_SetReward(target, Exp, Gold) { with target { Exp_Give = Exp; Gold_Give = Gold;}}
+function Enemy_SetReward(target, Exp, Gold)
+{
+	with target
+	{
+		Exp_Give = Exp;
+		Gold_Give = Gold;
+	}
+}
+
+///@desc Loads the enemy dialog from an external text file
+///@param {string} FileName	The file name of the txt file, mut include .txt at the end
+function LoadEnemyTextFromFile(filename)
+{
+	var text, file, DialogText, TurnNumber;
+	file = file_text_open_read("./Texts/" + filename);
+	for (var i = 0, n = array_length(turn_time); i < n; ++i;)
+	{
+		TurnNumber = file_text_read_real(file);
+		file_text_readln(file);
+		DialogText = file_text_read_string(file);
+		file_text_readln(file);
+		Battle_EnemyDialog(TurnNumber, DialogText);
+	}
+	file_text_close(file);
+}

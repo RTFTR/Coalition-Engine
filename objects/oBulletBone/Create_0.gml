@@ -10,7 +10,6 @@ alarm[0] = 1;
 type = 0;
 len_load();
 dir = 0;
-damage = 1;
 
 timer = 0;
 

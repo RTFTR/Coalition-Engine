@@ -39,25 +39,4 @@ Battle_SetTurnBoardSize(
 	[42, 42, 42, 42],
 ]);
 
-Battle_EnemyDialog(0, [
-	"intro text",
-	"turn 1 text",
-	"turn 2 text",
-	"turn 3 text",
-	"turn 4 text",
-	"turn 5 text",
-	"turn 6 text",
-	"turn 7 text",
-	"turn 8 text",
-	"turn 9 text",
-	"turn 10 text",
-]);
-
-function UndoConst(_x, _y) constructor
-{
-	x = _x;
-	y = _y;
-}
-globalvar undoIndex;
-undoIndex = 0;
-undoArray[undoIndex] = new UndoConst(oSoul.x, oSoul.y);
+LoadEnemyTextFromFile("SansTest.txt");

@@ -89,6 +89,8 @@ Aim =
 	board_full_cover = false;
 	item_scroll_type = ITEM_SCROLL.VERTICAL;
 	item_scroll_alpha = [.5, .5, .5];
+	item_desc_x = 420;
+	item_desc_alpha = 0;
 }
 //Flee
 {
@@ -171,6 +173,7 @@ function begin_turn() {
 	battle_state = 2;
 	oEnemyParent.state = 2;
 	oSoul.image_angle = 0;
+	Battle_SetSoulPos(320, 320, 0);
 }
 
 function gameover() {
@@ -219,3 +222,4 @@ function end_battle() {
 //Debug
 allow_debug = false;
 allow_debug = 1;
+

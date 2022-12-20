@@ -59,9 +59,7 @@ if is_setting
 }
 setting_var[0] = clamp(setting_var[0], 0, 100);
 setting_var[1] = clamp(setting_var[1], 0, 1);
-setting_var[1] = 1;
 global.easy = setting_var[1];
-global.easy = 1;
 
 global.Volume = setting_var[0];
 Save_Settings();

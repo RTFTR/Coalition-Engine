@@ -30,3 +30,13 @@ for (var i = 0, n = array_length(effect_shader); i < n; ++i)
 }
 //draw_text(10,100,camera_shake_i)
 //draw_text(10,120,camera_get_view_x(view_camera[0]))
+
+if RGBShake
+{
+	gpu_set_blendmode(bm_add);
+	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
+	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_lime, 1);
+	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
+	gpu_set_blendmode(bm_normal);
+	RGBShake--;
+}

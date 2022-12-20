@@ -7,6 +7,7 @@ function Item_Info_Load(){
 		item_heal[i] = heal;
 		item_desc[i] = desc;
 		item_throw_txt[i] = throw_txt;
+		item_battle_desc[i] = battle_desc;
 	}
 }
 
@@ -18,6 +19,7 @@ function Item_Info(item){
 	stats = "";
 	desc = "";
 	throw_txt = "";
+	battle_desc = "";
 	
 	switch item
 	{
@@ -26,12 +28,14 @@ function Item_Info(item){
 			heal = global.hp_max;
 			desc = "Random slice of pie which is so\n  cold you cant eat it.";
 			throw_txt = "Throw pie";
+			battle_desc = "Heals FULL HP";
 		break;
 		case 2:
 			name = "I. Noodles";
 			heal = 90;
 			desc = "Hard noodles, your teeth broke";
 			throw_txt = "Throw IN";
+			battle_desc = "Heals 90 HP";
 		break;
 		case 3:
 			name = "Steak";

@@ -3,6 +3,7 @@ Camera_Scale(1, 1);
 enemy_name = "";
 enemy_act = ["", "", "", "", ""];
 enemy_act_text = ["", "", "", "", ""];
+enemy_act_function = [-1, -1, -1, -1, -1, -1];
 enemy_hp_max = 100;
 enemy_hp = 100;
 _enemy_hp = 100;
@@ -73,9 +74,17 @@ SlamSpriteTargetIndex = [
 ];
 SlamSpriteNumber = 1;
 
+dodge_method = function()
+{
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y", damage_y, damage_y - 30);
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 25, "x", x, x - dodge_to);
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 35, 25, "x", x - dodge_to, x);
+}
+
 //Dust (AUTOMATICALLY DISABLED)
-if !variable_instance_exists(id, "ContainsDust")
-	ContainsDust = 0;
+if !variable_instance_exists(id, "ContainsDust") ContainsDust = 0;
+
 if ContainsDust {
 	dust_height = 0;
 	dust_amount = enemy_total_height * enemy_max_width;
@@ -100,6 +109,8 @@ dialog_size = [20, 65, 0, 190]; // UDLR
 dialog_size[3] = 80;
 dialog_dir = DIR.LEFT;
 dialog_text = [""];
+dialog_box_color = c_white;
+dialog_at_mid_turn = false;
 
 function Battle_EnemyDialog(turn, text)
 {
@@ -108,13 +119,14 @@ function Battle_EnemyDialog(turn, text)
 	dialog_init(dialog_text[oBattleController.battle_turn]);
 }
 
-function dialog_init(text = "")
+function dialog_init(text = "", force_false = false)
 {
 	dialog = "[c_black][/f][fnt_sans]";
 	dialog += text;
 	text_writer = scribble(dialog)
-		.wrap(dialog_size[2] + dialog_size[3] - 10, dialog_size[0] + dialog_size[1] - 10)
+		.wrap(dialog_size[2] + dialog_size[3] - 15, dialog_size[0] + dialog_size[1] - 15)
 	if text_writer.get_page() != 0 text_writer.page(0);
+	if state == 2 dialog_at_mid_turn = !force_false;
 }
 dialog_init(dialog_text[0]);
 dialog_text_typist = scribble_typist()
@@ -144,6 +156,7 @@ enemy_is_spareable = true;
 is_being_spared = false;
 spare_end_begin_turn = false;
 is_spared = false;
+spare_function = -1;
 
 //Turn
 function end_turn()
@@ -216,11 +229,10 @@ function end_turn()
 }
 
 
-turn_time = [300, 120];
+turn_time = [300];
 
 board_size = [
 	[70, 70, 70, 70],
-	[70, 70, 130, 130],
 ];
 
 TurnData = 

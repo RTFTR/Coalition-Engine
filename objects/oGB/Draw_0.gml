@@ -1,4 +1,4 @@
-var color = c_white,
+var color = image_blend,
 	_type = type;
 if type = 1 color = c_aqua;
 if type = 2 color = c_orange;
@@ -85,7 +85,7 @@ if state = 4
 		_yscale = image_yscale,
 		_end_point = e;
 	
-	if image_index = 5 image_index = 4;
+	if image_index = image_number - 1 image_index--;
 	
 	image_index += 0.5;
 	direction = _angle - 180;
@@ -101,6 +101,8 @@ if state = 4
 			Camera_Shake(5 * _yscale);
 			if blurring	Blur_Screen(time_blast, _yscale);
 		}
+		if global.RGBBlaster
+			oGlobal.RGBShake = 5 * _yscale;
 		if release_sound
 		{
 			audio_stop_sound(snd_gb_release);

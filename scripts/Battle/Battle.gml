@@ -54,7 +54,7 @@ function Set_GreenBox()
 ///@desc Deals damage to the soul
 ///@param {real} dmg	The Damage to Yellow HP (Default 1)
 ///@param {real} kr		The Damage to Purple KR (Default 1)
-function Soul_Hurt(dmg = 1,kr = 1)
+function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
 {
 	if !global.inv and can_hurt
 	{
@@ -132,4 +132,18 @@ function collision_board(dir, obj, prec, notme, board = oBoard)
 		[board_pos[0], board_pos[3], board_pos[2], board_pos[3]],
 	]
 	return collision_line(dir_check[dir, 0],dir_check[dir, 1], dir_check[dir, 2], dir_check[dir, 3], obj, prec, notme);
+}
+
+///@desc Sets the sprite of the buttons with external images
+///@param {string} FileName	Folder name of the sprites (Default Normal)
+///@param {string} Format	Format of the sprites (Default .png)
+function ButtonSprites(fname = "Normal", format = ".png")
+{
+	for (var i = 0, buttons, ButtonNames = ["Fight", "Act", "Item", "Mercy"]; i < 4; ++i) {
+		buttons[i] = sprite_add("./Sprites/Buttons/"+ fname + "/" + ButtonNames[i] + format, 2, 0, 0, 55, 21)
+	}
+	with oBattleController
+	{
+		button_spr = buttons;
+	}
 }

@@ -1,5 +1,11 @@
 Update Logs
 
+v4.2.0 (Eden)
+Added new features like functions upon sparing
+Added external files for Button sprites and Enemy Dialogs (Optional)
+forgot
+Added OverSave-Tale Sans as an example (also because im too dumb to figure out what did i so so ill let you fix)
+
 v4.1.2 (Eden)
 Optimised some more code
 Added grazer object

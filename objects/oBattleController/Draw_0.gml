@@ -78,8 +78,14 @@ if battle_state == BATTLE_STATE.MENU {
 			for (var i = 0, n = min(3, itm_ln - _coord); i < n; ++i) {
 				var xx = 96,
 					yy = 272 + i * 32;
-
-				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord])
+				
+				//i tried
+				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
+				draw_set_alpha(item_desc_alpha);
+				draw_text_scribble(item_desc_x, yy, "[fnt_dt_mono][c_gray]" + item_battle_desc[i + _coord]);
+				draw_set_alpha(1);
+				item_desc_alpha = lerp(item_desc_alpha, 1, 0.16);
+				item_desc_x = lerp(item_desc_x, 320, 0.16);
 			}
 			break
 			
@@ -108,9 +114,9 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	if menu_state == 6 // Draw Act Texts
 	{
-		var enemy_check_texts = "";
 		for (var i = 0, act_num = array_length(enemy_act[target_option]),
-				assign_act_text = enemy_act[target_option, i]; i < act_num; ++i) {
+				enemy_check_texts = ""; i < act_num; ++i) {
+			var assign_act_text = enemy_act[target_option, i];
 			if assign_act_text != ""
 				enemy_check_texts += "* " + assign_act_text;
 			if (i % 2) enemy_check_texts += "\n";
@@ -308,7 +314,7 @@ debug = allow_debug ? global.debug : 0
 		// Draw the button by array order
 		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
 
-		// Animation - Color updating in real-time because fuck yes
+		// Animation - Color updating in real-time because yes
 		if (_state >= 0 and _state != -1) {
 			if _menu == i // The chosen button
 			{
@@ -316,7 +322,8 @@ debug = allow_debug ? global.debug : 0
 				_button_alpha[_menu] += (button_alpha_target[1] - _button_alpha[_menu]) / 6;
 				for (var ii = 0; ii < 3; ++ii)
 					_button_color[_menu][ii] += (button_color_target[_menu][1][ii] - _button_color[_menu][ii]) / 6;
-			} else // Other buttons if they aren't chosen
+			}
+			else // Other buttons if they aren't chosen
 			{
 				_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
 				_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
@@ -350,14 +357,19 @@ debug = allow_debug ? global.debug : 0
 		name_x =			ui_x - 245,
 		name_y =			ui_y,
 		name =				global.data.name,
-		default_col =		c_white,
+		default_col =		make_color_rgb(27, 25, 26),
 		name_col =			c_white,
+		name_col =			make_color_rgb(27, 25, 26),
 		lv_col =			c_white,
-		lv_counter_col =	c_white,
+		lv_col =			make_color_rgb(27, 25, 26),
+		lv_counter_col =	make_color_rgb(27, 25, 26),
 		hp_max_col =		merge_color(c_red, c_maroon, 0.5),
+		hp_max_col =		make_color_rgb(100, 100, 100),
 		hp_col =			c_yellow,
+		hp_col =			make_color_rgb(47, 47, 47),
 		kr_col =			c_fuchsia,
-		krr_col =			c_white,
+		kr_col =			make_color_rgb(27, 25, 26),
+		krr_col =			make_color_rgb(27, 25, 26),
 		hp_pre_col =		merge_color(c_lime, c_white, 0.25),
 		bar_multiplier =	1.2, //Default multiplier from UNDERTALE
 		hp_text =			"HP",
@@ -371,9 +383,9 @@ debug = allow_debug ? global.debug : 0
 	hp = clamp(hp, 0, global.hp_max);
 	hp_max = clamp(hp_max, 0, global.hp_max);
 	kr = clamp(kr, 0, max_kr);
-	var _hp = hp * bar_multiplier;
-	var _hp_max = hp_max * bar_multiplier;
-	var _kr = kr * bar_multiplier;
+	var _hp = hp * bar_multiplier,
+		_hp_max = hp_max * bar_multiplier,
+		_kr = kr * bar_multiplier;
 	//Prevent long decimals
 	if abs(hp - global.hp) < .1 hp = global.hp;
 	if abs(kr - global.kr) < .1 kr = global.kr;
@@ -416,7 +428,7 @@ debug = allow_debug ? global.debug : 0
 
 	// KR bar
 	if global.kr_activation {
-		krr_col = (round(kr) ? kr_col : c_white);
+		krr_col = (round(kr) ? kr_col : krr_col);
 
 		global.kr = clamp(global.kr, 0, max_kr);
 
@@ -431,8 +443,8 @@ debug = allow_debug ? global.debug : 0
 	draw_set_alpha(ui_alpha);
 
 	// Zeropadding
-	var hp_counter = string(round(hp));
-	var hp_max_counter = string(round(hp_max));
+	var hp_counter = string(round(hp)),
+		hp_max_counter = string(round(hp_max));
 	if round(hp) < 10 hp_counter = "0" + string(round(hp));
 	if round(hp_max) < 10 hp_max_counter = "0" + string(round(hp_max));
 

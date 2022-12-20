@@ -102,10 +102,12 @@ switch battle_state {
 			if menu_state == 3 {
 				for (var i = 0, n = array_length(global.item); i < n; i++)
 					if global.item[i] != 0 len++;
-			} else {
-				for (var i = 0; i < 6; i++)
+			}
+			else
+			{
+				for (var i = 0, n = min(6, array_length(enemy_act[target_option])); i < n; i++)
 					if enemy_act[target_option, i] != ""
-				len++;
+						len++;
 			}
 			if len > 1 {
 				if menu_state == 6 {
@@ -123,30 +125,33 @@ switch battle_state {
 				else switch item_scroll_type {
 					case ITEM_SCROLL.DEFAULT:
 						if input_horizontal != 0 {
-						choice = Posmod(choice + input_horizontal, len);
-						menu_choice[6 / menu_state] = choice;
-						Move_Noise();
+							choice = Posmod(choice + input_horizontal, len);
+							menu_choice[6 / menu_state] = choice;
+							Move_Noise();
 					}
 					if input_vertical != 0 {
-						choice = Posmod(choice + (input_vertical * 2), len);
-						menu_choice[6 / menu_state] = choice;
-						Move_Noise();
+							choice = Posmod(choice + (input_vertical * 2), len);
+							menu_choice[6 / menu_state] = choice;
+							Move_Noise();
 					}
 					break
 
 					case ITEM_SCROLL.VERTICAL:
-						if input_vertical != 0 {
-						choice = Posmod(choice + input_vertical, len + 1);
-						menu_choice[6 / menu_state] = choice;
-						Move_Noise();
+						if input_vertical != 0
+						{
+							choice = Posmod(choice + input_vertical, len + 1);
+							menu_choice[6 / menu_state] = choice;
+							Move_Noise();
+							item_desc_x = 420;
+							item_desc_alpha = 0;
 					}
 					break
 
 					case ITEM_SCROLL.CIRCLE:
 						if input_horizontal != 0 {
-						choice = Posmod(choice + input_horizontal, len + 3);
-						menu_choice[6 / menu_state] = choice;
-						Move_Noise();
+							choice = Posmod(choice + input_horizontal, len + 3);
+							menu_choice[6 / menu_state] = choice;
+							Move_Noise();
 					}
 					break
 
@@ -192,6 +197,8 @@ switch battle_state {
 					text_writer = scribble("* " + enemy_act_text[target_option, choice]);
 					if text_writer.get_page() != 0 text_writer.page(0);
 					menu_state = -1;
+					if enemy_act_function[target_option, choice] != -1
+						enemy_act_function[target_option, choice]();
 				}
 			}
 			if input_cancel {
@@ -222,26 +229,25 @@ switch battle_state {
 				FleeState++;
 			}
 			break
-
-			var target_soul_angle = 0;
-			if (menu_state == 1 or
-				menu_state == 2 or
-				(menu_state == 3 and item_scroll_type != ITEM_SCROLL.CIRCLE
-								 and item_scroll_type != ITEM_SCROLL.HORIZONTAL) or
-				menu_state == 4 or
-				menu_state == 6)
-				target_soul_angle = 90;
-			oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
 		}
+		var target_soul_angle = 0;
+		if (menu_state == 1 or
+			menu_state == 2 or
+			(menu_state == 3 and item_scroll_type != ITEM_SCROLL.CIRCLE
+								and item_scroll_type != ITEM_SCROLL.HORIZONTAL) or
+			menu_state == 4 or
+			menu_state == 6)
+			target_soul_angle = 90;
+		oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
 	break
 	case BATTLE_STATE.DIALOG:
 	menu_text_typist.reset();
-	if menu_text_typist.get_paused() = false
+	if !menu_text_typist.get_paused()
 		menu_text_typist.pause();
 	break
 	case BATTLE_STATE.IN_TURN:
 	menu_text_typist.reset();
-	if menu_text_typist.get_paused() = false
+	if !menu_text_typist.get_paused()
 		menu_text_typist.pause();
 	oSoul.visible = true;
 	break

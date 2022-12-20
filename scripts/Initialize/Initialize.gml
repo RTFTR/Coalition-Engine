@@ -7,12 +7,13 @@ function Initialize()
 	global.player_inv_boost = 0;
 	global.kr = 0;
 	global.kr_activation = false;
+	global.damage = 1;
+	global.krdamage = 1;
 	global.bar_count = 1;
 	global.last_dmg_time = 0;
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
 	global.EnableGrazing = false;
-	global.EnableGrazing = true;
 	global.TP = 0;
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
 	for(var i = 0; i <= ITEM_COUNT; ++i)
@@ -31,8 +32,8 @@ function Initialize()
 	global.SaveFile[? "Wep"] =			"Stick";
 	global.SaveFile[? "Arm"] =			"Bandage";
 	global.SaveFile[? "Kills"] =		0;
-	var Item_Preset = [1,2,3,4,4,4,5,6],
-		Cell_Preset = [1,2,0,0,0,0,0,0],
+	var Item_Preset = [ITEM.PIE, ITEM.INOODLES, ITEM.STEAK, ITEM.SNOWP, ITEM.SNOWP, ITEM.LHERO, ITEM.LHERO, ITEM.SEATEA],
+		Cell_Preset = [1, 2, 0, 0, 0, 0, 0, 0],
 		Box_Preset =  //Insert the items
 		[
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// OW Box

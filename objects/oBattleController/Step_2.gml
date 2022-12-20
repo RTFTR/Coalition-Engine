@@ -8,12 +8,12 @@ if global.kr_activation
 	if global.kr
 	{
 		kr_timer++;
-		if (
+		if
 		(kr_timer == 2 and global.kr >= 40) or
 		(kr_timer == 4 and global.kr >= 30) or 
 		(kr_timer == 10 and global.kr >= 20) or
 		(kr_timer == 30 and global.kr >= 10) or
-		kr_timer == 60)
+		kr_timer == 60
 		{
 			kr_timer = 0;
 			global.kr--;
@@ -29,5 +29,11 @@ else
 	global.kr = 0;
 }
 
-if global.hp <= 0 gameover();
+if global.hp <= 0
+	if !global.debug gameover();
+	else
+	{
+		global.hp = global.hp_max;
+		audio_play(snd_item_heal);
+	}
 

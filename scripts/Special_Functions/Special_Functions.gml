@@ -24,8 +24,7 @@ function point_xy(p_x, p_y)
 ///@param {real}  end		The slot to end
 function Sigma(arr, n, k)
 {
-	var value = 0;
-	for(var i = n; i <= k; ++i)
+	for(var i = n, value = 0; i <= k; ++i)
 		value += arr[i];
 	return value;
 }
@@ -46,20 +45,20 @@ function is_val()
 	{
 		if argument[0] == argument[i]
 		{
-			return 1;
+			return true;
 			exit;
 		}
 	}
-	return 0;
+	return false;
 }
 
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
 function check_outside(){
-	var cam = view_camera[0];
-	var view_x = camera_get_view_x(cam);
-	var view_y = camera_get_view_y(cam);
-	var view_w = camera_get_view_width(cam);
-	var view_h = camera_get_view_height(cam);
+	var cam = view_camera[0],
+		view_x = camera_get_view_x(cam),
+		view_y = camera_get_view_y(cam),
+		view_w = camera_get_view_width(cam),
+		view_h = camera_get_view_height(cam);
 	
 	return !rectangle_in_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, view_x, view_y, view_x + view_w, view_y + view_h) 
 	and (
