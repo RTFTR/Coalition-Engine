@@ -34,10 +34,7 @@ function __init_view() {
 }
 
 
-function __view_get(argument0, argument1) {
-	var __prop = argument0;
-	var __index = argument1;
-
+function __view_get(__prop, __index) {
 	var __res = -1;
 
 	switch(__prop)
@@ -68,10 +65,7 @@ function __view_get(argument0, argument1) {
 }
 
 
-function __view_set(argument0, argument1, argument2) {
-	var __prop = argument0;
-	var __index = argument1;
-	var __val = argument2;
+function __view_set(__prop, __index, __val) {
 
 	__view_set_internal(__prop, __index, __val);
 
@@ -82,10 +76,7 @@ function __view_set(argument0, argument1, argument2) {
 
 }
 
-function __view_set_internal(argument0, argument1, argument2) {
-	var __prop = argument0;
-	var __index = argument1;
-	var __val = argument2;
+function __view_set_internal(__prop, __index, __val) {
 
 	switch(__prop)
 	{

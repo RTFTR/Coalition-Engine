@@ -39,7 +39,7 @@ TurnCreate(1, 1, 60, function() {
 #endregion
 #region Turn 2 Bone Cube
 TurnCreate(2, 0, 1, function() {
-	with(Battle_BoneCube([320, 320], [0, 40, 20], [.5, -.1, -.2], vec3(120, 120, 120))) {
+	with(Battle_BoneCube([320, 320], [0, 40, 20], [.5, -.1, -.2], [120, 120, 120])) {
 		type = 1;
 		TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 60, "scalex", 640, 120)
 		TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 60, "scaley", 640, 120)
@@ -54,8 +54,8 @@ TurnCreate(2, 0, 1, function() {
 })
 TurnCreate(2, 1, 40, function() {
 	{
-		var pos = vec2(random_range(100, 540), random_range(150, 200))
-		var a = Battle_BoneCube(pos, vec3(0, 10, 20), vec3(.6, -1, .3), vec3(20, 20, 20), 60, EaseOutQuad)
+		var pos = [random_range(100, 540), random_range(150, 200)];
+		var a = Battle_BoneCube(pos, [0, 10, 20], [.6, -1, .3], [20, 20, 20], 60, EaseOutQuad)
 		a.direction = point_direction(pos[0], pos[1], oSoul.x, oSoul.y)
 		TweenFire(a, EaseInBack, TWEEN_MODE_ONCE, false, 0, 50, "speed", 0, 9)
 	}

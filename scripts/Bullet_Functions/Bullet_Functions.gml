@@ -48,12 +48,12 @@ function axis_step()
 {
 	if axis
 	{
-		var board = oBoard;
-		var _ang = axis_override ? axis_override_angle : board.image_angle;
+		var board = oBoard,
+			_ang = axis_override ? axis_override_angle : board.image_angle;
 		axis_x += hspeed;
 		axis_y += vspeed;
-		var dis = point_distance(board.x, board.y, axis_x, axis_y);
-		var dir = point_direction(board.x, board.y, axis_x, axis_y);
+		var dis = point_distance(board.x, board.y, axis_x, axis_y),
+			dir = point_direction(board.x, board.y, axis_x, axis_y);
 		x = lengthdir_x(dis, dir + _ang) + board.x;
 		y = lengthdir_y(dis, dir + _ang) + board.y;
 		axis_angle = _ang;

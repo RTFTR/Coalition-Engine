@@ -26,10 +26,13 @@ switch battle_state {
 				menu_button_choice = _button_slot;
 				Move_Noise();
 			}
-
-			oSoul.visible = true;
-			oSoul.x += ((_button_pos[_button_slot][0] - 47) - oSoul.x) / 3;
-			oSoul.y += ((_button_pos[_button_slot][1] + 1) - oSoul.y) / 3;
+			
+			with oSoul
+			{
+				visible = true;
+				x += ((_button_pos[_button_slot][0] - 47) - x) / 3;
+				y += ((_button_pos[_button_slot][1] + 1) - y) / 3;
+			}
 
 			if input_confirm {
 				Confirm_Noise();
@@ -113,12 +116,12 @@ switch battle_state {
 				if menu_state == 6 {
 					if input_horizontal != 0 {
 						choice = Posmod(choice + input_horizontal, len);
-						menu_choice[6 / menu_state] = choice;
+						menu_choice[1] = choice;
 						Move_Noise();
 					}
 					if input_vertical != 0 {
 						choice = Posmod(choice + (input_vertical * 2), len);
-						menu_choice[6 / menu_state] = choice;
+						menu_choice[1] = choice;
 						Move_Noise();
 					}
 				}
@@ -126,12 +129,12 @@ switch battle_state {
 					case ITEM_SCROLL.DEFAULT:
 						if input_horizontal != 0 {
 							choice = Posmod(choice + input_horizontal, len);
-							menu_choice[6 / menu_state] = choice;
+							menu_choice[2] = choice;
 							Move_Noise();
 					}
 					if input_vertical != 0 {
 							choice = Posmod(choice + (input_vertical * 2), len);
-							menu_choice[6 / menu_state] = choice;
+							menu_choice[2] = choice;
 							Move_Noise();
 					}
 					break
@@ -140,7 +143,7 @@ switch battle_state {
 						if input_vertical != 0
 						{
 							choice = Posmod(choice + input_vertical, len + 1);
-							menu_choice[6 / menu_state] = choice;
+							menu_choice[2] = choice;
 							Move_Noise();
 							item_desc_x = 420;
 							item_desc_alpha = 0;
@@ -150,7 +153,7 @@ switch battle_state {
 					case ITEM_SCROLL.CIRCLE:
 						if input_horizontal != 0 {
 							choice = Posmod(choice + input_horizontal, len + 3);
-							menu_choice[6 / menu_state] = choice;
+							menu_choice[2] = choice;
 							Move_Noise();
 					}
 					break
@@ -190,6 +193,7 @@ switch battle_state {
 					if item_scroll_type == ITEM_SCROLL.CIRCLE
 						ItemID *= 8/12
 					Item_Use(global.item[ceil(ItemID)]);
+					last_choice = 2;
 				}
 				else // Action-executing code
 				{
@@ -199,6 +203,7 @@ switch battle_state {
 					menu_state = -1;
 					if enemy_act_function[target_option, choice] != -1
 						enemy_act_function[target_option, choice]();
+					last_choice = 1;
 				}
 			}
 			if input_cancel {
@@ -244,6 +249,7 @@ switch battle_state {
 	menu_text_typist.reset();
 	if !menu_text_typist.get_paused()
 		menu_text_typist.pause();
+	
 	break
 	case BATTLE_STATE.IN_TURN:
 	menu_text_typist.reset();

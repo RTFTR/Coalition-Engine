@@ -14,8 +14,7 @@ if !is_setting{
 	}
 }
 
-global.battle_encounter = 3;
-room_goto(room_battle);
+//global.battle_encounter = 3; room_goto(room_battle);
 if input_check_pressed("menu") is_setting = !is_setting;
 
 window_set_fullscreen(false);

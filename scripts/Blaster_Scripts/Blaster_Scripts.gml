@@ -1,18 +1,18 @@
 ///@desc Creates a Blaster
-///@param {array} xy			Initial x and y position of the Blaster (Vector 2)
-///@param {array} angles		Initial and Target angles of the Blaster (Vector 2)
-///@param {array} scale			The scales of the Blaster (Vector 2)
-///@param {array} ideal_xy		Target x and y position of the Blaster (Vector 2)
-///@param {array} move_pause_dur The move, pause and duration of the Blaster (Vector 3)
+///@param {array} xy			Initial x and y position of the Blaster
+///@param {array} angles		Initial and Target angles of the Blaster
+///@param {array} scale			The scales of the Blaster
+///@param {array} ideal_xy		Target x and y position of the Blaster
+///@param {array} move_pause_dur The move, pause and duration of the Blaster
 ///@param {real} type			The color of the Blaster (Default 0)
 ///@param {bool} blur			Whether the screen blurs when the blaster fires (Default Flase)
 ///@param {real} c_sound		Whether the creation sound plays when created (Default 1)
 ///@param {real} r_sound		Whether the releasing sound plays when firing (Default 1)
 function Bullet_GasterBlaster(XY,ANGLE,SCALE,IDEALXY,MPD,TYPE = 0,BLUR = false,C_SOUND = 1,R_SOUND = 1) 
 {	
-	var DEPTH = -1000;
+	var DEPTH = -1000,
 	
-	var blaster = instance_create_depth(XY[0],XY[1],DEPTH,oGB);
+		blaster = instance_create_depth(XY[0],XY[1],DEPTH,oGB);
 	with blaster
 	{
 		image_angle = ANGLE[0];
@@ -44,7 +44,7 @@ function Bullet_GasterBlaster(XY,ANGLE,SCALE,IDEALXY,MPD,TYPE = 0,BLUR = false,C
 ///@param {array} Directions		The Init and target direction of the GB in the circle
 ///@param {array} Angles			The Initial and target angle of the GB
 ///@param {array} Scales			The Scales fo the GB
-///@param {array} Move_Pause_Dur	The Move pause and duration of the GB (Vector 3)
+///@param {array} Move_Pause_Dur	The Move pause and duration of the GB
 ///@param {real} Color				The color of the GB (Default White)
 ///@param {bool} blur				Whether the screen blurs when the blaster fires (Default Flase)
 ///@param {real} c_sound			Whether the creation sound plays when created (Default 1)
@@ -55,8 +55,8 @@ function Blaster_Circle(aim_xy, len, dir, angle, sc, mpd, col = 0, blur = false,
 	[
 		[lengthdir_x(len[0], dir[0]) + aim_xy[0], lengthdir_y(len[0], dir[0]) + aim_xy[1]],
 		[lengthdir_x(len[1], dir[1]) + aim_xy[0], lengthdir_y(len[1], dir[1]) + aim_xy[1]]
-	];
-	var gb = Bullet_GasterBlaster(pos[0], angle, sc, pos[1], mpd, col, blur, c, r);
+	],
+	gb = Bullet_GasterBlaster(pos[0], angle, sc, pos[1], mpd, col, blur, c, r);
 	return gb;
 }
 
@@ -64,16 +64,16 @@ function Blaster_Circle(aim_xy, len, dir, angle, sc, mpd, col = 0, blur = false,
 ///@param {real} Init_Angle			The Initial angle of the blaster
 ///@param {array} Target_Pos		The Target angle of the blaster
 ///@param {array} Scales			The Scales fo the GB
-///@param {array} Move_Pause_Dur	The Move pause and duration of the GB (Vector 3)
+///@param {array} Move_Pause_Dur	The Move pause and duration of the GB
 ///@param {real} Color				The color of the GB (Default White)
 ///@param {bool} blur				Whether the screen blurs when the blaster fires (Default Flase)
 ///@param {real} c_sound			Whether the creation sound plays when created (Default 1)
 ///@param {real} r_sound			Whether the releasing sound plays when firing (Default 1)
 function Blaster_Aim(ian, txy, sc, mpd, col = 0, blur = false, c = 1, r = 1)
 {
-	var dd = random(360);
-	var dir = point_direction(txy[0], txy[1], oSoul.x, oSoul.y);
-	var gb = Bullet_GasterBlaster([oSoul.x+lengthdir_x(600,dd),oSoul.y+lengthdir_y(600,dd)],
-	[ian, dir], sc, txy, mpd, col, blur, c, r);
+	var dd = random(360),
+		dir = point_direction(txy[0], txy[1], oSoul.x, oSoul.y),
+		fpos = [oSoul.x + lengthdir_x(600,dd), oSoul.y + lengthdir_y(600,dd)],
+		gb = Bullet_GasterBlaster(fpos,	[ian, dir], sc, txy, mpd, col, blur, c, r);
 	return gb;
 }

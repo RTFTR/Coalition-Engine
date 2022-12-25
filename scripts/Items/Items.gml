@@ -42,12 +42,14 @@ function Item_Info(item){
 			heal = 60;
 			desc = "Steak that looks like a MTT which\n  somehow fits in your pocket";
 			throw_txt = "Throw expensive mis-steak";
+			battle_desc = "Heals 60 HP";
 		break;
 		case 4:
 			name = "SnowPiece";
 			heal = 45;
 			desc = "Bring this to the end of the world,\n  but the world isnt round";
 			throw_txt = "snowball fight go brr";
+			battle_desc = "Heals 45 HP";
 		break;
 		case 5:
 			name = "L. Hero";
@@ -55,6 +57,7 @@ function Item_Info(item){
 			stats = "Your ATK raised by 4!";
 			desc = "You arent legendary nor a hero.";
 			throw_txt = "congrats you now bad guy";
+			battle_desc = "Heals 40 HP";
 		break;
 		case 6:
 			name = "Sea Tea";
@@ -62,6 +65,7 @@ function Item_Info(item){
 			stats = "Your SPD increased!";
 			desc = "HOW U HOLD A TEA WITHOUT CUP OMG";
 			throw_txt = "you threw liquid.";
+			battle_desc = "+10 HP - SPD+";
 		break;
 	}
 	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])

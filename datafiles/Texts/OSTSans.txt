@@ -1,5 +1,4 @@
 0
 See[delay,400],  it's a beautiful day,[delay,200] isn't it?[pause] [/page][delay,100]On days like these[delay,200].[delay,100].[delay,100].[pause] [/page][shake][speed,0.5]YOU [delay,100]WILL[delay,100] HAVE [delay,100]A [delay,100]TERRIBLE [delay,100]EXPERIENCE [delay,100]OF [delay,100]FEAR.
-
 1
 Turn 1 text

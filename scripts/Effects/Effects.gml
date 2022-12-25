@@ -107,8 +107,8 @@ function Camera_RotateTo(target, duration, ease = EaseLinear)
 ///@param {real} Parameter_Value	The value of the uniform parameter
 function Effect_Shader()
 {
-	var shd = argument[0];
-	var param = ["", 1];
+	var shd = argument[0],
+		param = ["", 1];
 	for(var i = 1; i < argument_count; i+=2)
 	{
 		param[i - 1] = argument[i];
@@ -129,9 +129,9 @@ function Effect_Shader()
 ///@param {string} Param_value	The value of the uniform variable
 function Effect_SetParam()
 {
-	with(shaderEffect)
+	with shaderEffect
 	{
-		if effect_shader = argument[0]
+		if effect_shader == argument[0]
 		{
 			for(var i = 1; i < argument_count; i += 2)
 			{

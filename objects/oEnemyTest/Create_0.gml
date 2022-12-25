@@ -4,7 +4,7 @@ enemy_act = ["Check", "Heal"];
 enemy_act_text = ["Sans[delay,100] 2650 ATK 2650 DEF[delay,500]\n  You don't know what he's up to.", "You Healed."];
 enemy_act_function[1] = function()
 {
-	global.hp += 999;
+	global.hp = global.hp_max - global.kr;
 	audio_play(snd_item_heal);
 }
 
@@ -38,10 +38,16 @@ enemy_sprite_wiggle = [
 ];
 
 SlamSprites = [
-	[spr_sans_slam_hor],
-	[spr_sans_slam_ver],
+	[sprOSTBodyRight],
+	[sprOSTBodyUp],
 	[sprOSTBodyLeft],
-	[spr_sans_slam_ver],
+	[sprOSTBodyDown],
+];
+SlamSpriteTargetIndex = [
+	[0, 1, 1, 1, 2],
+	[0, 1, 2, 3, 3],
+	[0, 1, 1, 1, 2],
+	[0, 1, 2, 3, 3],
 ];
 
 dialog_y_from_top = 20;
@@ -80,10 +86,11 @@ Battle_SetTurnBoardSize(
 	[70, 70, 70, 70],
 ]);
 
-LoadEnemyTextFromFile("OSTSans.txt");
+LoadTextFromFile("OSTSans.txt");
 ButtonSprites("OST");
 with oBattleController
 {
+	activate_heal = [0, 1, 0, 0];
 	allow_run = false;
 	button_color_target = [
 						[[255, 255, 255], [255, 255, 0]],
@@ -91,9 +98,22 @@ with oBattleController
 						[[255, 255, 255], [255, 255, 0]],
 						[[255, 255, 255], [255, 255, 0]]
 					  ];
+	button_color = [[255, 255, 255], [255, 255, 255], [255, 255, 255], [255, 255, 255]];
 }
 spare_function = function() {global.hp = 0;}
 
+TurnData.HealAttacks[0] = 
+function()
+{
+	if time == 1
+		Set_BoardSize(70, 70, 70, 70);
+	if time >= 30
+	{
+		var dir = time * 3.5;
+		Blaster_Circle([320,320], [600, 150], [dir, dir], [dir, dir + 180], [1, 2], [30, 20, 20]);
+	}
+}
+TurnData.HealTime = [600];
 
 global.data.name = "Chara";
 global.data.lv = 20;
@@ -105,3 +125,5 @@ global.assign_inv = 1;
 global.damage = 2;
 global.item = [0];
 global.RGBBlaster = 1;
+
+window_set_caption("OverSave Tale - Sans Fight");

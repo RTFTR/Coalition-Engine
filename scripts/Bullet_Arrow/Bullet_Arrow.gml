@@ -7,7 +7,7 @@ function Bullet_Arrow(Time, Spd, Dir, Mode = 0)
 {
 	Dir *= 90;
 	var arrow = instance_create_depth(0, 0, -2, oGreenArr)
-	with(arrow)
+	with arrow
 	{
 		spd = Spd;
 		mode = Mode;

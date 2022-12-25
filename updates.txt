@@ -1,5 +1,9 @@
 Update Logs
 
+v4.2.06 (Eden)
+Added funtions of acting (such as heal upon select)
+forgot
+
 v4.2.0 (Eden)
 Added new features like functions upon sparing
 Added external files for Button sprites and Enemy Dialogs (Optional)

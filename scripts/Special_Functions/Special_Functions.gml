@@ -12,10 +12,10 @@ function Posmod(a,b)
 ///@desc idk but it's for board so don't touch i guess
 function point_xy(p_x, p_y)
 {
-	var angle = image_angle
+	var angle = image_angle;
 	
-	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x
-	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y
+	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x;
+	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y;
 }
 
 ///@desc Returns the summation of an array from a to b
@@ -28,15 +28,6 @@ function Sigma(arr, n, k)
 		value += arr[i];
 	return value;
 }
-
-///@desc Returns an array that acts as a vector 2
-function vec2(vec1, vec2) {return [vec1, vec2];}
-
-///@desc Returns an array that acts as a vector 3
-function vec3(vec1, vec2, vec3){return [vec1, vec2, vec3];}
-
-///@desc Returns an array that acts as a vector 4
-function vec4(vec1, vec2, vec3, vec4) {return [vec1, vec2, vec3, vec4];}
 
 ///@desc Checks if the value is equal to the other given values
 function is_val()
@@ -51,6 +42,37 @@ function is_val()
 	}
 	return false;
 }
+
+function Vector2(vec2_x, vec2_y) constructor
+{
+	x = vec2_x;
+	y = vec2_y;
+}
+
+function Vector3(vec3_x, vec3_y, vec3_z) constructor
+{
+	x = vec3_x;
+	y = vec3_y;
+	z = vec3_z;
+	xy = 
+	{
+		x : vec3_x,
+		y : vec3_y
+	};
+	
+	yz = 
+	{
+		y : vec3_y,
+		z : vec3_z
+	};
+	
+	xz = 
+	{
+		x : vec3_x,
+		z : vec3_z
+	};
+}
+
 
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
 function check_outside(){
@@ -87,3 +109,34 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 	draw_set_color(prev_col);
 }
 
+///@desc Loads the text from an external text file
+///@param {string} FileName	The file name of the txt file, mut include .txt at the end
+function LoadTextFromFile(filename)
+{
+	var file, DialogText, TurnNumber, current, n;
+	file = file_text_open_read("./Texts/" + filename);
+	current = object_get_name(object_get_parent(object_index));
+	switch current
+	{
+		case "oEnemyParent":
+		n = array_length(turn_time);
+		break
+		case "oBattleController":
+		n = array_length(global.item);
+		break
+	}
+	for (var i = 0; i < n; ++i;)
+	{
+		TurnNumber = file_text_read_real(file);
+		file_text_readln(file);
+		DialogText = file_text_read_string(file);
+		file_text_readln(file);
+		switch current
+		{
+			case "oEnemyParent":
+			Battle_EnemyDialog(TurnNumber, DialogText);
+			break
+		}
+	}
+	file_text_close(file);
+}

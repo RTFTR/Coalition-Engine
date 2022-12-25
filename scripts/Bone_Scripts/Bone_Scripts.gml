@@ -50,12 +50,10 @@ function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 
 ///@param {real} rotate		The rotation of the bone (Default 0)
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneTop(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var Y = (oBoard.y - oBoard.up) + (LENGTH / 2);
-	var VSPEED = 0;
-	var ANGLE = 90;
-	var MODE = 0;
-	var bone = Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE,OUT,MODE,ANGLE,ROTATE,DESTROYABLE,DURATION);
+function Bullet_BoneTop(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1)
+{
+	var Y = (oBoard.y - oBoard.up) + (LENGTH / 2),
+		bone = Bullet_Bone(X,Y,LENGTH,HSPEED,0,TYPE,OUT,0,90,ROTATE,DESTROYABLE,DURATION);
 	return bone;
 }
 
@@ -69,11 +67,8 @@ function Bullet_BoneTop(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE 
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 function Bullet_BoneBottom(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var Y = (oBoard.y + oBoard.down) - (LENGTH / 2);
-	var VSPEED = 0;
-	var ANGLE = 90;
-	var MODE = 0;
-	var bone = Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE,OUT,MODE,ANGLE,ROTATE,DESTROYABLE,DURATION);
+	var Y = (oBoard.y + oBoard.down) - (LENGTH / 2),
+		bone = Bullet_Bone(X,Y,LENGTH,HSPEED,0,TYPE,OUT,0,90,ROTATE,DESTROYABLE,DURATION);
 	return bone;
 }
 
@@ -87,11 +82,8 @@ function Bullet_BoneBottom(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYAB
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 function Bullet_BoneLeft(Y,LENGTH,VSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var X = (oBoard.x - oBoard.left) + (LENGTH / 2);
-	var HSPEED = 0;
-	var ANGLE = 0;
-	var MODE = 0;
-	var bone = Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE,OUT,MODE,ANGLE,ROTATE,DESTROYABLE,DURATION);
+	var X = (oBoard.x - oBoard.left) + (LENGTH / 2),
+		bone = Bullet_Bone(X,Y,LENGTH,0,VSPEED,TYPE,OUT,0,0,ROTATE,DESTROYABLE,DURATION);
 	return bone;
 }
 
@@ -105,11 +97,8 @@ function Bullet_BoneLeft(Y,LENGTH,VSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 function Bullet_BoneRight(Y,LENGTH,VSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var X = (oBoard.x + oBoard.right) - (LENGTH / 2);
-	var HSPEED = 0;
-	var ANGLE = 0;
-	var MODE = 0;
-	var bone = Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE,OUT,MODE,ANGLE,ROTATE,DESTROYABLE,DURATION);
+	var X = (oBoard.x + oBoard.right) - (LENGTH / 2),
+		bone = Bullet_Bone(X,Y,LENGTH,0,VSPEED,TYPE,OUT,0,0,ROTATE,DESTROYABLE,DURATION);
 	return bone;
 }
 
@@ -136,15 +125,15 @@ function Bullet_BoneFullH(Y, SPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE =
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 function Bullet_BoneGapH(X,Y,VSPEED,X_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURATION = -1)
 {
-	var board = oBoard;
-	var board_x = board.y;
-	var board_margin = [board.left, board.right];
-	var GAP = X_GAP / 2;
-	var LENGTH_L = X - board_x + board_margin[0] - GAP;
-	var LENGTH_R = board_x + board_margin[1] - GAP - X;
+	var board = oBoard,
+		board_y = board.y,
+		board_margin = new Vector2(board.left, board.right),
+		GAP = X_GAP / 2,
+		LENGTH_L = X - board_y + board_margin.x - GAP,
+		LENGTH_R = board_y + board_margin.y - GAP - X;
 	
 	Bullet_BoneLeft(Y,LENGTH_L,VSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
-	Bullet_BoneRight(Y,LENGTH_R,VSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);	
+	Bullet_BoneRight(Y,LENGTH_R,VSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
 }
 
 //@desc Creates Two Vertical bones that Makes A Gap In Between Them
@@ -158,12 +147,12 @@ function Bullet_BoneGapH(X,Y,VSPEED,X_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURA
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 function Bullet_BoneGapV(X,Y,HSPEED,Y_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURATION = -1)
 {
-	var board = oBoard;
-	var board_y = board.y;
-	var board_margin = [board.up, board.down];
-	var GAP = Y_GAP / 2;
-	var LENGTH_T = Y - board_y + board_margin[0] - GAP;
-	var LENGTH_B = board_y + board_margin[1] - GAP - Y;
+	var board = oBoard,
+		board_y = board.y,
+		board_margin = new Vector2(board.up, board.down),
+		GAP = Y_GAP / 2,
+		LENGTH_T = Y - board_y + board_margin.x - GAP,
+		LENGTH_B = board_y + board_margin.y - GAP - Y;
 
 	bone_top = Bullet_BoneTop(X,LENGTH_T,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
 	bone_bottom = Bullet_BoneBottom(X,LENGTH_B,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
@@ -213,21 +202,20 @@ function Bullet_BoneWall(DIRECTION,HEIGHT,DELAY,HOLD,TYPE = 0,MOVE = 5,WARN_SOUN
 /// @param {real} out		Whether the bones are outside the board (Default 0)
 function Bullet_BoneWaveH(Y,X_GAP,HSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
 {
-	var board = oBoard;
-	var board_x = board.x;
-	var board_margin = [board.left, board.right];
-	var SIN = 0;
-	var LENGTH = (X_GAP - (board_x - board_margin[0]) - 14);
+	var board = oBoard,
+		board_x = board.x,
+		board_margin = [board.left, board.right],
+		SIN = 0,
+		LENGTH = (X_GAP - (board_x - board_margin[0]) - 14);
 	
 	for (var i = 0; i < AMOUNT; ++i)
 	{
 		SIN += (UDS * 0.3);
-		LENGTH = (LENGTH + ((cos(SIN) * UDF) * 4));
-		if HSPEED > 0 Y -= ((SPACE * HSPEED) / 4);
-		else Y += (((SPACE * HSPEED) * -1) / 4);
+		LENGTH += ((cos(SIN) * UDF) * 4);
+		Y += (((SPACE * HSPEED) * sign(-HSPEED)) / 4);
 		
-		var GAP_R = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP);
-		var DURATION = (((640 + (SPACE * i)) / abs(HSPEED)) * 2);
+		var GAP_R = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP),
+			DURATION = (((640 + (SPACE * i)) / abs(HSPEED)) * 2);
 		Bullet_BoneLeft(Y,LENGTH,HSPEED,TYPE,OUT,0,false,DURATION);
 		Bullet_BoneRight(Y,GAP_R,HSPEED,TYPE,OUT,0,false,DURATION);
 	}
@@ -246,21 +234,20 @@ function Bullet_BoneWaveH(Y,X_GAP,HSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT =
 /// @param {real} out		Whether the bones are outside the board (Default 0)
 function Bullet_BoneWaveV(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
 {
-	var board = oBoard;
-	var board_y = board.y;
-	var board_margin = [board.up, board.down];
-	var SIN = 0;
-	var LENGTH = (Y_GAP - (board_y - board_margin[0]) - 14);
+	var board = oBoard,
+		board_y = board.y,
+		board_margin = [board.up, board.down],
+		SIN = 0,
+		LENGTH = (Y_GAP - (board_y - board_margin[0]) - 14);
 	
 	for (var i = 0; i < AMOUNT; ++i)
 	{
 		SIN += (UDS * 0.3);
-		LENGTH = (LENGTH + ((cos(SIN) * UDF) * 4));
-		if VSPEED > 0 X -= ((SPACE * VSPEED) / 4);
-		else X += (((SPACE * VSPEED) * -1) / 4);
+		LENGTH += ((cos(SIN) * UDF) * 4);
+		X += (((SPACE * VSPEED) * sign(-VSPEED)) / 4);
 		
-		var GAP_B = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP);
-		var DURATION = (((480 + (SPACE * i)) / abs(VSPEED)) * 2);
+		var GAP_B = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP),
+			DURATION = (((480 + (SPACE * i)) / abs(VSPEED)) * 2);
 		
 		Bullet_BoneTop(X,LENGTH,VSPEED,TYPE,OUT,0,false,DURATION);
 		Bullet_BoneBottom(X,GAP_B,VSPEED,TYPE,OUT,0,false,DURATION);
@@ -268,16 +255,16 @@ function Bullet_BoneWaveV(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT =
 }
 
 ///@desc Creates a Bone Cube
-///@param {Array} Position			The x and y position of the cube (Array/ Vec2)
-///@param {Array} Angles			The xyz angles of the cube (Array/ Vec3)
-///@param {Array} Rotate_Speeds		The angle rotations of the cube (Array/ Vec3)
+///@param {Array} Position			The x and y position of the cube
+///@param {Array} Angles			The xyz angles of the cube
+///@param {Array} Rotate_Speeds		The angle rotations of the cube
 ///@param {real} Scales				The xyzscale of the cube
 ///@param {real} Anim_Time			The time of the scaling animation (Default 0 - Instant)
 ///@param {function} Easing			The easing of the scaling animation (Default EaseLinear)
 function Battle_BoneCube(pos, ans, rots, scale, anim_time = 0, ease = EaseLinear)
 {
 	var inst = instance_create_depth(pos[0], pos[1], -2, oBoneCube)
-	with(inst)
+	with inst
 	{
 		angles = ans;
 		angleAdd = rots;

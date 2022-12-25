@@ -27,25 +27,20 @@ function sprite_data_end(){
 /// @param  subimg
 /// @param  x
 /// @param  y
-function sprite_getpixel() {
-	var _sprite = argument0;
-	var _subimg = argument1;
-	var _x = argument2;
-	var _y = argument3;
-
+function sprite_getpixel(_sprite, _subimg, _x, _y) {
 	//Important vars
-	var sprW = sprite_get_width(_sprite);
-	var sprH = sprite_get_height(_sprite);
-	var sprX = sprite_get_xoffset(_sprite);
-	var sprY = sprite_get_yoffset(_sprite);
+	var sprW = sprite_get_width(_sprite),
+		sprH = sprite_get_height(_sprite),
+		sprX = sprite_get_xoffset(_sprite),
+		sprY = sprite_get_yoffset(_sprite),
 
 	//Check if buffer already exists
-	var exists = 0;
+		exists = 0,
 	//0 = doesn't exist
 	//1 = sprite array exists
 	//2 = subimg element exists
 
-	var key = string(_sprite);
+		key = string(_sprite);
 
 	if (ds_map_exists(global.sprBuff, key)){
 	    var arr = global.sprBuff[? key];
@@ -61,7 +56,7 @@ function sprite_getpixel() {
 	if !exists {
 	    var arr = array_create(_subimg + 1);
     
-	    for(var i = 0, n = _subimg+1; i < n; i++){
+	    for(var i = 0, n = _subimg + 1; i < n; i++){
 	        arr[i] = -1;
 	    }
     
@@ -72,9 +67,9 @@ function sprite_getpixel() {
 
 	//Create buffer
 	if (exists == 1){
-	    var arr = global.sprBuff[? key];
+	    var arr = global.sprBuff[? key],
     
-	    var buff = buffer_create(4 * sprW * sprH, buffer_fixed, 1);
+			buff = buffer_create(4 * sprW * sprH, buffer_fixed, 1);
 	    arr[@ _subimg] = buff;
     
 	    var surf = surface_create(sprW, sprH);
@@ -103,10 +98,9 @@ function sprite_getpixel() {
 	    var arr = global.sprBuff[? key],
 			buff = arr[_subimg];
     
-	    buffer_seek(buff, buffer_seek_start, 4*((sprW*_y)+_x));
-    
-	    var clr;
-		for(var i = 0; i < 4; ++i)
+	    buffer_seek(buff, buffer_seek_start, 4 * (sprW * _y + _x));
+		
+		for(var i = 0, clr; i < 4; ++i)
 			clr[i] = buffer_read(buff, buffer_u8);
     
 	    return clr;

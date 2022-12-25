@@ -75,7 +75,7 @@ function Slam(direction, move = 20, hurt = false)
 	Battle_SoulMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
-	with(oSoul)
+	with oSoul
 	{
 		dir = direction;
 		image_angle = (direction + 90) % 360
@@ -96,8 +96,8 @@ function Battle_Masking_Start(spr = false, board = oBoard) {
 		texture_set_stage(u_mask, surface_get_texture(board.surface));
 		var u_rect = shader_get_uniform(shader, "u_rect");
 		
-		var window_width = 640;
-		var window_height = 480;
+		var window_width = 640,
+			window_height = 480;
 		shader_set_uniform_f(u_rect, 0, 0, window_width, window_height);
 	}
 
@@ -110,11 +110,16 @@ function Battle_Masking_End(board = oBoard){
 
 ///@desc Gets the State of the battle
 function Battle_GetState()
-{return (instance_exists(oBattleController) ? oBattleController.battle_state : -1);}
+{
+	return (instance_exists(oBattleController) ? oBattleController.battle_state : -1);
+}
 
 ///@desc Sets the State of the battle
 ///@param {real} state	The state to set it to
-function Battle_SetState(state){oBattleController.battle_state = state;}
+function Battle_SetState(state)
+{
+	oBattleController.battle_state = state;
+}
 
 ///@desc Check whether an obj is collidiing with a board
 ///@param {real} direction	The direction of the board (0 - right, 1 - up...)
@@ -123,14 +128,14 @@ function Battle_SetState(state){oBattleController.battle_state = state;}
 ///@param {bool} notme		Whether the object is not themselves or yes
 function collision_board(dir, obj, prec, notme, board = oBoard)
 {
-	var board_pos = [board.x + board.right, board.y - board.up, board.x - board.left, board.down + board.y]
-	var dir_check =
-	[
-		[board_pos[0], board_pos[1], board_pos[0], board_pos[3]],
-		[board_pos[0], board_pos[1], board_pos[2], board_pos[1]],
-		[board_pos[2], board_pos[1], board_pos[2], board_pos[3]],
-		[board_pos[0], board_pos[3], board_pos[2], board_pos[3]],
-	]
+	var board_pos = [board.x + board.right, board.y - board.up, board.x - board.left, board.down + board.y],
+		dir_check =
+		[
+			[board_pos[0], board_pos[1], board_pos[0], board_pos[3]],
+			[board_pos[0], board_pos[1], board_pos[2], board_pos[1]],
+			[board_pos[2], board_pos[1], board_pos[2], board_pos[3]],
+			[board_pos[0], board_pos[3], board_pos[2], board_pos[3]],
+		]
 	return collision_line(dir_check[dir, 0],dir_check[dir, 1], dir_check[dir, 2], dir_check[dir, 3], obj, prec, notme);
 }
 

@@ -61,15 +61,15 @@ if battle_state == BATTLE_STATE.MENU {
 		{
 			case ITEM_SCROLL.DEFAULT:
 			for (var i = 0, n = min(4, itm_ln - _coord); i < n; ++i) {
-				var xx = (64 + ((i % 2) * 256)) + 32
-				var yy = 272 + (floor(i / 2) * 32)
+				var xx = (64 + ((i % 2) * 256)) + 32,
+					yy = 272 + (floor(i / 2) * 32);
 
-				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord])
+				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
 			}
 
 			// Heal text and Page
-			draw_text_scribble(128, 341, "[fnt_dt_mono][c_lime](+" + string(item_heal[coord]) + ")")
-			draw_text_scribble(384, 341, "[fnt_dt_mono]PAGE " + string(c_div + 1))
+			draw_text_scribble(128, 341, "[fnt_dt_mono][c_lime](+" + string(item_heal[coord]) + ")");
+			draw_text_scribble(384, 341, "[fnt_dt_mono]PAGE " + string(c_div + 1));
 			break
 			
 			case ITEM_SCROLL.VERTICAL:
@@ -82,7 +82,8 @@ if battle_state == BATTLE_STATE.MENU {
 				//i tried
 				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
 				draw_set_alpha(item_desc_alpha);
-				draw_text_scribble(item_desc_x, yy, "[fnt_dt_mono][c_gray]" + item_battle_desc[i + _coord]);
+				if i == c_div
+					draw_text_scribble(item_desc_x, yy + (_coord % 3) * 32, "[fnt_dt_mono][c_gray]" + item_battle_desc[coord]);
 				draw_set_alpha(1);
 				item_desc_alpha = lerp(item_desc_alpha, 1, 0.16);
 				item_desc_x = lerp(item_desc_x, 320, 0.16);

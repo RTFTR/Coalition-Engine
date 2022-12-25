@@ -4,7 +4,9 @@ battle_turn = 0;
 menu_button_choice = 0;
 menu_choice = [0, 0, 0, 0] // Fight - Act - Item - Mercy
 activate_turn = [1, 0, 0, 1];
+activate_heal = [0, 0, 0, 0];
 begin_at_turn = false;
+last_choice = 0;
 
 global.kr_activation = true;
 global.kr = 0;
@@ -31,7 +33,7 @@ Aim =
 	scale	: 1,
 	angle	: 0,
 	color	: c_white,
-	retract : choose(-1, 1)
+	retract : choose(-1, 1),
 }
 
 //Menu Dialog Funtions
@@ -170,10 +172,33 @@ function dialog_start() {
 }
 
 function begin_turn() {
-	battle_state = 2;
-	oEnemyParent.state = 2;
-	oSoul.image_angle = 0;
-	Battle_SetSoulPos(320, 320, 0);
+	if activate_turn[last_choice]
+	{
+		battle_state = 2;
+		oEnemyParent.state = 2;
+		oSoul.image_angle = 0;
+		Battle_SetSoulPos(320, 320, 0);
+	}
+	else
+	{
+		menu_choice = [0, 0, 0, 0];
+		if activate_heal[last_choice]
+		{
+			with oEnemyParent
+			{
+				TurnData.IsHeal = true;
+				TurnData.HealNum = irandom(array_length(TurnData.HealAttacks) - 1);
+			}
+		}
+		else
+		{
+			menu_text_typist.reset();
+			battle_state = 0;
+			menu_state = 0;
+			Battle_SetMenuDialog(oEnemyParent.end_turn_menu_text[battle_turn - 1]);
+		}
+		last_choice = 0;
+	}
 }
 
 function gameover() {

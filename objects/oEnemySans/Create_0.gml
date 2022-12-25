@@ -39,4 +39,4 @@ Battle_SetTurnBoardSize(
 	[42, 42, 42, 42],
 ]);
 
-LoadEnemyTextFromFile("SansTest.txt");
+LoadTextFromFile("SansTest.txt");

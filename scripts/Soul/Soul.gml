@@ -20,7 +20,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 		}
 		ChangeColor();
 		mode = soul_mode;
-		alarm[0] = effect
+		alarm[0] = effect;
 	}
 }
 

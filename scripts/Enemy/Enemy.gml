@@ -139,19 +139,3 @@ function Enemy_SetReward(target, Exp, Gold)
 	}
 }
 
-///@desc Loads the enemy dialog from an external text file
-///@param {string} FileName	The file name of the txt file, mut include .txt at the end
-function LoadEnemyTextFromFile(filename)
-{
-	var text, file, DialogText, TurnNumber;
-	file = file_text_open_read("./Texts/" + filename);
-	for (var i = 0, n = array_length(turn_time); i < n; ++i;)
-	{
-		TurnNumber = file_text_read_real(file);
-		file_text_readln(file);
-		DialogText = file_text_read_string(file);
-		file_text_readln(file);
-		Battle_EnemyDialog(TurnNumber, DialogText);
-	}
-	file_text_close(file);
-}

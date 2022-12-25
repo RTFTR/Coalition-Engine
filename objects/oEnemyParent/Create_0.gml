@@ -15,6 +15,10 @@ Exp_Give = 100;
 Gold_Give = 100;
 state = 0;
 begin_at_turn = false;
+end_turn_menu_text = [
+	"turn 2 text",
+	"turn 3 text",
+];
 
 //Temp var
 enemy_sprites = [
@@ -161,11 +165,7 @@ spare_function = -1;
 //Turn
 function end_turn()
 {
-	var turn = oBattleController.battle_turn - 1,
-		end_turn_menu_text = [
-	"turn 2 text",
-	"turn 3 text",
-	];
+	var turn = oBattleController.battle_turn - 1;
 	if array_length(end_turn_menu_text) >= (turn + 1) and turn > -1
 		Battle_SetMenuDialog(end_turn_menu_text[turn]);
 	else {
@@ -226,6 +226,10 @@ function end_turn()
 		for (var i = 0, n = array_length(TurnData.TimeSources[turn]); i < n; ++i)
 			time_source_destroy(TurnData.TimeSources[turn, i]);
 	Enemy_NameUpdate();
+	dialog_init(dialog_text[turn + 1]);
+	//Code to prevent crash
+	array_push(dialog_text, "");
+	TurnData.IsHeal = false;
 }
 
 
@@ -243,6 +247,10 @@ TurnData =
 	TSRepC : [],
 	TSInterval : [],
 	AttacksLoaded : false,
+	HealAttacks : [-1],
+	HealTime : [100],
+	HealNum : 0,
+	IsHeal : false,
 }
 
 start = 1;
