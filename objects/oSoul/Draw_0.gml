@@ -1,7 +1,6 @@
 var STATE = oBattleController.battle_state,
 	MENU = oBattleController.menu_state;
 image_angle += draw_angle;
-image_blend = make_color_rgb(r, g, b);
 if (STATE = 0 or STATE = 2) and (MENU != 5) and !IsGrazer
 	draw_self();
 //Grazing (Unused, unless a better method is found)
@@ -18,49 +17,68 @@ image_angle -= draw_angle;
 if mode = SOUL_MODE.GREEN
 	if STATE == 2
 	{
-		var ShieldAng = ShieldDrawAngle;
-		draw_set_circle_precision(16)
-		draw_circle_colour(x, y, 30, c_green, c_green, 1);
-		_x = lengthdir_x(ShieldLen, ShieldAng) + x;
-		_y = lengthdir_y(ShieldLen, ShieldAng) + y;
-		draw_sprite_ext(sprGreenShield, ShieldIndex, _x, _y, 1, 1, ShieldAng - 90, c_white, 1);
-		
-		var ShieldWidth = [lengthdir_x(30, ShieldAng + 90),
-							lengthdir_y(30, ShieldAng + 90)];
-			 _x = lengthdir_x(ShieldLen + 13, ShieldAng) + x + ShieldWidth[0];
-			 _y = lengthdir_y(ShieldLen + 16, ShieldAng) + y + ShieldWidth[1];
-		var __x = lengthdir_x(ShieldLen + 13, ShieldAng) + x - ShieldWidth[0];
-		var __y = lengthdir_y(ShieldLen + 16, ShieldAng) + y - ShieldWidth[1];
-		with(oBulletParents)
-			with(other)
+		draw_set_circle_precision(16);
+		draw_circle_colour(x - 0.5, y - 0.5, 30, c_green, c_green, 1);
+		gpu_set_blendmode(bm_add);
+		for(var i = 0; i < ShieldAmount; i++)
+		{
+			var ShieldAng = ShieldDrawAngle[i],
+				ShieldDistance = lengthdir_xy(ShieldLen[i], ShieldAng);
+			draw_sprite_ext(sprGreenShield, 0, ShieldDistance.x + x, ShieldDistance.y + y, 1, 1, ShieldAng - 90, ShieldColor[i], 1);
+			if ShieldAlpha[i] > 0
 			{
-				for(var i = 0; i < 5; ++i)
-				{
-					if global.show_hitbox
-					{
-						draw_set_color(c_white)
-						draw_line(_x, _y, __x, __y)
-					}
-					if collision_line(_x, _y, __x, __y, other, false, false)
-						DestroyArrow(other);
-					 _x -= lengthdir_x(1,ShieldAng);
-					__x -= lengthdir_x(1,ShieldAng);
-					 _y -= lengthdir_y(1,ShieldAng);
-					__y -= lengthdir_y(1,ShieldAng);
-				}
-				
-				 _x += lengthdir_x(5,ShieldAng);
-				__x += lengthdir_x(5,ShieldAng);
-				 _y += lengthdir_y(5,ShieldAng);
-				__y += lengthdir_y(5,ShieldAng);
-				if other.JudgeMode == "Lenient" and other.len <= 50
-				{
-					var input = [input_check_pressed("right"), input_check_pressed("up"),
-								input_check_pressed("left"), input_check_pressed("down")];
-					if input[min(Posmod(other.dir/90,360),0)]
-						DestroyArrow(other);
-				}
+				gpu_set_blendmode(bm_normal);
+				draw_sprite_ext(sprGreenShield, 1, ShieldDistance.x + x, ShieldDistance.y + y, 1, 1, ShieldAng - 90, ShieldHitCol[i], ShieldAlpha[i]);
+				gpu_set_blendmode(bm_add);
 			}
+			
+			var ShieldWidth = [lengthdir_x(30, ShieldAng + 90),
+								lengthdir_y(30, ShieldAng + 90)];
+				 _x = lengthdir_x(ShieldLen[i] + 16, ShieldAng) + x + ShieldWidth[0];
+				 _y = lengthdir_y(ShieldLen[i] + 16, ShieldAng) + y + ShieldWidth[1];
+			var __x = lengthdir_x(ShieldLen[i] + 16, ShieldAng) + x - ShieldWidth[0],
+				__y = lengthdir_y(ShieldLen[i] + 16, ShieldAng) + y - ShieldWidth[1];
+			with oBulletParents
+				with other
+				{
+					for(var i = 0; i < 5; ++i)
+					{
+						if global.show_hitbox
+						{
+							draw_set_color(c_white)
+							draw_line(_x, _y, __x, __y)
+						}
+						if collision_line(_x, _y, __x, __y, other, false, false) and other.Color == i
+						{
+							DestroyArrow(other);
+							part_type_color1(ShieldParticleType, ShieldHitCol[i]);
+							repeat irandom_range(5, 10)
+							{
+								var sc = random_range(3, 5);
+								part_type_scale(ShieldParticleType, sc, sc);
+								part_particles_create(ShieldParticleSystem, random_range(_x, __x), random_range(_y, __y), ShieldParticleType, 1);
+							}
+						}
+						 _x -= lengthdir_x(1,ShieldAng);
+						__x -= lengthdir_x(1,ShieldAng);
+						 _y -= lengthdir_y(1,ShieldAng);
+						__y -= lengthdir_y(1,ShieldAng);
+					}
+				
+					 _x += lengthdir_x(5,ShieldAng);
+					__x += lengthdir_x(5,ShieldAng);
+					 _y += lengthdir_y(5,ShieldAng);
+					__y += lengthdir_y(5,ShieldAng);
+					if other.JudgeMode == "Lenient" and other.len <= 50
+					{
+						var input = [input_check_pressed("right"), input_check_pressed("up"),
+									input_check_pressed("left"), input_check_pressed("down")];
+						if input[min(posmod(other.dir / 90,360), 0)]
+							DestroyArrow(other);
+					}
+				}
+		}
+		gpu_set_blendmode(bm_normal);
 	}
 
 if mode == SOUL_MODE.PURPLE and STATE == 2
@@ -98,4 +116,4 @@ if mode == SOUL_MODE.PURPLE and STATE == 2
 
 
 
-show_hitbox()
+show_hitbox();

@@ -1,3 +1,3 @@
-collide = false;
-TextTime = 0;
 depth = oOWPlayer.depth + 10;
+Event = -1;
+Collided = false;

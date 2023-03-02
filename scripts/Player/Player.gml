@@ -4,77 +4,77 @@ function ConvertItemNameToStat()
 	switch global.data.AttackItem
 	{
 		case "Stick":
-		global.player_attack = 0;
-		global.bar_count = 1;
+			global.player_attack = 0;
+			global.bar_count = 1;
 		break
 		case "Toy Knife":
-		global.player_attack = 3;
-		global.bar_count = 1;
+			global.player_attack = 3;
+			global.bar_count = 1;
 		break
 		case "Tough Glove":
-		global.player_attack = 5;
-		global.bar_count = 1;
+			global.player_attack = 5;
+			global.bar_count = 1;
 		//Insert mashing stuff
 		break
 		case "Ballet Shoes":
-		global.player_attack = 7;
-		global.bar_count = 3;
+			global.player_attack = 7;
+			global.bar_count = 3;
 		break
 		case "Torn Notebook":
-		global.player_attack = 2;
-		global.bar_count = 2;
+			global.player_attack = 2;
+			global.bar_count = 2;
 		break
-		case "Burnt Pan":
-		global.player_attack = 10;
-		global.bar_count = 4;
+			case "Burnt Pan":
+			global.player_attack = 10;
+			global.bar_count = 4;
 		break
 		case "Empty Gun":
-		global.player_attack = 12;
-		global.bar_count = 4;
+			global.player_attack = 12;
+			global.bar_count = 4;
 		break
 		case "Worn Dagger":
-		global.player_attack = 15;
-		global.bar_count = 1;
+			global.player_attack = 15;
+			global.bar_count = 1;
 		break
 		case "Real Knife":
-		global.player_attack = 99;
-		global.bar_count = 1;
+			global.player_attack = 99;
+			global.bar_count = 1;
 		break
 	}
 	switch global.data.DefenseItem
 	{
 		case "Bandage":
-		global.player_def = 0;
+			global.player_def = 0;
 		break
 		case "Faded Ribbon":
-		global.player_def = 3;
+			global.player_def = 3;
 		break
 		case "Manly Bandanna":
-		global.player_def = 7;
+			global.player_def = 7;
 		break
 		case "Old Tutu":
-		global.player_def = 10;
+			global.player_def = 10;
 		break
 		case "Cloudy Glasses":
-		global.player_def = 6;
-		global.player_inv_boost = 9;
+			global.player_def = 6;
+			global.player_inv_boost = 9;
 		break
 		case "Temmie Armor":
-		global.player_def = 6;
-		global.player_inv_boost = 3	//idk the actual stat
+			global.player_def = 6;
+			global.player_inv_boost = 3	//idk the actual stat
 		break
 		case "Stained Apron":
-		global.player_def = 11;
+			global.player_def = 11;
 		break
 		case "Cowboy Hat":
-		global.player_def = 12;
-		global.player_attack += 5;
+			global.player_def = 12;
+			global.player_attack += 5;
 		break
 		case "Heart Locket":
-		global.player_def = 15;
+			global.player_def = 15;
 		break
 		case "The Locket":
-		global.player_def = 99;
+			global.player_def = 99;
 		break
 	}
 }
@@ -88,7 +88,7 @@ function Player_GetBaseStats()
 }
 
 
-function Player_GetLVBaseExp()
+function Player_GetLvBaseExp()
 {
 	var base_exp = 
 	[0, 10, 30, 70, 120, 200, 300, 500, 800, 1200, 1700,

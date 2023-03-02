@@ -3,6 +3,10 @@ event_inherited();
 #region Turn 0
 TurnCreate(0,0,1,function(){
 	Battle_SoulMode(SOUL_MODE.GREEN)
+	oSoul.ShieldAmount = 2;
+	CreateArrows(60, 60, 7, 
+	["/", "R", "$1", "ads"], ["ads"], [method(id, function(){global.hp = 1})])
+	//with oSoul AddShield()
 	Set_BoardPos(320,240,0)
 	Set_BoardSize(42,42,42,42,0)
 	BGM = audio_create_stream("Music/MusNANA.ogg")
@@ -375,28 +379,31 @@ TurnCreate(0,0,1,function(){
 			5358,
 	];
 	}
-	array_sort(barrages, true)
-	function BarrageCreate(delay, speed, direction,mode=0){
+	//array_sort(barrages, true)
+	function BarrageCreate(delay, speed, direction,mode=0,color=0){
 		delays = delay;
 		speeds = [];
 		dirs = [];
 		modes = [];
+		colors = [];
 	
-		function GSA(spd,dir,mde=0) {
+		function GSA(spd,dir,mde=0, clr=0) {
 			array_push(speeds,spd)
 			array_push(dirs,irandom(3))
 			array_push(modes,mde)
+			array_push(colors,clr)
 		}
 		for(var i = 0, n = array_length(delays); i < n; ++i)
-			GSA(speed, direction,mode)
+			GSA(speed, direction,mode,color)
 		for(var i = 0, n = array_length(delays); i < n; ++i)
 		{
 			if ((delays[i] - delays[max(0,i-1)]) < 10) dirs[i] = dirs[max(0,i-1)]
-			Bullet_Arrow(delays[i],speeds[i], dirs[i],modes[i])
+			Bullet_Arrow(delays[i],speeds[i], dirs[i],modes[i], 1)
 		}
 	}
 	//for(var i = 0, n = array_length(barrages); i < n; ++i)
-	BarrageCreate(barrages,6,irandom(3))
+	//BarrageCreate(barrages,6,irandom(3), 0, 1)
+	
 })
 TurnCreate(0, 1, 3440, function() {
 	TweenFire(oBoard, EaseInOutSine, TWEEN_MODE_ONCE, 0, 0, 480, "image_angle", 0, -1800)
@@ -408,3 +415,11 @@ TurnCreate(0, 3, 5510, function() {
 	game_restart()
 })
 #endregion
+TurnCreate(0, 5, 0, function()
+{
+	var index = CreateNormalLine(0, 480, 640, 480, 2, c_yellow, 5, 90);
+	SetLineProperties(index, SetLineProperty.Duration, 1);
+	SetLineProperties(index, SetLineProperty.AlphaFade, 480 / 5);
+	SetLineProperties(index, SetLineProperty.FadeProperties, LineEndProperty.FADEOUT);
+}
+, 10000, 5);

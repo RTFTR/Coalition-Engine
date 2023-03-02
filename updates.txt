@@ -1,4 +1,82 @@
 Update Logs
+v4.5.6 (Panthervention)
+Added introduction page, basic UT naming system
+On pending:
+- Menu page
+- Settings option completion
+- Fix the goddamn input binding system (2 keys can be set for an input stimutaneously!)
+
+v4.5.4 (Eden)
+more forgotten stuff
+
+v4.5.3 (Eden)
+Updated scribble, changed .skip to .skip_to_pause for better text skipping
+Added mouse
+Guess what I forgot
+
+v4.5.2 (Eden)
+idk but apparently i fixed sth and then this happened
+
+v4.5.1 (Eden)
+Fixed Settings UI
+Added input custom binding
+Added fadings for OW/battle intro from logo
+forgot but boi
+
+v4.5 (Eden)
+Changed settings UI and logo
+Changed saving method for settings
+Added more descriptions on code
+(bro the setting ui is so cool)
+
+v4.4.694 (Eden)
+Fixed the line system not working (bro i literally set visible to false and wasted 6 hours)
+For demo see oRhythm (Press R on logo)
+
+v4.4.69 (Eden)
+Making Line Effect System (idk why no work but yeah pls fix)
+
+v4.4.6 (Eden)
+Fixed the chart maker
+Added particles to green soul shield
+Fixed shield hit animation
+
+v4.4.5 (Eden)
+Fixed overworld collisions
+Added event type collisions
+
+v4.4.4.1 (Eden)
+FIxed bugs
+Optimised further
+v4.4.4 (Eden)
+Optimised the code more
+forgot
+
+v4.4.3 (TK)
+Added a black masking shader for button drawing
+Added board background drawing (Manual) for custom color board background
+
+v4.4.2 (TK)
+Added file selection for replays (Must record at least once or else it will encounter bug)
+
+v4.4.1 (TK)
+Added multiple shield optoins to green soul
+Chart maker (Inspired from UF-Ex Engine) (Incomplete)
+
+v4.4 (Eden)
+Converted most draw events to step event for optimisation
+Changed some functions into step event to prevent proper decompiling of UTMT
+(A bit messy but it works)
+
+v4.3.01 (Panthervention)
+attempting rewriting oOWController with adjustment (on going wip)
+
+v4.3 (TK)
+Added Replay/Recorder (Doesn't function normally with randomized attacks, not sure why that happens. Needs fixing)
+
+v4.2.069 (Eden)
+Added some functions in text typers (flash, skippable, SetSprite), example is once again OST Sans text file
+forgot.
 
 v4.2.06 (Eden)
 Added funtions of acting (such as heal upon select)

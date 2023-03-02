@@ -30,7 +30,8 @@ function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, e
 ///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
 function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = oBoard)
 {
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "image_angle", board.image_angle, angle);
+	with board
+		TweenEasyRotate(image_angle, angle, 0, time, ease);
 }
 
 ///@desc Sets the x and y position of the board
@@ -40,8 +41,8 @@ function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = oBoard
 ///@param {function} ease	The easing
 function Set_BoardPos(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = oBoard)
 {
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "x", board.x, xx);
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "y", board.y, yy);
+	with board
+		TweenEasyMove(x, y, xx, yy, 0, time, ease)
 }
 
 function Set_GreenBox()
@@ -69,7 +70,7 @@ function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
 
 function Slam(direction, move = 20, hurt = false)
 {
-	direction = Posmod(direction,360);
+	direction = posmod(direction,360);
 	oEnemyParent.Slamming = true;
 	oEnemyParent.SlamDirection = direction;
 	Battle_SoulMode(SOUL_MODE.BLUE);
@@ -145,7 +146,7 @@ function collision_board(dir, obj, prec, notme, board = oBoard)
 function ButtonSprites(fname = "Normal", format = ".png")
 {
 	for (var i = 0, buttons, ButtonNames = ["Fight", "Act", "Item", "Mercy"]; i < 4; ++i) {
-		buttons[i] = sprite_add("./Sprites/Buttons/"+ fname + "/" + ButtonNames[i] + format, 2, 0, 0, 55, 21)
+		buttons[i] = sprite_add("./Sprites/Buttons/"+ fname + "/" + ButtonNames[i] + format, 2, 0, 0, 55, 21);
 	}
 	with oBattleController
 	{

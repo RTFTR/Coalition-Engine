@@ -6,7 +6,9 @@ image_speed = 0;
 image_blend = c_red;
 instance_destroy(oBulletParents);
 instance_destroy(oPlatform);
-Fader_Fade(0,0,1)
+Fader_Fade(0, 0, 1);
+if (global.ReplayMode == "Record")
+	instance_destroy(oReplayer);
 
 window_set_caption("Game Over");
 
@@ -28,10 +30,10 @@ part_type_gravity(p, 0.12, 270);
 
 alarm[0] = 40;
 
-gameover_text = "[pause]You cannot give\nup just yet...[pause][/page]" +string(global.data.name)+ "![delay,500]\nStay determined...";
+gameover_text = "[pause]You cannot give\nup just yet...[pause][/page]" + string(global.data.name) + "![delay,500]\nStay determined...";
 gameover_text_voice = snd_txtAsgore;
-gameover_writer = scribble(gameover_text);
-if gameover_writer.get_page() != 0 gameover_writer.page(0);
+gameover_writer = scribble(gameover_text)
+	.page(0);
 
 gameover_typist = scribble_typist()
 	.in(0.25, 0)

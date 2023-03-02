@@ -18,6 +18,7 @@ warn_alpha_filled = 0.25;
 time_warn = 18;
 time_move = 5;
 time_stay = 16;
+WarnTimer = 0;
 
 sound_warn = true;
 sound_create = true;
@@ -25,5 +26,3 @@ cone = 1;
 object = sprBone;
 
 alarm[0] = 1;
-alarm[1] = 1;
-

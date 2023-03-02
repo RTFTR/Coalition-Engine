@@ -104,9 +104,12 @@ TurnCreate(5, 1, 120, function() {
 	}
 	oBulletBone.axis = 1;
 	Set_BoardAngle(-540, 720, EaseLinear);
-	oSoul.Blend = c_blue;
-	oSoul.ChangeColor();
-	oSoul.alarm[0] = 1
+	with oSoul
+	{
+		Blend = c_blue;
+		TweenEasyBlend(c_red, c_blue, 0, 30, EaseLinear);
+		alarm[0] = 1
+	}
 	TweenFire(oSoul, EaseLinear, TWEEN_MODE_ONCE, false, 0, 720, "draw_angle", 270, -270);
 });
 #endregion

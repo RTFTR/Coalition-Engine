@@ -9,10 +9,12 @@
 ///@param {real} c_sound		Whether the creation sound plays when created (Default 1)
 ///@param {real} r_sound		Whether the releasing sound plays when firing (Default 1)
 function Bullet_GasterBlaster(XY,ANGLE,SCALE,IDEALXY,MPD,TYPE = 0,BLUR = false,C_SOUND = 1,R_SOUND = 1) 
-{	
-	var DEPTH = -1000,
+{
+	var DEPTH = -1000;
 	
-		blaster = instance_create_depth(XY[0],XY[1],DEPTH,oGB);
+	if is_array(XY)
+		var blaster = instance_create_depth(XY[0],XY[1],DEPTH,oGB);
+	else blaster = instance_create_depth(XY.x,XY.y,DEPTH,oGB);
 	with blaster
 	{
 		image_angle = ANGLE[0];
@@ -72,8 +74,11 @@ function Blaster_Circle(aim_xy, len, dir, angle, sc, mpd, col = 0, blur = false,
 function Blaster_Aim(ian, txy, sc, mpd, col = 0, blur = false, c = 1, r = 1)
 {
 	var dd = random(360),
-		dir = point_direction(txy[0], txy[1], oSoul.x, oSoul.y),
-		fpos = [oSoul.x + lengthdir_x(600,dd), oSoul.y + lengthdir_y(600,dd)],
-		gb = Bullet_GasterBlaster(fpos,	[ian, dir], sc, txy, mpd, col, blur, c, r);
+		dir = is_array(txy) ? point_direction(txy[0], txy[1], oSoul.x, oSoul.y)
+				: point_direction(txy.x, txy.y, oSoul.x, oSoul.y),
+		fpos = lengthdir_xy(600, dd);
+		fpos.x += oSoul.x;
+		fpos.y += oSoul.y;
+		var gb = Bullet_GasterBlaster(fpos,	[ian, dir], sc, txy, mpd, col, blur, c, r);
 	return gb;
 }

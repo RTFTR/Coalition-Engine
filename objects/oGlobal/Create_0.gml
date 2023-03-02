@@ -1,5 +1,8 @@
 depth = -10000;
-global.timer = 0;
+
+restart_timer = 0;
+restart_ender = irandom_range(30, 120);
+restart_tip = tips();
 
 camera_scale_x = 1;
 camera_scale_y = 1;
@@ -11,15 +14,8 @@ camera_x = 0;
 camera_y = 0;
 camera_angle = 0;
 camera_target = noone;
+camera_previous_target = noone;
 Main_Camera = view_camera[0];
-
-global.soul_x = 0;
-global.soul_y = 0;
-
-global.show_hitbox = 0;
-global.slam_damage = false;
-global.debug = false;
-global.RGBBlaster = false;
 
 quit_timer = 0;
 
@@ -37,3 +33,31 @@ effect_param =
 ];
 
 RGBShake = 0;
+
+Song = 
+{
+	Activate : false,
+	Name : "",
+	Dist : -20,
+	Time : 0,
+};
+
+Fade =
+{
+	Method : FADE.DEFAULT,
+	Activate : [
+		[false, 0, 0],
+		[false, 0, 0],
+		[false, 0, 0, 32],
+	],
+	Timer : 0
+};
+FadeTime = 0;
+
+Naming =
+{
+	Enabled : true,
+	Allowed : true,
+	Named : false,
+	State : 1
+};

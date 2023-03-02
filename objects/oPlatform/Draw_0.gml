@@ -1,5 +1,4 @@
-len_step();
-axis_step();
+
 var _color = sticky ? c_lime : c_fuchsia,
 	_sprite = sprPlatform,
 	_angle = image_angle,
@@ -25,26 +24,6 @@ Battle_Masking_End();
 
 if effect
 {
-	if effect == 1
-		effect = 2;
-	if effect == 2
-	{
-		audio_play(snd_ding);
-		effect_xscale = _image_xscale;
-		effect_yscale = _image_yscale;
-		effect_alpha = 1;
-		effect_x = x;
-		effect_y = y;
-		effect = 3;
-	}
-	if effect == 3
-	{
-		effect_xscale += 0.6;
-		effect_yscale += 0.15;
-		if effect_alpha > 0
-			effect_alpha -= 0.035;
-		else effect = false;
-	}
 	var _xscale = effect_xscale,
 		_yscale = effect_yscale;
 	_alpha = effect_alpha;
@@ -55,5 +34,5 @@ if effect
 	draw_sprite_ext(_sprite,1,_x,_y,_xscale,_yscale,_angle,_color,_alpha);
 }
 
-show_hitbox(c_lime)
+show_hitbox(c_lime);
 

@@ -8,10 +8,11 @@ index = 0;
 mode = 0;
 len = 1000;
 flipped = 0;
+Color = 0;
+
 
 //Copying Rhythm Recall let's go~
 JudgeMode = "Strict";
-JudgeMode = "Lenient";
 
 function IsNearest() {
 	for (var i = 0, num = instance_number(oGreenArr), inst = []; i < num; ++i) {

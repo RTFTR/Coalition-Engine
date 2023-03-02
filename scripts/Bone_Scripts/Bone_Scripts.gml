@@ -11,7 +11,8 @@
 ///@param {real} rotate		The rotation of the bone (Default 0)
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
+///@param {Constant.Color} Base_Color	The color of the bone
+function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1,base_col = oEnemyParent.base_bone_col){
 	var DEPTH = -10
 	if instance_exists(oBoard)
 	{
@@ -36,6 +37,7 @@ function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 
 		mode = MODE;
 		
 		destroyable = DESTROYABLE;
+		base_color = base_col;
 	}
 	return bone;
 }
@@ -172,7 +174,7 @@ function Bullet_BoneWall(DIRECTION,HEIGHT,DELAY,HOLD,TYPE = 0,MOVE = 5,WARN_SOUN
 	var DEPTH = -10
 	if instance_exists(oBoard) 
 		DEPTH = oBoard.depth + 1
-	DIRECTION = Posmod(DIRECTION,360);
+	DIRECTION = posmod(DIRECTION,360);
 	var wall = instance_create_depth(0,0,DEPTH,oBulletBoneWall)
 	with wall
 	{

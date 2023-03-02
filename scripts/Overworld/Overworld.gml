@@ -19,8 +19,7 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 		if text_writer.get_page() != 0 text_writer.page(0);
 		
 		dialog_is_down = top_bottom;
-		is_dialog = true;
-		//scribble_typists_add_event(string_char_at(text, string_length(text)), Option)
+		dialog_exists = true;
 	}
 }
 
@@ -28,7 +27,7 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 ///@param {real} Amount		The cmount of options
 function Option(amount)
 {
-	oOWController.is_dialog_a_option = true;
+	oOWController.dialog_option = true;
 }
 
 ///@desc Sets the name of the options

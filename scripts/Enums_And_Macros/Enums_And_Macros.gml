@@ -85,3 +85,10 @@ enum MENU_STATE
 	MERCY_END = 7,
 	FLEE = 8
 }
+
+enum FADE
+{
+	DEFAULT = 0,
+	CIRCLE = 1,
+	LINES = 2
+}

@@ -24,4 +24,8 @@ Battle_SetTurnBoardSize(
 Battle_EnemyDialog(0, [
 	""
 ]);
-bgm = -1
+bgm = -1;
+
+var index = CreateNormalLine(0, 0, 0, 480, 10, c_white, 2, 0);
+SetLineProperties(index, SetLineProperty.Properties, [LineProperties.TRAIL, 5, 120]);
+SetLineProperties(index, SetLineProperty.Duration, infinity);

@@ -5,7 +5,7 @@
 ///@param {real} volume		The volume of the audio (Max 1, Min 0, Default 1)
 ///@param {real} pitch		The pitch of the audio (Default 1)
 ///@param {real} time		The time taken for the audio to change it's volume (In Miliseconds, Default 0)
-function audio_play(soundid,single = false,loops = false,volume = 1,pitch = 1,time = 0)
+function audio_play(soundid, single = false, loops = false, volume = 1, pitch = 1, time = 0)
 {
 	if single audio_stop_sound(soundid);
 	var audio = audio_play_sound(soundid, 50, loops, volume, 0, pitch);

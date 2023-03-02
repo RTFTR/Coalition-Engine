@@ -13,6 +13,7 @@ if instance_exists(oGB)
 if !Slamming
 {
 	enemy_sprites[1] = sprOSTBody;
-	enemy_sprite_index[1] += 1/15;
+	if wiggle
+		enemy_sprite_index[1] += 1/15;
 	enemy_sprite_index[1] %= 4;
 }

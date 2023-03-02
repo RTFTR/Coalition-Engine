@@ -1,3 +1,4 @@
+// Do not put in step, it breaks
 active = true;
 state = 1;
 var board = oBoard,

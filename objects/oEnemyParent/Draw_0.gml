@@ -116,8 +116,8 @@ if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
 	text_writer.draw(CornerPosition[2] + CornerWidth, CornerPosition[0] + CornerHeight, dialog_text_typist)
 
 
-	if input_check_pressed("cancel")
-		dialog_text_typist.skip();
+	if input_check_pressed("cancel") and global.TextSkipEnabled
+		dialog_text_typist.skip_to_pause();
 		
 	if dialog_text_typist.get_paused() and input_check_pressed("confirm")
 		dialog_text_typist.unpause();

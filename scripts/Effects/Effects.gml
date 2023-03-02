@@ -7,7 +7,17 @@
 function Fader_Fade(start, target, duration, delay = 0, color = c_black)
 {
 	oGlobal.fader_color = color;
-	TweenFire(oGlobal,EaseLinear, TWEEN_MODE_ONCE, false, delay, duration, "fader_alpha", start, target);
+	TweenFire(oGlobal, EaseLinear, TWEEN_MODE_ONCE, false, delay, duration, "fader_alpha", start, target);
+}
+
+function Fade_Out(mode = FADE.CIRCLE, duration = 30, delay = 60)
+{
+	with oGlobal
+	{
+		Fade.Activate[mode, 0] = true;
+		Fade.Activate[mode, 1] = duration;
+		Fade.Activate[mode, 2] = delay;
+	}
 }
 
 ///@desc Blurs the screen
@@ -32,9 +42,8 @@ function motion_blur(length,direction){
     if (length > 0) {
 		var step,dir,px,py,a;
         step = 3;
-        dir = degtorad(direction);
-        px = cos(dir);
-        py = -sin(dir);
+        px = dcos(direction);
+        py = -dsin(direction);
  
         a = image_alpha/(length/step);
         if (a >= 1) {
@@ -70,9 +79,8 @@ function motion_blur_ext(sprite,subimg,xx,yy,xscale,yscale,angle,blend,alpha,len
     if (length > 0) {
 		var step,dir,px,py,a;
         step = 3;
-        dir = degtorad(direction);
-        px = cos(dir);
-        py = -sin(dir);
+        px = dcos(direction);
+        py = -dsin(direction);
  
         a = image_alpha/(length/step);
         if (a >= 1) {
@@ -98,7 +106,7 @@ function motion_blur_ext(sprite,subimg,xx,yy,xscale,yscale,angle,blend,alpha,len
 ///@param {function} Easing	The ease of the rotation
 function Camera_RotateTo(target, duration, ease = EaseLinear)
 {
-	TweenFire(oGlobal, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_angle", ooGlobal.camera_angle, target);
+	TweenFire(oGlobal, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_angle", oGlobal.camera_angle, target);
 }
 
 ///@desc Creates the effect with the shader given
@@ -318,4 +326,56 @@ function TrailStep(duration = 30) {
 	part_type_life(global.TrailP, duration, duration);
 	part_type_orientation(global.TrailP, image_angle, image_angle, 0, 0, 0);
 	part_particles_create_color(global.TrailS, x, y, global.TrailP, image_blend, 1);
+}
+
+function draw_circular_bar(x ,y ,value, max, colour, radius, transparency, width)
+{
+	if (value > 0) { // no point even running if there is nothing to display (also stops /0
+	    var i, len, tx, ty, val;
+    
+	    var numberofsections = 60 // there is no draw_get_circle_precision() else I would use that here
+	    var sizeofsection = 360/numberofsections
+    
+	    val = (value/max) * numberofsections 
+    
+	    if (val > 1) { // HTML5 version doesnt like triangle with only 2 sides 
+    
+	        piesurface = surface_create(radius*2,radius*2)
+            
+	        draw_set_colour(colour);
+	        draw_set_alpha(transparency);
+        
+	        surface_set_target(piesurface)
+        
+	        draw_clear_alpha(c_blue,0.7)
+	        draw_clear_alpha(c_black,0)
+        
+	        draw_primitive_begin(pr_trianglefan);
+	        draw_vertex(radius, radius);
+        
+	        for(i=0; i<=val; i++) {
+	            len = (i*sizeofsection)+90; // the 90 here is the starting angle
+	            tx = lengthdir_x(radius, len);
+	            ty = lengthdir_y(radius, len);
+	            draw_vertex(radius+tx, radius+ty);
+	        }
+        
+	        draw_primitive_end();
+        
+	        draw_set_alpha(1);
+        
+	        gpu_set_blendmode(bm_subtract)
+	        draw_set_colour(c_black)
+	        draw_circle(radius-1, radius-1,radius-width,false)
+	        gpu_set_blendmode(bm_normal)
+
+	        surface_reset_target()
+     
+	        draw_surface(piesurface,x-radius, y-radius)
+        
+	        surface_free(piesurface)
+        
+	    }
+    
+	}
 }

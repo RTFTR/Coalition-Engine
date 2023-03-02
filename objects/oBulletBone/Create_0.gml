@@ -5,9 +5,10 @@ image_speed = 0;
 destroyable = false;
 rotate = 0;
 duration = -1;
+DurationTimer = 0;
 mode = 0;
-alarm[0] = 1;
 type = 0;
+base_color = c_white;
 len_load();
 dir = 0;
 

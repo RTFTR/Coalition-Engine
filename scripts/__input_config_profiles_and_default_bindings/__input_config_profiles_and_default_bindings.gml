@@ -9,18 +9,25 @@
 //functions, such as input_binding_key() for keyboard keys and input_binding_mouse() for
 //mouse buttons
 
+if !variable_global_exists("InputKeys")
+global.InputKeys =
+[
+	vk_up, vk_down, vk_left, vk_right,
+	"Z", "X", "C",
+];
+
 INPUT_DEFAULT_PROFILES = {
     
     keyboard_and_mouse:
     {
-        up:    [input_binding_key(vk_up),    input_binding_key("W")],
-        down:  [input_binding_key(vk_down),  input_binding_key("S")],
-        left:  [input_binding_key(vk_left),  input_binding_key("A")],
-        right: [input_binding_key(vk_right), input_binding_key("D")],
+        up:    [input_binding_key(global.InputKeys[0])],
+        down:  [input_binding_key(global.InputKeys[1])],
+        left:  [input_binding_key(global.InputKeys[2])],
+        right: [input_binding_key(global.InputKeys[3])],
         
-        confirm:  [input_binding_key(vk_enter),   input_binding_key("Z")],
-        cancel:   [input_binding_key(vk_shift),   input_binding_key("X")],
-        menu:     [input_binding_key(vk_control), input_binding_key("C")],
+        confirm:  [input_binding_key(global.InputKeys[4])],
+        cancel:   [input_binding_key(global.InputKeys[5])],
+        menu:     [input_binding_key(global.InputKeys[6])],
         //special: input_binding_key(vk_shift),
         
         //No aiming verbs since we use the mouse for that (see below for aiming verb examples)

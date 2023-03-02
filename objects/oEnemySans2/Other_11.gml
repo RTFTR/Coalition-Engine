@@ -3,6 +3,11 @@ event_inherited();
 TurnCreate(0, 0, 0, function() {
 	bgm = audio_play_sound(BGM, 1, 0);
 	t = 0;
+	with oGlobal
+	{
+		Song.Activate = true;
+		Song.Name = "\nReality Check Through The Skull";
+	}
 });
 TurnCreate(0, 1, 60, function() {
 	with oBattleController {
@@ -482,7 +487,7 @@ TurnCreate(0, 88, 10320, function() {
 	Blaster_Aim(0, [random_range(200, 440), random_range(200, 440)], [1, 2], [40, 20, 5]);
 }, 5, 90);
 TurnCreate(0, 89, 10400, function() {
-	Slam(Posmod(oSoul.image_angle - 180, 360), 0);
+	Slam(posmod(oSoul.image_angle - 180, 360), 0);
 }, 3, 120);
 TurnCreate(0, 90, 10730, function() {
 	audio_play(snd_noise);
@@ -817,10 +822,13 @@ TurnCreate(0, 132, 16760, function() {
 	Battle_SoulMode(SOUL_MODE.RED);
 	Set_BoardSize(50, 50, 320, 320, 0);
 	Battle_SetSoulPos(120,320,0);
-	oSoul.draw_angle += 90;
-	oSoul.Blend = c_blue;
-	oSoul.ChangeColor();
-	oSoul.alarm[0] = 1
+	with oSoul
+	{
+		draw_angle += 90;
+		Blend = c_blue;
+		alarm[0] = 1;
+		TweenEasyBlend(image_blend, c_blue, 0, 30, EaseLinear);
+	}
 	draw_papyrus = 0;
 	global.data.lv = 18;
 	global.kr = 0;
@@ -862,7 +870,7 @@ TurnCreate(0, 137, 17350, function() {
 	x = 320;
 	with oSoul {
 		Blend = c_red;
-		ChangeColor();
+		TweenEasyBlend(image_blend, c_red, 0, 30, EaseLinear);
 		draw_angle = 0;
 	}
 	instance_destroy(oBulletParents);

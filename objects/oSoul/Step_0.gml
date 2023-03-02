@@ -30,23 +30,23 @@ if STATE == 2 {
 		check_board = instance_exists(oBoard);
 	if check_board // When the board is real XD
 	{
-		var board = oBoard;
-		var board_x = board.x;
-		var board_y = board.y;
-		var board_angle = Posmod(board.image_angle, 360);
-		var board_margin = [board.up, board.down, board.left, board.right];
-		var board_dir = board_angle div 90
-
-		var board_limit_template = [
-			(board_y - board_margin[0]) + y_offset,
-			(board_y + board_margin[1]) - y_offset,
-			(board_x - board_margin[2]) + x_offset,
-			(board_x + board_margin[3]) - x_offset
-		]
-		var board_top_limit = board_limit_template[0];
-		var board_bottom_limit = board_limit_template[1];
-		var board_left_limit = board_limit_template[2];
-		var board_right_limit = board_limit_template[3];
+		var board = oBoard,
+			board_x			= board.x,
+			board_y			= board.y,
+			board_angle		= posmod(board.image_angle, 360),
+			board_margin	= [board.up, board.down, board.left, board.right],
+			board_dir		= board_angle div 90,
+			
+			board_limit_template = [
+				board_y - board_margin[0] + y_offset,
+				board_y + board_margin[1] - y_offset,
+				board_x - board_margin[2] + x_offset,
+				board_x + board_margin[3] - x_offset
+			],
+			board_top_limit		= board_limit_template[0],
+			board_bottom_limit	= board_limit_template[1],
+			board_left_limit	= board_limit_template[2],
+			board_right_limit	= board_limit_template[3];
 	}
 
 	//Check if soul follows the movement of the board
@@ -63,10 +63,9 @@ if STATE == 2 {
 		}
 
 		case SOUL_MODE.BLUE : {
-			if dir == DIR.DOWN image_angle = 0;
-			else if dir == DIR.UP image_angle = 180;
-			else if dir == DIR.LEFT image_angle = 270;
-			else if dir == DIR.RIGHT image_angle = 90;
+			dir %= 360;
+			image_angle = dir + 90;
+			image_angle %= 360;
 
 			var _on_ground = false,
 				_on_ceil = false,
@@ -76,8 +75,7 @@ if STATE == 2 {
 
 				_angle = image_angle,
 
-				platform_check_x = [0, 0],
-				platform_check_y = [0, 0];
+				platform_check = [[0, 0], [0, 0]];
 		
 			//Soul Gravity
 			if _fall_spd < 4 and _fall_spd > 0.25 _fall_grav = 0.15;
@@ -98,8 +96,7 @@ if STATE == 2 {
 					_on_ceil = r_y <= board_top_limit + 0.1;
 				}
 
-				platform_check_x = [0, 0];
-				platform_check_y = [y_offset + 1, y_offset];
+				platform_check = [[0, 0], [y_offset + 1, y_offset]];
 
 				jump_input = input_check("up");
 				move_input = h_spd * move_spd;
@@ -110,8 +107,8 @@ if STATE == 2 {
 					_on_ceil = r_y >= board_bottom_limit - 0.1;
 				}
 
-				platform_check_x = [0, 0];
-				platform_check_y = [y_offset - 1, -y_offset];
+				platform_check = [[0, 0], [y_offset - 1, -y_offset]];
+				
 
 				jump_input = input_check("down");
 				move_input = h_spd * -move_spd;
@@ -122,8 +119,7 @@ if STATE == 2 {
 					_on_ceil = r_x <= board_left_limit + 0.1;
 				}
 
-				platform_check_x = [x_offset - 1, -x_offset];
-				platform_check_y = [0, 0];
+				platform_check = [[x_offset - 1, -x_offset], [0, 0]];
 
 				jump_input = input_check("left");
 				move_input = v_spd * -move_spd;
@@ -134,8 +130,7 @@ if STATE == 2 {
 					_on_ceil = r_x >= board_right_limit - 0.1;
 				}
 
-				platform_check_x = [x_offset + 1, x_offset];
-				platform_check_y = [0, 0];
+				platform_check = [[x_offset + 1, x_offset], [0, 0]];
 
 				jump_input = input_check("right");
 				move_input = v_spd * move_spd;
@@ -147,19 +142,19 @@ if STATE == 2 {
 			}
 		
 			//Platform checking
-			var platform_check = instance_position(x + platform_check_x[0], y + platform_check_y[0], oPlatform);
+			var RespecitvePlatform = instance_position(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform);
 
-			if position_meeting(x + platform_check_x[0], y + platform_check_y[0], oPlatform) and _fall_spd >= 0 {
+			if position_meeting(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform) and _fall_spd >= 0 {
 				_on_platform = true;
-				while position_meeting(x + platform_check_x[1], y + platform_check_y[1], oPlatform) {
-					with platform_check {
+				while position_meeting(x + platform_check[0, 1], y + platform_check[1, 1], oPlatform) {
+					with RespecitvePlatform {
 						other.x += lengthdir_x(0.1, image_angle + 90);
 						other.y += lengthdir_y(0.1, image_angle + 90);
 					}
 				}
 			}
-			with platform_check {
-				if platform_check.sticky {
+			with RespecitvePlatform {
+				if RespecitvePlatform.sticky {
 					other.x += x - xprevious;
 					other.y += y - yprevious;
 				}
@@ -172,15 +167,14 @@ if STATE == 2 {
 					if global.slam_damage {
 						global.hp = global.hp > 1 ? global.hp-- : 1;
 					}
-
-					audio_stop_sound(snd_impact);
-					audio_play_sound(snd_impact, 50, false);
+					
+					audio_play(snd_impact, true);
 				}
 
 				_fall_spd = (_on_ground or _on_platform) and jump_input ? -3 : 0;
 			}
 			else if !jump_input and _fall_spd < -0.5
-			_fall_spd = -0.5;
+				_fall_spd = -0.5;
 
 			move_x = lengthdir_x(move_input, _angle) - lengthdir_y(_fall_spd, _angle);
 			move_y = lengthdir_x(move_input, _angle + 90) - lengthdir_y(_fall_spd, _angle + 90);
@@ -202,7 +196,7 @@ if STATE == 2 {
 		case SOUL_MODE.ORANGE : {
 			//Movement particle
 			if moveable {
-				if !(global.timer % 5) TrailStep(25)
+				if !(global.timer % 5) TrailStep(25);
 				var input = [input_check("right"), input_check("up"),
 					input_check("left"), input_check("down")
 				];
@@ -240,26 +234,60 @@ if STATE == 2 {
 		}
 
 		case SOUL_MODE.GREEN : {
+			function DestroyArrow(obj) {
+				audio_play(snd_ding);
+				ShieldAlpha[obj.mode] = 1;
+				instance_destroy(obj);
+			}
+			///@param {Array} Input		The input keys of the shield
+			function AddShield(Input = -1)
+			{
+				with oSoul
+				{
+					array_push(ShieldAlpha, 0);
+					array_push(ShieldDrawAngle, 0);
+					array_push(ShieldTargetAngle, 0);
+					array_push(ShieldLen, 18);
+					if Input != -1
+						array_push(ShieldInput, Input);
+					ShieldAmount++;
+				}
+			}
+			function RemoveShield(num)
+			{
+				with oSoul
+				{
+					array_delete(ShieldAlpha, num, 1);
+					array_delete(ShieldDrawAngle, num, 1);
+					array_delete(ShieldTargetAngle, num, 1);
+					array_delete(ShieldLen, num, 1);
+					ShieldAmount--;
+				}
+			}
 			x = board.x;
 			y = board.y;
-			var input = [input_check_pressed("right"), input_check_pressed("up"),
-				input_check_pressed("left"), input_check_pressed("down")
-			];
-			var LastTarget = ShieldTargetAngle;
-			for (var i = 0; i < 4; ++i)
-				if input[i] ShieldTargetAngle = i * 90;
+			for(var i = 0; i < ShieldAmount; i++)
+			{
+				var input = [
+					keyboard_check_pressed(ShieldInput[i, 0]), keyboard_check_pressed(ShieldInput[i, 1]),
+					keyboard_check_pressed(ShieldInput[i, 2]), keyboard_check_pressed(ShieldInput[i, 3])
+				],
+					LastTarget = ShieldTargetAngle[i];
+				for (var ii = 0; ii < 4; ++ii)
+					if input[ii] ShieldTargetAngle[i] = ii * 90;
 		
-			//Smooth shield angle animation
-			if LastTarget > 180 and ShieldTargetAngle == 0 ShieldDrawAngle -= 360;
-			if LastTarget == 180 and ShieldTargetAngle == 0 ShieldDrawAngle = 180;
-			if LastTarget < -5 and ShieldTargetAngle == 90 ShieldDrawAngle += 360;
-			if LastTarget < 90 and ShieldTargetAngle == 270 ShieldDrawAngle += 360;
+				//Smooth shield angle animation
+				if LastTarget > 180 and ShieldTargetAngle[i] == 0	ShieldDrawAngle[i] -= 360;
+				if LastTarget == 180 and ShieldTargetAngle[i] == 0	ShieldDrawAngle[i] = 180;
+				if LastTarget < -5 and ShieldTargetAngle[i] == 90	ShieldDrawAngle[i] += 360;
+				if LastTarget < 90 and ShieldTargetAngle[i] == 270  ShieldDrawAngle[i] += 360;
 		
-			//Shield angle lerping
-			ShieldDrawAngle = lerp(ShieldDrawAngle, ShieldTargetAngle, 0.24);
-			if abs(ShieldTargetAngle - ShieldDrawAngle) <= 0.1
-			ShieldDrawAngle = ShieldTargetAngle;
-			if ShieldIndex > 0 ShieldIndex -= 1 / 5;
+				//Shield angle lerping
+				ShieldDrawAngle[i] = lerp(ShieldDrawAngle[i], ShieldTargetAngle[i], 0.2);
+				if abs(ShieldTargetAngle[i] - ShieldDrawAngle[i]) <= 0.1
+					ShieldDrawAngle[i] = ShieldTargetAngle[i];
+				if ShieldAlpha[i] > 0 ShieldAlpha[i] -= 1 / 30;
+			}
 		break
 		}
 		
@@ -274,10 +302,10 @@ if STATE == 2 {
 			if !Purple.Mode
 			{
 				BasicMovement(true, false);
-				var NowLine = Purple.CurrentVLine;
-				var TopLine = oBoard.y - oBoard.up + 15;
-				var BottomLine = oBoard.y + oBoard.down - 15;
-				var YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
+				var NowLine = Purple.CurrentVLine,
+					TopLine = oBoard.y - oBoard.up + 15,
+					BottomLine = oBoard.y + oBoard.down - 15,
+					YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
 				Purple.CurrentVLine += input_check_pressed("down") - input_check_pressed("up");
 				Purple.CurrentVLine = clamp(Purple.CurrentVLine, 0, Purple.VLineAmount - 1);
 				Purple.YTarget = TopLine + Purple.CurrentVLine * YDifference;
@@ -286,10 +314,10 @@ if STATE == 2 {
 			else
 			{
 				BasicMovement(false, true);
-				var NowLine = Purple.CurrentHLine;
-				var LeftLine = oBoard.x - oBoard.left + 15;
-				var RightLine = oBoard.x + oBoard.right - 15;
-				var XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1);
+				var NowLine = Purple.CurrentHLine,
+					LeftLine = oBoard.x - oBoard.left + 15,
+					RightLine = oBoard.x + oBoard.right - 15,
+					XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1);
 				Purple.CurrentHLine += input_check_pressed("right") - input_check_pressed("left");
 				Purple.CurrentHLine = clamp(Purple.CurrentHLine, 0, Purple.HLineAmount - 1);
 				Purple.XTarget = LeftLine + Purple.CurrentHLine * XDifference;
@@ -304,10 +332,10 @@ if STATE == 2 {
 	{
 		//Collision check of the Main Board
 		if check_board {
-			var _dist = point_distance(board_x, board_y, x, y);
-			var _dir = point_direction(board_x, board_y, x, y);
-			var r_x = clamp(lengthdir_x(_dist, _dir - board_angle) + board_x, board_left_limit, board_right_limit);
-			var r_y = clamp(lengthdir_y(_dist, _dir - board_angle) + board_y, board_top_limit, board_bottom_limit);
+			var _dist = point_distance(board_x, board_y, x, y),
+				_dir = point_direction(board_x, board_y, x, y),
+				r_x = clamp(lengthdir_x(_dist, _dir - board_angle) + board_x, board_left_limit, board_right_limit),
+				r_y = clamp(lengthdir_y(_dist, _dir - board_angle) + board_y, board_top_limit, board_bottom_limit);
 
 			_dist = point_distance(board_x, board_y, r_x, r_y);
 			_dir = point_direction(board_x, board_y, r_x, r_y);
@@ -322,10 +350,10 @@ if STATE == 2 {
 			for (var i = 0, n = instance_number(oBoardCover); i < n; i++) {
 				var board_cover = instance_find(oBoardCover, i);
 				with board_cover {
-					var board_cover_angle = Posmod(image_angle, 360);
-					var board_cover_margin = [up, down, left, right];
-					var board_cover_dir = board_cover_angle div 90
-					var board_cover_limit_template = [];
+					var board_cover_angle = posmod(image_angle, 360),
+						board_cover_margin = [up, down, left, right],
+						board_cover_dir = board_cover_angle div 90,
+						board_cover_limit_template = [];
 
 					board_cover_limit_template = [
 						y - board_cover_margin[0] - 1,
@@ -333,19 +361,20 @@ if STATE == 2 {
 						x - board_cover_margin[2] - x_offset + 1,
 						x + board_cover_margin[3] - 3
 					]
-					var board_cover_top_limit = board_cover_limit_template[0];
-					var board_cover_bottom_limit = board_cover_limit_template[1];
-					var board_cover_left_limit = board_cover_limit_template[2];
-					var board_cover_right_limit = board_cover_limit_template[3];
-					var frame = lengthdir_x(board_cover.thickness_frame, board_cover_angle);
-					var ldx = lengthdir_x(1, board_cover_angle);
-					var ldy = lengthdir_y(1, board_cover_angle);
-					var _dist = point_distance(x, y, other.x, other.y);
-					var _dir = point_direction(x, y, other.x, other.y);
-					var CurrentX = lengthdir_x(_dist, _dir - board_cover_angle) + x;
-					var CurrentY = lengthdir_y(_dist, _dir - board_cover_angle) + y;
+					var board_cover_top_limit = board_cover_limit_template[0],
+						board_cover_bottom_limit = board_cover_limit_template[1],
+						board_cover_left_limit = board_cover_limit_template[2],
+						board_cover_right_limit = board_cover_limit_template[3],
+						frame = lengthdir_x(board_cover.thickness_frame, board_cover_angle),
+						ldx = lengthdir_x(1, board_cover_angle),
+						ldy = lengthdir_y(1, board_cover_angle),
+						_dist = point_distance(x, y, other.x, other.y),
+						_dir = point_direction(x, y, other.x, other.y),
+						CurrentX = lengthdir_x(_dist, _dir - board_cover_angle) + x,
+						CurrentY = lengthdir_y(_dist, _dir - board_cover_angle) + y;
+					
 					r_x = abs(CurrentX - board_cover_left_limit) <= abs(CurrentX - board_cover_right_limit) ?
-						board_cover_left_limit - x_offset - frame : board_cover_right_limit + x_offset + frame*3/5;
+						board_cover_left_limit - x_offset - frame : board_cover_right_limit + x_offset + frame * 3 / 5;
 					r_y = abs(CurrentY - board_cover_top_limit) <= abs(CurrentY - board_cover_bottom_limit) ?
 						board_cover_top_limit - y_offset - frame : board_cover_bottom_limit + y_offset + frame;
 

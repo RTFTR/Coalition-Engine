@@ -12,39 +12,19 @@ var _frame_x = frame_x,
 var soul = oSoul,
 	l5d = [lengthdir_x(5, image_angle), lengthdir_y(5, image_angle - 90)],
 	Distances = [
-		sqrt(sqr(right)+sqr(up)),
-		sqrt(sqr(left)+sqr(up)),
-		sqrt(sqr(left)+sqr(down)),
-		sqrt(sqr(right)+sqr(down)),
+		sqrt(sqr(right) + sqr(up)),
+		sqrt(sqr(left)  + sqr(up)),
+		sqrt(sqr(left)  + sqr(down)),
+		sqrt(sqr(right) + sqr(down)),
 	],
 	//Corner locations
 	corners = [
-		[x+lengthdir_x(Distances[0]-2,_angle-45),y+lengthdir_y(Distances[0]+10,_angle-45)],
-		[x+lengthdir_x(Distances[1]-2,_angle+45),y+lengthdir_y(Distances[1]+10,_angle+45)],
-		[x+lengthdir_x(Distances[2]+15,_angle+135),y+lengthdir_y(Distances[2]+10,_angle+135)],
-		[x+lengthdir_x(Distances[3]+15,_angle+225),y+lengthdir_y(Distances[3]+10,_angle+225)],
+		[x + lengthdir_x(Distances[0] - 2,  _angle - 45),  y + lengthdir_y(Distances[0] + 10, _angle-45)],
+		[x + lengthdir_x(Distances[1] - 2,  _angle + 45),  y + lengthdir_y(Distances[1] + 10, _angle+45)],
+		[x + lengthdir_x(Distances[2] + 15, _angle + 135), y + lengthdir_y(Distances[2] + 10, _angle+135)],
+		[x + lengthdir_x(Distances[3] + 15, _angle + 225), y + lengthdir_y(Distances[3] + 10, _angle+225)],
 	];
 
-//Check if soul is colliding
-contains_soul = rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
-					corners[0, 0], corners[0, 1],
-					corners[1, 0], corners[1, 1],
-					corners[2, 0], corners[2, 1])
-				or
-				rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
-					corners[1, 0], corners[1, 1],
-					corners[2, 0], corners[2, 1],
-					corners[3, 0], corners[3, 1])
-				or
-				rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
-					corners[2, 0], corners[2, 1],
-					corners[3, 0], corners[3, 1],
-					corners[0, 0], corners[0, 1])
-				or
-				rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
-					corners[3, 0], corners[3, 1],
-					corners[0, 0], corners[0, 1],
-					corners[1, 0], corners[1, 1])
 
 //Draws the board
 surface_set_target(surface);

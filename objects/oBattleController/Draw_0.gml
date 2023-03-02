@@ -1,3 +1,7 @@
+var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
+	input_vertical = input_check_pressed("down") - input_check_pressed("up"),
+	input_confirm = input_check_pressed("confirm"),
+	input_cancel = input_check_pressed("cancel");
 // Text Functions
 if battle_state == BATTLE_STATE.MENU {
 	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
@@ -9,23 +13,24 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
 
-	if menu_state == 0 or menu_state == -1 {
+	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
 		text_writer.starting_format("fnt_dt_mono", c_white)
 		text_writer.draw(52, 272, menu_text_typist)
 
 
-		if input_check_pressed("cancel") {
+		if input_cancel and global.TextSkipEnabled
+		{
 			text_writer.page(text_writer.get_page_count() - 1);
 			menu_text_typist.skip();
 		}
 		if menu_text_typist.get_state() == 1 and text_writer.get_page() < (text_writer.get_page_count() - 1)
 			text_writer.page(text_writer.get_page() + 1)
 		if menu_state == -1 and menu_text_typist.get_state() == 1 {
-			if input_check_pressed("confirm") begin_turn();
+			if input_confirm begin_turn();
 		}
 	}
 
-	if is_val(menu_state, 1, 2) // Fight - Act
+	if is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT) // Fight - Act
 	{
 		for (var i = 0, decrease_y = 0, n = array_length(enemy_name); i < n; i++) // Draw enemy hp bar in Fight state
 		{
@@ -36,11 +41,11 @@ if battle_state == BATTLE_STATE.MENU {
 				if enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
 					draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + "[fnt_dt_mono]* " + _enemy_name);
 				var xwrite = 450;
-				if menu_state == 1 and enemy_draw_hp_bar[i] == 1 {
+				if menu_state == MENU_STATE.FIGHT and enemy_draw_hp_bar[i] == 1 {
 					decrease_y -= 32;
 					draw_set_color(c_red);
-					var lineheight = 32;
-					var y_start = 247;
+					var lineheight = 32,
+						y_start = 247;
 					draw_rectangle(xwrite, y_start + (i * lineheight) - decrease_y, xwrite + 100, y_start + (i * lineheight) + 17 - decrease_y, false);
 					draw_set_color(c_lime);
 					draw_rectangle(xwrite, y_start + (i * lineheight) - decrease_y, xwrite + ((enemy_hp[i] / enemy_hp_max[i]) * 100), y_start + (i * lineheight) + 17 - decrease_y, false);
@@ -50,7 +55,7 @@ if battle_state == BATTLE_STATE.MENU {
 			} else decrease_y += 32;
 		}
 	}
-	if menu_state == 3 // Item list
+	if menu_state == MENU_STATE.ITEM // Item list
 	{
 		Item_Info_Load();
 		var coord = menu_choice[2],
@@ -104,7 +109,7 @@ if battle_state == BATTLE_STATE.MENU {
 			break
 		}
 	}
-	if menu_state == 4 {
+	if menu_state == MENU_STATE.MERCY {
 		// Sets the color of Spare
 		for (var i = 0, n = array_length(enemy), spare_col = "[c_white]"; i < n; i++) {
 			if enemy[i] != noone
@@ -113,7 +118,7 @@ if battle_state == BATTLE_STATE.MENU {
 		}
 		draw_text_scribble(96, 272, spare_col + "[fnt_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
 	}
-	if menu_state == 6 // Draw Act Texts
+	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
 	{
 		for (var i = 0, act_num = array_length(enemy_act[target_option]),
 				enemy_check_texts = ""; i < act_num; ++i) {
@@ -128,7 +133,7 @@ if battle_state == BATTLE_STATE.MENU {
 		draw_text_scribble(96, 272, "[fnt_dt_mono]" + enemy_check_texts)
 	}
 
-	if menu_state == 5 //Fight Anim
+	if menu_state == MENU_STATE.FIGHT_AIM //Fight Anim
 	{
 		var _target_state =		Target.state,
 			_aim_scale =		Aim.scale,
@@ -153,12 +158,15 @@ if battle_state == BATTLE_STATE.MENU {
 					var _aim_distance = abs(320 - _aim_target_x);
 					_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
 					
-					if input_check_pressed("confirm") and Target.buffer < 0 {
+					if input_confirm and Target.buffer < 0 {
 						battle_turn++;
 						Target.buffer = 3;
 						_target_state = 2;
 						if _aim_distance < 15
-							Blur_Screen(45, (15 - _aim_distance) / 2);
+						{
+							if !global.CompatibilityMode
+								Blur_Screen(45, (15 - _aim_distance) / 2);
+						}
 						
 						Target.WaitTime = 60;
 
@@ -208,7 +216,7 @@ if battle_state == BATTLE_STATE.MENU {
 		Aim.angle = _aim_angle;
 		Aim.color = _aim_color;
 	}
-	if menu_state = 8
+	if menu_state = MENU_STATE.FLEE
 	{
 		draw_text_scribble(96, 272, "[fnt_dt_mono]* " + FleeText[FleeTextNum]);
 		if oSoul.x <= 10 and FleeState == 1
@@ -227,25 +235,26 @@ if battle_state == BATTLE_STATE.RESULT {
 		battle_end_text_writer.starting_format("fnt_dt_mono", c_white)
 		battle_end_text_writer.draw(52, 272, battle_end_text_typist)
 
-		if input_check_pressed("cancel") {
+		if input_cancel {
 			battle_end_text_writer.page(battle_end_text_writer.get_page_count() - 1);
 			battle_end_text_typist.skip();
 		}
 		if battle_end_text_typist.get_state() == 1 and battle_end_text_writer.get_page() < (battle_end_text_writer.get_page_count() - 1)
 		battle_end_text_writer.page(battle_end_text_writer.get_page() + 1)
 		if battle_end_text_typist.get_state() == 1 {
-			if input_check_pressed("confirm")
+			if input_confirm
 				game_restart();
 		}
 	}
 	else if oGlobal.fader_alpha == 1 game_restart();
 }
 
-//Debug
+#region Debug
 debug_alpha = lerp(debug_alpha, debug, 0.12);
 
 debug = allow_debug ? global.debug : 0
 
+if debug_alpha > 0
 {
 	draw_set_alpha(debug_alpha);
 	draw_set_font(fnt_mnc);
@@ -253,18 +262,21 @@ debug = allow_debug ? global.debug : 0
 		col = make_color_hsv(ca % 255, 255, 255),
 		dis = dcos(global.timer * 3) * 20,
 		debug_pos = [
-			[ui_x - 245 + dsin(ca)		 * -dis, ui_y + dcos(ca) * dis],
-			[ui_x - 245 + dsin(ca + 120) * -dis, ui_y + dcos(ca + 120) * dis],
-			[ui_x - 245 + dsin(ca + 240) * -dis, ui_y + dcos(ca + 240) * dis]
+			[ui_x - 245 - dsin(ca)		 * dis, ui_y + dcos(ca)			* dis],
+			[ui_x - 245 - dsin(ca + 120) * dis, ui_y + dcos(ca + 120)	* dis],
+			[ui_x - 245 - dsin(ca + 240) * dis, ui_y + dcos(ca + 240)	* dis]
 		],
 		color = [
-			make_color_rgb(255, 0, 0),
-			make_color_rgb(0, 255, 0),
-			make_color_rgb(0, 0, 255)
+			c_red,
+			c_lime,
+			c_blue
 		];
-	gpu_set_blendmode(bm_add);
-	for (var i = 0; i < 3; ++i)
-		draw_text_ext_transformed_color(debug_pos[2 - i, 0], debug_pos[2 - i, 1], "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
+	if !global.CompatibilityMode
+	{
+		gpu_set_blendmode(bm_add);
+		for (var i = 0; i < 3; ++i)
+			draw_text_ext_transformed_color(debug_pos[2 - i, 0], debug_pos[2 - i, 1], "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
+	}
 
 
 	draw_text_ext_transformed_color(5, 10, "SPEED: " + string(room_speed / 60) + "x (" + string(room_speed) + " FPS)", -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
@@ -272,84 +284,71 @@ debug = allow_debug ? global.debug : 0
 	draw_text_ext_transformed_color(5, 60, "TURN: " + string(battle_turn), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
 	draw_text_ext_transformed_color(5, 85, "INSTANCES: " + string(instance_count), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
 	gpu_set_blendmode(bm_normal);
-	if debug {
-		if keyboard_check(vk_rshift) {
-			if room_speed > 5 {
-				room_speed += 5 * (keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left));
-			}
-		if keyboard_check(ord("R")) room_speed = 60;
-		if keyboard_check(ord("F")) room_speed = 600;
-		}
-		if keyboard_check(vk_control) {
-			battle_turn += keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left);
-			battle_turn = max(0, battle_turn);
-		}
-		if global.hp <= 1 {
-			global.hp = global.hp_max;
-			audio_play(snd_item_heal);
-		}
-	}
 	draw_set_color(c_white);
 	draw_set_alpha(1);
 }
+#endregion
 
-// Buttons 
+#region Buttons 
+// Credits to Scarm for the base code
+var _button_spr =	button_spr,
+	_button_pos =	button_pos,
+	_button_alpha = button_alpha,
+	_button_scale = button_scale,
+	_button_color = button_color,
+	_state =		menu_state,
+	_menu =			menu_button_choice;
+
+for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 {
-	// Credits to Scarm for the base code
-	var _button_spr =	button_spr,
-		_button_pos =	button_pos,
-		_button_alpha = button_alpha,
-		_button_scale = button_scale,
-		_button_color = button_color,
-		_state =		menu_state,
-		_menu =			menu_button_choice;
+	// If no item left then item button commit gray
+	if global.item[0] <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 
-	for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
+	// Check if the button is chosen
+	var select = (_menu == i) and _state >= 0 and _state != -1
+
+	// Draw the button by array order
+	if button_background_cover
 	{
-		// If no item left then item button commit gray
-		if global.item[0] <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+		shader_set(shdBlackMask); //Prevent backgruond covers the buttons
+		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, c_white, .5 - _button_alpha[i] / 2);
+		shader_reset();
+	}
+	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
 
-		// Check if the button is chosen
-		var select = (_menu == i) and _state >= 0 and _state != -1
-
-		// Draw the button by array order
-		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
-
-		// Animation - Color updating in real-time because yes
-		if (_state >= 0 and _state != -1) {
-			if _menu == i // The chosen button
-			{
-				_button_scale[_menu] += (button_scale_target[1] - _button_scale[_menu]) / 6;
-				_button_alpha[_menu] += (button_alpha_target[1] - _button_alpha[_menu]) / 6;
-				for (var ii = 0; ii < 3; ++ii)
-					_button_color[_menu][ii] += (button_color_target[_menu][1][ii] - _button_color[_menu][ii]) / 6;
-			}
-			else // Other buttons if they aren't chosen
-			{
-				_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
-				_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-				for (var ii = 0; ii < 3; ++ii)
-					_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
-			}
-		} else // If the menu state is over
+	// Animation - Color updating in real-time because yes
+	if (_state >= 0 and _state != -1) {
+		if _menu == i // The chosen button
 		{
-			
-			var final_alpha = min(button_alpha_target[1], button_override_alpha[i]);
+			_button_scale[_menu] += (button_scale_target[1] - _button_scale[_menu]) / 6;
+			_button_alpha[_menu] += (button_alpha_target[1] - _button_alpha[_menu]) / 6;
+			for (var ii = 0; ii < 3; ++ii)
+				_button_color[_menu][ii] += (button_color_target[_menu][1][ii] - _button_color[_menu][ii]) / 6;
+		}
+		else // Other buttons if they aren't chosen
+		{
 			_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
-			_button_alpha[i] += (final_alpha - _button_alpha[i]) / 6;
+			_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
 			for (var ii = 0; ii < 3; ++ii)
 				_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 		}
+	} else // If the menu state is over
+	{
+		var final_alpha = min(button_alpha_target[1], button_override_alpha[i]);
+		_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
+		_button_alpha[i] += (final_alpha - _button_alpha[i]) / 6;
+		for (var ii = 0; ii < 3; ++ii)
+			_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 	}
-	if board_cover_button {
-		Battle_Masking_Start(true);
-		var board = oBoard;
-		if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
+}
+if board_cover_button {
+	Battle_Masking_Start(true);
+	var board = oBoard;
+	if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
 		draw_rectangle_color(23, 432, 640, 480, c_black, c_black, c_black, c_black, 0);
-			Battle_Masking_End();
+	Battle_Masking_End();
 }
-}
-
+#endregion
 // UI (Name - Lv - Hp - Kr)
 {
 	// Credits to Scarm for all the help and this epico code!
@@ -360,22 +359,23 @@ debug = allow_debug ? global.debug : 0
 		name =				global.data.name,
 		default_col =		make_color_rgb(27, 25, 26),
 		name_col =			c_white,
-		name_col =			make_color_rgb(27, 25, 26),
 		lv_col =			c_white,
-		lv_col =			make_color_rgb(27, 25, 26),
 		lv_counter_col =	make_color_rgb(27, 25, 26),
 		hp_max_col =		merge_color(c_red, c_maroon, 0.5),
-		hp_max_col =		make_color_rgb(100, 100, 100),
 		hp_col =			c_yellow,
-		hp_col =			make_color_rgb(47, 47, 47),
 		kr_col =			c_fuchsia,
-		kr_col =			make_color_rgb(27, 25, 26),
 		krr_col =			make_color_rgb(27, 25, 26),
 		hp_pre_col =		merge_color(c_lime, c_white, 0.25),
 		bar_multiplier =	1.2, //Default multiplier from UNDERTALE
 		hp_text =			"HP",
 		kr_text =			"KR",
 		_alpha =			ui_alpha;
+		
+		name_col =			make_color_rgb(27, 25, 26);
+		lv_col =			make_color_rgb(27, 25, 26);
+		hp_max_col =		make_color_rgb(100, 100, 100);
+		hp_col =			make_color_rgb(47, 47, 47);
+		kr_col =			make_color_rgb(27, 25, 26);
 
 	// Linear health updating / higher refill_speed = faster refill / max refill_speed is 1
 	hp += (global.hp - hp) * refill_speed;
@@ -394,35 +394,45 @@ debug = allow_debug ? global.debug : 0
 	draw_set_font(fnt_mnc); // Name - LV Font
 	// Name
 	var f_alpha = min(ui_override_alpha[0], _alpha);
-	draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, f_alpha);
-	draw_text_color(name_x, name_y, name, col, col, col, col, debug_alpha);
+	if f_alpha > 0
+		draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, f_alpha);
+	if debug_alpha > 0
+		draw_text_color(name_x, name_y, name, col, col, col, col, debug_alpha);
 	// LV Icon
 	f_alpha = min(ui_override_alpha[1], _alpha);
-	draw_text_color(name_x + string_width(name), name_y, "   LV ", lv_col, lv_col, lv_col, lv_col, f_alpha);
-	// LV Counter
-	draw_text_color(name_x + string_width(name + "   LV "), name_y, string(global.data.lv), lv_counter_col, lv_counter_col, lv_counter_col, lv_counter_col, f_alpha);
+	if f_alpha > 0
+	{
+		draw_text_color(name_x + string_width(name), name_y, "   LV ", lv_col, lv_col, lv_col, lv_col, f_alpha);
+		// LV Counter
+		draw_text_color(name_x + string_width(name + "   LV "), name_y, string(global.data.lv), lv_counter_col, lv_counter_col, lv_counter_col, lv_counter_col, f_alpha);
+	}
 
 	draw_set_font(fnt_uicon); // Icon Font
 	// HP Icon
 	f_alpha = min(ui_override_alpha[2], _alpha);
-	draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, f_alpha);
+	if f_alpha > 0
+		draw_text_color((hp_x - 31), hp_y + 5, hp_text, default_col, default_col, default_col, default_col, f_alpha);
 
 	// Background bar
 	f_alpha = min(ui_override_alpha[3], _alpha);
-	draw_set_alpha(f_alpha);
-	draw_rectangle_color(hp_x, hp_y, hp_x + _hp_max, hp_y + 20, hp_max_col, hp_max_col, hp_max_col, hp_max_col, false);
-	// HP bar
-	draw_rectangle_color(hp_x, hp_y, hp_x + _hp, hp_y + 20, hp_col, hp_col, hp_col, hp_col, false);
+	if f_alpha > 0
+	{
+		draw_set_alpha(f_alpha);
+		draw_rectangle_color(hp_x, hp_y, hp_x + _hp_max, hp_y + 20, hp_max_col, hp_max_col, hp_max_col, hp_max_col, false);
+		// HP bar
+		draw_rectangle_color(hp_x, hp_y, hp_x + _hp, hp_y + 20, hp_col, hp_col, hp_col, hp_col, false);
+	}
 
-	if menu_state == 3 {
+	if menu_state == MENU_STATE.ITEM {
 		switch item_scroll_type
 		{
-			case 0:
-			hp_predict += (item_heal[coord] - hp_predict) * refill_speed;
-			//Healing Prediction
-			draw_set_alpha(abs(sin(degtorad(global.timer * 2)) * .5) + .2);
-			draw_rectangle_color(hp_x + _hp, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, hp_pre_col, hp_pre_col, hp_pre_col, hp_pre_col, false);
-			draw_set_alpha(1);
+			case ITEM_SCROLL.DEFAULT:
+			case ITEM_SCROLL.VERTICAL:
+				hp_predict += (item_heal[coord] - hp_predict) * refill_speed;
+				//Healing Prediction
+				draw_set_alpha(abs(dsin(global.timer * 2) * .5) + .2);
+				draw_rectangle_color(hp_x + _hp, hp_y, hp_x + min(hp + hp_predict, hp_max) * bar_multiplier, hp_y + 20, hp_pre_col, hp_pre_col, hp_pre_col, hp_pre_col, false);
+				draw_set_alpha(1);
 			break
 		}
 	}
@@ -431,11 +441,9 @@ debug = allow_debug ? global.debug : 0
 	if global.kr_activation {
 		krr_col = (round(kr) ? kr_col : krr_col);
 
-		global.kr = clamp(global.kr, 0, max_kr);
-
 		// Draw the bar
 		if round(kr)
-		draw_rectangle_color(hp_x + _hp + 1, hp_y, max(hp_x + _hp - _kr, hp_x), hp_y + 20, krr_col, krr_col, krr_col, krr_col, false);
+			draw_rectangle_color(hp_x + _hp + 1, hp_y, max(hp_x + _hp - _kr, hp_x), hp_y + 20, krr_col, krr_col, krr_col, krr_col, false);
 
 		// Draw icon
 		f_alpha = min(ui_override_alpha[4], _alpha);

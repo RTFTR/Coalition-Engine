@@ -14,7 +14,7 @@ if time and time < 2780
 		oSoul.moveable = 1;
 		enemy_sprite_index[2] = 0;
 		wiggle = 1;
-		TweenDestroy(TweensTarget(oGlobal));
+		TweenDestroy(oGlobal);
 		Camera_Scale(1, 1);
 	}
 if time > 5350 and time < 6320

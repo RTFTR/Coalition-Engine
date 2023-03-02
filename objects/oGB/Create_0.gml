@@ -25,7 +25,7 @@ destroy = 0;
 
 beam_scale = 0;
 beam_alpha = 1;
-beam_color = [c_white, c_white];
+beam_color = [c_fuchsia, c_white];
 e = 0;
 
 function auto_destroy()

@@ -23,35 +23,35 @@ function Item_Info(item){
 	
 	switch item
 	{
-		case 1:
+		case ITEM.PIE:
 			name = "Pie";
 			heal = global.hp_max;
 			desc = "Random slice of pie which is so\n  cold you cant eat it.";
 			throw_txt = "Throw pie";
 			battle_desc = "Heals FULL HP";
 		break;
-		case 2:
+		case ITEM.INOODLES:
 			name = "I. Noodles";
 			heal = 90;
 			desc = "Hard noodles, your teeth broke";
 			throw_txt = "Throw IN";
 			battle_desc = "Heals 90 HP";
 		break;
-		case 3:
+		case ITEM.STEAK:
 			name = "Steak";
 			heal = 60;
 			desc = "Steak that looks like a MTT which\n  somehow fits in your pocket";
 			throw_txt = "Throw expensive mis-steak";
 			battle_desc = "Heals 60 HP";
 		break;
-		case 4:
+		case ITEM.SNOWP:
 			name = "SnowPiece";
 			heal = 45;
 			desc = "Bring this to the end of the world,\n  but the world isnt round";
 			throw_txt = "snowball fight go brr";
 			battle_desc = "Heals 45 HP";
 		break;
-		case 5:
+		case ITEM.LHERO:
 			name = "L. Hero";
 			heal = 40;
 			stats = "Your ATK raised by 4!";
@@ -59,7 +59,7 @@ function Item_Info(item){
 			throw_txt = "congrats you now bad guy";
 			battle_desc = "Heals 40 HP";
 		break;
-		case 6:
+		case ITEM.SEATEA:
 			name = "Sea Tea";
 			heal = 10;
 			stats = "Your SPD increased!";
@@ -143,7 +143,7 @@ function Item_Use(item){
 		menu_state = -1;
 	}
 	
-	//IKf is in overworld
+	//If is in overworld
 	if instance_exists(oOWController)
 	{
 		if !global.item_uses_left[item] Item_Shift(menu_choice[1], 0);

@@ -17,11 +17,10 @@ if active
 	var board = oBoard,
 		board_x = board.x,
 		board_y = board.y,
-		board_margin = [board.up, board.down, board.left, board.right],
-		board_u = board_y - board_margin[0],
-		board_d = board_y + board_margin[1],
-		board_l = board_x - board_margin[2],
-		board_r = board_x + board_margin[3];
+		board_u = board_y - board.up,
+		board_d = board_y + board.down,
+		board_l = board_x - board.left,
+		board_r = board_x + board.right;
 
 	if time_warn
 	{
@@ -161,55 +160,4 @@ if active
 			
 		if state == 1 state = 2;
 	}
-	
-}	
-if state == 2
-{
-	if !timer and sound_create
-	{
-		audio_stop_sound(snd_bonewall);
-		audio_play_sound(snd_bonewall, 50, false);
-	}
-	else
-	{
-		if timer < time_move
-		{
-			var spd = floor((height) / time_move);
-			
-			x -= lengthdir_x(spd, dir);
-			y -= lengthdir_y(spd, dir);
-		}
-		if (timer >= time_move and timer <= time_move + time_stay)
-		{
-			x = target_x - lengthdir_x(height, dir);
-			y = target_y - lengthdir_y(height, dir);
-		}
-		if timer > time_move + time_stay
-		{
-			var spd = floor(height / time_move),
-				kill_check = false;
-			
-			x += lengthdir_x(spd, dir);
-			y += lengthdir_y(spd, dir);
-			switch dir
-			{
-				case DIR.UP:
-		        kill_check = y < target_y;
-				break
-				case DIR.DOWN:
-		        kill_check = y > target_y;
-				break
-				case DIR.LEFT:
-		        kill_check = x < target_x;
-				break
-				case DIR.RIGHT:
-		        kill_check = x > target_x;
-				break
-			}
-			if kill_check instance_destroy();
-		}
-	}
-	timer++;
 }
-	
-

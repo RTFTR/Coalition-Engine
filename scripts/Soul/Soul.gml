@@ -8,6 +8,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 		dir = DIR.DOWN;
 		draw_angle = 0;
 		image_angle = 0;
+		var curBle = Blend;
 		switch soul_mode
 		{
 			case SOUL_MODE.RED:			Blend = c_red;		break
@@ -18,7 +19,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 			case SOUL_MODE.PURPLE:		Blend = c_purple;	break
 			case SOUL_MODE.CYAN:		Blend = c_aqua;		break
 		}
-		ChangeColor();
+		TweenEasyBlend(curBle, Blend, 0, 15, EaseLinear);
 		mode = soul_mode;
 		alarm[0] = effect;
 	}
@@ -32,10 +33,8 @@ function Battle_SoulMode(soul_mode, effect = true)
 ///@param {real} delay		The delay of executing the Anim (Default 0)
 function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
-	with oSoul {
-		TweenFire(id, Easing, TWEEN_MODE_ONCE, false, delay, duration, "x", x, target_x);
-		TweenFire(id, Easing, TWEEN_MODE_ONCE, false, delay, duration, "y", y, target_y);
-	}
+	with oSoul
+		TweenEasyMove(x, y, target_x, target_y, delay, duration, Easing);
 }
 
 ///@desc Return whether is soul moving or not

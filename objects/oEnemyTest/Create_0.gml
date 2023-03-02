@@ -70,6 +70,7 @@ damage = irandom_range(300,500);
 is_dodge = true;
 begin_at_turn = true;
 BGM = audio_create_stream("Music/MusOST1.ogg");
+wiggle = false;
 
 Set_BoardSize(75, 75, 75, 75, 0);
 oSoul.visible = false;
@@ -77,13 +78,15 @@ oSoul.visible = false;
 Battle_SetTurnTime(
 [
 	500,
-	120,
+	910,
+	1300,
 ]
 );
 Battle_SetTurnBoardSize(
 [
 	[75, 75, 75, 75],
-	[70, 70, 70, 70],
+	[30, 30, 30, 30],
+	[90, 40, 65, 65],
 ]);
 
 LoadTextFromFile("OSTSans.txt");
@@ -124,6 +127,8 @@ global.inv = 1;
 global.assign_inv = 1;
 global.damage = 2;
 global.item = [0];
-global.RGBBlaster = 1;
+global.RGBBlaster = false;
 
 window_set_caption("OverSave Tale - Sans Fight");
+
+base_bone_col = make_color_rgb(183, 190, 182);
