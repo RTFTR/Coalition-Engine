@@ -12,11 +12,11 @@ for (var i = 1; i <= 3; ++i)
 	var item_state = (menu_state == MENU_MODE.ITEM) or (menu_state == MENU_MODE.ITEM_INTERACTING);
 	
 	if item_state
-		menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, 0.2);
+		menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, 0.16);
 	else if menu_state == i
-		menu_ui_y[menu_state] = lerp(menu_ui_y[menu_state], 52, 0.2);
+		menu_ui_y[menu_state] = lerp(menu_ui_y[menu_state], 52, 0.16);
 	else
-		menu_ui_y[i] = lerp(menu_ui_y[i], -480, 0.2);
+		menu_ui_y[i] = lerp(menu_ui_y[i], -480, 0.16);
 }
 #endregion
 

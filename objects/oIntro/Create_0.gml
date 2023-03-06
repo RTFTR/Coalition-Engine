@@ -1,6 +1,6 @@
 audio_play(snd_logo);
 hint = 0;
-TweenFire(self,EaseLinear,TWEEN_MODE_ONCE,false,119,1,"hint",0,1);
+TweenFire(self, EaseLinear, TWEEN_MODE_ONCE, false, 119, 1, "hint", 0, 1);
 y = 0;
 
 //instance_create_depth(0,0,1,RainbowFuture);
@@ -30,7 +30,8 @@ menu_choice = [0, 0];
 input_buffer = 0;
 
 #region // Naming function
-naming_letter = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz"];
+var Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+naming_letter = [Letters, string_lower(Letters)];
 naming_choice = 1;
 naming_alpha = [1, 0];
 name = "";

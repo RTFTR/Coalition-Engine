@@ -93,7 +93,8 @@ if is_saving
 			audio_play(snd_menu_switch);
 			Choice = posmod(Choice + input_horizontal, 2);
 		}
-		draw_sprite_ext(sprSoul, 0, 151 + Choice * 180, 255, 1, 1, 90, c_red, abs(dsin(global.timer)) + 0.3);
+		var SoulAlpha = abs(dsin(global.timer)) + 0.3;
+		draw_sprite_ext(sprSoul, 0, 151 + Choice * 180, 255, 1, 1, 90, c_red, SoulAlpha);
 		draw_text(170, 240, "Save");
 		draw_text(350, 240, "Return");
 		if input_confirm and WaitTime > 5

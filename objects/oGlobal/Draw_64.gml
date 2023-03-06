@@ -1,20 +1,3 @@
-//Naming
-if Naming.Enabled
-{
-	//Name input
-	if Naming.State == 1
-	{
-		
-	}
-	//Confirm and Name easter egg
-	if Naming.State == 2
-	{
-		
-	}
-}
-
-
-
 //Quit Texts
 if quit_timer
 	draw_sprite_ext(sprQuitMesssge, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
