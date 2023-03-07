@@ -261,6 +261,7 @@
     {"id":{"name":"snd_boom","path":"sounds/snd_boom/snd_boom.yy",},"order":0,},
     {"id":{"name":"input_player_get_gamepad_type","path":"scripts/input_player_get_gamepad_type/input_player_get_gamepad_type.yy",},"order":6,},
     {"id":{"name":"__input_config_gamepads","path":"scripts/__input_config_gamepads/__input_config_gamepads.yy",},"order":1,},
+    {"id":{"name":"snd_cymbal","path":"sounds/snd_cymbal/snd_cymbal.yy",},"order":37,},
     {"id":{"name":"input_keyboard_check","path":"scripts/input_keyboard_check/input_keyboard_check.yy",},"order":0,},
     {"id":{"name":"scribble_font_get_glyph_ranges","path":"scripts/scribble_font_get_glyph_ranges/scribble_font_get_glyph_ranges.yy",},"order":10,},
     {"id":{"name":"__scribble_get_krutidev_matra_lookup_map","path":"scripts/__scribble_get_krutidev_matra_lookup_map/__scribble_get_krutidev_matra_lookup_map.yy",},"order":12,},

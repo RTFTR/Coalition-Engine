@@ -1,6 +1,10 @@
 Update Logs
+※ v4.5.8.1 HotPatch (RTF)
+Added a message from every character of Undertale.
+Colored or whatever(what should i say)
+
 v4.5.8 (RTF)
-Added the name detector on the Menu.
+Added the name detector in the Menu UI.
 
 v4.5.7 (Eden)
 yeah no i forgot

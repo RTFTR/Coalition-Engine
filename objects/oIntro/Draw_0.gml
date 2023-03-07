@@ -153,12 +153,15 @@ else if naming_states
 		// Name description load script here
 		draw_text(180, 60, name_desc);
 		
-		var confirmOption = ["No", "Yes"];
-		
+		var confirmOption = "Go back";
+		if name_usable
+			var confirmOption = ["No", "Yes"];
 		draw_set_halign(fa_center);		
 		for (var i = 0; i < 2; i++)
 		{
-			var color = (name_confirm == i) ? c_yellow : c_white;
+			var color = (name_confirm == i) ? c_yellow : c_gray
+			if name_usable
+				color = (name_confirm == i) ? c_yellow : c_white
 			draw_set_color(color);
 			draw_text(150 + (340 * i) , 400, confirmOption[i]);
 		}

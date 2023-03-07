@@ -131,11 +131,12 @@ switch menu_state
 			if !name_confirm menu_state = INTRO_MENU_STATE.NAMING
 			else 
 			{
+				audio_play(snd_cymbal)
 				menu_state = INTRO_MENU_STATE.NAME_CONFIRM;
 				name_confirm = true;
 				name_check = true;
-				Fader_Fade(0, 1, 240, 0, c_white);
-				var _handle = call_later(240, time_source_units_frames, function()
+				Fader_Fade(0, 1, 300, 0, c_white);
+				var _handle = call_later(310, time_source_units_frames, function()
 				{
 					global.data.name = name;
 					Fader_Fade(1, 0, 20);

@@ -41,6 +41,7 @@ name_y = 110;
 name_scale = 1;
 name_max_length = 6; // In letter ofc
 name_confirm = 0;
+name_usable = true
 name_check = false;
 //naming_check=[frisk","WARNING : This name will\rmake your life hell\ranyways, proceed?"]
 #endregion
@@ -97,18 +98,23 @@ function CheckName(checkname){
 	{
 		default:
 			name_desc="Is this name correct?"
+			name_usable = true
 			break;
 		case "chara":
 			name_desc="The true name."
+			name_usable = true
 			break;
 		case "frisk":
 			name_desc="WARNING : This name will\rmake your life hell\ranyways, proceed?"
+			name_usable = true
 			break;
 		case "aaaaaa":
 			name_desc="Not very creative...?"
+			name_usable = true
 			break;
 		case "toriel":
 			name_desc="I think you should\rthink of your own\rname, my child."
+			name_usable = false
 			name_confirm=0
 			break;
 		case "alphy":
@@ -116,34 +122,78 @@ function CheckName(checkname){
 			break;
 		case "alphys":
 			name_desc="D-Don't do that."
+			name_usable = false
 			name_confirm=0
 			break;
 		case "asgore":
 			name_desc="You cannot."
+			name_usable = false
 			name_confirm=0
 			break;
 		case "asriel":
 			name_desc="..."
+			name_usable = false
 			name_confirm=0
 			break;
 		case "flowey":
 			name_desc="I already CHOSE\rthat name."
 			name_confirm=0
+			name_usable = false
 			break;
 		case "sans":
 			name_desc="nope."
 			name_confirm=0
+			name_usable = false
 			break;
 		case "papyru":
 			name_desc="I'LL ALLOW IT!!!!"
 			break;
 		case "undyne":
 			name_desc="Get your OWN name!"
+			name_usable = false
 			name_confirm=0
 			break;
 		case "mtt":
 		case "mettat":
+		case "metta":
 			name_desc="OOOOH!!! ARE YOU\rPROMOTING MY BRAND?"
+			break;
+		case "temmie":
+			name_desc="hOI!"
+			break;
+		case "murder":
+		case "mercy":
+			name_desc="That's a little on-\rthe-nose, isn't it...?"
+			break;
+		case "gerson":
+			name_desc="Wah ha ha! Why not?"
+			break;
+		case "bratty":
+			name_desc="Like, OK I guess."
+			break;
+		case "catty":
+			name_desc="Bratty! Bratty!\rThat's MY name!"
+			break;
+		case "bpants":
+			name_desc="You are really scraping the\rbottom of the barrel."
+			break;
+		case "jerry":
+			name_desc="Jerry."
+			break;
+		case "woshua":
+			name_desc="Clean name."
+			break;
+		case "blooky":
+			name_desc="..........\r(They're powerless to\rstop you.)"
+			break;
+		case "shyren":
+			name_desc="...?"
+			break;
+		case "aaron":
+			name_desc="Is this name correct? ;)"
+			break;
+		case "gaster":
+			game_restart();
 			break;
 	}
 }
