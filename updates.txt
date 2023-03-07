@@ -1,4 +1,6 @@
 Update Logs
+v4.5.8 (RTF)
+Added the name detector on the Menu.
 
 v4.5.7 (Eden)
 yeah no i forgot

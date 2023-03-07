@@ -42,6 +42,7 @@ name_scale = 1;
 name_max_length = 6; // In letter ofc
 name_confirm = 0;
 name_check = false;
+//naming_check=[frisk","WARNING : This name will\rmake your life hell\ranyways, proceed?"]
 #endregion
 
 #region // Settings
@@ -90,6 +91,61 @@ function SettingPush(name, vary, desc)
 	array_push(SettingName, name);
 	array_push(SettingVar, vary);
 	array_push(SettingDesc, desc);
+}
+function CheckName(checkname){
+	switch string_lower(checkname)
+	{
+		default:
+			name_desc="Is this name correct?"
+			break;
+		case "chara":
+			name_desc="The true name."
+			break;
+		case "frisk":
+			name_desc="WARNING : This name will\rmake your life hell\ranyways, proceed?"
+			break;
+		case "aaaaaa":
+			name_desc="Not very creative...?"
+			break;
+		case "toriel":
+			name_desc="I think you should\rthink of your own\rname, my child."
+			name_confirm=0
+			break;
+		case "alphy":
+			name_desc="Uh.... Ok?"
+			break;
+		case "alphys":
+			name_desc="D-Don't do that."
+			name_confirm=0
+			break;
+		case "asgore":
+			name_desc="You cannot."
+			name_confirm=0
+			break;
+		case "asriel":
+			name_desc="..."
+			name_confirm=0
+			break;
+		case "flowey":
+			name_desc="I already CHOSE\rthat name."
+			name_confirm=0
+			break;
+		case "sans":
+			name_desc="nope."
+			name_confirm=0
+			break;
+		case "papyru":
+			name_desc="I'LL ALLOW IT!!!!"
+			break;
+		case "undyne":
+			name_desc="Get your OWN name!"
+			name_confirm=0
+			break;
+		case "mtt":
+		case "mettat":
+			name_desc="OOOOH!!! ARE YOU\rPROMOTING MY BRAND?"
+			break;
+	}
 }
 
 KeyIsSetting = false;

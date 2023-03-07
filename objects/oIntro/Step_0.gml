@@ -120,11 +120,14 @@ switch menu_state
 		#endregion
 	break
 	case INTRO_MENU_STATE.NAME_CHECKING: // Name checking thingy
-		if input_horizontal != 0 
+		if input_horizontal != 0
+		{
+			audio_play(snd_menu_switch);
 			name_confirm = posmod(name_confirm + input_horizontal, 2);
-	
+		}
 		if input_confirm != 0
 		{
+			audio_play(snd_menu_confirm);
 			if !name_confirm menu_state = INTRO_MENU_STATE.NAMING
 			else 
 			{

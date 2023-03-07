@@ -149,9 +149,8 @@ else if naming_states
 	{
 		draw_set_halign(fa_left);
 		draw_set_alpha(naming_alpha[1]);
-		
+		CheckName(name);
 		// Name description load script here
-		
 		draw_text(180, 60, name_desc);
 		
 		var confirmOption = ["No", "Yes"];
