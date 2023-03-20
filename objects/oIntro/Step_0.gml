@@ -14,7 +14,7 @@ switch menu_state
 	case INTRO_MENU_STATE.LOGO:
 		if input_confirm
 			menu_state = INTRO_MENU_STATE.FIRST_TIME;
-			//room_goto(room_battle)
+			room_goto(room_battle)
 	break
 	case INTRO_MENU_STATE.FIRST_TIME:
 		name = "";
@@ -30,7 +30,6 @@ switch menu_state
 		#region // Switching between letters and options
 			if input_horizontal != 0
 			{
-				audio_play(snd_menu_switch);
 				if naming_choice >= 1 and naming_choice <= 52 // Switching from [A] to [z]
 				{
 					naming_choice = clamp(naming_choice + input_horizontal, 1, 52);
@@ -45,7 +44,6 @@ switch menu_state
 		
 			if input_vertical == 1 // Input Down
 			{
-				audio_play(snd_menu_switch);
 				if (naming_choice >= 20 and naming_choice <= 21) naming_choice += 12; // [T U] to [f g]
 				// [V W X Y Z] to [a b c d e]
 				else if (naming_choice >= 22 && naming_choice <= 26) naming_choice += 5;
@@ -67,7 +65,6 @@ switch menu_state
 			}
 			else if input_vertical == -1 // Input Up
 			{
-				audio_play(snd_menu_switch);
 				// [A B] to [Quit]
 				// [C D E] to [Backspace]
 				// [F G] to [Done]
@@ -97,7 +94,6 @@ switch menu_state
 			{
 				if name_length < name_max_length
 				{
-					audio_play(snd_menu_confirm);
 					var text = string_char_at(naming_letter[0], ((naming_choice - 1) % 26) + 1);
 					if naming_choice >= 1 and naming_choice <= 52
 						name += (naming_choice <= 26 ? text : string_lower(text));
@@ -122,12 +118,10 @@ switch menu_state
 	case INTRO_MENU_STATE.NAME_CHECKING: // Name checking thingy
 		if input_horizontal != 0
 		{
-			audio_play(snd_menu_switch);
 			name_confirm = posmod(name_confirm + input_horizontal, 2);
 		}
 		if input_confirm != 0
 		{
-			audio_play(snd_menu_confirm);
 			if !name_confirm menu_state = INTRO_MENU_STATE.NAMING
 			else 
 			{

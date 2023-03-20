@@ -315,6 +315,7 @@
     {"name":"snd_ding","order":4,"path":"sounds/snd_ding/snd_ding.yy",},
     {"name":"input_player_get_gamepad_type","order":6,"path":"scripts/input_player_get_gamepad_type/input_player_get_gamepad_type.yy",},
     {"name":"__input_config_gamepads","order":1,"path":"scripts/__input_config_gamepads/__input_config_gamepads.yy",},
+    {"name":"snd_cymbal","order":37,"path":"sounds/snd_cymbal/snd_cymbal.yy",},
     {"name":"scribble_font_get_glyph_ranges","order":10,"path":"scripts/scribble_font_get_glyph_ranges/scribble_font_get_glyph_ranges.yy",},
     {"name":"__scribble_get_krutidev_matra_lookup_map","order":12,"path":"scripts/__scribble_get_krutidev_matra_lookup_map/__scribble_get_krutidev_matra_lookup_map.yy",},
     {"name":"input_multiplayer_params_get","order":1,"path":"scripts/input_multiplayer_params_get/input_multiplayer_params_get.yy",},

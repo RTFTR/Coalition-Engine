@@ -54,7 +54,9 @@ function begin_turn() {
 			menu_text_typist.reset();
 			battle_state = 0;
 			menu_state = 0;
-			Battle_SetMenuDialog(oEnemyParent.end_turn_menu_text[battle_turn - 1]);
+			var end_turn_text = battle_turn - 1;
+			end_turn_text = min(0, battle_turn);
+			Battle_SetMenuDialog(oEnemyParent.end_turn_menu_text[end_turn_text]);
 		}
 		last_choice = 0;
 	}
@@ -248,7 +250,7 @@ switch battle_state {
 						case ITEM_SCROLL.VERTICAL:
 							if input_vertical != 0
 							{
-								choice = posmod(choice + input_vertical, len + 1);
+								choice = posmod(choice + input_vertical, len);
 								menu_choice[2] = choice;
 								audio_play(snd_menu_switch);
 								item_desc_x = 420;
@@ -274,9 +276,12 @@ switch battle_state {
 							oSoul.y += ((288 + ((floor(choice / 2) % 2) * 32)) - oSoul.y) / 3;
 						break
 
-						case ITEM_SCROLL.VERTICAL:
+						case ITEM_SCROLL.VERTICAL:							
 							oSoul.x += (72 - oSoul.x) / 3;
-							oSoul.y += ((288 + ((choice % 3) * 32)) - oSoul.y) / 3;
+							//oSoul.y += ((288 + ((choice % 3) * 32)) - oSoul.y) / 3;
+							oSoul.y += (320 - oSoul.y) / 3;
+							item_lerp_y = lerp(item_lerp_y, 304 - (32 * choice), 1/3);
+							
 						break
 
 						case ITEM_SCROLL.CIRCLE:

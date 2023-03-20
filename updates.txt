@@ -1,4 +1,14 @@
 Update Logs
+v4.5.8.2 (Panthervention)
+- Lerp for the damn item system (vertical) + Mask (temporary mechanic)
+- Remove switch/confirm sound for naming
+- Clamped the array access for end_turn_menu_dialog to prevent crash for items like Sea Tea
+Pending:
+- x lerp/sorting for the item
+- Changing mask mechanic of oBoard from shader to surface for more sufficent usages
+- All SFX import from UT to Engine
+- Update all the current addons (Scribble, Input, TweenGMX [if any]...)
+
 ※ v4.5.8.1 HotPatch (RTF)
 Added a message from every character of Undertale.
 Colored or whatever(what should i say)

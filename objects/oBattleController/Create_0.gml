@@ -1,3 +1,4 @@
+
 menu_state = 0;
 battle_state = 0;
 battle_turn = 0;
@@ -86,6 +87,7 @@ board_cover_button = false;
 board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_alpha = [.5, .5, .5];
+item_lerp_y = 0;
 item_desc_x = 420;
 item_desc_alpha = 0;
 #endregion

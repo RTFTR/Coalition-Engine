@@ -78,21 +78,36 @@ if battle_state == BATTLE_STATE.MENU {
 			break
 			
 			case ITEM_SCROLL.VERTICAL:
-			c_div = floor(coord / 3);
-			_coord = c_div;
-			for (var i = 0, n = min(3, itm_ln - _coord); i < n; ++i) {
-				var xx = 96,
-					yy = 272 + i * 32;
+			
+			//c_div = floor(coord / 3);
+			//_coord = c_div;
+			//for (var i = 0, n = min(3, itm_ln - _coord); i < n; ++i) {
+			//	var xx = 96,
+			//		yy = 272 + i * 32;
 				
-				//i tried
-				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
-				draw_set_alpha(item_desc_alpha);
-				if i == c_div
-					draw_text_scribble(item_desc_x, yy + (_coord % 3) * 32, "[fnt_dt_mono][c_gray]" + item_battle_desc[coord]);
-				draw_set_alpha(1);
-				item_desc_alpha = lerp(item_desc_alpha, 1, 0.16);
-				item_desc_x = lerp(item_desc_x, 320, 0.16);
-			}
+			//	//i tried
+			//	draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
+			//	draw_set_alpha(item_desc_alpha);
+			//	if i == c_div
+			//		draw_text_scribble(item_desc_x, yy + (_coord % 3) * 32, "[fnt_dt_mono][c_gray]" + item_battle_desc[coord]);
+			//	draw_set_alpha(1);
+			//	item_desc_alpha = lerp(item_desc_alpha, 1, 0.16);
+			//	item_desc_x = lerp(item_desc_x, 320, 0.16);
+			//}
+			c_div = coord;
+			_coord = c_div;
+			Battle_Masking_Start(true);
+			for (var i = 0, n = itm_ln; i < n; ++i)
+			{				
+				var xx = 96,
+					yy = item_lerp_y + (32 * (i));
+				
+				draw_set_font(fnt_dt_mono);
+				var txt_color = (i != _coord) ? c_gray : c_white;
+				draw_set_color(txt_color);
+				draw_text(xx, yy, "* " + item_name[i]);
+			}	
+			Battle_Masking_End()
 			break
 			
 			case ITEM_SCROLL.CIRCLE:
@@ -302,7 +317,7 @@ var _button_spr =	button_spr,
 for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 {
 	// If no item left then item button commit gray
-	if global.item[0] <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+	if Item_Space() <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 
 	// Check if the button is chosen
 	var select = (_menu == i) and _state >= 0 and _state != -1
@@ -349,33 +364,33 @@ if board_cover_button {
 	Battle_Masking_End();
 }
 #endregion
-// UI (Name - Lv - Hp - Kr)
-{
+
+#region UI (Name - Lv - Hp - Kr)
 	// Credits to Scarm for all the help and this epico code!
 	var hp_x =				ui_x - global.kr_activation * 20,
 		hp_y =				ui_y,
 		name_x =			ui_x - 245,
 		name_y =			ui_y,
 		name =				global.data.name,
-		default_col =		make_color_rgb(27, 25, 26),
+		default_col =		c_white,//make_color_rgb(27, 25, 26),
 		name_col =			c_white,
 		lv_col =			c_white,
-		lv_counter_col =	make_color_rgb(27, 25, 26),
-		hp_max_col =		merge_color(c_red, c_maroon, 0.5),
+		lv_counter_col =	c_white,//make_color_rgb(27, 25, 26),
+		hp_max_col =		c_red,//merge_color(c_red, c_maroon, 0.5),
 		hp_col =			c_yellow,
 		kr_col =			c_fuchsia,
-		krr_col =			make_color_rgb(27, 25, 26),
-		hp_pre_col =		merge_color(c_lime, c_white, 0.25),
+		krr_col =			c_white,//make_color_rgb(27, 25, 26),
+		hp_pre_col =		c_lime,//merge_color(c_lime, c_white, 0.25),
 		bar_multiplier =	1.2, //Default multiplier from UNDERTALE
 		hp_text =			"HP",
 		kr_text =			"KR",
 		_alpha =			ui_alpha;
 		
-		name_col =			make_color_rgb(27, 25, 26);
-		lv_col =			make_color_rgb(27, 25, 26);
-		hp_max_col =		make_color_rgb(100, 100, 100);
-		hp_col =			make_color_rgb(47, 47, 47);
-		kr_col =			make_color_rgb(27, 25, 26);
+		//name_col =		make_color_rgb(27, 25, 26);
+		//lv_col =			make_color_rgb(27, 25, 26);
+		//hp_max_col =		make_color_rgb(100, 100, 100);
+		//hp_col =			make_color_rgb(47, 47, 47);
+		//kr_col =			make_color_rgb(27, 25, 26);
 
 	// Linear health updating / higher refill_speed = faster refill / max refill_speed is 1
 	hp += (global.hp - hp) * refill_speed;
@@ -467,11 +482,10 @@ if board_cover_button {
 	draw_set_font(fnt_mnc); // Counter Font
 	var offset = global.kr_activation ? (20 + string_width(kr_text)) : 15;
 	draw_text(hp_x + offset + _hp_max, hp_y, hp_counter + " / " + hp_max_counter);
-}
 
 draw_set_color(c_white);
 draw_set_alpha(1);
-
+#endregion
 
 if board_cover_hp_bar {
 	Battle_Masking_Start(true);
