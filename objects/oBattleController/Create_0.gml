@@ -88,6 +88,8 @@ board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_alpha = [.5, .5, .5];
 item_lerp_y = 0;
+item_lerp_x = array_create(100,0);
+item_lerp_x_target = 0;
 item_desc_x = 420;
 item_desc_alpha = 0;
 #endregion

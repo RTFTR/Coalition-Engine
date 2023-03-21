@@ -1,5 +1,13 @@
 Update Logs
-v4.5.8.2 (Panthervention)
+v4.5.8.3 - IDE 2023.2.1.75 (Panthervention)
+- Finished vertical lerping anim for item.
+Pending:
+- Mask mechanic changing for more board effect opportunity.
+- All SFX import from UT -> Engine.
+- Update addons.
+- Polish vertical lerping for item more.
+
+v4.5.8.2 - IDE 2023.2.1.75 (Panthervention)
 - Lerp for the damn item system (vertical) + Mask (temporary mechanic)
 - Remove switch/confirm sound for naming
 - Clamped the array access for end_turn_menu_dialog to prevent crash for items like Sea Tea

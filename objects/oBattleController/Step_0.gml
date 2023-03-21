@@ -253,9 +253,9 @@ switch battle_state {
 								choice = posmod(choice + input_vertical, len);
 								menu_choice[2] = choice;
 								audio_play(snd_menu_switch);
-								item_desc_x = 420;
+								item_desc_x = 360;
 								item_desc_alpha = 0;
-						}
+							}
 						break
 
 						case ITEM_SCROLL.CIRCLE:
@@ -278,9 +278,13 @@ switch battle_state {
 
 						case ITEM_SCROLL.VERTICAL:							
 							oSoul.x += (72 - oSoul.x) / 3;
-							//oSoul.y += ((288 + ((choice % 3) * 32)) - oSoul.y) / 3;
 							oSoul.y += (320 - oSoul.y) / 3;
 							item_lerp_y = lerp(item_lerp_y, 304 - (32 * choice), 1/3);
+							for (var i = 0, n = Item_Space(); i < n; ++i)
+							{
+								item_lerp_x_target = 96 + 10 * (abs(choice - i));
+								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
+							}
 							
 						break
 

@@ -78,34 +78,25 @@ if battle_state == BATTLE_STATE.MENU {
 			break
 			
 			case ITEM_SCROLL.VERTICAL:
-			
-			//c_div = floor(coord / 3);
-			//_coord = c_div;
-			//for (var i = 0, n = min(3, itm_ln - _coord); i < n; ++i) {
-			//	var xx = 96,
-			//		yy = 272 + i * 32;
-				
-			//	//i tried
-			//	draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
-			//	draw_set_alpha(item_desc_alpha);
-			//	if i == c_div
-			//		draw_text_scribble(item_desc_x, yy + (_coord % 3) * 32, "[fnt_dt_mono][c_gray]" + item_battle_desc[coord]);
-			//	draw_set_alpha(1);
-			//	item_desc_alpha = lerp(item_desc_alpha, 1, 0.16);
-			//	item_desc_x = lerp(item_desc_x, 320, 0.16);
-			//}
 			c_div = coord;
 			_coord = c_div;
 			Battle_Masking_Start(true);
 			for (var i = 0, n = itm_ln; i < n; ++i)
-			{				
-				var xx = 96,
+			{	
+				var xx = item_lerp_x[i],
 					yy = item_lerp_y + (32 * (i));
 				
 				draw_set_font(fnt_dt_mono);
 				var txt_color = (i != _coord) ? c_gray : c_white;
 				draw_set_color(txt_color);
 				draw_text(xx, yy, "* " + item_name[i]);
+				draw_set_alpha(item_desc_alpha);
+				draw_set_color(c_gray);
+				if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
+				draw_set_alpha(1);
+				draw_set_color(c_white);
+				item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
+				item_desc_x = lerp(item_desc_x, 320, 1/3);
 			}	
 			Battle_Masking_End()
 			break
