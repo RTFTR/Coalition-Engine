@@ -84,19 +84,23 @@ if battle_state == BATTLE_STATE.MENU {
 			for (var i = 0, n = itm_ln; i < n; ++i)
 			{	
 				var xx = item_lerp_x[i],
-					yy = item_lerp_y + (32 * (i));
+					yy = item_lerp_y[0] + (32 * (i));
 				
 				draw_set_font(fnt_dt_mono);
-				var txt_color = (i != _coord) ? c_gray : c_white;
-				draw_set_color(txt_color);
+				//var txt_color = (i != _coord) ? c_gray : c_white;
+				//draw_set_color(txt_color);
+				
+				
+				var color = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
+				draw_set_color(color);
 				draw_text(xx, yy, "* " + item_name[i]);
-				draw_set_alpha(item_desc_alpha);
-				draw_set_color(c_gray);
-				if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
-				draw_set_alpha(1);
+				//draw_set_alpha(item_desc_alpha);
+				//draw_set_color(c_gray);
+				//if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
+				//draw_set_alpha(1);
 				draw_set_color(c_white);
-				item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
-				item_desc_x = lerp(item_desc_x, 320, 1/3);
+				//item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
+				//item_desc_x = lerp(item_desc_x, 320, 1/3);
 			}	
 			Battle_Masking_End()
 			break
@@ -316,7 +320,7 @@ for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 	// Draw the button by array order
 	if button_background_cover
 	{
-		shader_set(shdBlackMask); //Prevent backgruond covers the buttons
+		shader_set(shdBlackMask); //Prevent background covers the buttons
 		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, c_white, .5 - _button_alpha[i] / 2);
 		shader_reset();
 	}

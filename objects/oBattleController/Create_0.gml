@@ -87,10 +87,21 @@ board_cover_button = false;
 board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_alpha = [.5, .5, .5];
-item_lerp_y = 0;
-item_lerp_x = array_create(100,0);
+
+item_lerp_y = array_create(Item_Space(),0);
+item_lerp_x = array_create(Item_Space(),0);
+
+color_dkgray = [16,16,16];
+for (var i = 0, n = Item_Space(); i < n; ++i)
+{
+	item_lerp_color[i] = color_dkgray; 
+}
+
 item_lerp_x_target = 0;
-item_desc_x = 420;
+item_lerp_y_target = 0;
+item_lerp_color_target =  [ [16,16,16] , [128,128,128] , [255,255,255] ]; // c_gray - c_white
+
+item_desc_x = 360;
 item_desc_alpha = 0;
 #endregion
 #region Flee

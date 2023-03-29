@@ -1,4 +1,8 @@
 Update Logs
+
+vb.0.4.5.8.3.1 - IDE 2023.2.1.75 (Panthervention)
+Basically the color lerping for the item vertical mode need a fix and idk why lerping in for loop doesn't work properly
+
 v4.5.8.3 - IDE 2023.2.1.75 (Panthervention)
 - Finished vertical lerping anim for item.
 Pending:

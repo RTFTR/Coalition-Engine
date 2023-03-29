@@ -6,6 +6,7 @@ function scr_enemy_choice()
 	return n;
 }
 
+
 function scr_enemy_num()
 {
 	for (var i = 0, n = 1; i < 2; i++)
@@ -145,8 +146,11 @@ switch battle_state {
 					audio_play(snd_menu_confirm);
 					menu_state = _button_slot + 1;
 
-					if menu_state == MENU_STATE.ITEM and global.item[0] == 0 {
+					if menu_state == MENU_STATE.ITEM and Item_Space() == 0 {
 						menu_state = MENU_STATE.BUTTON_SELECTION;
+						
+						if item_scroll_type == ITEM_SCROLL.VERTICAL menu_choice[MENU_STATE.ITEM] = 0;
+						
 						audio_stop_sound(snd_menu_confirm);
 					}
 				}
@@ -279,12 +283,48 @@ switch battle_state {
 						case ITEM_SCROLL.VERTICAL:							
 							oSoul.x += (72 - oSoul.x) / 3;
 							oSoul.y += (320 - oSoul.y) / 3;
-							item_lerp_y = lerp(item_lerp_y, 304 - (32 * choice), 1/3);
+							item_lerp_y[0] = lerp(item_lerp_y[0], 304 - (32 * choice), 1/3);
 							for (var i = 0, n = Item_Space(); i < n; ++i)
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
 								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
-							}
+								
+								
+								if i == choice // Lerp to white
+								{
+									for (var ii = 0; ii < 3; ++ii)
+										item_lerp_color[choice][ii] = lerp(item_lerp_color[choice][ii],item_lerp_color_target[2][ii],1/3);
+								}
+								else 
+								{
+									if i == (choice - 1) or i == (choice + 1) // Lerp to c_gray
+									{
+										for (var ii = 0; ii < 3; ++ii)
+										{
+											if i == (choice - 1)
+											{
+												var iii = choice - 1;
+													iii = clamp(iii, 0, choice - 1);
+												item_lerp_color[iii][ii] = lerp(item_lerp_color[iii][ii],item_lerp_color_target[1][ii],1/3);
+											}
+											else if i == (choice + 1)
+											{
+												var iii = choice + 1;
+													iii = clamp(iii, 0, choice + 1);
+												item_lerp_color[iii][ii] = lerp(item_lerp_color[iii][ii],item_lerp_color_target[1][ii],1/3);
+											}
+										}
+									}
+									else // Lerp to dkgray
+									{
+										for (var ii = 0; ii < 3; ++ii)
+											item_lerp_color[i][ii] = lerp(item_lerp_color[i][ii],item_lerp_color_target[0][ii],1/3);
+									}
+								}
+								var col = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
+								show_debug_message(string(choice) + " " + string(color_get_red(col)) + " " + string(color_get_green(col)) + " " + string(color_get_blue(col)));
+								
+							}				
 							
 						break
 
