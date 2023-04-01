@@ -4,7 +4,7 @@ This engine is based on Undertale, Created by Toby Fox.
 
 This project was based on 2022.08 Gamemaker builds. So some older versions will not work correctly, or be Read-Only mode!
 
-This engine is still unstable.
+This engine is still-on-development. Please be patient while we're finalizing our Undertale Engine.
 
 # The purpose of making this engine:
 
