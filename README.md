@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/83257329/226114457-a8702e87-0f37-46a4-8b09-f43b12e9511f.png" alt="What">
+  <img src="https://user-images.githubusercontent.com/83257329/226114457-a8702e87-0f37-46a4-8b09-f43b12e9511f.png" alt="HelpMePls">
 </p>
 <h1 align="center">The most optimized Undertale Engine ever existed.</h1>
 <p align="center">
@@ -8,7 +8,6 @@
   </a>
 </p>
 
-<img src="https://discordapp.com/api/guilds/943963875181727756/widget.png?style=shield" alt="Discord Shield"/>
 ![About](https://user-images.githubusercontent.com/83257329/226114468-3823b116-01ae-4941-be38-c6683bd428ea.png)
 
 This engine is based on Undertale, Created by Toby Fox.
