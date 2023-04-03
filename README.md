@@ -8,7 +8,7 @@
   </a>
 </p>
 
-![DiscordServerLink](https://discordapp.com/api/guilds/1090640965607370894/widget.png?style=banner1)
+<img src="https://discordapp.com/api/guilds/943963875181727756/widget.png?style=shield" alt="Discord Shield"/>
 ![About](https://user-images.githubusercontent.com/83257329/226114468-3823b116-01ae-4941-be38-c6683bd428ea.png)
 
 This engine is based on Undertale, Created by Toby Fox.
