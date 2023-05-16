@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">The most optimized Undertale Engine ever existed.</h1>
 <p align="center">
-  <a target="_blank" href="https://github.com/RTFTR/Coalition-Engine-Canary/releases">
+  <a target="_blank" href="[https://github.com/RTFTR/Coalition-Engine-Canary/releases](https://github.com/RTFTR/Coalition-Engine-Canary/releases/tag/v0.0.05)">
     <img alt="Releases" src="https://img.shields.io/github/v/release/Coalition-Engine-Canary/Coalition-Engine-Canary?color=%230A99D6&label=Latest%20release&style=for-the-badge">
   </a>
 </p>
