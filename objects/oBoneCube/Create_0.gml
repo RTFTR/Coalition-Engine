@@ -11,8 +11,7 @@ type = 0;
 function add_vert(X, Y, Z, list)
 {
 	list ??= vert_list;
-	var _prop = ds_list_create();
-	_prop = [X, Y, Z];
+	var _prop = [X, Y, Z];
 	array_push(list, _prop);
 }
 
@@ -22,12 +21,9 @@ function update_vert()
 	for (var i = 0, n = array_length(vert_list); i < n; i++)
 	{
 		_prop = vert_list[i];
-		var X = _prop[0],
-			Y = _prop[1],
-			Z = _prop[2];
-		X *= scalex;
-		Y *= scaley;
-		Z *= scalez;
+		var X = _prop[0] * scalex,
+			Y = _prop[1] * scaley,
+			Z = _prop[2] * scalez;
 		var YY = Y * dcos(angles[0]) - Z * dsin(angles[0]),
 			ZZ = Y * dsin(angles[0]) + Z * dcos(angles[0]);
 		Y = YY;

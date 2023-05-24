@@ -12,7 +12,8 @@ if battle_state == BATTLE_STATE.MENU {
 		else continue;
 	}
 	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
-
+	
+	//Menu text
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
 		text_writer.starting_format("fnt_dt_mono", c_white)
 		text_writer.draw(52, 272, menu_text_typist)
@@ -109,7 +110,7 @@ if battle_state == BATTLE_STATE.MENU {
 			c_div = floor(coord / 3);
 			_coord = c_div * 2;
 			for (var i = -1, n = min(3, itm_ln - _coord); i < n - 1; ++i) {
-				var ItemTxtAlTar = (((menu_choice[2] % 3) == i + 1) ? 1 : 0.5),
+				var ItemTxtAlTar = (((menu_choice[2] % 3) == (i + 1)) ? 1 : 0.5),
 					xx = 320 + i * 130,
 					yy = 320 - abs(i * 40);
 				item_scroll_alpha[i + 1] += (ItemTxtAlTar - item_scroll_alpha[i + 1]) / 6;
@@ -199,8 +200,7 @@ if battle_state == BATTLE_STATE.MENU {
 				if _target_retract_method == 0 _target_xscale -= 0.03;
 				else _target_yscale -= 0.03;
 
-				if _aim_scale > 0 _aim_scale -= 0.075;
-				else _aim_scale = 0;
+				_aim_scale = max(0, _aim_scale - 0.075);
 				_aim_angle += _aim_retract * 3;
 
 				if _target_xscale < 0.08 or _target_yscale < 0.08 {
@@ -312,7 +312,12 @@ var _button_spr =	button_spr,
 for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 {
 	// If no item left then item button commit gray
-	if Item_Space() <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+	if i == 2
+	{
+		var ItemIsEmpty = Item_Space() <= 0;
+		if ItemIsEmpty
+			button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+	}
 
 	// Check if the button is chosen
 	var select = (_menu == i) and _state >= 0 and _state != -1

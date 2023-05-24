@@ -10,7 +10,7 @@ function posmod(a,b)
 	return value;
 }
 
-///@desc idk but it's for board so don't touch i guess
+///@desc Calculating the legnthdir_xy position of the points
 function point_xy(p_x, p_y)
 {
 	var angle = image_angle;
@@ -50,7 +50,7 @@ function is_val()
 	return false;
 }
 
-function Vector2(vec2_x, vec2_y) constructor
+/*function Vector2(vec2_x, vec2_y) constructor
 {
 	x = vec2_x;
 	y = vec2_y;
@@ -78,7 +78,7 @@ function Vector3(vec3_x, vec3_y, vec3_z) constructor
 		x : vec3_x,
 		z : vec3_z
 	};
-}
+}*/
 
 
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX

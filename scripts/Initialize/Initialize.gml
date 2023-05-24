@@ -45,7 +45,7 @@ function Initialize()
 	global.inv = 2; // Invincibility frames
 	
 	//Grazing
-	global.EnableGrazing = false;
+	global.EnableGrazing = true;
 	global.TP = 0;
 	
 	//Items

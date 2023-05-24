@@ -1,12 +1,9 @@
 var _color = base_color;
 if type == 1 _color = c_aqua;
 if type == 2 _color = c_orange;
-length = max(14, length);
 var _x = x,
 	_y = y;
 
-if angle_to_direction
-	image_angle = direction;
 var _angle = image_angle + axis_angle + len_angle_extra,
 	_alpha = image_alpha,
 	_length = length / 14,

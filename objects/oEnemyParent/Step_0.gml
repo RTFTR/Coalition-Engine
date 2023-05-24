@@ -1,6 +1,4 @@
 ///@desc Turns, very trash, working on it
-
-
 function end_turn()
 {
 	var turn = oBattleController.battle_turn - 1;
@@ -52,8 +50,8 @@ function end_turn()
 			at_turn_end = true;
 			destroy_on_turn_end = false;
 			can_hurt = 0;
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 0);
-			alarm[1] = 25;
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 14);
+			var _handle = call_later(25, time_source_units_frames, function() { instance_destroy()});
 		}
 	with oBulletParents
 		if destroy_on_turn_end instance_destroy();

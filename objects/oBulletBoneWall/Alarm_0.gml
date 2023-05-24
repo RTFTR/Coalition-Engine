@@ -1,4 +1,4 @@
-// Do not put in step, it breaks
+//@desc True creation
 active = true;
 state = 1;
 var board = oBoard,
@@ -12,17 +12,12 @@ var board = oBoard,
 if dir == DIR.UP or dir == DIR.DOWN
 {
 	x = board_x;
-	
-	if dir == DIR.UP   y = board_u - height + 2;
-	if dir == DIR.DOWN y = board_d + height - 2;
+	y = (dir == DIR.UP) ? board_u - height + 2 : board_d + height - 2;
 }
 if dir == DIR.LEFT or dir == DIR.RIGHT
 {
 	y = board_y;
-	
-	if dir == DIR.LEFT  x = board_l - height + 4;
-	if dir == DIR.RIGHT x = board_r + height - 4;
-	
+	x = (dir == DIR.LEFT) ? board_l - height + 4 : board_r + height - 4;
 }
 
 target_x = x;

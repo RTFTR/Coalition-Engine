@@ -117,10 +117,12 @@ function Item_Use(item){
 	Item_Info(item);
 	audio_play(snd_item_heal);
 	
-	if global.item_heal_override_kr
-		if global.hp + heal >= global.hp_max global.kr = 0;
+	var healed_hp = global.hp + heal;
 	
-	global.hp = min(global.hp + heal, global.hp_max);
+	if global.item_heal_override_kr
+		if healed_hp + global.kr >= global.hp_max global.kr = global.hp_max - healed_hp + global.kr;
+	
+	global.hp = min(healed_hp, global.hp_max);
 	var hp_text = "[delay, 333]\n* You recovered " + string(heal) + " HP!";
 	
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."

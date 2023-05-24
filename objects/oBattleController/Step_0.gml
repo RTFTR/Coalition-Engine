@@ -323,7 +323,6 @@ switch battle_state {
 								}
 								var col = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
 								show_debug_message(string(choice) + " " + string(color_get_red(col)) + " " + string(color_get_green(col)) + " " + string(color_get_blue(col)));
-								
 							}				
 							
 						break
@@ -430,8 +429,7 @@ if debug {
 	if keyboard_check(ord("F")) room_speed = 600;
 	}
 	if keyboard_check(vk_control) {
-		battle_turn += input_horizontal;
-		battle_turn = max(0, battle_turn);
+		battle_turn = max(0, battle_turn + input_horizontal);
 	}
 	if global.hp <= 1 {
 		global.hp = global.hp_max;

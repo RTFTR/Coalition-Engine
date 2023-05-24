@@ -12,9 +12,9 @@ function Bullet_GasterBlaster(XY,ANGLE,SCALE,IDEALXY,MPD,TYPE = 0,BLUR = false,C
 {
 	var DEPTH = -1000;
 	
-	if is_array(XY)
-		var blaster = instance_create_depth(XY[0],XY[1],DEPTH,oGB);
-	else blaster = instance_create_depth(XY.x,XY.y,DEPTH,oGB);
+	var blaster = is_array(XY) ? instance_create_depth(XY[0], XY[1], DEPTH, oGB)
+				: instance_create_depth(XY.x, XY.y, DEPTH, oGB);
+	
 	with blaster
 	{
 		image_angle = ANGLE[0];

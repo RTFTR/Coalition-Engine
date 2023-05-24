@@ -98,4 +98,44 @@ if state == 4
 			release_sound = 0;
 		}
 	}
+	var _x = x,
+		_y = y,
+		_alpha = beam_alpha,
+		
+		_xscale = image_xscale,
+		_end_point = e,
+	
+		_blast_timer = timer_blast,
+		_exit_timer = timer_exit,
+		_size = beam_scale;
+	
+	_blast_timer++;
+	_exit_timer++;
+	_end_point += speed;
+	if _exit_timer >= time_stay and _exit_timer < time_stay + 10 speed += 0.5;
+	else if (_exit_timer >= time_stay + 10 and !check_outside()) speed *= 1.1;
+	
+	if _blast_timer < 10 _size += ((30 * _yscale) / 8);
+	
+	if _blast_timer >= 10 + time_blast
+	{
+		_size *= sqrt(0.8);
+		_alpha -= 0.05;
+		
+		if _size <= 2 destroy = 1;
+	}
+	
+	var beam_siner = sin(_blast_timer / pi) * _size / 4;
+	x = _x;
+	y = _y;
+	image_angle = _angle;
+	beam_alpha = _alpha;
+	
+	image_xscale = _xscale;
+	image_yscale = _yscale;
+	
+	timer_blast = _blast_timer;
+	timer_exit = _exit_timer;
+	beam_scale = _size;
+	e = _end_point;
 }

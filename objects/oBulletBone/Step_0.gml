@@ -1,8 +1,13 @@
 var board = oBoard;
 if timer timer--;
 DurationTimer++;
+
 len_step();
 axis_step();
+
+length = max(14, length);
+if angle_to_direction
+	image_angle = direction;
 
 image_angle += rotate;
 
