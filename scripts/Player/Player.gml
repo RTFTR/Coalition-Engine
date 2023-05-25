@@ -1,6 +1,8 @@
 ///@desc Converts the Item name into Stats of the Item
 function ConvertItemNameToStat()
 {
+	global.MultiBarAttackSprite = -1;
+	global.MultiBarCritSound = snd_multiattack_crit;
 	switch global.data.AttackItem
 	{
 		case "Stick":
@@ -23,14 +25,20 @@ function ConvertItemNameToStat()
 		case "Torn Notebook":
 			global.player_attack = 2;
 			global.bar_count = 2;
+			global.MultiBarAttackSprite = sprNotebookAttack;
+			global.MultiBarOverrideSound = snd_notebook_spin;
 		break
-			case "Burnt Pan":
+		case "Burnt Pan":
 			global.player_attack = 10;
 			global.bar_count = 4;
+			global.MultiBarAttackSprite = sprFrypanAttack;
+			global.MultiBarOverrideSound = snd_frypan_hit;
 		break
 		case "Empty Gun":
 			global.player_attack = 12;
 			global.bar_count = 4;
+			global.MultiBarAttackSprite = sprGunStar;
+			global.MultiBarOverrideSound = snd_gunshot;
 		break
 		case "Worn Dagger":
 			global.player_attack = 15;

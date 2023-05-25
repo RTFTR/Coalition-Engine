@@ -101,12 +101,14 @@ function motion_blur_ext(sprite,subimg,xx,yy,xscale,yscale,angle,blend,alpha,len
 }
 
 ///@desc Rotates the camera
+///@param {real} start		The start angle of the camera
 ///@param {real} target		The target angle of the camera
 ///@param {real} duration	The time taken for the camera to rotate
 ///@param {function} Easing	The ease of the rotation
-function Camera_RotateTo(target, duration, ease = EaseLinear)
+///@param {real} delay 		The delay of the animation
+function Camera_RotateTo(start, target, duration, ease = EaseLinear, delay = 0)
 {
-	TweenFire(oGlobal, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_angle", oGlobal.camera_angle, target);
+	TweenFire(oGlobal, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_angle", start, target);
 }
 
 ///@desc Creates the effect with the shader given

@@ -28,8 +28,8 @@ function len_step()
 		len_y += len_vspeed;
 	    len_dir += len_dir_move;
 	    len += len_speed;
-	    x = len_x + lengthdir_x(len,len_dir);  
-	    y = len_y + lengthdir_y(len,len_dir);
+	    x = len_x + len * dcos(len_dir);  
+	    y = len_y + len * -dsin(len_dir);
 	    if len_angle image_angle += len_dir_move;
 	}
 }
@@ -54,8 +54,8 @@ function axis_step()
 		axis_y += vspeed;
 		var dis = point_distance(board.x, board.y, axis_x, axis_y),
 			dir = point_direction(board.x, board.y, axis_x, axis_y);
-		x = lengthdir_x(dis, dir + _ang) + board.x;
-		y = lengthdir_y(dis, dir + _ang) + board.y;
+		x = dis * dcos(dir + _ang) + board.x;
+		y = dis * -dsin(dir + _ang) + board.y;
 		axis_angle = _ang;
 	}
 }

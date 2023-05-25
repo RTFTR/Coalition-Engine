@@ -15,17 +15,20 @@ var	LineAmount				 = global.Line.Lines,
 	LineLayerAmount		 	 = ds_list_size(global.Line.LineLayer);
 
 //Report error if arguments of the lines are incorrectly defined
-if LineAmount != LinePointsAmount			show_error("The amount of points of the lines is " + string(LinePointsAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineWidthAmount			show_error("The amount of width of the lines is " + string(LineWidthAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineSpeedAmount			show_error("The amount of speed of the lines is " + string(LineSpeedAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineDirectionAmount		show_error("The amount of direction of the lines is " + string(LineDirectionAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineAlphaAmount			show_error("The amount of alpha of the lines is " + string(LineAlphaAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineAlphaFadeAmount		show_error("The amount of alpha fade of the lines is " + string(LineAlphaFadeAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineColorAmount			show_error("The amount of color of the lines is " + string(LineColorAmount) + " not " + string(LineAmount), true);
-if LineAmount != LinePropertiesAmount		show_error("The amount of properties of the lines is " + string(LinePropertiesAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineFadePropertiesAmount	show_error("The amount of fade properties of the lines is " + string(LineFadePropertiesAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineDurationAmount			show_error("The amount of duration of the lines is " + string(LineDurationAmount) + " not " + string(LineAmount), true);
-if LineAmount != LineLayerAmount			show_error("The amount of layer of the lines is " + string(LineLayerAmount) + " not " + string(LineAmount), true);
+var def_text = "The amount of ";
+var def_text2 = " of the lines is ";
+var cor_str = string(LineAmount);
+if LineAmount != LinePointsAmount			show_error(def_text + "points" + def_text2 +		string(LinePointsAmount) + " not " +		cor_str, true);
+if LineAmount != LineWidthAmount			show_error(def_text + "width" + def_text2+			string(LineWidthAmount) + " not " +			cor_str, true);
+if LineAmount != LineSpeedAmount			show_error(def_text + "speed" + def_text2+			string(LineSpeedAmount) + " not " +			cor_str, true);
+if LineAmount != LineDirectionAmount		show_error(def_text + "direction" + def_text2+		string(LineDirectionAmount) + " not " +		cor_str, true);
+if LineAmount != LineAlphaAmount			show_error(def_text + "alpha" + def_text2+			string(LineAlphaAmount) + " not " +			cor_str, true);
+if LineAmount != LineAlphaFadeAmount		show_error(def_text + "alpha fade" + def_text2 +	string(LineAlphaFadeAmount) + " not " +		cor_str, true);
+if LineAmount != LineColorAmount			show_error(def_text + "color"+ def_text2 +			string(LineColorAmount) + " not " +			cor_str, true);
+if LineAmount != LinePropertiesAmount		show_error(def_text + "properties" + def_text2+		string(LinePropertiesAmount) + " not " +	cor_str, true);
+if LineAmount != LineFadePropertiesAmount	show_error(def_text + "fade properties"+ def_text2 +string(LineFadePropertiesAmount) + " not " + cor_str, true);
+if LineAmount != LineDurationAmount			show_error(def_text + "duration" + def_text2+		string(LineDurationAmount) + " not " +		cor_str, true);
+if LineAmount != LineLayerAmount			show_error(def_text + "layer" + def_text2+			string(LineLayerAmount) + " not " +			cor_str, true);
 
 //Line Logic
 //If no lines are active then don't run any code
@@ -47,8 +50,8 @@ for(var i = 0; i < LineAmount; ++i)
 	if Duration
 		Duration--;
 	
-	//If the duration is 0
-	if !Duration
+	//If the duration is (less than or)equal to 0
+	if Duration <= 0
 	{
 		var DestroyLine = false;
 		//If the line has fading properties
@@ -78,15 +81,16 @@ for(var i = 0; i < LineAmount; ++i)
 		global.Line.LineDuration[| i] = Duration;
 	
 	//Gets the displacement of the line
-	var Movement = lengthdir_xy(global.Line.LineSpeed[| i], global.Line.LineDirection[| i]);
+	var MoveX = global.Line.LineSpeed[| i] * dcos(global.Line.LineDirection[| i]);
+	var MoveY = global.Line.LineSpeed[| i] * -dsin(global.Line.LineDirection[| i]);
 	
 	//Line movement
 	global.Line.LinePoints[| i] = 
 	[
-		LinePoints[0] + Movement.x,
-		LinePoints[1] + Movement.y,
-		LinePoints[2] + Movement.x,
-		LinePoints[3] + Movement.y,
+		LinePoints[0] + MoveX,
+		LinePoints[1] + MoveY,
+		LinePoints[2] + MoveX,
+		LinePoints[3] + MoveY,
 	];
 	
 	//Special Properties of the lines
@@ -99,7 +103,6 @@ for(var i = 0; i < LineAmount; ++i)
 	
 	switch NormalProperty[0]
 	{
-		case LineProperties.NONE: break
 		case LineProperties.TRAIL:
 			Timer[i]++;
 			if n < 2

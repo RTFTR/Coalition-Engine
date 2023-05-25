@@ -15,6 +15,7 @@ image_angle -= draw_angle;
 
 //Green soul shield drawing
 if mode = SOUL_MODE.GREEN
+{
 	if STATE == 2
 	{
 		draw_set_circle_precision(16);
@@ -32,15 +33,19 @@ if mode = SOUL_MODE.GREEN
 				gpu_set_blendmode(bm_add);
 			}
 			
-			var ShieldWidth = [lengthdir_x(30, ShieldAng + 90),
-								lengthdir_y(30, ShieldAng + 90)];
-				 _x = lengthdir_x(ShieldLen[i] + 16, ShieldAng) + x + ShieldWidth[0];
-				 _y = lengthdir_y(ShieldLen[i] + 16, ShieldAng) + y + ShieldWidth[1];
-			var __x = lengthdir_x(ShieldLen[i] + 16, ShieldAng) + x - ShieldWidth[0],
-				__y = lengthdir_y(ShieldLen[i] + 16, ShieldAng) + y - ShieldWidth[1];
+			var ShieldWidthX = 30 * dcos(ShieldAng + 90);
+			var ShieldWidthY =	30 * -dsin(ShieldAng + 90);
+			var ShieldDistX = (ShieldLen[i] + 16) * dcos(ShieldAng);
+			var ShieldDistY = (ShieldLen[i] + 16) * -dsin(ShieldAng);
+				 _x = ShieldDistX + x + ShieldWidthX;
+				 _y = ShieldDistY + y + ShieldWidthY;
+			var __x = ShieldDistX + x - ShieldWidthX,
+				__y = ShieldDistY + y - ShieldWidthY;
 			with oBulletParents
 				with other
 				{
+					var XChange = dcos(ShieldAng);
+					var YChange = dsin(ShieldAng);
 					for(var i = 0; i < 5; ++i)
 					{
 						if global.show_hitbox
@@ -48,38 +53,16 @@ if mode = SOUL_MODE.GREEN
 							draw_set_color(c_white)
 							draw_line(_x, _y, __x, __y)
 						}
-						if collision_line(_x, _y, __x, __y, other, false, false) and other.Color == i
-						{
-							DestroyArrow(other);
-							part_type_color1(ShieldParticleType, ShieldHitCol[i]);
-							repeat irandom_range(5, 10)
-							{
-								var sc = random_range(3, 5);
-								part_type_scale(ShieldParticleType, sc, sc);
-								part_particles_create(ShieldParticleSystem, random_range(_x, __x), random_range(_y, __y), ShieldParticleType, 1);
-							}
-						}
-						 _x -= lengthdir_x(1,ShieldAng);
-						__x -= lengthdir_x(1,ShieldAng);
-						 _y -= lengthdir_y(1,ShieldAng);
-						__y -= lengthdir_y(1,ShieldAng);
-					}
-				
-					 _x += lengthdir_x(5,ShieldAng);
-					__x += lengthdir_x(5,ShieldAng);
-					 _y += lengthdir_y(5,ShieldAng);
-					__y += lengthdir_y(5,ShieldAng);
-					if other.JudgeMode == "Lenient" and other.len <= 50
-					{
-						var input = [input_check_pressed("right"), input_check_pressed("up"),
-									input_check_pressed("left"), input_check_pressed("down")];
-						if input[min(posmod(other.dir / 90,360), 0)]
-							DestroyArrow(other);
+						 _x -= XChange;
+						__x -= XChange;
+						 _y += YChange;
+						__y += YChange;
 					}
 				}
 		}
 		gpu_set_blendmode(bm_normal);
 	}
+}
 
 if mode == SOUL_MODE.PURPLE and STATE == 2
 {

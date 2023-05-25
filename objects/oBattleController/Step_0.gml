@@ -183,20 +183,8 @@ switch battle_state {
 					audio_play(snd_menu_confirm);
 					if menu_state == MENU_STATE.FIGHT {
 						menu_state = MENU_STATE.FIGHT_AIM; // Fight Aiming
-
-						Target.buffer = 3;
-						Target.state = 1;
-						Target.side = choose(-1, 1);
-						Target.time = 0;
-						Target.xscale = 1;
-						Target.yscale = 1;
-						Target.frame = 0;
-						Target.alpha = 1;
-						Target.retract_method = choose(0, 1);
-						Aim.scale = 1;
-						Aim.angle = 0;
-						Aim.color = c_white;
-						Aim.retract = choose(-1, 1);
+						
+						ResetFightAim();
 
 						//Code that makes soul invincible
 						if instance_exists(oBulletParents) oBulletParents.can_hurt = 0;
@@ -323,6 +311,7 @@ switch battle_state {
 								}
 								var col = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
 								show_debug_message(string(choice) + " " + string(color_get_red(col)) + " " + string(color_get_green(col)) + " " + string(color_get_blue(col)));
+								
 							}				
 							
 						break
@@ -429,7 +418,8 @@ if debug {
 	if keyboard_check(ord("F")) room_speed = 600;
 	}
 	if keyboard_check(vk_control) {
-		battle_turn = max(0, battle_turn + input_horizontal);
+		battle_turn += input_horizontal;
+		battle_turn = max(0, battle_turn);
 	}
 	if global.hp <= 1 {
 		global.hp = global.hp_max;

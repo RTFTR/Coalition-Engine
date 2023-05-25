@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.450884,
   "parent": {
-    "name": "SFX",
-    "path": "folders/Sounds/SFX.yy",
+    "name": "Battle",
+    "path": "folders/Sounds/SFX/Battle.yy",
   },
   "preload": false,
   "sampleRate": 44100,

@@ -7,7 +7,6 @@ if !(WarnTimer % 5) and time_warn
 
 if state == 2
 {
-	var dir_ang = [-dsin(dir), dcos(dir)];
 	if !timer and sound_create
 	{
 		audio_stop_sound(snd_bonewall);
@@ -19,21 +18,21 @@ if state == 2
 		{
 			var spd = floor((height) / time_move);
 			
-			x -= spd * dir_ang[1];
-			y -= spd * dir_ang[0];
+			x -= lengthdir_x(spd, dir);
+			y -= lengthdir_y(spd, dir);
 		}
 		if (timer >= time_move and timer <= time_move + time_stay)
 		{
-			x = target_x - height * dir_ang[1];
-			y = target_y - height * dir_ang[0];
+			x = target_x - lengthdir_x(height, dir);
+			y = target_y - lengthdir_y(height, dir);
 		}
 		if timer > time_move + time_stay
 		{
 			var spd = floor(height / time_move),
 				kill_check = false;
 			
-			x += spd * dir_ang[1];
-			y += spd * dir_ang[0];
+			x += lengthdir_x(spd, dir);
+			y += lengthdir_y(spd, dir);
 			switch dir
 			{
 				case DIR.UP:

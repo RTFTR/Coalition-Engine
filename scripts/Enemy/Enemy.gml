@@ -16,13 +16,14 @@ function Enemy_Function_Load(encounter_number) {
 		[noone, oEnemyTest, noone],
 	];
 	
+	enemy_instance = [];
 	for (var i = 0, enemies; i < 3; ++i)
 	{
 		enemies[i] = enemy_presets[encounter_number, i];
 		enemy[i] = enemies[i];
 		if enemies[i] != noone
 		{
-			instance_create_depth(160 * (i + 1), 250, 1, enemies[i]);
+			array_push(enemy_instance, instance_create_depth(160 * (i + 1), 250, 1, enemies[i]));
 			enemy_name[i] =			enemies[i].enemy_name;
 			enemy_hp[i] =			enemies[i].enemy_hp;
 			enemy_hp_max[i] =		enemies[i].enemy_hp_max;

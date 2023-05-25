@@ -19,7 +19,7 @@ function point_xy(p_x, p_y)
 	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y;
 }
 
-///@desc Returns the lengthdir_x/y values in a Vector2
+///@desc Returns the lengthdir_x/y values in a Vector2 (stupidly useless)
 function lengthdir_xy(length, dir) constructor
 {
 	return new Vector2(lengthdir_x(length, dir), lengthdir_y(length, dir));
@@ -44,7 +44,6 @@ function is_val()
 		if argument[0] == argument[i]
 		{
 			return true;
-			exit;
 		}
 	}
 	return false;
@@ -156,7 +155,6 @@ function ConvertRealToKey(val)
 	if is_string(val)
 	{
 		return val;
-		exit;
 	}
 	//if is_real(val)
 	{
@@ -164,115 +162,80 @@ function ConvertRealToKey(val)
 		{
 			case vk_add:
 				return "+";
-			break
 			case vk_subtract:
 				return "-";
-			break
 			case vk_multiply:
 				return "*";
-			break
 			case vk_divide:
 				return "/";
-			break
 			case vk_alt:
 			case vk_lalt:
 			case vk_ralt:
 				return "Alt";
-			break
 			case vk_backspace:
 				return "BkSp";
-			break
 			case vk_printscreen:
 				return "Prnt Scrn";
-			break
 			case vk_decimal:
 				return ".";
-			break
 			case vk_delete:
 				return "Del";
-			break
 			case vk_escape:
 				exit
-			 break
 			 case vk_home:
 				return "Home"
-			break
 			case vk_end:
 				return "End";
-			break
 			case vk_pageup:
 				return "Page Up";
-			break
 			case vk_pagedown:
 				return "Page Down";
-			break
 			case vk_insert:
 				return "Insert";
-			break
 			case vk_pause:
 				return "Pause";
-			break
 			case vk_tab:
 				return "Tab";
-			break
 			case vk_f2:
 				return "F2";
-			break
 			case vk_f3:
 				return "F3";
-			break
 			case vk_f4:
 				return "F4";
-			break
 			case vk_f5:
 				return "F5";
-			break
 			case vk_f6:
 				return "F6";
-			break
 			case vk_f7:
 				return "F7";
-			break
 			case vk_f8:
 				return "F8";
-			break
 			case vk_f9:
 				return "F9";
-			break
 			case vk_f10:
 				return "F10";
-			break
 			case vk_f11:
 				return "F11";
-			break
 			case vk_f12:
 				return "F12";
-			break
 			case vk_control:
 			case vk_lcontrol:
 			case vk_rcontrol:
 				return "Ctrl";
-			break
 			case vk_shift:
 			case vk_lshift:
 			case vk_rshift:
 				return "Shift";
-			break
 			case vk_enter:
 				return "Enter";
-			break
 			case vk_up:
 				return "Up";
-			break
 			case vk_down:
 				return "Down";
-			break
 			case vk_left:
 				return "Left";
-			break
 			case vk_right:
 				return "Right";
-			break
 		}
 	}
 	var Alphabet =

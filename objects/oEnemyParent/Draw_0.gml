@@ -53,6 +53,7 @@ if !died {
 if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
 {
 	if dialog_at_mid_turn time--;
+	if _turn < 0 _turn = 0
 	if dialog_text[_turn] == ""
 	{
 		oBattleController.begin_turn();
@@ -146,7 +147,7 @@ if !died and !is_spared
 			draw_damage = true;
 			damage_color = c_ltgray;
 			damage = "MISS";
-			if !attack_time {
+			if !attack_time and !is_miss {
 				dodge_method();
 			}
 			attack_time++;
@@ -190,8 +191,10 @@ if !died and !is_spared
 		if enemy_hp > 0 // Check if the enemy is going to die
 		{
 			if attack_time == attack_end_time {
+				//Reset variables
 				attack_time = 0;
-				is_being_attacked = false
+				is_being_attacked = false;
+				is_miss = false;
 			}
 		}
 		else

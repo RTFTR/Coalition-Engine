@@ -21,7 +21,7 @@ with oBattleController {
 
 Battle_SetTurnTime(
 [
-	infinity,
+infinity,
 ]
 );
 Battle_SetTurnBoardSize(

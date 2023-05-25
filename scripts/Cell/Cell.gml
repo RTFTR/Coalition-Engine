@@ -32,10 +32,9 @@ function Cell_GetBoxID(slot) {
 	var NameToID = ["Dimensional Box A"],
 		ID = [1, 2];
 	for (var i = 0, Name = Cell_GetText(slot), target = 0, n = array_length(NameToID); i < n; ++i)
-		if Name == NameToID[i]
-		{
-			target = 1;
-			continue
-		}
+		if Name == NameToID[i] {
+		target = 1;
+		continue
+	}
 	return (Is_CellABox(slot) ? ID[target] : 0);
 }

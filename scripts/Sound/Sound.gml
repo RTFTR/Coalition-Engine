@@ -8,7 +8,7 @@
 function audio_play(soundid, single = false, loops = false, volume = 1, pitch = 1, time = 0)
 {
 	if single audio_stop_sound(soundid);
-	var audio = audio_play_sound(soundid, 50, loops, volume, 0, pitch);
+	var audio = audio_play_sound(soundid, 1, loops, volume, 0, pitch);
 	audio_sound_gain(audio,volume,time);
 	return audio;
 }

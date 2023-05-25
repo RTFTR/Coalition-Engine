@@ -19,7 +19,7 @@ Target =
 {
 	Count			: global.bar_count,
 	state			: 0,
-	side			: choose(-1,1),
+	side			: [choose(1, -1)],
 	time			: 0,
 	xscale			: 1,
 	yscale			: 1,
@@ -35,6 +35,61 @@ Aim =
 	angle	: 0,
 	color	: c_white,
 	retract : choose(-1, 1),
+}
+function ResetFightAim()
+{
+	var __f = function()
+	{
+		var _f = function() {
+			return choose(1, -1);
+		}
+		return array_create_ext(Target.Count, _f);
+	}
+	Target.buffer = 3;
+	Target.state = 1;
+	Target.side = __f();
+	Target.xscale = 1;
+	Target.yscale = 1;
+	Target.frame = 0;
+	Target.alpha = 1;
+	Target.retract_method = choose(0, 1);
+	Aim.scale = array_create(Target.Count, 1);
+	Aim.angle = 0;
+	Aim.color = array_create(Target.Count, c_white);
+	Aim.retract = choose(-1, 1);
+	var interval = irandom_range(60, 120), hspd = 4 + random(3);
+	for (var i = 0; i < Target.Count; ++i) {
+		Target.time[i] = 0;
+		Aim.InitialX[i] = 320 + (Target.side[i] * (290 + interval));
+		Aim.Alpha[i] = 1;
+		Aim.HasBeenPressed[i] = false;
+		Aim.Sprite[i] = sprTargetAim;
+		Aim.Fade[i] = false;
+		Aim.Hspeed[i] = hspd;
+		Aim.ForceCenter[i] = false;
+		Aim.Expand[i] = false;
+		Aim.Time[i] = 0;
+		Aim.Faded[i] = 0;
+		
+		interval += irandom_range(60, 120);
+	}
+	if Target.Count > 1
+	{
+		Aim.HitCount = 0;
+		Aim.Miss = 0;
+		Aim.Attack = {};
+		Aim.Attack.CritAmount = 0;
+		Aim.Attack.Crit = false;
+		Aim.Attack.Color = c_white;
+		Aim.Attack.EnemyY = enemy_instance[menu_choice[0]].y - 50;
+		Aim.Attack.Sprite = -1;
+		Aim.Attack.Index = 0;
+		Aim.Attack.Angle = 0;
+		Aim.Attack.Alpha = 1;
+		//frypan star x, y, angle, alpha, angle change, distance
+		Aim.Attack.StarData = array_create(8, [320, Aim.Attack.EnemyY, 0, 1, 12.25, 0]);
+		Aim.Attack.Time = 0;
+	}
 }
 #endregion
 #region Menu Dialog Funtions
@@ -88,11 +143,12 @@ board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_alpha = [.5, .5, .5];
 
-item_lerp_y = array_create(Item_Space(),0);
-item_lerp_x = array_create(Item_Space(),0);
+var n = Item_Space();
+item_lerp_y = array_create(n, 0);
+item_lerp_x = array_create(n, 0);
 
 color_dkgray = [16,16,16];
-for (var i = 0, n = Item_Space(); i < n; ++i)
+for (var i = 0; i < n; ++i)
 {
 	item_lerp_color[i] = color_dkgray; 
 }

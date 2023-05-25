@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.503583,
   "parent": {
-    "name": "SFX",
-    "path": "folders/Sounds/SFX.yy",
+    "name": "Bullets",
+    "path": "folders/Sounds/SFX/Battle/Bullets.yy",
   },
   "preload": false,
   "sampleRate": 44100,

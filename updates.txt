@@ -1,4 +1,13 @@
-Update Logs
+Update Logs (This is the beta builds)
+
+v4.6.1 (Eden)
+updated multibar
+still not fully functional but it works
+
+v4.6 (Eden)
+Added Multibar for menu(Damage is not done yet you guys do)
+Added TurboGML
+forgot
 
 vb.0.4.5.8.3.1 - IDE 2023.2.1.75 (Panthervention)
 Basically the color lerping for the item vertical mode need a fix and idk why lerping in for loop doesn't work properly

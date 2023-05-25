@@ -17,7 +17,8 @@ global.timer++;
 if keyboard_check_pressed(vk_f2)
 {
 	instance_destroy(oBulletParents);
-	room_goto(rRestart);
+	//room_goto(rRestart);
+	game_restart();
 }
 if keyboard_check_pressed(vk_f4)
 {

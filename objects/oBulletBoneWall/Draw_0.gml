@@ -151,8 +151,8 @@ if active
 			// Hitbox
 			if global.show_hitbox
 			{
-				draw_set_color(c_red);
-				draw_rectangle(pos[0] - 10, board_u - 10, pos[1] + 10, board_d + 10, false);
+				draw_set_color(c_red)
+				draw_rectangle(pos[0] - 10, board_u - 10, pos[1] + 10, board_d + 10, false)
 			}
 		}
 			

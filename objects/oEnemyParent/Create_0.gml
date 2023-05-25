@@ -143,6 +143,7 @@ dialog_text_typist = scribble_typist()
 //Under Attack
 is_being_attacked = false;
 is_dodge = false;
+is_miss = false;
 dodge_to = choose(-150, 150);
 attack_time = 0;
 attack_end_time = 60;

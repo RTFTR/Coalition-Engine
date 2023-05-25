@@ -1,3 +1,4 @@
+
 var _color = sticky ? c_lime : c_fuchsia,
 	_sprite = sprPlatform,
 	_angle = image_angle,

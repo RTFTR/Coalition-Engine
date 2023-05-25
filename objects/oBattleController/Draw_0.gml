@@ -12,8 +12,7 @@ if battle_state == BATTLE_STATE.MENU {
 		else continue;
 	}
 	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
-	
-	//Menu text
+
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
 		text_writer.starting_format("fnt_dt_mono", c_white)
 		text_writer.draw(52, 272, menu_text_typist)
@@ -110,7 +109,7 @@ if battle_state == BATTLE_STATE.MENU {
 			c_div = floor(coord / 3);
 			_coord = c_div * 2;
 			for (var i = -1, n = min(3, itm_ln - _coord); i < n - 1; ++i) {
-				var ItemTxtAlTar = (((menu_choice[2] % 3) == (i + 1)) ? 1 : 0.5),
+				var ItemTxtAlTar = (((menu_choice[2] % 3) == i + 1) ? 1 : 0.5),
 					xx = 320 + i * 130,
 					yy = 320 - abs(i * 40);
 				item_scroll_alpha[i + 1] += (ItemTxtAlTar - item_scroll_alpha[i + 1]) / 6;
@@ -146,85 +145,354 @@ if battle_state == BATTLE_STATE.MENU {
 
 	if menu_state == MENU_STATE.FIGHT_AIM //Fight Anim
 	{
-		var _target_state =		Target.state,
-			_aim_scale =		Aim.scale,
-			_aim_angle =		Aim.angle,
-			_aim_color = 		Aim.color,
-			_aim_retract =		Aim.retract;
+		if Target.Count == 1 //If only 1 bar is used
+		{
+			var _target_state =		Target.state,
+				_aim_scale =		Aim.scale[0],
+				_aim_angle =		Aim.angle,
+				_aim_color = 		Aim.color[0],
+				_aim_retract =		Aim.retract;
 		
-		if _target_state > 0 {
-			var _target_side =				Target.side,
-				_target_time =				Target.time,
-				_target_xscale =			Target.xscale,
-				_target_yscale =			Target.yscale,
-				_target_frame =				Target.frame,
-				_target_alpha =				Target.alpha,
-				_target_retract_method =	Target.retract_method,
+			if _target_state > 0 {
+				var _target_side =				Target.side[0],
+					_target_time =				Target.time[0],
+					_target_xscale =			Target.xscale,
+					_target_yscale =			Target.yscale,
+					_target_frame =				Target.frame,
+					_target_alpha =				Target.alpha,
+					_target_retract_method =	Target.retract_method,
 
-				_aim_target_x = 320 - (_target_side * (290 - _target_time));
+					_aim_target_x = 320 - (_target_side * (290 - _target_time));
 			
-			if _target_state < 3 {
-				if _target_state == 1 {
-					_target_time += 6.4;
-					var _aim_distance = abs(320 - _aim_target_x);
-					_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
+				if _target_state < 3 {
+					if _target_state == 1 {
+						_target_time += 6.4;
+						var _aim_distance = abs(320 - _aim_target_x);
+						_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
 					
-					if input_confirm and Target.buffer < 0 {
-						battle_turn++;
-						Target.buffer = 3;
-						_target_state = 2;
-						if _aim_distance < 15
-						{
-							if !global.CompatibilityMode
-								Blur_Screen(45, (15 - _aim_distance) / 2);
-						}
+						if input_confirm and Target.buffer < 0 {
+							battle_turn++;
+							Target.buffer = 3;
+							_target_state = 2;
+							if _aim_distance < 15
+							{
+								if !global.CompatibilityMode
+									Blur_Screen(45, (15 - _aim_distance) / 2);
+							}
 						
-						Target.WaitTime = 60;
+							Target.WaitTime = 60;
 
-						var strike_target_x = 160 * (target_option + 1);
-						enemy[target_option].is_being_attacked = true;
-						Calculate_MenuDamage(_aim_distance, target_option);
-						instance_create_depth(strike_target_x, 160, -10, oStrike);
-						audio_play_sound(snd_slice, 50, false);
+							var strike_target_x = 160 * (target_option + 1);
+							enemy[target_option].is_being_attacked = true;
+							Calculate_MenuDamage(_aim_distance, target_option);
+							instance_create_depth(strike_target_x, 160, -10, oStrike);
+							audio_play_sound(snd_slice, 50, false);
+						}
+						if _target_time >= 575 {
+							menu_state = 0;
+							_target_state = 3;
+							battle_state = 0;
+						}
 					}
-					if _target_time >= 575 {
+					else _target_frame += 0.2;
+				}
+				else {
+					_target_alpha -= 0.04;
+					if _target_retract_method == 0 _target_xscale -= 0.03;
+					else _target_yscale -= 0.03;
+
+					if _aim_scale > 0 _aim_scale -= 0.075;
+					else _aim_scale = 0;
+					_aim_angle += _aim_retract * 3;
+
+					if _target_xscale < 0.08 or _target_yscale < 0.08 {
+						_target_state = 0;
+						dialog_start();
+						menu_state = -1;
+					}
+				}
+
+				draw_sprite_ext(sprTargetBG, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
+				draw_sprite_ext(sprTargetAim, _target_frame, _aim_target_x, 320, _aim_scale, _aim_scale, _aim_angle, _aim_color, 1);
+
+				Target.side[0] = _target_side;
+				Target.time[0] = _target_time;
+				Target.xscale = _target_xscale;
+				Target.yscale = _target_yscale;
+				Target.frame = _target_frame;
+				Target.alpha = _target_alpha;
+			}
+			
+			Target.state = _target_state;
+
+			Aim.scale[0] = _aim_scale;
+			Aim.angle = _aim_angle;
+			Aim.color[0] = _aim_color;
+		}
+		else //If multiple bars are being used
+		{
+			var _target_state =		Target.state,
+				_aim_scale =		Aim.scale,
+				_aim_color = 		Aim.color,
+				_aim_alpha = 		Aim.Alpha;
+			
+			if _target_state > 0 {
+				var _target_side =				Target.side,
+					_target_time =				Target.time,
+					_target_xscale =			Target.xscale,
+					_target_yscale =			Target.yscale,
+					_target_frame =				Target.frame,
+					_target_alpha =				Target.alpha,
+					_target_retract_method =	Target.retract_method,
+					_attack_confirm =			input_check_pressed("confirm"),
+					_aim_time =					Aim.Time;
+				
+				draw_sprite_ext(sprTargetBG, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
+				
+				//Drawing
+				var _aim_force_index = false;
+				for (var i = 0; i < Target.Count; ++i) {
+					_aim_time[i]++;
+					
+					if _target_state == 1 _target_time[i] += Aim.Hspeed[i];
+					var _aim_target_x = Aim.ForceCenter[i] ? 320
+										: Aim.InitialX[i] - (Target.side[i] * _target_time[i]),
+						_aim_index = 1,
+						distance = floor(320 - _aim_target_x);
+					//Multiply the distance by -1 if the bar comes form the other side
+					if Aim.InitialX[i] > 320 distance *= -1;
+					
+					if !Aim.HasBeenPressed[i] and !_aim_force_index
+					{
+						_aim_index = 0;
+						_aim_force_index = true;
+					}
+					
+					if Aim.Fade[i]
+					{
+						if _aim_alpha[i] > 0
+							_aim_alpha[i] -= 0.08;
+						else Aim.Faded[i] = 1;
+						Aim.Sprite[i] = sprTargetAim;
+					}
+					
+					if Aim.Expand[i]
+					{
+						if _aim_alpha[i] > 0
+							_aim_alpha[i] -= 0.08;
+						_aim_scale[i] += 0.06;
+						//Color switch if max crit
+						if Aim.ForceCenter[i]
+						{
+							_aim_color[i] = (_aim_time[i] % 5) < 2 ? c_aqua : c_yellow;
+						}
+					}
+					//Only draw if bar is inside board
+					if distance <= 280
+						draw_sprite_ext(Aim.Sprite[i], _aim_index, _aim_target_x, 320, _aim_scale[i], _aim_scale[i], 0, _aim_color[i], _aim_alpha[i]);
+				
+					//Input
+					if distance > 273 //Prevent input already registered
+					continue
+				
+					_aim_target_x = Aim.InitialX[i] - (Target.side[i] * _target_time[i]);
+					
+					if _attack_confirm
+					{
+						if !Aim.HasBeenPressed[i] and !Aim.Fade[i]
+						{
+							_attack_confirm = false;
+							Aim.HasBeenPressed[i] = true;
+							Aim.Expand[i] = true;
+							Aim.Sprite[i] = sprMultiTargetAim;
+							Aim.HitCount++;
+							var attack_sound = -1;
+								
+							//Damage process
+							if distance <= 20 //Perfect
+							{
+								//Force set to middle
+								Aim.ForceCenter[i] = true;
+								//Set bar color to yellow
+								_aim_color[i] = c_yellow;
+								attack_sound = snd_multi_crit;
+								Aim.Attack.CritAmount++;
+							}
+							else if distance <= Aim.Hspeed[i] * 20
+							{
+								//Set bar color to aqua
+								_aim_color[i] = c_aqua;
+								attack_sound = snd_multi_hit;
+							}
+							else
+							{
+								//Set bar color to red
+								_aim_color[i] = c_red;
+							}
+							Aim.Hspeed[i] = 0;
+							
+							if attack_sound != -1
+								audio_play(attack_sound);
+						}
+					}
+						
+					if Aim.HitCount + Aim.Miss == Target.Count and _target_state == 1
+					{
+						_target_state = 2;
+						battle_turn++;
+						//Only execute if any bars are hit
+						if Aim.HitCount > 0
+						{
+							var strike_target_x = 160 * (target_option + 1);
+							enemy[target_option].is_being_attacked = true;
+							Aim.Attack.Sprite = global.MultiBarAttackSprite;
+							if Aim.Attack.CritAmount == Target.Count
+							{
+								Aim.Attack.Crit = true;
+								Aim.Attack.Color = merge_color(c_white, c_yellow, 0.5);
+							}
+						}
+						else
+						{
+							with enemy_instance[menu_choice[0]]
+							{
+								is_miss = true;
+								is_being_attacked = true;
+								draw_damage = true;
+								damage_color = c_ltgray;
+								damage = "MISS";
+							}
+						}
+					}
+					if distance < -28 and !Aim.Fade[i]
+					{
+						Aim.Fade[i] = true;
+						Aim.Miss++;
+					}
+				}
+				
+				
+				if _target_state < 3 {
+					if _target_state == 2
+					{
+						var scale_x = 2, scale_y = 2,
+						_time = Aim.Attack.Time,
+						_alpha = Aim.Attack.Alpha,
+						_sprite = Aim.Attack.Sprite,
+						_index = Aim.Attack.Index,
+						_color = Aim.Attack.Color;
+						switch global.MultiBarAttackSprite
+						{
+							//If weapon is notebook
+							case sprNotebookAttack:
+								if _time < 15
+								{
+									scale_x = cos(_time / 4) * 2;
+								}
+								if _time == 15
+								{
+									audio_play(snd_punchstrong);
+									if Aim.Attack.Crit audio_play(global.MultiBarCritSound);
+									scale_x = 0.5;
+									scale_y = 0.5;
+									_sprite = sprFrypanAttack;
+								}
+								if _time > 15
+								{
+									_index = posmod(_index + 1, 2);
+									scale_x = 0.5 + (_time - 15) * 0.25;
+									scale_y = scale_x;
+									if scale_x > 2 _alpha -= 0.1;
+									if _alpha < 0.1 _target_state = 3;
+								}
+								draw_sprite_ext(_sprite, _index, 320, Aim.Attack.EnemyY, scale_x, scale_y, 0, _color, _alpha);
+							break
+							case sprFrypanAttack:
+								if _time == 0
+								{
+									audio_play(global.MultiBarOverrideSound);
+									if Aim.Attack.Crit audio_play(global.MultiBarCritSound);
+									Aim.Attack.Angle = 3 * choose(1, -1);
+								}
+								//Star
+								for (var i = 0; i < 8; ++i) {
+									var _star_data = Aim.Attack.StarData[i],
+										_star_speed = max(0, 8 - 0.34 * _time) / 2;
+									//Position changing
+									_star_data[5] += _star_speed;
+									_star_data[0] += dcos(i * 360 / 8) * _star_data[5];
+									_star_data[1] -= dsin(i * 360 / 8) * _star_data[5];
+									//Fading
+									if _star_speed < 6
+									{
+										_star_data[3] -= 0.025;
+										if _star_data[4] > 1 _star_data[4] -= 0.5;
+									}
+									_star_data[2] += _star_data[4];
+									draw_sprite_ext(sprFrypanStar, 0, _star_data[0], _star_data[1], 2, 2, _star_data[2], _color, _star_data[3]);
+									Aim.Attack.StarData[i] = _star_data;
+								}
+								//Actual pan
+								var size = 2;
+								if _time < 10
+									size += 0.3 * _time;
+								else 
+								{
+									size = 3 - 0.6 * (_time - 10);
+									_alpha -= 0.2;
+								}
+								if _alpha < 0 _target_state = 3;
+								draw_sprite_ext(sprFrypanAttack, posmod(_time / 2, 2), 320, Aim.Attack.EnemyY, size, size, _time * Aim.Attack.Angle, _color, _alpha);
+							break
+							case sprGunStar:
+								
+							break
+						}
+						_time++;
+						
+						//Reset variables
+						Aim.Attack.Time = _time;
+						Aim.Attack.Alpha = _alpha;
+						Aim.Attack.Sprite = _sprite;
+						Aim.Attack.Index = _index;
+					}
+					//None of the bars are hit
+					for (var i = 0, k = 0, n = Target.Count; i < n; ++i) {
+						if Aim.Faded[i] k++;
+					}
+					if k == n
+					{
 						menu_state = 0;
 						_target_state = 3;
 						battle_state = 0;
 					}
 				}
-				else _target_frame += 0.2;
-			}
-			else {
-				_target_alpha -= 0.04;
-				if _target_retract_method == 0 _target_xscale -= 0.03;
-				else _target_yscale -= 0.03;
-
-				_aim_scale = max(0, _aim_scale - 0.075);
-				_aim_angle += _aim_retract * 3;
-
-				if _target_xscale < 0.08 or _target_yscale < 0.08 {
-					_target_state = 0;
-					dialog_start();
-					menu_state = -1;
+				else {
+					_target_alpha -= 0.04;
+					if _target_retract_method == 0 _target_xscale -= 0.03;
+					else _target_yscale -= 0.03;
+					
+					if _target_xscale < 0.08 or _target_yscale < 0.08 {
+						_target_state = 0;
+						dialog_start();
+						menu_state = -1;
+					}
 				}
+				
+				Target.side = _target_side;
+				Target.time = _target_time;
+				Target.xscale = _target_xscale;
+				Target.yscale = _target_yscale;
+				Target.frame = _target_frame;
+				Target.alpha = _target_alpha;
 			}
+			
+			Target.state = _target_state;
 
-			draw_sprite_ext(sprTargetBG, 0, 320, 320, _target_xscale, _target_yscale, 0, c_white, _target_alpha);
-			draw_sprite_ext(sprTargetAim, _target_frame, _aim_target_x, 320, _aim_scale, _aim_scale, _aim_angle, _aim_color, 1);
-
-			Target.side = _target_side;
-			Target.time = _target_time;
-			Target.xscale = _target_xscale;
-			Target.yscale = _target_yscale;
-			Target.frame = _target_frame;
-			Target.alpha = _target_alpha;
+			Aim.scale = _aim_scale;
+			Aim.color = _aim_color;
+			Aim.Time = _aim_time;
 		}
-		Target.state = _target_state;
-
-		Aim.scale = _aim_scale;
-		Aim.angle = _aim_angle;
-		Aim.color = _aim_color;
 	}
 	if menu_state = MENU_STATE.FLEE
 	{
@@ -312,12 +580,7 @@ var _button_spr =	button_spr,
 for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 {
 	// If no item left then item button commit gray
-	if i == 2
-	{
-		var ItemIsEmpty = Item_Space() <= 0;
-		if ItemIsEmpty
-			button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
-	}
+	if Item_Space() <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 
 	// Check if the button is chosen
 	var select = (_menu == i) and _state >= 0 and _state != -1

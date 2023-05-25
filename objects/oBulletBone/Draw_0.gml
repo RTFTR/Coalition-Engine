@@ -7,7 +7,8 @@ var _x = x,
 var _angle = image_angle + axis_angle + len_angle_extra,
 	_alpha = image_alpha,
 	_length = length / 14,
-	Length = lengthdir_xy(length / 2, _angle);
+	LengthX = length / 2 * dcos(_angle),
+	LengthY = length / 2 * -dsin(_angle);
 
 image_xscale = _length;
 image_yscale = 1;
@@ -27,12 +28,12 @@ Battle_Masking_End();
 if global.show_hitbox
 {
 	draw_set_color(c_red);
-	draw_line_width(x + Length.x, y + Length.y, x - Length.x, y - Length.y, 5)
+	draw_line_width(x + LengthX, y + LengthY, x - LengthX, y - LengthY, 5)
 	draw_set_color(c_white);
 }
 
 //Collision
-if collision_line(x + Length.x, y + Length.y, x - Length.x,y - Length.y, oSoul, 0, 0)
+if collision_line(x + LengthX, y + LengthY, x - LengthX,y - LengthY, oSoul, 0, 0)
 and image_alpha >= 1
 {
 	var collision = true;

@@ -45,13 +45,12 @@ function Initialize()
 	global.inv = 2; // Invincibility frames
 	
 	//Grazing
-	global.EnableGrazing = true;
+	global.EnableGrazing = false;
 	global.TP = 0;
 	
 	//Items
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
-	for(var i = 0; i <= ITEM_COUNT; ++i)
-		global.item_uses_left[i] = 1;
+	global.item_uses_left = array_create(ITEM_COUNT, 1);
 	global.item_uses_left[ITEM.PIE] = 2;
 	
 	//Spare
@@ -107,16 +106,17 @@ function Initialize()
 		DefenseItem :	global.SaveFile[? "Arm"],
 		Kills :			global.SaveFile[? "Kills"],
 	}
+	global.data.AttackItem = "Burnt Pan"
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
 	
 	for (var i = 0; i < 10; i++) {
 		for (var ii = 0; ii < 3; ii++)
-			global.Box[ii, i] = global.SaveFile[? "Box "+string(i) + "_" + string(ii)];
+			global.Box[ii, i] = global.SaveFile[? "Box " + string(i) + "_" + string(ii)];
 		if i < 8
 		{
-			global.item[i] = global.SaveFile[? ("Item "+string(i))];
-			global.cell[i] = global.SaveFile[? ("Cell "+string(i))];
+			global.item[i] = global.SaveFile[? ("Item " + string(i))];
+			global.cell[i] = global.SaveFile[? ("Cell " + string(i))];
 		}
 	}
 	
