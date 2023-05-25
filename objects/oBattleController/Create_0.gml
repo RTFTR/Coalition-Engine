@@ -1,4 +1,5 @@
-
+texturegroup_load("texbattle");
+audio_group_load(audgrpbattle);
 menu_state = 0;
 battle_state = 0;
 battle_turn = 0;

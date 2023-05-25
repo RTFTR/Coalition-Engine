@@ -11,29 +11,26 @@ type = 0;
 function add_vert(X, Y, Z, list)
 {
 	list ??= vert_list;
-	var _prop = ds_list_create();
-	_prop = [X, Y, Z];
+	var _prop = [X, Y, Z];
 	array_push(list, _prop);
 }
 
 function update_vert()
 {
 	vert_list_draw = [];
+	var X, Y, Z, XX, YY, ZZ;
 	for (var i = 0, n = array_length(vert_list); i < n; i++)
 	{
 		_prop = vert_list[i];
-		var X = _prop[0],
-			Y = _prop[1],
-			Z = _prop[2];
-		X *= scalex;
-		Y *= scaley;
-		Z *= scalez;
-		var YY = Y * dcos(angles[0]) - Z * dsin(angles[0]),
-			ZZ = Y * dsin(angles[0]) + Z * dcos(angles[0]);
+		X = _prop[0] * scalex;
+		Y = _prop[1] * scaley;
+		Z = _prop[2] * scalez;
+		YY = Y * dcos(angles[0]) - Z * dsin(angles[0]);
+		ZZ = Y * dsin(angles[0]) + Z * dcos(angles[0]);
 		Y = YY;
 		Z = ZZ;
 		ZZ = Z * dcos(angles[1]) - X * dsin(angles[1]);
-		var XX = Z * dsin(angles[1]) + X * dcos(angles[1]);
+		XX = Z * dsin(angles[1]) + X * dcos(angles[1]);
 		Z = ZZ;
 		X = XX;
 		XX = X * dcos(angles[2]) - Y * dsin(angles[2]);

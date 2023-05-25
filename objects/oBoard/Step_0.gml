@@ -1,4 +1,5 @@
 image_angle += rotate;
+if !surface_exists(surface) surface = surface_create(640, 480);
 
 // Frames
 var _frame_x = frame_x,

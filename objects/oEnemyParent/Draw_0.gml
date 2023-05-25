@@ -76,7 +76,7 @@ if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
 		CornerPosition[3] = CornerPosition[2] + dialog_size[3];
 	for (var i = 0; i < 4; ++i) {
 		draw_sprite_ext(CornerSprite, 0, CornerPosition[2 + (i % 2)], CornerPosition[i >= 2],
-							(i % 2 ? -1 :1), (i < 2 ? 1 : -1), 0, dialog_box_color, 1);
+							(i % 2 ? -1 : 1), (i < 2 ? 1 : -1), 0, dialog_box_color, 1);
 	}
 	draw_set_color(c_black);
 	draw_line_width(CornerPosition[2] + CornerWidth - 1, CornerPosition[0],

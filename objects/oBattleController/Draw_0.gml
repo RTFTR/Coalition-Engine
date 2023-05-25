@@ -354,7 +354,7 @@ if battle_state == BATTLE_STATE.MENU {
 						}
 						else
 						{
-							with enemy_instance[menu_choice[0]]
+							with enemy_instance[target_option]
 							{
 								is_miss = true;
 								is_being_attacked = true;

@@ -4,6 +4,8 @@
   "name": "Coalition Engine 2022",
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
+    {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audgrpbattle","targets":-1,},
+    {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audgrpoverworld","targets":-1,},
   ],
   "configs": {
     "children": [],
@@ -698,5 +700,7 @@
   ],
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"targets":-1,},
+    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"texbattle","autocrop":true,"border":2,"compressFormat":"bz2","directory":"Textures","groupParent":null,"isScaled":true,"loadType":"dynamicpages","mipsToGenerate":0,"targets":-1,},
+    {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"texoverworld","autocrop":true,"border":2,"compressFormat":"bz2","directory":"Textures","groupParent":null,"isScaled":true,"loadType":"dynamicpages","mipsToGenerate":0,"targets":-1,},
   ],
 }

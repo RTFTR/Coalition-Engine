@@ -61,7 +61,6 @@
     {"name":"Battle","order":6,"path":"folders/Scripts/Battle.yy",},
     {"name":"Bullet","order":5,"path":"folders/Scripts/Bullet.yy",},
     {"name":"compatibility","order":14,"path":"folders/Scripts/compatibility.yy",},
-    {"name":"TurboGML","order":17,"path":"folders/Scripts/TurboGML.yy",},
     {"name":"Sequences","order":11,"path":"folders/Sequences.yy",},
     {"name":"Shaders","order":6,"path":"folders/Shaders.yy",},
     {"name":"Sounds","order":3,"path":"folders/Sounds.yy",},

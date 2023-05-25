@@ -1,16 +1,18 @@
 WarnTimer++;
 if !(WarnTimer % 5) and time_warn
 {
-	warn_color = warn_color == c_red ? c_yellow : c_red;
-	warn_alpha_filled = warn_alpha_filled == 0.5 ? 0.25 : 0.5;
+	var change = (WarnTimer % 10) == 5
+	warn_color = change ? c_yellow : c_red;
+	warn_alpha_filled = change ? 0.25 : 0.5;
 }
 
 if state == 2
 {
+	var dir_ang_x = -dsin(dir);
+	var dir_ang_y = dcos(dir);
 	if !timer and sound_create
 	{
-		audio_stop_sound(snd_bonewall);
-		audio_play_sound(snd_bonewall, 50, false);
+		audio_play(snd_bonewall);
 	}
 	else
 	{
@@ -18,21 +20,21 @@ if state == 2
 		{
 			var spd = floor((height) / time_move);
 			
-			x -= lengthdir_x(spd, dir);
-			y -= lengthdir_y(spd, dir);
+			x -= spd * dir_ang_y;
+			y -= spd * dir_ang_x;
 		}
 		if (timer >= time_move and timer <= time_move + time_stay)
 		{
-			x = target_x - lengthdir_x(height, dir);
-			y = target_y - lengthdir_y(height, dir);
+			x = target_x - height * dir_ang_y;
+			y = target_y - height * dir_ang_x;
 		}
 		if timer > time_move + time_stay
 		{
 			var spd = floor(height / time_move),
 				kill_check = false;
 			
-			x += lengthdir_x(spd, dir);
-			y += lengthdir_y(spd, dir);
+			x += spd * dir_ang_y;
+			y += spd * dir_ang_x;
 			switch dir
 			{
 				case DIR.UP:

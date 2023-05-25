@@ -2,8 +2,6 @@ var _color = image_blend,
 	_angle = image_angle,
 	_alpha = image_alpha;
 
-if !surface_exists(surface) surface = surface_create(640, 480);
-
 surface_set_target(surface);
 draw_clear_alpha(c_white, 0);
 draw_clear_alpha(c_black, 0);
@@ -20,12 +18,11 @@ for (var i = 0; i < 4; ++i)
 
 //Drawing of the Cover Board
 for (var i = 0, n = instance_number(oBoardCover); i < n; ++i) {
-	var BoardCoverID = instance_find(oBoardCover, i),
-		l5d = [lengthdir_x(5, image_angle), lengthdir_y(5, image_angle)];
+	var BoardCoverID = instance_find(oBoardCover, i);
 	
 	draw_surface_part(BoardCoverID.surface, bg_x, bg_y, bg_w + 10, bg_h + 10,
-						x - lengthdir_x(bg_w / 2, image_angle) - l5d[0],
-						y - lengthdir_x(bg_h / 2, image_angle) - l5d[1]);
+						x - lengthdir_x(bg_w / 2, image_angle) - 5 * dcos(image_angle),
+						y - lengthdir_x(bg_h / 2, image_angle) - 5 * -dsin(image_angle));
 }
 
 image_blend = _color;

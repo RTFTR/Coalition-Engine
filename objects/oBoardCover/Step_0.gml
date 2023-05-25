@@ -1,4 +1,5 @@
 image_angle += rotate;
+if !surface_exists(surface) surface = surface_create(640, 480);
 
 // Frames
 var _frame_x = frame_x,
@@ -54,18 +55,17 @@ frame_h = _frame_h;
 //Check if soul is colliding
 var soul = oSoul,
 	_angle = image_angle,
-	Distances = [
-		sqrt(sqr(right) + sqr(up)),
-		sqrt(sqr(left)  + sqr(up)),
-		sqrt(sqr(left)  + sqr(down)),
-		sqrt(sqr(right) + sqr(down)),
-	],
+	//Distances from center of board
+	UR = point_distance(0, 0, right, up), 
+	LR = point_distance(0, 0, left, up),
+	LD = point_distance(0, 0, left, down),
+	RD = point_distance(0, 0, right, down),
 	//Corner locations
 	corners = [
-		[x + lengthdir_x(Distances[0] - 2,  _angle - 45),  y + lengthdir_y(Distances[0] + 10, _angle-45)],
-		[x + lengthdir_x(Distances[1] - 2,  _angle + 45),  y + lengthdir_y(Distances[1] + 10, _angle+45)],
-		[x + lengthdir_x(Distances[2] + 15, _angle + 135), y + lengthdir_y(Distances[2] + 10, _angle+135)],
-		[x + lengthdir_x(Distances[3] + 15, _angle + 225), y + lengthdir_y(Distances[3] + 10, _angle+225)],
+		[x + (UR - 2)  * dcos(_angle - 45),  y + (UR + 10) * -dsin(_angle - 45)],
+		[x + (LR - 2)  * dcos(_angle + 45),  y + (LR + 10) * -dsin(_angle + 45)],
+		[x + (LD + 15) * dcos(_angle + 135), y + (LD + 10) * -dsin(_angle + 135)],
+		[x + (RD + 15) * dcos(_angle + 225), y + (RD + 10) * -dsin(_angle + 225)],
 	];
 contains_soul = rectangle_in_triangle(soul.x - 8, soul.y - 8, soul.x + 8, soul.y + 8,
 					corners[0, 0], corners[0, 1],

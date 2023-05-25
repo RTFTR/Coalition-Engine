@@ -13,6 +13,7 @@ if active
 		color_outline = c_white;
 	if type == 1 color = c_aqua;
 	if type == 2 color = c_orange;
+	color_outline = color;
 	
 	var board = oBoard,
 		board_x = board.x,
@@ -39,12 +40,12 @@ if active
 			if dir == DIR.UP
 			{
 				y1 = board_u + 2;
-				y2 = board_u + height - 2;
+				y2 = board_u + height - 2 - 5;
 			}
 			if dir == DIR.DOWN
 			{
 				y1 = board_d - 2;
-				y2 = board_d - height;
+				y2 = board_d - height + 5;
 			}
 		}
 		if dir == DIR.LEFT or dir == DIR.RIGHT
@@ -55,12 +56,12 @@ if active
 			if dir == DIR.LEFT
 			{
 				x1 = board_l + 2;
-				x2 = board_l + height - 2;
+				x2 = board_l + height - 2 + 5;
 			}
 			if dir == DIR.RIGHT
 			{
 				x1 = board_r - 2;
-				x2 = board_r - height;
+				x2 = board_r - height - 5;
 			}
 		}
 			
@@ -151,8 +152,8 @@ if active
 			// Hitbox
 			if global.show_hitbox
 			{
-				draw_set_color(c_red)
-				draw_rectangle(pos[0] - 10, board_u - 10, pos[1] + 10, board_d + 10, false)
+				draw_set_color(c_red);
+				draw_rectangle(pos[0] - 10, board_u - 10, pos[1] + 10, board_d + 10, false);
 			}
 		}
 			

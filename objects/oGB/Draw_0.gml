@@ -21,22 +21,6 @@ if state = 4
 		_exit_timer = timer_exit,
 		_size = beam_scale;
 	
-	_blast_timer++;
-	_exit_timer++;
-	_end_point += speed;
-	if _exit_timer >= time_stay and _exit_timer < time_stay + 10 speed += 0.5;
-	else if (_exit_timer >= time_stay + 10 and !check_outside()) speed *= 1.1;
-	
-	if _blast_timer < 10 _size += ((30 * _yscale) / 8);
-	
-	if _blast_timer >= 10 + time_blast
-	{
-		_size *= sqrt(0.8);
-		_alpha -= 0.05;
-		
-		if _size <= 2 destroy = 1;
-	}
-	
 	var beam_siner = sin(_blast_timer / pi) * _size / 4;
 	
 	var rx = 0,
@@ -44,25 +28,27 @@ if state = 4
 	
 	draw_set_alpha(_alpha);
 	var pre_col = color;
+	var cosx = dcos(image_angle);
+	var sinx = -dsin(image_angle);
 	draw_set_color(color);
-	var xs = lengthdir_x(35 * _xscale, image_angle),
-		ys = lengthdir_y(35 * _xscale, image_angle),
-		xe = lengthdir_x(1200 + _end_point, image_angle),
-		ye = lengthdir_y(1200 + _end_point, image_angle);
+	var xs = 35 * _xscale * cosx,
+		ys = 35 * _xscale * sinx,
+		xe = (1200 + _end_point) * cosx,
+		ye = (1200 + _end_point) * sinx;
 	
 	draw_line_width(x + xs + rx, y + ys + ry, x + xe + rx, y + ye + ry, _size + beam_siner);
 	
-	var xa = lengthdir_x(25 * _xscale, image_angle),
-		ya = lengthdir_y(25 * _xscale, image_angle),
-		xb = lengthdir_x(30 * _xscale, image_angle),
-		yb = lengthdir_y(30 * _xscale, image_angle);
+	var xa = 25 * _xscale * cosx,
+		ya = 25 * _xscale * sinx,
+		xb = 30 * _xscale * cosx,
+		yb = 30 * _xscale * sinx;
 	
 	draw_line_width(x + xs + rx, y + ys + ry, x + xa + rx, y + ya + ry, (_size / 2) + beam_siner);
 	draw_line_width(x + xs + rx, y + ys + ry, x + xb + rx, y + yb + ry, (_size / 1.25) + beam_siner);
 	
 	color = pre_col;
-	var collisiondir_x = lengthdir_x(1, image_angle - 90),
-		collisiondir_y = lengthdir_y(1, image_angle - 90);
+	var collisiondir_x = dcos(image_angle - 90),
+		collisiondir_y = -dsin(image_angle - 90);
 	if global.inv <= 0
 	{
 		for (var c = 0; c < _size / 2.25; c++)
@@ -103,6 +89,7 @@ if state = 4
 	
 	image_xscale = _xscale;
 	image_yscale = _yscale;
+	image_blend = color;
 	
 	timer_blast = _blast_timer;
 	timer_exit = _exit_timer;
@@ -111,7 +98,7 @@ if state = 4
 }
 
 draw_set_alpha(1);
-draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, color, image_alpha);
+draw_self()
 draw_set_color(c_white);
 Battle_Masking_End();
 

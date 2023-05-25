@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.6.2 (Eden)
+small optimise
+changed some sprites and audio to its own group for faster loading if project gets bigger
+
 v4.6.1 (Eden)
 updated multibar
 still not fully functional but it works

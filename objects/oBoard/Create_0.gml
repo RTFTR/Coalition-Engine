@@ -26,3 +26,5 @@ point_y = 0;
 
 rotate = 0;
 
+//Board frame color
+image_blend = c_white;

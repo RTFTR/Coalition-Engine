@@ -12,11 +12,8 @@ if state = 0
 	
 	if charge_sound
 	{
-		audio_stop_sound(snd_gb_charge);
-		var beam_sfx = audio_play_sound(snd_gb_charge,50,0);
-		audio_sound_pitch(beam_sfx,1.2);
-	
-		charge_sound = 0;
+		audio_play(snd_gb_charge, true, false, 1, 1.2);
+		charge_sound = false;
 	}
 	
 	if _timer <= time_move
@@ -25,9 +22,9 @@ if state = 0
 		_y += (_target_y - _y) * (5 / time_move);
 		_angle += (_target_angle - _angle) * (5 / time_move);
 		
-		_x += sign(_target_x - _x) * 0.5;
-		_y += sign(_target_y - _y) * 0.5;
-		_angle += sign(_target_angle - _angle) * 0.5;
+		_x += sign(_target_x - _x) / 2;
+		_y += sign(_target_y - _y) / 2;
+		_angle += sign(_target_angle - _angle) / 2;
 		
 		if abs(_x - _target_x) < 1.5  _x = _target_x;
 		if abs(_y - _target_y) < 1.5  _y = _target_y;
@@ -89,13 +86,50 @@ if state == 4
 			oGlobal.RGBShake = 5 * _yscale;
 		if release_sound
 		{
-			audio_stop_sound(snd_gb_release);
-			audio_play_sound(snd_gb_release, 50, 0, 1, 0, 1.2);
+			audio_play(snd_gb_release, true, 0, 1, 1.2);
+			audio_play(snd_gb_release2, true, 0, 0.8, 1.2);
 	
-			audio_stop_sound(snd_gb_release2);
-			audio_play_sound(snd_gb_release2, 50, 0, 0.8, 0, 1.2);
-	
-			release_sound = 0;
+			release_sound = false;
 		}
 	}
+	var _x = x,
+		_y = y,
+		_alpha = beam_alpha,
+		
+		_xscale = image_xscale,
+		_end_point = e,
+	
+		_blast_timer = timer_blast,
+		_exit_timer = timer_exit,
+		_size = beam_scale;
+	
+	_blast_timer++;
+	_exit_timer++;
+	_end_point += speed;
+	if _exit_timer >= time_stay and _exit_timer < time_stay + 10 speed += 0.5;
+	else if (_exit_timer >= time_stay + 10 and !check_outside()) speed *= 1.1;
+	
+	if _blast_timer < 10 _size += ((30 * _yscale) / 8);
+	
+	if _blast_timer >= 10 + time_blast
+	{
+		_size *= sqrt(0.8);
+		_alpha -= 0.05;
+		
+		if _size <= 2 destroy = 1;
+	}
+	
+	var beam_siner = sin(_blast_timer / pi) * _size / 4;
+	x = _x;
+	y = _y;
+	image_angle = _angle;
+	beam_alpha = _alpha;
+	
+	image_xscale = _xscale;
+	image_yscale = _yscale;
+	
+	timer_blast = _blast_timer;
+	timer_exit = _exit_timer;
+	beam_scale = _size;
+	e = _end_point;
 }

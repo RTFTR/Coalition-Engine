@@ -1,28 +1,22 @@
-// Do not put in step, it breaks
+//@desc True creation
 active = true;
 state = 1;
 var board = oBoard,
 	board_x = board.x,
 	board_y = board.y,
-	board_margin = [board.up, board.down, board.left, board.right],
-	board_u = board_y - board_margin[0],
-	board_d = board_y + board_margin[1],
-	board_l = board_x - board_margin[2],
-	board_r = board_x + board_margin[3];
+	board_u = board_y - board.up,
+	board_d = board_y + board.down,
+	board_l = board_x - board.left,
+	board_r = board_x + board.right;
 if dir == DIR.UP or dir == DIR.DOWN
 {
 	x = board_x;
-	
-	if dir == DIR.UP   y = board_u - height + 2;
-	if dir == DIR.DOWN y = board_d + height - 2;
+	y = (dir == DIR.UP) ? board_u - height : board_d + height;
 }
 if dir == DIR.LEFT or dir == DIR.RIGHT
 {
 	y = board_y;
-	
-	if dir == DIR.LEFT  x = board_l - height + 4;
-	if dir == DIR.RIGHT x = board_r + height - 4;
-	
+	x = (dir == DIR.LEFT) ? board_l - height : board_r + height;
 }
 
 target_x = x;
@@ -30,7 +24,6 @@ target_y = y;
 
 if sound_warn
 {
-	audio_stop_sound(snd_warning);
-	audio_play_sound(snd_warning, 50, false);
+	audio_play(snd_warning, true);
 	sound_warn = false;
 }
