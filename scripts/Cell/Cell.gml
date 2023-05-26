@@ -30,11 +30,15 @@ function Is_CellABox(slot) {
 ///@param {real} slot The slot to get the data of
 function Cell_GetBoxID(slot) {
 	var NameToID = ["Dimensional Box A"],
-		ID = [1, 2];
-	for (var i = 0, Name = Cell_GetText(slot), target = 0, n = array_length(NameToID); i < n; ++i)
+		ID = [1, 2],
+		i = 0, Name = Cell_GetText(slot), target = 0;
+	repeat(array_length(NameToID))
+	{
 		if Name == NameToID[i] {
-		target = 1;
-		continue
+			target = 1;
+			continue
+		}
+		i++;
 	}
 	return (Is_CellABox(slot) ? ID[target] : 0);
 }

@@ -1,3 +1,14 @@
+#region Functions
+function ResetMenuChoices()
+{
+	var i = 0;
+	repeat(array_length(menu_choice) - 1)
+	{
+		menu_choice[i] = 0;
+		i++;
+	}
+}
+#endregion
 #region // Menu lerping
 if instance_exists(oOWPlayer)
 {
@@ -62,8 +73,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 			menu = false;
 			global.interact_state = INTERACT_STATE.IDLE;
 			oOWPlayer.moveable = true;
-			for (var i = 0, n = array_length(menu_choice) - 1; i < n; i++)
-				menu_choice[i] = 0;
+			ResetMenuChoices();
 			audio_play(snd_menu_cancel);
 		}
 	}
@@ -136,8 +146,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 				menu_state = MENU_MODE.IDLE;
 				global.interact_state = INTERACT_STATE.IDLE;
 				oOWPlayer.moveable = true;
-				for (var i = 0, n = array_length(menu_choice) - 1; i < n; i++)
-					menu_choice[i] = 0
+				ResetMenuChoices();
 			}
 		}
 	}
@@ -219,8 +228,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 				box_choice = [0, 0]; // Reset box option
 				menu_state = MENU_MODE.CELL;
 				global.interact_state = INTERACT_STATE.MENU;
-				for (var i = 0, n = array_length(menu_choice) - 1; i < n; i++)
-					menu_choice[i] = 0;
+				ResetMenuChoices();
 			}
 		}
 	}

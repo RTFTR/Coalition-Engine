@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v4.6.3 (Eden)
+multibar weapons can deal damage now
+best logic real no fake
+optimised more codes
+dust is now optimised get real
+
 v4.6.2 (Eden)
 small optimise
 changed some sprites and audio to its own group for faster loading if project gets bigger

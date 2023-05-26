@@ -1,5 +1,5 @@
 
-/*------------------------------------------------------------------------------------------
+/*--------------------------------------------------------------------------------------------
 	TurboGML. A complete library with must-have functionality.
 	- Library by FoxyOfJungle (Mozart Junior). (C) 2023, MIT License.
 	
@@ -11,12 +11,13 @@
 	
 	..............................
 	Special Thanks, contributions:
-	YellowAfterLife, Cecil, TheSnidr, Xot, TheSnidr, Shaun Spalding, gnysek, icuurd12b42
+	YellowAfterLife, Cecil, TheSnidr, Xot, Shaun Spalding, gnysek, icuurd12b42, DragoniteSpam,
+	Grisgram.
 	(authors' names written in comment inside the functions used)
 	
 	Supporters:
 	RookTKO
--------------------------------------------------------------------------------------------*/
+---------------------------------------------------------------------------------------------*/
 
 /*
 	MIT License
@@ -74,7 +75,7 @@ function linearstep(minv, maxv, value) {
 /// @param {Real} minv The value of the lower edge of the Hermite function.
 /// @param {Real} maxv The value of the upper edge of the Hermite function.
 /// @param {Real} value The source value for interpolation.
-/// @returns {Real} Description
+/// @returns {Real}
 function smoothstep(minv, maxv, value) {
 	var t = clamp((value - minv) / (maxv - minv), 0, 1);
 	return t * t * (3 - 2 * t);
@@ -83,33 +84,39 @@ function smoothstep(minv, maxv, value) {
 /// @desc 0 is returned if value < edge, and 1 is returned otherwise.
 /// @param {Real} edge The location of the edge of the step function.
 /// @param {Real} value The value to be used to generate the step function.
-/// @returns {real} Description
+/// @returns {real}
 function step(edge, value) {
 	return (value < edge) ? 0 : 1;
 }
 
 /// @desc Returns the cosine, but with a normalized range of 0 to 1
-/// @param {real} radians_angle Description
-/// @returns {real} Description
+/// @param {real} radians_angle Angle in radians.
+/// @returns {real}
 function cos01(radians_angle) {
 	gml_pragma("forceinline");
-	return cos(radians_angle) * 0.5 + 0.5;
+	return (cos(radians_angle) * 0.5 + 0.5);
 }
 
 /// @desc Returns the sine, but with a normalized range of 0 to 1
-/// @param {real} radians_angle Description
-/// @returns {real} Description
+/// @param {real} radians_angle Angle in radians.
+/// @returns {real}
 function sin01(radians_angle) {
 	gml_pragma("forceinline");
-	return sin(radians_angle) * 0.5 + 0.5;
+	return (sin(radians_angle) * 0.5 + 0.5);
 }
 
 /// @desc Returns the tangent, but with a normalized range of 0 to 1
-/// @param {real} radians_angle Description
-/// @returns {real} Description
+/// @param {real} radians_angle Angle in radians.
+/// @returns {real}
 function tan01(radians_angle) {
 	gml_pragma("forceinline");
-	return sin(radians_angle) * 0.5 + 0.5;
+	return (tan(radians_angle) * 0.5 + 0.5);
+}
+
+/// @desc Returns the reciprocal of the square root of "val".
+/// @param {Real} Value
+function inverse_sqrt(val) {
+	return 1 / sqrt(abs(val));
 }
 
 /// @desc Calculates the distance traveled by an object in free fall under the influence of friction
@@ -275,6 +282,10 @@ function point_in_arc(px, py, x, y, angle, dist, fov) {
 	return (point_distance(px, py, x, y) < dist && abs(angle_difference(angle, point_direction(x, y, px, py))) < fov/2);
 }
 
+/// @desc This function prevents it from returning 0, returning another value instead, if this happen.
+/// @param {Real} value The value.
+/// @param {Real} zero_value Value to return.
+/// @returns {real} 
 function non_zero(value, zero_value=1) {
 	return value != 0 ? value : zero_value;
 }
@@ -285,10 +296,12 @@ function is_fractional(number) {
 
 function is_even_number(number) {
 	return (number & 1 == 0);
+	//return (number % 2 == 0);
 }
 
 function is_odd_number(number) {
 	return (number & 1 == 1);
+	//return (number % 2 == 1);
 }
 
 function is_prime_number(number) {
@@ -301,12 +314,18 @@ function is_prime_number(number) {
 	return true;
 }
 
-function pow2_next(val) {
-	return 1 << ceil(log2(val));
+/// @desc Returns the next power of two number, based on the value.
+/// @param {real} value The value to check.
+/// @returns {real}
+function pow2_next(value) {
+	return 1 << ceil(log2(value));
 }
 
-function pow2_previous(val) {
-	return 1 << floor(log2(val));
+/// @desc Returns the previous power of two number, based on the value.
+/// @param {real} value The value to check.
+/// @returns {real}
+function pow2_previous(value) {
+	return 1 << floor(log2(value));
 }
 
 function fibonacci(n) {
@@ -1679,10 +1698,8 @@ function gui_to_room_dimension_ext(x1, y1, camera, angle, gui_width, gui_height,
 }
 
 
-/// @desc Transforms a 2D coordinate (in window space) to a 3D vector.
-/// Returns an array of the following format:
-/// [dx, dy, dz, ox, oy, oz]
-/// where [dx, dy, dz] is the direction vector and [ox, oy, oz] is the origin of the ray.
+/// @desc Transforms a 2D coordinate (in window space) to a 3D vector (x, y, z). Z is the camera's near plane.
+/// 
 /// Works for both orthographic and perspective projections.
 function screen_to_world_dimension(view_mat, proj_mat, xx, yy) {
 	// credits: TheSnidr
@@ -1711,15 +1728,51 @@ function screen_to_world_dimension(view_mat, proj_mat, xx, yy) {
 	}
 	var _xx = _matrix[0] * _matrix[5] / -_matrix[2] + _matrix[3];
 	var _yy = _matrix[1] * _matrix[5] / -_matrix[2] + _matrix[4];
-	return new Vector2(_xx, _yy);
+	return new Vector3(_xx, _yy, camera_get_near_plane(proj_mat));
 }
 
 
-/// @desc Transforms a 3D coordinate to a 2D coordinate. Returns a Vector2 with x and y.
-/// Returns [-1, -1] if the 3D point is behind the camera
+/// Returns a ray whose origin is the camera position (ray origin) Vector3(x, y, z). It also returns the direction of the vector Vector3(x, y, z).
+///
+/// Works for both orthographic and perspective projections.
+function screen_to_ray(view_mat, proj_mat, xx, yy) {
+	// credits: TheSnidr / DragoniteSpam / FoxyOfJungle
+	var _mx = 2 * (xx / window_get_width() - 0.5) / proj_mat[0];
+	var _my = 2 * (yy / window_get_height() - 0.5) / proj_mat[5];
+	var _cam_x = - (view_mat[12] * view_mat[0] + view_mat[13] * view_mat[1] + view_mat[14] * view_mat[2]);
+	var _cam_y = - (view_mat[12] * view_mat[4] + view_mat[13] * view_mat[5] + view_mat[14] * view_mat[6]);
+	var _cam_z = - (view_mat[12] * view_mat[8] + view_mat[13] * view_mat[9] + view_mat[14] * view_mat[10]);
+	var _matrix = undefined; // [dx, dy, dz, ox, oy, oz]
+	if (proj_mat[15] == 0) {
+	// perspective projection
+	_matrix = [view_mat[2]  + _mx * view_mat[0] + _my * view_mat[1],
+			view_mat[6]  + _mx * view_mat[4] + _my * view_mat[5],
+			view_mat[10] + _mx * view_mat[8] + _my * view_mat[9],
+			_cam_x,
+			_cam_y,
+			_cam_z];
+	} else {
+	// orthographic projection
+	_matrix = [view_mat[2],
+			view_mat[6],
+			view_mat[10],
+			_cam_x + _mx * view_mat[0] + _my * view_mat[1],
+			_cam_y + _mx * view_mat[4] + _my * view_mat[5],
+			_cam_z + _mx * view_mat[8] + _my * view_mat[9]];
+	}
+	return {
+		origin : new Vector3(_matrix[3], _matrix[4], _matrix[5]),
+		direction : new Vector3(_matrix[0], _matrix[1], _matrix[2]),
+	}
+}
+
+
+/// @desc Transforms a 3D coordinate to a 2D coordinate. Returns a Vector2(x, y).
+/// Returns Vector2(-1, -1) if the 3D point is behind the camera.
+///
 /// Works for both orthographic and perspective projections.
 function world_to_screen_dimension(view_mat, proj_mat, xx, yy, zz, normalized=false) {
-	// credits: TheSnidr
+	// credits: TheSnidr / FoxyOfJungle
 	var _w = view_mat[2] * xx + view_mat[6] * yy + view_mat[10] * zz + view_mat[14];
 	if (_w <= 0) return new Vector2(-1, -1);
 	var _cx, _cy;
@@ -1734,9 +1787,9 @@ function world_to_screen_dimension(view_mat, proj_mat, xx, yy, zz, normalized=fa
 	}
 	
 	if (normalized) {
-		return new Vector2((0.5+0.5*_cx), (0.5+0.5*_cy));
+		return new Vector2((_cx*0.5+0.5), (0.5+0.5*_cy));
 	} else {
-		return new Vector2((0.5+0.5*_cx) * window_get_width(), (0.5+0.5*_cy) * window_get_height());
+		return new Vector2((_cx*0.5+0.5) * window_get_width(), (_cy*0.5+0.5) * window_get_height());
 	}
 }
 
@@ -2167,8 +2220,23 @@ function draw_sprite_centered_ext(sprite, subimg, x, y, xscale, yscale, rot, col
 }
 
 
+function draw_surface_centered(surface_id, x, y) {
+	draw_surface(surface_id, x-(surface_get_width(surface_id)/2), y-(surface_get_height(surface_id)/2));
+}
+
+
 function draw_surface_centered_ext(surface_id, x, y, xscale, yscale, rot, col, alpha) {
-	draw_surface_ext(surface_id, x-(surface_get_width(surface_id)/2)*xscale, y-(surface_get_height(surface_id)/2)*yscale, xscale, yscale, rot, col, alpha);
+	//draw_surface_ext(surface_id, x-(surface_get_width(surface_id)/2)*xscale, y-(surface_get_height(surface_id)/2)*yscale, xscale, yscale, rot, col, alpha);
+	var _col = draw_get_color(),
+	_alpha = draw_get_alpha(),
+	_mat = matrix_get(matrix_world);
+	matrix_set(matrix_world, matrix_build(x, y, 0, 0, 0, rot, xscale, yscale, 1));
+	draw_set_color(col);
+	draw_set_alpha(alpha);
+	draw_surface(surface_id, -surface_get_width(surface_id)/2, -surface_get_height(surface_id)/2);
+	draw_set_color(_col);
+	draw_set_alpha(_alpha);
+	matrix_set(matrix_world, _mat);
 }
 
 
@@ -2179,6 +2247,66 @@ function draw_sprite_pos_ext(sprite, subimg, x, y, width, height, xoffset, yoffs
 	var xo = -xoffset, yo = -yoffset;
 	draw_sprite_pos(sprite_index, subimg, xo+skew_x, yo+skew_y, width+xo+skew_x, yo+skew_y, width+xo, height+yo, xo, height+yo, alpha);
 	matrix_set(matrix_world, _current_matrix);
+}
+
+
+function draw_text_shadow(x, y, str, shadow_color=c_black, shadow_alpha=1, shadow_dist_x=1, shadow_dist_y=1) {
+	var _old_col = draw_get_color();
+	var _old_alpha = draw_get_alpha();
+	draw_set_color(shadow_color);
+	draw_set_alpha(shadow_alpha);
+	draw_text(x+shadow_dist_x, y+shadow_dist_y, str);
+	draw_set_color(_old_col);
+	draw_set_alpha(_old_alpha);
+	draw_text(x, y, str);
+}
+
+
+function draw_text_ext_shadow(x, y, str, sep, width, shadow_color=c_black, shadow_alpha=1, shadow_dist_x=1, shadow_dist_y=1) {
+	var _old_col = draw_get_color();
+	var _old_alpha = draw_get_alpha();
+	draw_set_color(shadow_color);
+	draw_set_alpha(shadow_alpha);
+	draw_text_ext(x+shadow_dist_x, y+shadow_dist_y, str, sep, width);
+	draw_set_color(_old_col);
+	draw_set_alpha(_old_alpha);
+	draw_text_ext(x, y, str, sep, width);
+}
+
+
+function draw_text_outline(x, y, str, outline_color=c_black, outline_alpha=1, outline_size=1, fidelity=4) {
+	var _old_col = draw_get_color();
+	var _old_alpha = draw_get_alpha();
+	draw_set_color(outline_color);
+	draw_set_alpha(outline_alpha);
+	var _fid = Tau / fidelity,
+	for(var i = 0; i < Tau; i += _fid) {
+		draw_text(x+cos(i)*outline_size, y-sin(i)*outline_size, str);
+	}
+	draw_set_color(_old_col);
+	draw_set_alpha(_old_alpha);
+	draw_text(x, y, str);
+}
+
+
+function draw_text_outline_gradient(x, y, str, outline_color1=c_black, outline_color2=c_black, outline_color3=c_black, outline_color4=c_black, outline_alpha=1, outline_size=1, fidelity=4) {
+	var _fid = Tau / fidelity,
+	for(var i = 0; i < Tau; i += _fid) {
+		draw_text_color(x+cos(i)*outline_size, y-sin(i)*outline_size, str, outline_color1, outline_color2, outline_color3, outline_color4, outline_alpha);
+	}
+	draw_text(x, y, str);
+}
+
+
+function draw_text_transformed_shadow(x, y, str, xscale, yscale, angle, shadow_color=c_black, shadow_alpha=1, shadow_dist_x=1, shadow_dist_y=1) {
+	var _old_col = draw_get_color();
+	var _old_alpha = draw_get_alpha();
+	draw_set_color(shadow_color);
+	draw_set_alpha(shadow_alpha);
+	draw_text_transformed(x+(shadow_dist_x*xscale), y+(shadow_dist_y*xscale), str, xscale, yscale, angle);
+	draw_set_color(_old_col);
+	draw_set_alpha(_old_alpha);
+	draw_text_transformed(x, y, str, xscale, yscale, angle);
 }
 
 
@@ -2523,6 +2651,41 @@ function texturegroup_debug_draw_sprites(group, scale) {
 	}
 }
 
+
+#endregion
+
+
+#region PARTICLES
+
+function particle_create(x, y, layer_id, particle_asset) {
+	var _part = part_system_create_layer(layer_id, false, particle_asset);
+	part_system_position(_part, x, y);
+	return _part;
+}
+
+function particle_type_create(x, y, part_system, particle_asset, amount) {
+	part_particles_create(part_system, x, y, particle_get_info(particle_asset).emitters[0].parttype.ind, amount);
+}
+
+function particle_move(part_system, x, y) {
+	part_system_position(part_system, x, y);
+}
+
+function particle_set_emission_enabled(part_system, particle_asset, enabled, emitter_index=0) {
+	var _part_info = particle_get_info(particle_asset),
+	_emitter = _part_info.emitters[emitter_index];
+    part_emitter_stream(part_system, _emitter, _emitter.parttype.ind, enabled ? _emitter.number : 0);
+}
+
+function particle_set_emission(part_system, particle_asset, amount, emitter_index=0) {
+	var _part_info = particle_get_info(particle_asset),
+	_emitter = _part_info.emitters[emitter_index];
+	part_emitter_stream(part_system, _emitter, _emitter.parttype.ind, amount);
+}
+
+function particle_pause(part_system, pause) {
+	part_system_automatic_update(part_system, !pause);
+}
 
 #endregion
 
@@ -3064,58 +3227,146 @@ function draw_debug_slider(x, y, width, title, default_value, min_value, max_val
 
 #region AUDIO
 
-function audio_create_stream_wav(file_audio) {
-	if (file_exists(file_audio)) {
-		// headers offset
-		var _header_length = 44,
-		_ho_chunk_id = 0,
-		_ho_chunk_size = 4,
-		_ho_audio_format = 20,
-		_ho_channels_num = 22,
-		_ho_sample_rate = 24,
-		_ho_bps = 34,
-		_ho_subchunk_id2 = 36,
-		_ho_data = 44;
-		
-		var audio_data = {
-			chunk_id : "", // < RIFF >
-			audio_format : 0, // 1 is PCM
-			channels_num : 0,
-			sample_rate : 0, // samples per second
-			bps : 0, // bits per sample (16 or 8)
-		};
-		
-		// read file bytes
-		var _file_buff = buffer_load(file_audio),
-		_file_size = buffer_get_size(_file_buff),
-		_audio_file_buff = buffer_create(_file_size, buffer_fixed, 1),
-		_audio_buff_length = buffer_get_size(_audio_file_buff);
-		buffer_copy(_file_buff, 0, _file_size, _audio_file_buff, 0);
-		buffer_delete(_file_buff);
-		
-		// read header
-		with(audio_data) {
-			for(var i = 0; i <= _header_length; i++) {
-				if (i >= _ho_chunk_id && i < _ho_chunk_size)
-					chunk_id += chr(buffer_peek(_audio_file_buff, i, buffer_u8));
-				if (i >= _ho_audio_format && i < _ho_channels_num)
-					audio_format += buffer_peek(_audio_file_buff, i, buffer_u8);
-				if (i >= _ho_channels_num && i < _ho_sample_rate)
-					channels_num += buffer_peek(_audio_file_buff, i, buffer_u8);
-				if (i == _ho_sample_rate)
-					sample_rate += buffer_peek(_audio_file_buff, i, buffer_u32);
-				if (i >= _ho_bps && i < _ho_subchunk_id2)
-					bps += buffer_peek(_audio_file_buff, i, buffer_u8);
+function audio_load_ogg(file_path) {
+	if (file_exists(file_path)) {
+		if (string_lower(filename_ext(file_path)) == ".ogg") {
+			var audio_data = {
+				format : "ogg",
+				audio : audio_create_stream(file_path),
 			}
-			if (string_lower(chunk_id) != "riff" || audio_format != 1) return -3;
-			var _format = (bps == 8) ? buffer_u8 : buffer_s16,
-			_channels = (channels_num == 2) ? audio_stereo : ((channels_num == 1) ? audio_mono : audio_3d);
-			return audio_create_buffer_sound(_audio_file_buff, _format, sample_rate, _ho_data, _audio_buff_length-_ho_data, _channels);
+			return audio_data;
+		} else {
+			return -3;
 		}
+	}
+	return -1;
+}
+
+
+function audio_load_raw(file_path, sample_rate, bits_per_sample, channels) {
+	if (file_exists(file_path)) {
+		// read file bytes
+		var file_buff = buffer_load(file_path);
+		var _file_size = buffer_get_size(file_buff);
+		var _audio_buff = buffer_create(_file_size, buffer_fixed, 1);
+		buffer_copy(file_buff, 0, _file_size, _audio_buff, 0);
+		buffer_delete(file_buff);
+		
+		// create buffer sound
+		var _format = (bits_per_sample == 8) ? buffer_u8 : buffer_s16;
+		var _channels = (channels == 2) ? audio_stereo : ((channels == 1) ? audio_mono : audio_3d);
+		var _length = _file_size / (sample_rate * channels * bits_per_sample / 8) / 60;
+		
+		// return data
+		var audio_data = {
+			format : "raw",
+			channels : channels,
+			sample_rate : sample_rate,
+			bits_per_sample : bits_per_sample,
+			byte_rate : bits_per_sample / 8,
+			length : _length,
+			kpbs : (sample_rate * bits_per_sample * channels) / 1000,
+			audio : audio_create_buffer_sound(_audio_buff, _format, sample_rate, 0, _file_size, _channels),
+			buffer : _audio_buff,
+		}
+		return audio_data;
 	} else {
 		return -1;
 	}
 	return undefined;
+}
+
+
+function audio_load_wav(file_path) {
+	if (file_exists(file_path)) {
+		// read file bytes
+		var file_buff = buffer_load(file_path);
+		var _file_size = buffer_get_size(file_buff);
+		var _audio_buff = buffer_create(_file_size, buffer_fixed, 1);
+		buffer_copy(file_buff, 0, _file_size, _audio_buff, 0);
+		buffer_delete(file_buff);
+		
+		// header byte offset
+		var _header_length = 44, _ho_chunk_id = 0, _ho_chunk_size = 4, _ho_format = 8, _ho_subchunk_id1 = 12, _ho_subchunk_id1_size = 16,
+		_ho_audio_format = 20, _ho_channels_num = 22, _ho_sample_rate = 24, _ho_byte_rate = 28, _ho_block_align = 32, _ho_bps = 34,
+		_ho_subchunk_id2 = 36, _ho_subchunk_id2_size = 40, _ho_data = 44;
+		
+		// read header
+		var _chunk_id="", _chunk_size=0, _format="", _subchunk_id1="", _subchunk_id1_size=0, _audio_format=0, _channels_num=0,
+		_sample_rate=0, _byte_rate=0, _block_align=0, _bits_per_sample=0, _subchunk_id2="", _subchunk_id2_size=0;
+		
+		var audio_buff_length = buffer_get_size(_audio_buff);
+		for (var i = 0; i <= _header_length; i++) {
+			if (i >= _ho_chunk_id && i < _ho_chunk_size)
+				_chunk_id += chr(buffer_peek(_audio_buff, i, buffer_u8));
+			//if (i == _ho_chunk_size)
+				//_chunk_size += buffer_peek(_audio_buff, i, buffer_u32);
+			if (i >= _ho_format && i < _ho_subchunk_id1)
+				_format += chr(buffer_peek(_audio_buff, i, buffer_u8));
+			//if (i >= _ho_subchunk_id1 && i < _ho_subchunk_id1_size)
+				//_subchunk_id1 += chr(buffer_peek(_audio_buff, i, buffer_u8)); // < fmt >
+			//if (i >= _ho_subchunk_id1_size && i < _ho_audio_format)
+				//_subchunk_id1_size += buffer_peek(_audio_buff, i, buffer_u8);
+			if (i >= _ho_audio_format && i < _ho_channels_num)
+				_audio_format += buffer_peek(_audio_buff, i, buffer_u8); // 1 is PCM
+			if (i >= _ho_channels_num && i < _ho_sample_rate)
+				_channels_num += buffer_peek(_audio_buff, i, buffer_u8);
+			if (i == _ho_sample_rate)
+				_sample_rate += buffer_peek(_audio_buff, i, buffer_u32);
+			//if (i == _ho_byte_rate)
+				//_byte_rate += buffer_peek(_audio_buff, i, buffer_u32);
+			//if (i >= _ho_block_align && i < _ho_bps)
+				//_block_align += buffer_peek(_audio_buff, i, buffer_u8);
+			if (i >= _ho_bps && i < _ho_subchunk_id2)
+				_bits_per_sample += buffer_peek(_audio_buff, i, buffer_u8);
+			//if (i >= _ho_subchunk_id2 && i < _ho_subchunk_id2_size)
+				//_subchunk_id2 += chr(buffer_peek(_audio_buff, i, buffer_u8)); // < DATA >
+			//if (i == _ho_subchunk_id2_size)
+				//_subchunk_id2_size += buffer_peek(_audio_buff, i, buffer_u32);
+		}
+		if (string_lower(_chunk_id) != "riff" || _audio_format != 1) return -3;
+		
+		// create buffer sound
+		var _format = (_bits_per_sample == 8) ? buffer_u8 : buffer_s16;
+		var _channels = (_channels_num == 2) ? audio_stereo : ((_channels_num == 1) ? audio_mono : audio_3d);
+		
+		// return data
+		var audio_data = {
+			format : "wav",
+			channels : _channels_num,
+			sample_rate : _sample_rate,
+			bits_per_sample : _bits_per_sample, // samples per second
+			byte_rate : _bits_per_sample / 8, // bytes per second
+			length : _file_size / (_sample_rate * _channels_num * _bits_per_sample / 8) / 60, // seconds
+			kpbs : (_sample_rate * _bits_per_sample * _channels_num) / 1000,
+			audio : audio_create_buffer_sound(_audio_buff, _format, _sample_rate, _ho_data, audio_buff_length-_ho_data, _channels),
+			buffer : _audio_buff,
+		};
+		return audio_data;
+	} else {
+		return -1;
+	}
+	return undefined;
+}
+
+
+function audio_stream_destroy(stream_data) {
+	if (is_struct(stream_data)) {
+		if (stream_data.format == "ogg") {
+			audio_destroy_stream(stream_data.audio);
+		} else {
+			if (buffer_exists(stream_data.buffer)) {
+				audio_free_buffer_sound(stream_data.audio);
+				buffer_delete(stream_data.buffer);
+			}
+		}
+	}
+}
+
+
+function audio_stream_get_format(stream_data) {
+	if (is_struct(stream_data)) return stream_data.audio.format;
+	return "";
 }
 
 
@@ -3124,12 +3375,13 @@ function audio_create_stream_wav(file_audio) {
 
 #region 3D
 
+// vertex format
 vertex_format_begin();
 vertex_format_add_position_3d();
 vertex_format_add_normal();
 vertex_format_add_texcoord();
-vertex_format_add_colour();
-global.vbf_default_format = vertex_format_end();
+vertex_format_add_color();
+global.__vbf_3d_format = vertex_format_end();
 
 /// @func vertex_add_point(vbuff, xx, yy, zz, nx, ny, nz, u, v, color, alpha)
 function vertex_add_point(vbuff, xx, yy, zz, nx, ny, nz, u, v, color, alpha) {
@@ -3144,7 +3396,7 @@ function vertex_add_point(vbuff, xx, yy, zz, nx, ny, nz, u, v, color, alpha) {
 function model_build_plane(x1, y1, z1, x2, y2, z2, hrepeat, vrepeat, color=c_white, alpha=1) {
 	var _vbuff = vertex_create_buffer();
 	
-	vertex_begin(_vbuff, global.vf_default);
+	vertex_begin(_vbuff, global.__vbf_3d_format);
 	vertex_add_point(_vbuff, x1, y1, z1, 0, 0, 1, 0, 0, color, alpha);
 	vertex_add_point(_vbuff, x2, y1, z1, 0, 0, 1, hrepeat, 0, color, alpha);
 	vertex_add_point(_vbuff, x1, y2, z2, 0, 0, 1, 0, vrepeat, color, alpha);
@@ -3162,7 +3414,7 @@ function model_build_plane(x1, y1, z1, x2, y2, z2, hrepeat, vrepeat, color=c_whi
 function model_build_cube(x1, y1, z1, x2, y2, z2, hrepeat, vrepeat, color=c_white, alpha=1) {
 	var _vbuff = vertex_create_buffer();
 	
-	vertex_begin(_vbuff, global.vf_default);
+	vertex_begin(_vbuff, global.__vbf_3d_format);
 	
 	// top
 	vertex_add_point(_vbuff, x1, y1, z2, 0, 0, 1, 0, 0, color, alpha);
@@ -3266,6 +3518,28 @@ function model_build_cube(x1, y1, z1, x2, y2, z2, hrepeat, vrepeat, color=c_whit
 //	return _vbuff;
 //}
 
+//global.__vbf_debug = vertex_create_buffer();
+
+//vertex_format_begin();
+//vertex_format_add_position_3d();
+//vertex_format_add_color();
+//global.vbf_default_format = vertex_format_end();
+
+
+//function draw_line_3d(x1, y1, z1, x2, y2, z2) {
+//	var _vbf_line = global.__vbf_debug;
+//	vertex_begin(_vbf_line, global.vbf_default_format);
+	
+//	vertex_position_3d(_vbf_line, x1, y1, z1);
+//	vertex_color(_vbf_line, c_white, 1);
+	
+//	vertex_position_3d(_vbf_line, x2, y2, z2);
+//	vertex_color(_vbf_line, c_white, 1);
+	
+//	vertex_end(_vbf_line);
+//}
+
+
 #endregion
 
 
@@ -3354,4 +3628,3 @@ function assert_array_and(condition, values_array) {
 }
 
 #endregion
-

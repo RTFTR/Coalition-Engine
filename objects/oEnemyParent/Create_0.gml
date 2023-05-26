@@ -28,22 +28,24 @@ enemy_sprites = [
 ];
 enemy_sprite_index = [0, 0, 0, 0];
 enemy_sprite_scale = [
-[1, 1],
-[1, 1],
-[1, 1],
+	[1, 1],
+	[1, 1],
+	[1, 1],
 ];
 enemy_sprite_draw_method = [
-"pos",
-"ext",
-"ext",
+	"pos",
+	"ext",
+	"ext",
 ]
 enemy_total_height = 0;
 enemy_max_width = 0
-for (var i = 0, n = array_length(enemy_sprites); i < n; ++i)
+var i = 0;
+repeat(array_length(enemy_sprites))
 {
 	enemy_total_height += sprite_get_height(enemy_sprites[i]) * enemy_sprite_scale[i, 1];
 	enemy_max_width = max(sprite_get_width(enemy_sprites[i]) * enemy_sprite_scale[i, 0],
 							enemy_max_width);
+	++i;
 }
 enemy_sprite_pos = [
 	[-47, -50, 47, -50, 47, 0, -47, 0],
@@ -86,27 +88,50 @@ dodge_method = function()
 	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 35, 25, "x", x - dodge_to, x);
 }
 
-//Dust (AUTOMATICALLY DISABLED)
-if !variable_instance_exists(id, "ContainsDust") ContainsDust = 0;
+//Dust
+ContainsDust = 1;
 
+//Particles aren't used because if a lot of particles are created then the CPU will be abused
+//And the dust amount is on average at least a couple hundred, so drawing in arrays are better
 if ContainsDust {
 	dust_height = 0;
-	dust_amount = enemy_total_height * enemy_max_width;
-	for (var i = 0; i < dust_amount; i += 6)
+	dust_amount = enemy_total_height * enemy_max_width / 6;
+	//Using array create functions to speed up loading time because it's easy to have over 2000 values in the arrays
+	var _f = function()
+	{
+		var dust_speed = random_range(1, 3),
+			dust_direction = random_range(55, 125);
+		return [dust_speed * dcos(dust_direction),
+				dust_speed * -dsin(dust_direction)];
+	}
+	dust_displace = array_create_ext(dust_amount, _f);
+	_f = function()
+	{
+		return random_range(60, 120);
+	}
+	dust_life = array_create_ext(dust_amount, _f);
+	dust_alpha = array_create(dust_amount, 1);
+	_f = function()
+	{
+		return random(360);
+	}
+	dust_angle = array_create_ext(dust_amount, _f);
+	_f = function()
+	{
+		return random_range(1, -1);
+	}
+	dust_rotate = array_create_ext(dust_amount, _f);
+	i = 0;
+	repeat(dust_amount)
 	{
 		dust_pos[i] = [random_range(-enemy_max_width, enemy_max_width) / 2 + x,
-					   round(y - enemy_total_height + (i / enemy_max_width))];
-		dust_direction[i] = random_range(55, 125);
-		dust_speed[i] = random_range(1, 3);
-		dust_displace[i] = [lengthdir_x(dust_speed[i], dust_direction[i]),
-							lengthdir_y(dust_speed[i], dust_direction[i])];
-		dust_life[i] = random_range(60, 120);
-		dust_alpha[i] = 1;
+					   y - enemy_total_height + (i * 6 / enemy_max_width)];
+		i++;
 	}
-	dust_speed = 30;
 	dust_surface = -1;
 	dust_being_drawn = false;
 }
+dust_speed = 60;
 
 //Dialog
 dialog_size = [20, 65, 0, 190]; // UDLR

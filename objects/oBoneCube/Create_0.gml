@@ -18,8 +18,8 @@ function add_vert(X, Y, Z, list)
 function update_vert()
 {
 	vert_list_draw = [];
-	var X, Y, Z, XX, YY, ZZ;
-	for (var i = 0, n = array_length(vert_list); i < n; i++)
+	var X, Y, Z, XX, YY, ZZ, i = 0;
+	repeat(array_length(vert_list))
 	{
 		_prop = vert_list[i];
 		X = _prop[0] * scalex;
@@ -38,6 +38,7 @@ function update_vert()
 		X = XX;
 		Y = YY;
 		add_vert(X, Y, Z, vert_list_draw);
+		i++;
 	}
 }
 

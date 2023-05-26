@@ -1,5 +1,6 @@
 //Fading methods
-for(var i = 0, n = array_length(Fade.Activate); i < n; ++i)
+var i = 0;
+repeat(array_length(Fade.Activate))
 {
 	if Fade.Activate[i, 0]
 	{
@@ -28,6 +29,7 @@ for(var i = 0, n = array_length(Fade.Activate); i < n; ++i)
 			break
 		}
 	}
+	i++;
 }
 
 //Draws above shaders

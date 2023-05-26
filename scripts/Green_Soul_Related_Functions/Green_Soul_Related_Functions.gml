@@ -31,7 +31,8 @@ function Bullet_Arrow(Time, Spd, Dir, Mode = 0, color = 0)
 ///@param {array} *functions	The functions that will be called when you put it in the tags, similar to scrrible_typists_add_event
 function CreateArrows(delay, beat, spd, tags, func_name = -1, functions = -1)
 {
-	for(var i = 0, n = array_length(tags), dir = 1, fire = true; i < n; ++i)
+	var dir = 1, fire = true, i = 0;
+	repeat(array_length(tags))
 	{
 		var tag = [], mode = 0, col = 0;
 		
@@ -68,6 +69,7 @@ function CreateArrows(delay, beat, spd, tags, func_name = -1, functions = -1)
 			Bullet_Arrow(delay + i * beat, spd, dir);
 		fire = true;
 		array_delete(tags, 0, 1);
+		i++;
 	}
 }
 

@@ -15,7 +15,7 @@ function scr_enemy_num()
 	return n;
 }
 
-function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
+function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amount = 0)
 {
 	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
 		target = enemy[enemy_under_attack],
@@ -26,6 +26,16 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack)
 	if distance_to_center > 15
 		damage *= (1 - distance_to_center / 273);
 	damage *= random_range(0.9, 1.1); //Sets damage to be random of the actual damage (idk what im saying)
+	//For multibar attack
+	if crit_amount > 0
+	{
+		var average_damage = damage / global.bar_count;
+		damage = 0;
+		for (var i = 0; i < global.bar_count; ++i) {
+			var multiplier = i < crit_amount ? 2 : 1;
+			damage += average_damage * multiplier;
+		}
+	}
 	damage = max(round(damage), 1);
 	Enemy_SetDamage(target, damage);
 }
@@ -203,8 +213,12 @@ switch battle_state {
 				var choice = menu_choice[6 / menu_state],
 					len = 0;
 				if menu_state == 3 {
-					for (var i = 0, n = array_length(global.item); i < n; i++)
+					var i = 0;
+					repeat(array_length(global.item))
+					{
 						if global.item[i] != 0 len++;
+						i++;
+					}
 				}
 				else
 				{

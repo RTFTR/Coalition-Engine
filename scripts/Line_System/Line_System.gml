@@ -165,8 +165,8 @@ function LineSystem_FillEmptySlots()
 			[ds_list_size(Lists[8])	, LineEndProperty.NONE],
 			[ds_list_size(Lists[9])	, 60],
 			[ds_list_size(Lists[10]), LineLayer.BELOW]
-		];
-	for(var i = 0, n = array_length(LineOtherAmount); i < n; ++i)
+		], i = 0;
+	repeat(array_length(LineOtherAmount))
 	{
 		if LineAmount > LineOtherAmount[i, 0]
 		{
@@ -178,6 +178,7 @@ function LineSystem_FillEmptySlots()
 			//If the line amount is less than the current list size, show error
 			show_error("The value of the list " + string(i) + " is less than the total amount of lines", true);
 		}
+		i++;
 	}
 }
 

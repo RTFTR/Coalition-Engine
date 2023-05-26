@@ -4,23 +4,31 @@ if quit_timer
 
 //Effect drawing
 if !instance_exists(blur_shader) and !instance_exists(shaderEffect) and room == room_battle and effect_shader != []
-	for (var i = 0, n = array_length(effect_shader); i < n; ++i)
+{
+	var i = 0;
+	repeat(array_length(effect_shader))
 	{
 		if !surface_exists(effect_surf[i]) effect_surf[i] = surface_create(640, 960);
 	
 		surface_set_target(effect_surf[i]);
 		shader_set(effect_shader[i]);
 		if effect_param[i, 0] != ""
-			for(var ii = 0, nn = array_length(effect_param)/2; ii < nn; ++ii)
+		{
+			var ii = 0;
+			repeat(array_length(effect_param) / 2)
 			{
 				var shd_u = shader_get_uniform(effect_shader[i],effect_param[i, ii * 2])
 				shader_set_uniform_f(shd_u, effect_param[i, ii * 2 + 1]);
+				ii++;
 			}
+		}
 		draw_surface(application_surface, 0, 0);
 		surface_reset_target();
 		shader_reset();
 		draw_surface(effect_surf[i], 0, 0);
+		i++;
 	}
+}
 //draw_text(10,100,camera_shake_i)
 //draw_text(10,120,camera_get_view_x(view_camera[0]))
 

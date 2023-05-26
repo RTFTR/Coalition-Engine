@@ -18,34 +18,40 @@ if !died {
 	}
 	else
 	if death_time >= 1 + attack_end_time {
-		//Dust height adding
-		if dust_height < total_height {
-			var Height_decrease = total_height / dust_speed;
-			dust_height += Height_decrease * 6;
-		}
-		//Main dust drawing
-		for (var i = 0; i < dust_height * dust_amount / total_height; i += 6) {
-			if dust_alpha[i] > 1 / dust_life[i] {
-				draw_set_alpha(dust_alpha[i]);
-				draw_sprite(sprPixel, 0, dust_pos[i, 0], dust_pos[i, 1]);
-				dust_pos[i, 0] += dust_displace[i, 0];
-				dust_pos[i, 1] += dust_displace[i, 1];
-				dust_alpha[i] -= 1 / dust_life[i];
-				dust_being_drawn = true;
+		if ContainsDust
+		{
+			//Dust height adding
+			if dust_height < total_height {
+				var Height_decrease = total_height / dust_speed;
+				dust_height += Height_decrease * 6;
 			}
-			else dust_being_drawn = false;
+			//Main dust drawing
+			dust_being_drawn = false;
+			for (var i = 0; i < dust_height * dust_amount / total_height; i++) {
+				if dust_alpha[i] > 1 / dust_life[i] {
+					draw_sprite_ext(sprPixel, 0, dust_pos[i, 0], dust_pos[i, 1], 1.5, 1.5, 0, c_white, dust_alpha[i]);
+					dust_pos[i, 0] += dust_displace[i, 0];
+					dust_pos[i, 1] += dust_displace[i, 1];
+					dust_alpha[i] -= 1 / dust_life[i];
+					if !dust_being_drawn
+						dust_being_drawn = true;
+				}
+			}
 		}
 		draw_set_alpha(1);
-
-		//Make the enemy sprite fade from top to bottom by surface because
-		//draw_sprite_part_ext takes too much math and i dont have a brain
-		if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);
-		surface_set_target(dust_surface);
-		draw_clear_alpha(c_black, 0);
-		event_user(0);
-		surface_reset_target();
-		var DrawingHeight = dust_height * 480 / dust_speed;
-		draw_surface_part(dust_surface, 0, DrawingHeight, 640, 480 - DrawingHeight, 0, DrawingHeight);
+		
+		if ContainsDust
+		{
+			//Make the enemy sprite fade from top to bottom by surface because
+			//draw_sprite_part_ext takes too much math and i dont have a brain
+			if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);
+			surface_set_target(dust_surface);
+			draw_clear_alpha(c_black, 0);
+			event_user(0);
+			surface_reset_target();
+			var DrawingHeight = dust_height * 480 / dust_speed;
+			draw_surface_part(dust_surface, 0, DrawingHeight, 640, 480 - DrawingHeight, 0, DrawingHeight);
+		}
 	}
 }
 
@@ -158,15 +164,21 @@ if !died and !is_spared
 				if attack_time == 0 {
 					audio_play(snd_damage);
 					_enemy_hp = enemy_hp;
-					enemy_hp -= damage;
+					damage_color = c_ltgray;
+					if is_real(damage)
+					{
+						enemy_hp -= damage;
+						damage_color = c_red;
+					}
 					draw_damage = true;
 					TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 40, "_enemy_hp", _enemy_hp, enemy_hp);
-					damage_color = c_red;
 					TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y", damage_y, damage_y - 30);
 					TweenFire(id, EaseInQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
 				}
 				attack_time++;
-				x = (attack_time < attack_end_time) ? random_range(xstart - 3, xstart + 3) : xstart;
+				if is_real(damage)
+					x = (attack_time < attack_end_time) ? random_range(xstart - 3, xstart + 3) : xstart;
+				//The is_real(damage) checks whether it's a solid hit
 			}
 		}
 

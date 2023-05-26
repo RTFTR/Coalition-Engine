@@ -90,6 +90,7 @@ function ResetFightAim()
 		//frypan star x, y, angle, alpha, angle change, distance
 		Aim.Attack.StarData = array_create(8, [320, Aim.Attack.EnemyY, 0, 1, 12.25, 0]);
 		Aim.Attack.Time = 0;
+		Aim.Attack.Distance = 0;
 	}
 }
 #endregion

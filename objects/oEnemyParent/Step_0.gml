@@ -1,6 +1,4 @@
 ///@desc Turns, very trash, working on it
-
-
 function end_turn()
 {
 	var turn = oBattleController.battle_turn - 1;
@@ -61,8 +59,14 @@ function end_turn()
 	draw_damage = false;
 	time = -1;
 	if array_length(TurnData.TimeSources) > turn and turn > 0
-		for (var i = 0, n = array_length(TurnData.TimeSources[turn]); i < n; ++i)
+	{
+		var i = 0;
+		repeat(array_length(TurnData.TimeSources[turn]))
+		{
 			time_source_destroy(TurnData.TimeSources[turn, i]);
+			i++;
+		}
+	}
 	Enemy_NameUpdate();
 	dialog_init(dialog_text[turn + 1]);
 	//Code to prevent crash
@@ -73,15 +77,18 @@ function end_turn()
 
 function RemoveEnemy()
 {
+	instance_destroy();
 	if instance_exists(oBattleController)
 		with oBattleController {
 			var enemy_slot = other.x / 160 - 1;
 			enemy[enemy_slot] = noone;
 			enemy_draw_hp_bar[enemy_slot] = 0;
+			array_delete(enemy_instance, menu_choice[0], 1);
+			if array_length(enemy_instance) == 0 end_battle();
 		}
 }
 
-if state == 2 {
+if state == 2 and !died {
 	if start time++;
 	var _turn = oBattleController.battle_turn - 1;
 	if _turn <= -1 {
@@ -104,7 +111,8 @@ if state == 2 {
 			}
 		if array_length(TurnData.TimeSources) > _turn
 		{
-			for (var i = 0, n = array_length(TurnData.TimeSources[_turn]); i < n; ++i)
+			i = 0;
+			repeat(array_length(TurnData.TimeSources[_turn]))
 			{
 				if TurnData.TSInterval[_turn, i] == 1
 				{
@@ -124,6 +132,7 @@ if state == 2 {
 						}
 					}
 				}
+				i++;
 			}
 		}
 		else end_turn();

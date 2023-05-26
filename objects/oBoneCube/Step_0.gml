@@ -2,7 +2,8 @@
 for(var  i = 0; i < 3; ++i)
 	angles[i] += angleAdd[i];
 update_vert();
-for (var i = 0, n = array_length(edge_list), out_cnt = 0; i < n; i++)
+var i = 0, out_cnt = 0;
+repeat(array_length(edge_list))
 {
 	var _prop = edge_list[i],
 		x1 = vert_list_draw[_prop[0]][0],
@@ -27,6 +28,7 @@ for (var i = 0, n = array_length(edge_list), out_cnt = 0; i < n; i++)
 			out_cnt++;
 		if out_cnt == 12 instance_destroy();
 	}
+	i++;
 }
 
 if Battle_GetState() == 0 instance_destroy();

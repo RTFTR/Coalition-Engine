@@ -119,7 +119,7 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 ///@param {string} FileName	The file name of the txt file, must include .txt at the end
 function LoadTextFromFile(filename)
 {
-	var file, DialogText, TurnNumber, current, n;
+	var file, DialogText, TurnNumber, current, n, i = 0;
 	file = file_text_open_read("./Texts/" + filename);
 	current = object_get_name(object_get_parent(object_index));
 	switch current
@@ -131,7 +131,7 @@ function LoadTextFromFile(filename)
 			n = array_length(global.item);
 		break
 	}
-	for (var i = 0; i < n; ++i;)
+	repeat(n)
 	{
 		switch current
 		{
@@ -143,6 +143,7 @@ function LoadTextFromFile(filename)
 				Battle_EnemyDialog(TurnNumber, DialogText);
 			break
 		}
+		i++;
 	}
 	file_text_close(file);
 }

@@ -32,8 +32,8 @@ function Save_Settings()
 	[
 		"Up", "Down", "Left", "Right",
 		"Confirm", "Cancel", "Settings",
-	]
-	for(var i = 0, n = array_length(keytexts), ID = ""; i < n; i++)
+	], i = 0, ID = "";
+	repeat(array_length(keytexts))
 	{
 		if is_real(global.InputKeys[i])
 		{
@@ -45,6 +45,7 @@ function Save_Settings()
 			ini_write_string("Input Keys", keytexts[i], global.InputKeys[i]);
 			ID += "0";
 		}
+		i++;
 	}
 	ini_write_real("Input Keys", "Input ID", ID);
 	ini_write_real("Settings", "Inputs", global.CompatibilityMode);
@@ -67,13 +68,14 @@ function Load_Settings()
 		"Confirm", "Cancel", "Settings",
 	];
 	global.InputKeys = [];
-	for(var i = 0, n = array_length(keytexts); i < n; i++)
+	var FinInput, i = 0;
+	repeat(array_length(keytexts))
 	{
-		var FinInput;
 		if string_char_at(ID, i + 1) == "1"
 			FinInput = ini_read_real("Input Keys", keytexts[i], 0);
 		else FinInput = ini_read_string("Input Keys", keytexts[i], "");
 		array_push(global.InputKeys, FinInput);
+		i++;
 	}
 	ini_close();
 }

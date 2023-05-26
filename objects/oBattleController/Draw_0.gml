@@ -32,7 +32,8 @@ if battle_state == BATTLE_STATE.MENU {
 
 	if is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT) // Fight - Act
 	{
-		for (var i = 0, decrease_y = 0, n = array_length(enemy_name); i < n; i++) // Draw enemy hp bar in Fight state
+		var decrease_y = 0, i = 0;
+		repeat(array_length(enemy_name)) // Draw enemy hp bar in Fight state
 		{
 			var _enemy_name = string(enemy_name[i]) + enemy_name_extra[i];
 			if instance_exists(enemy[i]) // Check if the enemy slot is valid before name drawing
@@ -53,6 +54,7 @@ if battle_state == BATTLE_STATE.MENU {
 					decrease_y += 32;
 				}
 			} else decrease_y += 32;
+			i++;
 		}
 	}
 	if menu_state == MENU_STATE.ITEM // Item list
@@ -121,10 +123,13 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	if menu_state == MENU_STATE.MERCY {
 		// Sets the color of Spare
-		for (var i = 0, n = array_length(enemy), spare_col = "[c_white]"; i < n; i++) {
+		i = 0;
+		var spare_col = "[c_white]";
+		repeat(array_length(enemy)) {
 			if enemy[i] != noone
 				if enemy[i].enemy_is_spareable
 					spare_col = global.SpareTextColor;
+			i++;
 		}
 		draw_text_scribble(96, 272, spare_col + "[fnt_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
 	}
@@ -317,17 +322,21 @@ if battle_state == BATTLE_STATE.MENU {
 								_aim_color[i] = c_yellow;
 								attack_sound = snd_multi_crit;
 								Aim.Attack.CritAmount++;
+								Aim.Attack.Distance += distance / Aim.Hspeed[i];
 							}
 							else if distance <= Aim.Hspeed[i] * 20
 							{
 								//Set bar color to aqua
 								_aim_color[i] = c_aqua;
 								attack_sound = snd_multi_hit;
+								Aim.Attack.Distance += distance / Aim.Hspeed[i];
 							}
 							else
 							{
 								//Set bar color to red
 								_aim_color[i] = c_red;
+								Aim.HitCount--;
+								Aim.Miss++;
 							}
 							Aim.Hspeed[i] = 0;
 							
@@ -343,6 +352,8 @@ if battle_state == BATTLE_STATE.MENU {
 						//Only execute if any bars are hit
 						if Aim.HitCount > 0
 						{
+							Aim.Attack.Distance /= Target.Count;
+							Calculate_MenuDamage(Aim.Attack.Distance, target_option, Aim.Attack.CritAmount);
 							var strike_target_x = 160 * (target_option + 1);
 							enemy[target_option].is_being_attacked = true;
 							Aim.Attack.Sprite = global.MultiBarAttackSprite;
@@ -354,7 +365,7 @@ if battle_state == BATTLE_STATE.MENU {
 						}
 						else
 						{
-							with enemy_instance[target_option]
+							with enemy_instance[menu_choice[0]]
 							{
 								is_miss = true;
 								is_being_attacked = true;
@@ -504,6 +515,7 @@ if battle_state == BATTLE_STATE.MENU {
 		}
 		if FleeState == 2 and oGlobal.fader_alpha == 1
 		{
+			//Event after fight ends
 			game_restart();
 		}
 	}
@@ -576,8 +588,9 @@ var _button_spr =	button_spr,
 	_button_color = button_color,
 	_state =		menu_state,
 	_menu =			menu_button_choice;
+	i = 0;
 
-for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
+repeat(array_length(_button_spr)) // Button initialize
 {
 	// If no item left then item button commit gray
 	if Item_Space() <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
@@ -618,6 +631,7 @@ for (var i = 0, n = array_length(_button_spr); i < n; ++i) // Button initialize
 		for (var ii = 0; ii < 3; ++ii)
 			_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 	}
+	i++;
 }
 if board_cover_button {
 	Battle_Masking_Start(true);
@@ -732,8 +746,8 @@ if board_cover_button {
 	// Zeropadding
 	var hp_counter = string(round(hp)),
 		hp_max_counter = string(round(hp_max));
-	if round(hp) < 10 hp_counter = "0" + string(round(hp));
-	if round(hp_max) < 10 hp_max_counter = "0" + string(round(hp_max));
+	if round(hp) < 10 hp_counter = "0" + hp_counter;
+	if round(hp_max) < 10 hp_max_counter = "0" + hp_max_counter;
 
 	// This line below supports multiple digits for Zeropadding, but I just personally don't like it. 
 	// var hp_counter = string_replace_all(string_format(round(hp), string_length(string(hp_max)), 0), " ", "0");

@@ -41,11 +41,13 @@ function Dialog_SetOptionName(ver = false)
 			option_name[i - 1] = argument[i];
 		option_typist = scribble_typist()
 						.in(0, 0)
-		for (var i = 0, text = "", temp = "* ", n = array_length(option_name); i < n; ++i)
+		var i = 0, text = "", temp = "* "
+		repeat(array_length(option_name))
 		{
 			text += temp + option_name[i];
 			text += (ver ? "\n" : "    ");
 			option_length[i] = string_width("* " + option_name[i]) / oGlobal.camera_scale_x;
+			i++;
 		}
 		option_text = scribble(text)
 		option = 0;
