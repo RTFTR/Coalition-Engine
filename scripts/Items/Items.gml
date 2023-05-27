@@ -1,6 +1,7 @@
 ///@desc Loads the Info of the Items
 function Item_Info_Load(){
-	for (var i = 0, n = Item_Count(); i < n; ++i)
+	var i = 0;
+	repeat(Item_Count())
 	{
 		Item_Info(global.item[i]);
 		item_name[i] = name;
@@ -8,6 +9,7 @@ function Item_Info_Load(){
 		item_desc[i] = desc;
 		item_throw_txt[i] = throw_txt;
 		item_battle_desc[i] = battle_desc;
+		i++;
 	}
 }
 
@@ -77,7 +79,7 @@ function Item_Use(item){
 	var heal_text = "";
 	switch item
 	{
-		case 1:
+		case ITEM.PIE:
 			switch global.item_uses_left[item]
 			{
 				case 2:
@@ -88,20 +90,20 @@ function Item_Use(item){
 				break
 			}
 		break;
-		case 2:
+		case ITEM.INOODLES:
 			heal_text = "You ate the Instant Noodles.";
 		break;
-		case 3:
+		case ITEM.STEAK:
 			heal_text = "You ate the Face Steak.";
 		break;
-		case 4:
+		case ITEM.SNOWP:
 			heal_text = "You ate the Snow Piece.";
 		break;
-		case 5:
+		case ITEM.LHERO:
 			heal_text = "You ate the Legendary Hero.";
 			global.player_attack_boost += 4;
 		break;
-		case 6:
+		case ITEM.SEATEA:
 			heal_text = "You drank the sea tea.";
 			global.spd *= 2;
 			audio_play(snd_spdup)
@@ -113,7 +115,8 @@ function Item_Use(item){
 		break;
 	}
 	
-	global.item_uses_left[item]--;
+	if global.item_uses_left[item] > 0
+		global.item_uses_left[item]--;
 	Item_Info(item);
 	audio_play(snd_item_heal);
 	

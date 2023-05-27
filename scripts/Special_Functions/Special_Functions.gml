@@ -49,6 +49,7 @@ function is_val()
 	return false;
 }
 
+#region Replaced in TurboGML / _tgm_core
 /*function Vector2(vec2_x, vec2_y) constructor
 {
 	x = vec2_x;
@@ -78,6 +79,7 @@ function Vector3(vec3_x, vec3_y, vec3_z) constructor
 		z : vec3_z
 	};
 }*/
+#endregion
 
 
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
@@ -115,35 +117,60 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 	draw_set_color(prev_col);
 }
 
-///@desc Loads the text from an external text file
-///@param {string} FileName	The file name of the txt file, must include .txt at the end
-function LoadTextFromFile(filename)
+/**
+	@param {string} FileName	The file name of the txt file, must include .txt at the end
+	@param {real} Read_Method The method of reading the text files, default 0
+	@param {string} Tag	The tag of the string to get
+	@desc Loads the text from an external text file, there are 2 reading methods for now:
+		  0 is by using numbers to indicate the turn number (during battle)
+		  1 is by using tags to let the script read which text to load
+*/
+function LoadTextFromFile(filename, read_method = 0, tag = "")
 {
 	var file, DialogText, TurnNumber, current, n, i = 0;
 	file = file_text_open_read("./Texts/" + filename);
 	current = object_get_name(object_get_parent(object_index));
-	switch current
+	switch read_method
 	{
-		case "oEnemyParent":
-			n = array_length(turn_time);
+		case 0:
+			switch current
+			{
+				case "oEnemyParent":
+					n = array_length(turn_time);
+				break
+				case "oBattleController":
+					n = array_length(global.item);
+				break
+			}
+			repeat(n)
+			{
+				switch current
+				{
+					case "oEnemyParent":
+						TurnNumber = file_text_read_real(file);
+						file_text_readln(file);
+						DialogText = file_text_read_string(file);
+						file_text_readln(file);
+						Battle_EnemyDialog(TurnNumber, DialogText);
+					break
+				}
+				i++;
+			}
 		break
-		case "oBattleController":
-			n = array_length(global.item);
+		case 1:
+			var str;
+			while (!file_text_eof(file))
+			{
+				str = file_text_read_string(file);
+				if str == tag
+				{
+					file_text_readln(file);
+					return file_text_read_string(file);
+				}
+				file_text_readln(file);
+			}
+			return "";
 		break
-	}
-	repeat(n)
-	{
-		switch current
-		{
-			case "oEnemyParent":
-				TurnNumber = file_text_read_real(file);
-				file_text_readln(file);
-				DialogText = file_text_read_string(file);
-				file_text_readln(file);
-				Battle_EnemyDialog(TurnNumber, DialogText);
-			break
-		}
-		i++;
 	}
 	file_text_close(file);
 }
@@ -290,3 +317,70 @@ function tips()
 	amt = array_length(tips);
 	return tips[irandom(amt - 1)];
 }
+
+#region From Alice
+/// @function file_read_all_text(filename)
+/// @description Reads entire content of a given file as a string, or returns undefined if the file doesn't exist.
+/// @param {string} filename		The path of the file to read the content of.
+function file_read_all_text(_filename) {
+	if (!file_exists(_filename)) {
+		return undefined;
+	}
+	
+	var _buffer = buffer_load(_filename);
+	var _result = buffer_read(_buffer, buffer_string);
+	buffer_delete(_buffer);
+	return _result;
+}
+
+/// @function file_write_all_text(filename,content)
+/// @description Creates or overwrites a given file with the given string content.
+/// @param {string} filename		The path of the file to create/overwrite.
+/// @param {string} content			The content to create/overwrite the file with.
+function file_write_all_text(_filename, _content) {
+	var _buffer = buffer_create(string_length(_content), buffer_grow, 1);
+	buffer_write(_buffer, buffer_string, _content);
+	buffer_save(_buffer, _filename);
+	buffer_delete(_buffer);
+}
+
+/// @func string_split_lines(str)
+/// @desc Splits the string by newline characters/sequences (CRLF, CR, LF).
+/// @arg {String} str			   The string to split.
+/// @arg {Bool} remove_empty		Determines whether the final result should filter out empty strings or not.
+/// @arg {Real} max_splits		  The maximum number of splits to make.
+/// @returns {Array<String>}
+function string_split_lines(_str, _remove_empty = false, _max_splits = undefined) {
+	static separators = ["\r\n", "\r", "\n"];
+	
+	if (!is_undefined(_max_splits))
+		return string_split_ext(_str, separators, _remove_empty, _max_splits);
+	else
+		return string_split_ext(_str, separators, _remove_empty);
+}
+
+/// @function json_load(filename)
+/// @description Loads a given JSON file into a GML value (struct/array/string/real).
+/// @param {string} filename		The path of the JSON file to load.
+function json_load(_filename) {
+	var _json_content = file_read_all_text(_filename);
+	if (is_undefined(_json_content))
+		return undefined;
+	
+	try {
+		return json_parse(_json_content);
+	} catch (_) {
+		// if the file content isn't a valid JSON, prevent crash and return undefined instead
+		return undefined;
+	}
+}
+
+/// @function json_save(filename,value)
+/// @description Saves a given GML value (struct/array/string/real) into a JSON file.
+/// @param {string} filename		The path of the JSON file to save.
+/// @param {any} value				The value to save as a JSON file.
+function json_save(_filename, _value) {
+	var _json_content = json_stringify(_value);
+	file_write_all_text(_filename, _json_content);
+}
+#endregion

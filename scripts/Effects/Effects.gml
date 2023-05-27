@@ -30,7 +30,7 @@ function Blur_Screen(duration, amount)
 	{
 		duration = duration            //sets duration
 		var_blur_amount = amount       //sets blur amount
-		TweenFire(id, EaseOutSine,	TWEEN_MODE_ONCE, false, 0, duration, "var_blur_amount", amount, 0)
+		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, duration, "var_blur_amount", amount, 0)
 	}
 	return shader_blur;
 }
@@ -38,29 +38,28 @@ function Blur_Screen(duration, amount)
 ///@desc Creates a motion blur of a sprite
 ///@param {real} length	The length of the blur
 ///@param {real} direction	The direction of the blur
-function motion_blur(length,direction){
+function motion_blur(length, direction){
     if (length > 0) {
-		var step,dir,px,py,a;
+		var step, dir, px, py, a;
         step = 3;
         px = dcos(direction);
         py = -dsin(direction);
  
-        a = image_alpha/(length/step);
+        a = image_alpha / (length / step);
         if (a >= 1) {
-            draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,
-                image_yscale,image_angle,image_blend,image_alpha);
+            draw_sprite_ext(sprite_index, image_index, x, y, image_xscale,
+                image_yscale, image_angle, image_blend, image_alpha);
             a /= 2;
         }
  
-        for(var i=length;i>=0;i-=step) {
-            draw_sprite_ext(sprite_index,image_index,x+(px*i),y+(py*i),
-                image_xscale,image_yscale,image_angle,image_blend,a);
+        for(var i = length; i >= 0; i -= step) {
+            draw_sprite_ext(sprite_index, image_index, x + (px * i), y + (py * i),
+                image_xscale, image_yscale, image_angle, image_blend, a);
         }
-    } else {    
-        draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,
-            image_yscale,image_angle,image_blend,image_alpha);
+    } else {
+        draw_sprite_ext(sprite_index, image_index, x, y, image_xscale,
+                image_yscale, image_angle, image_blend, image_alpha);
     }
-    return 0;
 }
 
 ///@desc Creates a motion blur of a sprite
@@ -75,29 +74,25 @@ function motion_blur(length,direction){
 ///@param {real} alpha				The alpha of the sprite
 ///@param {real} length	The			length of the blur
 ///@param {real} direction			The direction of the blur
-function motion_blur_ext(sprite,subimg,xx,yy,xscale,yscale,angle,blend,alpha,length,direction){
+function motion_blur_ext(sprite, subimg, xx, yy, xscale, yscale, angle, blend, alpha, length, direction) {
     if (length > 0) {
-		var step,dir,px,py,a;
+		var step, dir, px, py, a;
         step = 3;
         px = dcos(direction);
         py = -dsin(direction);
  
-        a = image_alpha/(length/step);
+        a = image_alpha / (length / step);
         if (a >= 1) {
-            draw_sprite_ext(sprite,subimg,xx,yy,xscale,
-                yscale,angle,blend,alpha);
+            draw_sprite_ext(sprite, subimg, xx, yy, xscale, yscale, angle, blend, alpha);
             a /= 2;
         }
  
-        for(var i=length;i>=0;i-=step) {
-            draw_sprite_ext(sprite,subimg,xx+(px*i),yy+(py*i),
-                xscale,yscale,angle,blend,a);
+        for(var i = length; i >= 0; i -= step) {
+            draw_sprite_ext(sprite, subimg, xx + (px * i), yy + (py * i), xscale, yscale, angle, blend, a);
         }
-    } else {    
-        draw_sprite_ext(sprite,subimg,xx,yy,xscale,
-            yscale,angle,blend,alpha);
+    } else {
+        draw_sprite_ext(sprite, subimg, xx, yy, xscale, yscale, angle, blend, alpha);
     }
-    return 0;
 }
 
 ///@desc Rotates the camera
@@ -253,7 +248,7 @@ function draw_cube_outline(_draw_x,_draw_y,_size,_point_h,_point_v,_colour) {
 ///@param {Constant.Color} color	The Color of the cube
 ///@param {real} width				The Width of the outline of the cube
 ///@param {bool} circle_on_edge		Whether the corners of the cube are round
-function draw_cube_width(_draw_x,_draw_y,_size,_point_h,_point_v,_colour,_width, _edge_circ = true) {
+function draw_cube_width(_draw_x ,_draw_y, _size, _point_h, _point_v, _colour, _width, _edge_circ = true) {
 	
 	var nodes = [[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1],
     [1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]];
@@ -307,15 +302,17 @@ function draw_cube_width(_draw_x,_draw_y,_size,_point_h,_point_v,_colour,_width,
 	
 }
 
-function draw_circle_width(x,y,radius=100, thickness=4,segments=20)
+function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20)
 {
 	var jadd = 360/segments;
 	draw_set_color(c_black);
 	draw_primitive_begin(pr_trianglestrip);
 	for (var j = 0; j <= 360; j+=jadd)
 	{
-	    draw_vertex(x+lengthdir_x(radius,j),y+lengthdir_y(radius,j));
-	    draw_vertex(x+lengthdir_x(radius+thickness,j),y+lengthdir_y(radius+thickness,j));
+	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
+		radius += thickness;
+	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
+		radius -= thickness;
 	}
 	draw_primitive_end();
 }

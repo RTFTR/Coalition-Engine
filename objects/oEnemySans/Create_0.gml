@@ -39,4 +39,9 @@ Battle_SetTurnBoardSize(
 	[42, 42, 42, 42],
 ]);
 
-LoadTextFromFile("SansTest.txt");
+var text;
+for(var i = 0; i < 12; i++)
+{
+	text = LoadTextFromFile("SansTest2.txt", 1, "@" + string(i));
+	Battle_EnemyDialog(i, text);
+}

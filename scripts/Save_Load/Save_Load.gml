@@ -9,7 +9,7 @@ function Delete_Datas()
 ///@param value The value of the slot to be saved
 function SetTempData(name, value)
 {
-	global.TempFile[? name] = value;
+	global.TempData[? name] = value;
 }
 
 ///@desc Get tempoary data
@@ -17,13 +17,13 @@ function SetTempData(name, value)
 ///@param value The value of the slot to be aquired
 function GetTempData(name)
 {
-	return global.TempFile[? name];
+	return global.TempData[? name];
 }
 
 ///@desc Save the current settings of the game
 function Save_Settings()
 {
-	show_debug_message("Settings Saved")
+	show_debug_message("Settings Saved");
 	ini_open("Settings.ini");
 	ini_write_real("Settings", "Volume", global.Volume);
 	ini_write_real("Settings", "CompMode", global.CompatibilityMode);
@@ -48,7 +48,7 @@ function Save_Settings()
 		i++;
 	}
 	ini_write_real("Input Keys", "Input ID", ID);
-	ini_write_real("Settings", "Inputs", global.CompatibilityMode);
+	ini_write_real("Settings", "CompMode", global.CompatibilityMode);
 	ini_write_real("Settings", "ShowFPS", global.ShowFPS);
 	ini_close();
 }
@@ -56,7 +56,7 @@ function Save_Settings()
 ///@desc Load the current settings of the game
 function Load_Settings()
 {
-	show_debug_message("Settings Loaded")
+	show_debug_message("Settings Loaded");
 	ini_open("Settings.ini");
 	global.Volume = ini_read_real("Settings", "Volume", 100);
 	global.CompatibilityMode = ini_read_real("Settings", "CompMode", false);

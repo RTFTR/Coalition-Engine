@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.6.5 (Eden)
+added another method of text aquiring. example in oEnemySans create event
+moved some functions into a folder for engine internal use
+
 v4.6.4(Eden)
 fixed some anim bugs (i think)
 added empty gun for weapon

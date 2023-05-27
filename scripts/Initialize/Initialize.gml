@@ -130,7 +130,7 @@ function Initialize()
 	
 	if !file_exists("Settings.ini") Save_Settings(); else Load_Settings();
 	
-	global.TempFile = ds_map_create();
+	global.TempData = ds_map_create();
 	
 	//Sets the current battle encounter ID
 	global.battle_encounter = 0;
