@@ -104,7 +104,7 @@ if battle_state == BATTLE_STATE.MENU {
 				//item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
 				//item_desc_x = lerp(item_desc_x, 320, 1/3);
 			}	
-			Battle_Masking_End()
+			Battle_Masking_End();
 			break
 			
 			case ITEM_SCROLL.CIRCLE:
@@ -382,7 +382,6 @@ if battle_state == BATTLE_STATE.MENU {
 					}
 				}
 				
-				
 				if _target_state < 3 {
 					if _target_state == 2
 					{
@@ -392,14 +391,72 @@ if battle_state == BATTLE_STATE.MENU {
 						_sprite = Aim.Attack.Sprite,
 						_index = Aim.Attack.Index,
 						_color = Aim.Attack.Color;
+						function DrawMultibarAttackStar(sprite)
+						{
+							var size, _time = Aim.Attack.Time;
+							switch sprite
+							{
+								default:
+								case sprFrypanStar:
+									size = 1.5;
+									_time += 7;
+								break;
+								case sprGunStar:
+									size = 0.75;
+								break;
+							}
+							for (var i = 0; i < 8; ++i) {
+								var _star_data = Aim.Attack.StarData[i];
+								var _star_speed = _star_data[4] - _star_data[5] * _time;
+								//Position changing
+								_star_data[3] += _star_speed;
+								var _star_x = 320 + dcos(i * 45) * _star_data[3],
+									_star_y = Aim.Attack.EnemyY - dsin(i * 45) * _star_data[3];
+								//Fading
+								if _star_speed < 5
+								{
+									_star_data[1] -= 0.025;
+									if _star_data[2] > 1 _star_data[2] -= 0.25;
+								}
+								_star_data[0] += _star_data[2];
+								draw_sprite_ext(sprite, 0, _star_x, _star_y, size, size, _star_data[0], Aim.Attack.Color, _star_data[1]);
+								Aim.Attack.StarData[i] = _star_data;
+							}
+						}
+						function DrawMultiAttackMain(sprite)
+						{
+							var size = 1, _time = Aim.Attack.Time, _alpha = Aim.Attack.Alpha;
+							if sprite = sprGunCircle _time -= 9;
+							var size_increase, max_size, size_reduction;
+							switch sprite
+							{
+								case sprFrypanAttack:
+									size_increase = 0.3;
+									max_size = 2.8;
+									size_reduction = 0.6;
+								break
+								case sprGunCircle:
+									size_increase = 0.5;
+									max_size = 3.5;
+									size_reduction = 0.3;
+								break
+							}
+							var time_before_fully_expand = round((max_size - size) / size_increase);
+							if _time < time_before_fully_expand
+								size += size_increase * _time;
+							else 
+							{
+								size = max(0, max_size - size_reduction * (_time - time_before_fully_expand));
+								_alpha -= 0.2;
+							}
+							draw_sprite_ext(sprite, posmod(_time / 2, 2), 320, Aim.Attack.EnemyY, size, size, _time * Aim.Attack.Angle, Aim.Attack.Color, _alpha);
+						}
 						switch global.MultiBarAttackSprite
 						{
 							//If weapon is notebook
 							case sprNotebookAttack:
 								if _time < 15
-								{
 									scale_x = cos(_time / 4) * 2;
-								}
 								if _time == 15
 								{
 									audio_play(snd_punchstrong);
@@ -426,37 +483,26 @@ if battle_state == BATTLE_STATE.MENU {
 									Aim.Attack.Angle = 3 * choose(1, -1);
 								}
 								//Star
-								for (var i = 0; i < 8; ++i) {
-									var _star_data = Aim.Attack.StarData[i],
-										_star_speed = max(0, 8 - 0.34 * _time) / 2;
-									//Position changing
-									_star_data[5] += _star_speed;
-									_star_data[0] += dcos(i * 360 / 8) * _star_data[5];
-									_star_data[1] -= dsin(i * 360 / 8) * _star_data[5];
-									//Fading
-									if _star_speed < 6
-									{
-										_star_data[3] -= 0.025;
-										if _star_data[4] > 1 _star_data[4] -= 0.5;
-									}
-									_star_data[2] += _star_data[4];
-									draw_sprite_ext(sprFrypanStar, 0, _star_data[0], _star_data[1], 2, 2, _star_data[2], _color, _star_data[3]);
-									Aim.Attack.StarData[i] = _star_data;
-								}
+								DrawMultibarAttackStar(sprFrypanStar);
 								//Actual pan
-								var size = 2;
-								if _time < 10
-									size += 0.3 * _time;
-								else 
-								{
-									size = 3 - 0.6 * (_time - 10);
-									_alpha -= 0.2;
-								}
-								if _alpha < 0 _target_state = 3;
-								draw_sprite_ext(sprFrypanAttack, posmod(_time / 2, 2), 320, Aim.Attack.EnemyY, size, size, _time * Aim.Attack.Angle, _color, _alpha);
+								if _time < 70
+									DrawMultiAttackMain(sprFrypanAttack);
+								if _time = 70
+									_target_state = 3;
 							break
 							case sprGunStar:
-								
+								if _time == 0
+									audio_play(snd_gunshot);
+								if _time < 5
+									draw_sprite_ext(sprGunStar, posmod(_time / 2, 2), 320, Aim.Attack.EnemyY, 2, 2, 0, _color, 1);
+								if _time > 7
+									DrawMultibarAttackStar(sprGunStar);
+								if _time > 9 and _time < 60
+									DrawMultiAttackMain(sprGunCircle);
+								if _time = 10
+									if Aim.Attack.Crit
+										audio_play(snd_multi_crit);
+								if _time = 60 _target_state = 3;
 							break
 						}
 						_time++;

@@ -1,3 +1,17 @@
+#region Functions
+function RemoveEnemy()
+{
+	instance_destroy();
+	if instance_exists(oBattleController)
+		with oBattleController {
+			var enemy_slot = other.x / 160 - 1;
+			enemy[enemy_slot] = noone;
+			enemy_draw_hp_bar[enemy_slot] = 0;
+			array_delete(enemy_instance, menu_choice[0], 1);
+			if array_length(enemy_instance) == 0 end_battle();
+		}
+}
+#endregion
 // Check if other enemies are dying
 for (var i = 0, n = instance_number(oEnemyParent), enemy_find; i < n; ++i) {
 	enemy_find[i] = instance_find(oEnemyParent, i);
@@ -33,8 +47,7 @@ if !died {
 					dust_pos[i, 0] += dust_displace[i, 0];
 					dust_pos[i, 1] += dust_displace[i, 1];
 					dust_alpha[i] -= 1 / dust_life[i];
-					if !dust_being_drawn
-						dust_being_drawn = true;
+					if !dust_being_drawn dust_being_drawn = true;
 				}
 			}
 		}
@@ -44,7 +57,6 @@ if !died {
 		{
 			//Make the enemy sprite fade from top to bottom by surface because
 			//draw_sprite_part_ext takes too much math and i dont have a brain
-			if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);
 			surface_set_target(dust_surface);
 			draw_clear_alpha(c_black, 0);
 			event_user(0);
@@ -191,9 +203,12 @@ if !died and !is_spared
 			// Bar retract speed thing idk
 			if is_string(damage) == false {
 				draw_set_color(c_dkgray);
-				draw_rectangle(xstart - bar_width / 2, y - enemy_total_height + 10 + dialog_y_from_top, xstart + bar_width / 2, y - enemy_total_height + 30 + dialog_y_from_top, 0);
+				var TLX = xstart - bar_width / 2,
+					TLY = y - enemy_total_height / 2 - 40,
+					BRY = TLY + 20;
+				draw_rectangle(TLX, TLY, xstart + bar_width / 2, BRY, 0);
 				draw_set_color(c_lime);
-				draw_rectangle(xstart - bar_width / 2, y - enemy_total_height + 10 + dialog_y_from_top, max(xstart - bar_width / 2 + (_enemy_hp / enemy_hp_max) * bar_width, xstart - bar_width / 2 - 1), y - enemy_total_height + 30 + dialog_y_from_top, 0);
+				draw_rectangle(TLX, TLY, max(xstart - bar_width / 2 + (_enemy_hp / enemy_hp_max) * bar_width, xstart - bar_width / 2 - 1), BRY, 0);
 			}
 			draw_set_halign(fa_left);
 			draw_set_valign(fa_top);
@@ -222,7 +237,7 @@ if !died and !is_spared
 			if death_time = 1 + attack_end_time + dust_speed + 60 {
 				//Set enemy is throughly dead when dust is gone
 				is_dying = false;
-				died = true
+				died = true;
 				is_being_attacked = false;
 				enemy_in_battle = false;
 				global.data.Kills++;
@@ -263,7 +278,7 @@ if is_being_spared {
 		}
 	}
 
-	is_being_spared = false
+	is_being_spared = false;
 }
 if is_spared and image_alpha == 0.5 {
 	//Remove enemy

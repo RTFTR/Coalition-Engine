@@ -74,20 +74,6 @@ function end_turn()
 	TurnData.IsHeal = false;
 }
 
-
-function RemoveEnemy()
-{
-	instance_destroy();
-	if instance_exists(oBattleController)
-		with oBattleController {
-			var enemy_slot = other.x / 160 - 1;
-			enemy[enemy_slot] = noone;
-			enemy_draw_hp_bar[enemy_slot] = 0;
-			array_delete(enemy_instance, menu_choice[0], 1);
-			if array_length(enemy_instance) == 0 end_battle();
-		}
-}
-
 if state == 2 and !died {
 	if start time++;
 	var _turn = oBattleController.battle_turn - 1;
@@ -145,3 +131,6 @@ if state == 2 and !died {
 			end_turn();
 	}
 }
+
+if ContainsDust
+	if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);

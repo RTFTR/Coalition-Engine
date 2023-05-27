@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v4.6.4(Eden)
+fixed some anim bugs (i think)
+added empty gun for weapon
+more optimisation
+more anti utmt measurments haha
+
 v4.6.3 (Eden)
 multibar weapons can deal damage now
 best logic real no fake

@@ -14,37 +14,44 @@ function ConvertItemNameToStat()
 			global.bar_count = 1;
 		break
 		case "Tough Glove":
+		case "Glove":
 			global.player_attack = 5;
 			global.bar_count = 1;
 		//Insert mashing stuff
 		break
 		case "Ballet Shoes":
+		case "Shoes":
 			global.player_attack = 7;
 			global.bar_count = 3;
 		break
 		case "Torn Notebook":
+		case "Notebook":
 			global.player_attack = 2;
 			global.bar_count = 2;
 			global.MultiBarAttackSprite = sprNotebookAttack;
 			global.MultiBarOverrideSound = snd_notebook_spin;
 		break
 		case "Burnt Pan":
+		case "Pan":
 			global.player_attack = 10;
 			global.bar_count = 4;
 			global.MultiBarAttackSprite = sprFrypanAttack;
 			global.MultiBarOverrideSound = snd_frypan_hit;
 		break
 		case "Empty Gun":
+		case "Gun":
 			global.player_attack = 12;
 			global.bar_count = 4;
 			global.MultiBarAttackSprite = sprGunStar;
 			global.MultiBarOverrideSound = snd_gunshot;
 		break
 		case "Worn Dagger":
+		case "Dagger":
 			global.player_attack = 15;
 			global.bar_count = 1;
 		break
 		case "Real Knife":
+		case "Knife":
 			global.player_attack = 99;
 			global.bar_count = 1;
 		break

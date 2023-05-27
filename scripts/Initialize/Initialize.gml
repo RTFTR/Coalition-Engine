@@ -73,7 +73,7 @@ function Initialize()
 	var Item_Preset = [ITEM.PIE, ITEM.INOODLES, ITEM.STEAK, ITEM.SNOWP, ITEM.SNOWP,
 						ITEM.LHERO, ITEM.LHERO, ITEM.SEATEA],
 		Cell_Preset = [1, 2, 0, 0, 0, 0, 0, 0],
-		Box_Preset =  //Insert the items
+		Box_Preset =  //Insert the items manually
 		[
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// OW Box
 			[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],		// Dimensional Box A
@@ -106,7 +106,8 @@ function Initialize()
 		DefenseItem :	global.SaveFile[? "Arm"],
 		Kills :			global.SaveFile[? "Kills"],
 	}
-	global.data.AttackItem = "Burnt Pan"
+	global.data.AttackItem = "Gun"
+	global.data.AttackItem = "Pan"
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
 	

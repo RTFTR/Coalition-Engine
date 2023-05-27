@@ -87,8 +87,8 @@ function ResetFightAim()
 		Aim.Attack.Index = 0;
 		Aim.Attack.Angle = 0;
 		Aim.Attack.Alpha = 1;
-		//frypan star x, y, angle, alpha, angle change, distance
-		Aim.Attack.StarData = array_create(8, [320, Aim.Attack.EnemyY, 0, 1, 12.25, 0]);
+		//frypan star angle, alpha, angle change, distance, speed, friction
+		Aim.Attack.StarData = array_create(8, [0, 1, 12.25, 0, 8, 0.34]);
 		Aim.Attack.Time = 0;
 		Aim.Attack.Distance = 0;
 	}
