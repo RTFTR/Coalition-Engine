@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.6.5.1 (Eden)
+fixed bug of text reading function
+
 v4.6.5 (Eden)
 added another method of text aquiring. example in oEnemySans create event
 moved some functions into a folder for engine internal use

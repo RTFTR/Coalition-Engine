@@ -165,10 +165,13 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 				if str == tag
 				{
 					file_text_readln(file);
-					return file_text_read_string(file);
+					var rtn_str = file_text_read_string(file);
+					file_text_close(file);
+					return rtn_str;
 				}
 				file_text_readln(file);
 			}
+			file_text_close(file);
 			return "";
 		break
 	}

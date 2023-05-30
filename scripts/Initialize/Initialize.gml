@@ -1,5 +1,7 @@
 function Initialize()
 {
+	//Set to true when releasing your game
+	gml_release_mode(true);
 	randomize();
 	
 	//Soul position (Gameover usage)

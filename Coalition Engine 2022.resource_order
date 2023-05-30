@@ -58,6 +58,7 @@
     {"name":"Paths","order":4,"path":"folders/Paths.yy",},
     {"name":"Rooms","order":10,"path":"folders/Rooms.yy",},
     {"name":"Scripts","order":5,"path":"folders/Scripts.yy",},
+    {"name":"(Coalition Engine Internal Use)","order":17,"path":"folders/Scripts/(Coalition Engine Internal Use).yy",},
     {"name":"Battle","order":6,"path":"folders/Scripts/Battle.yy",},
     {"name":"Bullet","order":5,"path":"folders/Scripts/Bullet.yy",},
     {"name":"Sequences","order":11,"path":"folders/Sequences.yy",},
@@ -84,7 +85,6 @@
     {"name":"Tiles","order":6,"path":"folders/Sprites/Overworld/Tiles.yy",},
     {"name":"Tile Sets","order":2,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
-    {"name":"(Coalition Engine Internal Use)","order":17,"path":"folders/Scripts/(Coalition Engine Internal Use).yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"input_check_long_released","order":9,"path":"scripts/input_check_long_released/input_check_long_released.yy",},
