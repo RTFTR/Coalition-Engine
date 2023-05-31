@@ -158,7 +158,6 @@ for (var i = 0; i < n; ++i)
 item_lerp_x_target = 0;
 item_lerp_y_target = 0;
 item_lerp_color_target =  [ [16,16,16] , [128,128,128] , [255,255,255] ]; // c_gray - c_white
-
 item_desc_x = 360;
 item_desc_alpha = 0;
 #endregion

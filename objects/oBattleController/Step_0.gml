@@ -290,43 +290,7 @@ switch battle_state {
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
 								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
-								
-								
-								if i == choice // Lerp to white
-								{
-									for (var ii = 0; ii < 3; ++ii)
-										item_lerp_color[choice][ii] = lerp(item_lerp_color[choice][ii],item_lerp_color_target[2][ii],1/3);
-								}
-								else 
-								{
-									if i == (choice - 1) or i == (choice + 1) // Lerp to c_gray
-									{
-										for (var ii = 0; ii < 3; ++ii)
-										{
-											if i == (choice - 1)
-											{
-												var iii = choice - 1;
-													iii = clamp(iii, 0, choice - 1);
-												item_lerp_color[iii][ii] = lerp(item_lerp_color[iii][ii],item_lerp_color_target[1][ii],1/3);
-											}
-											else if i == (choice + 1)
-											{
-												var iii = choice + 1;
-													iii = clamp(iii, 0, choice + 1);
-												item_lerp_color[iii][ii] = lerp(item_lerp_color[iii][ii],item_lerp_color_target[1][ii],1/3);
-											}
-										}
-									}
-									else // Lerp to dkgray
-									{
-										for (var ii = 0; ii < 3; ++ii)
-											item_lerp_color[i][ii] = lerp(item_lerp_color[i][ii],item_lerp_color_target[0][ii],1/3);
-									}
-								}
-								var col = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
-								show_debug_message(string(choice) + " " + string(color_get_red(col)) + " " + string(color_get_green(col)) + " " + string(color_get_blue(col)));
-								
-							}				
+							}
 							
 						break
 

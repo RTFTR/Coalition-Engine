@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.6.6 (Eden)
+changed the way of how a turn works from time source based to function based, less bugs will appear
+
 v4.6.5.1 (Eden)
 fixed bug of text reading function
 

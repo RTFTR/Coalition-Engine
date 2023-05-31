@@ -52,7 +52,7 @@ function Initialize()
 	
 	//Items
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
-	global.item_uses_left = array_create(ITEM_COUNT, 1);
+	global.item_uses_left = array_create(ITEM_COUNT + 1, 1);
 	global.item_uses_left[ITEM.PIE] = 2;
 	
 	//Spare

@@ -211,11 +211,11 @@ board_size = [
 
 TurnData = 
 {
-	TimeSources : [],
-	TSDelay : [],
-	TSRep : [],
-	TSRepC : [],
-	TSInterval : [],
+	Functions : [],
+	AttackDelay : [],
+	AttackRepeat : [],
+	AttackRepeatCount : [],
+	AttackInterval : [],
 	AttacksLoaded : false,
 	HealAttacks : [-1],
 	HealTime : [100],
@@ -225,7 +225,5 @@ TurnData =
 
 start = 1;
 time = -1;
-
-
 
 base_bone_col = c_white;
