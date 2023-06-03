@@ -11,7 +11,6 @@ allow_run = true;
 speed_multiplier = 1;
 
 Dialog_SetOptionName(false, "option 1", "option 2");
-Option();
 //OW_Dialog("Welcome to the\n  Underg- Overworld!");
 
 encounter_state = 0;

@@ -31,6 +31,7 @@ part_type_gravity(p, 0.12, 270);
 alarm[0] = 40;
 
 gameover_text = "[pause]You cannot give\nup just yet...[pause][/page]" + string(global.data.name) + "![delay,500]\nStay determined...";
+gameover_text = "pride month\nwhat the fuck";
 gameover_text_voice = snd_txtAsgore;
 gameover_writer = scribble(gameover_text)
 	.page(0);
@@ -38,5 +39,3 @@ gameover_writer = scribble(gameover_text)
 gameover_typist = scribble_typist()
 	.in(0.25, 0)
 	.sound_per_char(gameover_text_voice, 1, 1," ^!.?,:/\\|*")
-
-

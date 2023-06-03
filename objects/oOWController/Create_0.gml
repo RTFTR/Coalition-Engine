@@ -37,7 +37,7 @@ menu_buffer = 2;
 menu_ui_x = -640;
 menu_ui_y = [-480,-480,-480,-480];
 
-menu_soul_pos = [-267,211];
+menu_soul_pos = [-606, 211];
 menu_soul_alpha = 1;
 #endregion
 

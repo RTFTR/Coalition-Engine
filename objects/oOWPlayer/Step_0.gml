@@ -132,22 +132,29 @@ if global.interact_state == INTERACT_STATE.IDLE and !oOWController.menu_disable 
 
 if keyboard_check_pressed(vk_space) or (x >= 830 and encounter_state == 0) Encounter_Begin();
 
-if moveable // When the player can move around
+if moveable and global.interact_state == INTERACT_STATE.IDLE // When the player can move around
 {
-	var colliding = CollidingWithTile("TileCollision");
-	if !colliding[0]
+	//var colliding = CollidingWithTile("TileCollision");
+	var displace = 0;
+	repeat spd
 	{
-		assign_sprite = dir_sprite[2];
-		scale_x = -sign(input_horizontal);
-	
-		x += sign(input_horizontal) ? spd : -spd;
-	}
-	if !colliding[1]
-	{
-		assign_sprite = dir_sprite[max(0, sign(input_vertical))];
-		scale_x = 1
-	
-		y += sign(input_vertical) ? spd : -spd;
+		if input_horizontal != 0
+		{
+			assign_sprite = dir_sprite[2];
+			scale_x = -sign(input_horizontal);
+			displace = sign(input_horizontal) ? 1 : -1;
+			if !tile_meeting(x + displace, y, "TileCollision")
+				x += displace;
+		}
+		if input_vertical != 0
+		{
+			assign_sprite = dir_sprite[max(0, sign(input_vertical))];
+			scale_x = 1;
+			displace = sign(input_vertical) ? 1 : -1;
+			if !tile_meeting(x, y + displace, "TileCollision")
+				y += displace;
+		}
+		
 	}
 	last_sprite = assign_sprite;
 	last_dir = scale_x;

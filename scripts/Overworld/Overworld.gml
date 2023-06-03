@@ -54,4 +54,57 @@ function Dialog_SetOptionName(ver = false)
 	}
 }
 
+///@description Checks whether an object position is colliding with a tile (Rectangle collision)
+///@param x
+///@param y
+///@param layer
+function tile_meeting(_x, _y, _layer) {
+	var _tm = layer_tilemap_get_id(_layer);
 
+	var _x1 = tilemap_get_cell_x_at_pixel(_tm, bbox_left + (_x - x), y),
+		_y1 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_top + (_y - y)),
+		_x2 = tilemap_get_cell_x_at_pixel(_tm, bbox_right + (_x - x), y),
+		_y2 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_bottom + (_y - y));
+
+	for (var __x = _x1; _x <= _x2; _x++) {
+		for (var __y = _y1; _y <= _y2; _y++) {
+			if (tile_get_index(tilemap_get(_tm, __x, __y))) {
+					return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+///@desc Checks whether an object position is colliding with a tile (Precise collision)
+///@param x
+///@param y
+///@param layer
+function tile_meeting_precise(_x, _y, _layer) {
+	var _tm = layer_tilemap_get_id(_layer),
+		_checker = oGlobal;
+		//Get real object reusing
+
+	var _x1 = tilemap_get_cell_x_at_pixel(_tm, bbox_left + (_x - x), y),
+		_y1 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_top + (_y - y)),
+		_x2 = tilemap_get_cell_x_at_pixel(_tm, bbox_right + (_x - x), y),
+		_y2 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_bottom + (_y - y));
+
+	for (var __x = _x1; _x <= _x2; _x++) {
+	 for (var __y = _y1; _y <= _y2; _y++) {
+		var _tile = tile_get_index(tilemap_get(_tm, __x, __y));
+			if (_tile) {
+				if (_tile == 1) return true;
+			
+				_checker.x = __x * tilemap_get_tile_width(_tm);
+				_checker.y = __y * tilemap_get_tile_height(_tm);
+				_checker.image_index = _tile;
+
+				if (place_meeting(_x, _y, _checker)) return true;
+			}
+		}
+	}
+
+	return false;
+}

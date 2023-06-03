@@ -295,7 +295,7 @@ switch battle_state {
 								else if abs(i - choice) == 1
 									item_lerp_color_amount_target[i] = 0.5;
 								else item_lerp_color_amount_target[i] = 16 / 255;
-								item_lerp_color_amount[i] = lerp(item_lerp_color_amount[i], item_lerp_color_amount_target[i], 0.24);
+								item_lerp_color_amount[i] = lerp(item_lerp_color_amount[i], item_lerp_color_amount_target[i], 0.12);
 							}
 							
 						break

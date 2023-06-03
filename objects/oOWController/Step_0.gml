@@ -1,14 +1,3 @@
-#region Functions
-function ResetMenuChoices()
-{
-	var i = 0;
-	repeat(array_length(menu_choice) - 1)
-	{
-		menu_choice[i] = 0;
-		i++;
-	}
-}
-#endregion
 #region // Menu lerping
 if instance_exists(oOWPlayer)
 {
@@ -32,10 +21,10 @@ for (var i = 1; i <= 3; ++i)
 #endregion
 
 #region // Input to navigate through menu 
-var	menu_soul_target = [-267, 205 + (36 * menu_choice[MENU_MODE.IDLE])],
+var	menu_soul_target = [-606, 205 + (36 * menu_choice[MENU_MODE.IDLE])],
 	menu_soul_alpha_target = 1;
 
-if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
+if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 {
 	// Input check, horizontal and vertical using vector method
 	var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
@@ -65,7 +54,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 			if menu_state == MENU_MODE.ITEM and global.item[0] == 0
 			{
 				menu_state = MENU_MODE.IDLE;
-				audio_stop_sound(snd_menu_confirm)
+				audio_stop_sound(snd_menu_confirm);
 			}
 		}
 		if input_menu // This closes the menu
@@ -73,7 +62,12 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 			menu = false;
 			global.interact_state = INTERACT_STATE.IDLE;
 			oOWPlayer.moveable = true;
-			ResetMenuChoices();
+			var i = 0;
+			repeat(array_length(menu_choice) - 1)
+			{
+				menu_choice[i] = 0;
+				++i;
+			}
 			audio_play(snd_menu_cancel);
 		}
 	}
@@ -82,7 +76,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 		if menu_state == MENU_MODE.ITEM
 		{
 			// Soul positioning and lerping
-			var	menu_soul_target = [ 217, 97 + (32 * menu_choice[MENU_MODE.ITEM]) ],
+			var	menu_soul_target = [217, 97 + (32 * menu_choice[MENU_MODE.ITEM]) ],
 				len = Item_Count();
 		
 			if input_vertical != 0 // Choosing item
@@ -106,7 +100,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 		{
 			var len = 3,
 				gap = [217, 315, 429],
-				menu_soul_target = [ gap[menu_choice[MENU_MODE.ITEM_INTERACTING]] , 377];
+				menu_soul_target = [gap[menu_choice[MENU_MODE.ITEM_INTERACTING]] , 377];
 			
 			if input_horizontal != 0
 			{
@@ -142,11 +136,8 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 		{
 			if !dialog_exists
 			{
-				menu = false;
-				menu_state = MENU_MODE.IDLE;
-				global.interact_state = INTERACT_STATE.IDLE;
-				oOWPlayer.moveable = true;
-				ResetMenuChoices();
+				menu_choice[MENU_MODE.ITEM_INTERACTING] = 0;
+				menu_state = MENU_MODE.ITEM;
 			}
 		}
 	}
@@ -205,10 +196,8 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 					menu_soul_target = [menu_ui_x + 34, 209];
 				if !dialog_exists // Close the menu and reset all the states
 				{
-					menu = false;
-					menu_state = MENU_MODE.IDLE;
-					global.interact_state = INTERACT_STATE.IDLE;
-					oOWPlayer.moveable = true;
+					menu_state = MENU_MODE.CELL;
+					global.interact_state = INTERACT_STATE.MENU;
 				}
 			}
 		}
@@ -228,7 +217,6 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 				box_choice = [0, 0]; // Reset box option
 				menu_state = MENU_MODE.CELL;
 				global.interact_state = INTERACT_STATE.MENU;
-				ResetMenuChoices();
 			}
 		}
 	}
@@ -236,8 +224,8 @@ if menu and global.interact_state == INTERACT_STATE.MENU// If menu is open
 
 
 
-menu_soul_pos[0] = lerp(menu_soul_pos[0], menu_soul_target[0], 0.2);
-menu_soul_pos[1] = lerp(menu_soul_pos[1], menu_soul_target[1], 0.2);
+menu_soul_pos[0] = lerp(menu_soul_pos[0], menu_soul_target[0], 0.16);
+menu_soul_pos[1] = lerp(menu_soul_pos[1], menu_soul_target[1], 0.16);
 menu_soul_alpha = lerp(menu_soul_alpha, menu_soul_alpha_target, 0.2);
 #endregion
 

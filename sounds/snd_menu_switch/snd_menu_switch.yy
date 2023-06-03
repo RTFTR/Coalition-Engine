@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "snd_menu_switch",
   "audioGroupId": {
-    "name": "audgrpbattle",
-    "path": "audiogroups/audgrpbattle",
+    "name": "audiogroup_default",
+    "path": "audiogroups/audiogroup_default",
   },
   "bitDepth": 1,
   "bitRate": 128,
@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.023401,
   "parent": {
-    "name": "Menu",
-    "path": "folders/Sounds/SFX/Battle/Menu.yy",
+    "name": "SFX",
+    "path": "folders/Sounds/SFX.yy",
   },
   "preload": false,
   "sampleRate": 44100,

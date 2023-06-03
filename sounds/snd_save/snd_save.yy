@@ -10,7 +10,7 @@
   "bitRate": 128,
   "compression": 0,
   "conversionMode": 0,
-  "duration": 0.570986,
+  "duration": 0.565986,
   "parent": {
     "name": "Overworld",
     "path": "folders/Sounds/SFX/Overworld.yy",

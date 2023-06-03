@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.988605,
   "parent": {
-    "name": "Menu",
-    "path": "folders/Sounds/SFX/Battle/Menu.yy",
+    "name": "SFX",
+    "path": "folders/Sounds/SFX.yy",
   },
   "preload": false,
   "sampleRate": 44100,

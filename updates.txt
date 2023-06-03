@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.6.8 (Eden)
+fixed some overworld collisions semi-broken but it works perfectly fine so ignore the semi-broken collision method
+added 3d camera in gameover for the funny
+
 v4.6.7 (Eden)
 fixed the vertical item color lerp
 

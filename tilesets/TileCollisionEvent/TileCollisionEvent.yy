@@ -4,9 +4,15 @@
   "name": "TileCollisionEvent",
   "autoTileSets": [],
   "macroPageTiles": {
-    "SerialiseHeight": 0,
-    "SerialiseWidth": 0,
-    "TileSerialiseData": [],
+    "SerialiseHeight": 234,
+    "SerialiseWidth": 209,
+    "TileCompressedData": [
+      -48905,
+      0,
+      1,
+      1,
+    ],
+    "TileDataFormat": 1,
   },
   "out_columns": 1,
   "out_tilehborder": 2,
