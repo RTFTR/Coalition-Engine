@@ -22,40 +22,41 @@ surface_reset_target();
 if global.show_hitbox {
 	
 	//Distances from center of board
-	var UR = point_distance(0, 0, right, up), 
-		LR = point_distance(0, 0, left, up),
-		LD = point_distance(0, 0, left, down),
-		RD = point_distance(0, 0, right, down),
-		//Corner locations
-		corners = [
-			[x + (UR - 2)  * dcos(_angle - 45),  y + (UR + 10) * -dsin(_angle - 45)],
-			[x + (LR - 2)  * dcos(_angle + 45),  y + (LR + 10) * -dsin(_angle + 45)],
-			[x + (LD + 15) * dcos(_angle + 135), y + (LD + 10) * -dsin(_angle + 135)],
-			[x + (RD + 15) * dcos(_angle + 225), y + (RD + 10) * -dsin(_angle + 225)],
-		];
-	draw_set_alpha(0.3);
-	draw_set_color(c_red);
-	draw_triangle(
-		corners[0, 0], corners[0, 1],
-		corners[1, 0], corners[1, 1],
-		corners[2, 0], corners[2, 1],
-		0);
-	draw_set_color(c_green);
-	draw_triangle(
-		corners[1, 0], corners[1, 1],
-		corners[2, 0], corners[2, 1],
-		corners[3, 0], corners[3, 1], 0);
-	draw_set_color(c_blue);
-	draw_triangle(
-		corners[2, 0], corners[2, 1],
-		corners[3, 0], corners[3, 1],
-		corners[0, 0], corners[0, 1], 0);
-	draw_set_color(c_yellow);
-	draw_triangle(
-		corners[3, 0], corners[3, 1],
-		corners[0, 0], corners[0, 1],
-		corners[1, 0], corners[1, 1], 0);
-	draw_set_color(c_white);
+	//var UR = point_distance(0, 0, right, up), 
+	//	LR = point_distance(0, 0, left, up),
+	//	LD = point_distance(0, 0, left, down),
+	//	RD = point_distance(0, 0, right, down),
+	//	//Corner locations
+	//	corners = [
+	//		[x + (UR - 2)  * dcos(_angle - 45),  y + (UR + 10) * -dsin(_angle - 45)],
+	//		[x + (LR - 2)  * dcos(_angle + 45),  y + (LR + 10) * -dsin(_angle + 45)],
+	//		[x + (LD + 15) * dcos(_angle + 135), y + (LD + 10) * -dsin(_angle + 135)],
+	//		[x + (RD + 15) * dcos(_angle + 225), y + (RD + 10) * -dsin(_angle + 225)],
+	//	];
+	//draw_set_alpha(0.3);
+	//draw_set_color(c_red);
+	//draw_triangle(
+	//	corners[0, 0], corners[0, 1],
+	//	corners[1, 0], corners[1, 1],
+	//	corners[2, 0], corners[2, 1],
+	//	0);
+	//draw_set_color(c_green);
+	//draw_triangle(
+	//	corners[1, 0], corners[1, 1],
+	//	corners[2, 0], corners[2, 1],
+	//	corners[3, 0], corners[3, 1], 0);
+	//draw_set_color(c_blue);
+	//draw_triangle(
+	//	corners[2, 0], corners[2, 1],
+	//	corners[3, 0], corners[3, 1],
+	//	corners[0, 0], corners[0, 1], 0);
+	//draw_set_color(c_yellow);
+	//draw_triangle(
+	//	corners[3, 0], corners[3, 1],
+	//	corners[0, 0], corners[0, 1],
+	//	corners[1, 0], corners[1, 1], 0);
+	//draw_set_color(c_white);
+	show_hitbox(c_fuchsia)
 }
 
 image_blend = _color;
@@ -67,5 +68,9 @@ frame_y = _frame_y;
 frame_w = _frame_w;
 frame_h = _frame_h;
 
-image_xscale = right + left;
-image_yscale = up + down;
+
+//Reposition for move_and_collide() to work, which it doesn't
+x = InitX + (right - left) / 2 - 5;
+y = InitY + (down - up) / 2 - 5;
+image_xscale = (right + left) / 2 + 5;
+image_yscale = (up + down) / 2 + 5;

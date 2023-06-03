@@ -10,7 +10,7 @@ function Enemy_Function_Load(encounter_number) {
 	
 	var enemy_presets=
 	[
-		[noone, oEnemySans, noone],
+		[noone, oEnemySansExample, noone],
 		[noone, oEnemySans2, noone],
 		[noone, oRhythm, noone],
 		[noone, oEnemyTest, noone],

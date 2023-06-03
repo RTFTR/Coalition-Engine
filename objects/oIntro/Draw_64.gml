@@ -8,7 +8,7 @@ if reveal_states
 		default_valign = draw_get_valign(),
 		default_font = draw_get_font(),
 		credit_text = "UNDERTALE (C) TOBY FOX 2015-" + string(current_year);
-		credit_text += "\nCoalition Enzime v1.0 by Cheetos Bakery";
+		credit_text += "\nCoalition Engine " + ENGINE_VERSION + " by Cheetos Bakery";
 	
 	draw_set_color(c_gray);
 	draw_set_halign(fa_center);

@@ -26,3 +26,6 @@ point_y = 0;
 contains_soul = false;
 
 rotate = 0;
+
+InitX = xstart;
+InitY = ystart;

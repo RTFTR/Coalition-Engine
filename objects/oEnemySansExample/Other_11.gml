@@ -122,10 +122,10 @@ TurnCreate(6, 0, 30, function() {
 		left = irandom_range(10,20);
 		right = irandom_range(10,20);
 	}
-	instance_create_depth(250,320,0,oBoardCover,
-	{
-		image_angle : 45
-	});
+	//instance_create_depth(250,320,0,oBoardCover,
+	//{
+	//	image_angle : 45
+	//});
 });
 TurnCreate(6, 1, 570, function() {
 	with oBoardCover

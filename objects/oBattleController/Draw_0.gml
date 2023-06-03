@@ -83,7 +83,7 @@ if battle_state == BATTLE_STATE.MENU {
 			c_div = coord;
 			_coord = c_div;
 			Battle_Masking_Start(true);
-			for (var i = 0, n = itm_ln; i < n; ++i)
+			for (var i = 0; i < itm_ln; ++i)
 			{	
 				var xx = item_lerp_x[i],
 					yy = item_lerp_y[0] + (32 * (i));
@@ -92,8 +92,7 @@ if battle_state == BATTLE_STATE.MENU {
 				//var txt_color = (i != _coord) ? c_gray : c_white;
 				//draw_set_color(txt_color);
 				
-				
-				var color = make_color_rgb(item_lerp_color[i][0], item_lerp_color[i][1], item_lerp_color[i][2]);
+				var color = merge_color(c_black, c_white, item_lerp_color_amount[i]);
 				draw_set_color(color);
 				draw_text(xx, yy, "* " + item_name[i]);
 				//draw_set_alpha(item_desc_alpha);

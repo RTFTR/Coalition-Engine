@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Bullet",
-    "path": "folders/Objects/Battle/Bullet.yy",
+    "path": "folders/Objects/(Engine)/Battle/Bullet.yy",
   },
   "parentObjectId": null,
   "persistent": false,

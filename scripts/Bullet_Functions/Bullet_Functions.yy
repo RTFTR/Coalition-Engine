@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Bullet",
-    "path": "folders/Scripts/Bullet.yy",
+    "path": "folders/Scripts/(Coalition Engine Internal Use)/Bullet.yy",
   },
 }

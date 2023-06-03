@@ -40,10 +40,17 @@ function BasicMovement(hor = true, ver = true, fast = false) {
 		move_y = v_spd * move_spd;
 
 		if moveable {
-			if hor
-				x += lengthdir_x(move_x, _angle);
-			if ver
-				y += lengthdir_y(move_y, _angle - 90);
+			if instance_exists(oBoardCover)
+			{
+				move_and_collide(lengthdir_x(move_x, _angle), lengthdir_y(move_y, _angle - 90), oBoardCover, move_spd * 10);
+			}
+			else
+			{
+				if hor
+					x += lengthdir_x(move_x, _angle);
+				if ver
+					y += lengthdir_y(move_y, _angle - 90);
+			}
 		}
 		image_angle = _angle;
 	}

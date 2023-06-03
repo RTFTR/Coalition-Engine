@@ -12,7 +12,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Boards",
-    "path": "folders/Objects/Battle/Boards.yy",
+    "path": "folders/Objects/(Engine)/Battle/Boards.yy",
   },
   "parentObjectId": null,
   "persistent": false,
@@ -31,8 +31,8 @@
   "properties": [],
   "solid": false,
   "spriteId": {
-    "name": "sprPixel",
-    "path": "sprites/sprPixel/sprPixel.yy",
+    "name": "sprPixelBig",
+    "path": "sprites/sprPixelBig/sprPixelBig.yy",
   },
   "spriteMaskId": null,
   "visible": true,

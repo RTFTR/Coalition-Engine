@@ -345,50 +345,50 @@ if STATE == 2 {
 		}
 	
 		//Collision check of the Cover Board
-		if instance_exists(oBoardCover) {
-			//Old Collision Checker
-			for (var i = 0, n = instance_number(oBoardCover); i < n; i++) {
-				var board_cover = instance_find(oBoardCover, i);
-				with board_cover {
-					var board_cover_angle = posmod(image_angle, 360),
-						board_cover_margin = [up, down, left, right],
-						board_cover_dir = board_cover_angle div 90,
-						board_cover_limit_template = [];
+		//if instance_exists(oBoardCover) {
+		//	//Old Collision Checker
+		//	for (var i = 0, n = instance_number(oBoardCover); i < n; i++) {
+		//		var board_cover = instance_find(oBoardCover, i);
+		//		with board_cover {
+		//			var board_cover_angle = posmod(image_angle, 360),
+		//				board_cover_margin = [up, down, left, right],
+		//				board_cover_dir = board_cover_angle div 90,
+		//				board_cover_limit_template = [];
 
-					board_cover_limit_template = [
-						y - board_cover_margin[0] - 1,
-						y + board_cover_margin[1],
-						x - board_cover_margin[2] - x_offset + 1,
-						x + board_cover_margin[3] - 3
-					]
-					var board_cover_top_limit = board_cover_limit_template[0],
-						board_cover_bottom_limit = board_cover_limit_template[1],
-						board_cover_left_limit = board_cover_limit_template[2],
-						board_cover_right_limit = board_cover_limit_template[3],
-						frame = lengthdir_x(board_cover.thickness_frame, board_cover_angle),
-						ldx = lengthdir_x(1, board_cover_angle),
-						ldy = lengthdir_y(1, board_cover_angle),
-						_dist = point_distance(x, y, other.x, other.y),
-						_dir = point_direction(x, y, other.x, other.y),
-						CurrentX = lengthdir_x(_dist, _dir - board_cover_angle) + x,
-						CurrentY = lengthdir_y(_dist, _dir - board_cover_angle) + y;
+		//			board_cover_limit_template = [
+		//				y - board_cover_margin[0] - 1,
+		//				y + board_cover_margin[1],
+		//				x - board_cover_margin[2] - x_offset + 1,
+		//				x + board_cover_margin[3] - 3
+		//			]
+		//			var board_cover_top_limit = board_cover_limit_template[0],
+		//				board_cover_bottom_limit = board_cover_limit_template[1],
+		//				board_cover_left_limit = board_cover_limit_template[2],
+		//				board_cover_right_limit = board_cover_limit_template[3],
+		//				frame = lengthdir_x(board_cover.thickness_frame, board_cover_angle),
+		//				ldx = lengthdir_x(1, board_cover_angle),
+		//				ldy = lengthdir_y(1, board_cover_angle),
+		//				_dist = point_distance(x, y, other.x, other.y),
+		//				_dir = point_direction(x, y, other.x, other.y),
+		//				CurrentX = lengthdir_x(_dist, _dir - board_cover_angle) + x,
+		//				CurrentY = lengthdir_y(_dist, _dir - board_cover_angle) + y;
 					
-					r_x = abs(CurrentX - board_cover_left_limit) <= abs(CurrentX - board_cover_right_limit) ?
-						board_cover_left_limit - x_offset - frame : board_cover_right_limit + x_offset + frame * 3 / 5;
-					r_y = abs(CurrentY - board_cover_top_limit) <= abs(CurrentY - board_cover_bottom_limit) ?
-						board_cover_top_limit - y_offset - frame : board_cover_bottom_limit + y_offset + frame;
+		//			r_x = abs(CurrentX - board_cover_left_limit) <= abs(CurrentX - board_cover_right_limit) ?
+		//				board_cover_left_limit - x_offset - frame : board_cover_right_limit + x_offset + frame * 3 / 5;
+		//			r_y = abs(CurrentY - board_cover_top_limit) <= abs(CurrentY - board_cover_bottom_limit) ?
+		//				board_cover_top_limit - y_offset - frame : board_cover_bottom_limit + y_offset + frame;
 
-					_dist = point_distance(x, y, r_x, r_y);
-					_dir = point_direction(x, y, r_x, r_y);
+		//			_dist = point_distance(x, y, r_x, r_y);
+		//			_dir = point_direction(x, y, r_x, r_y);
 
-					if board_cover.contains_soul {
-						if abs(x - other.x) >= abs(y - other.y)
-							other.x = lengthdir_x(_dist, _dir + board_cover_angle) + x;
-						else other.y = lengthdir_y(_dist, _dir + board_cover_angle) + y;
-					}
-				}
-			}
-		}
+		//			if board_cover.contains_soul {
+		//				if abs(x - other.x) >= abs(y - other.y)
+		//					other.x = lengthdir_x(_dist, _dir + board_cover_angle) + x;
+		//				else other.y = lengthdir_y(_dist, _dir + board_cover_angle) + y;
+		//			}
+		//		}
+		//	}
+		//}
 		//Check if the soul is allowed to go outside the screen
 		if !allow_outside {
 			x = clamp(x, oGlobal.camera_x + x_offset, oGlobal.camera_x + 640 - x_offset);

@@ -7,6 +7,7 @@ var _frame_x = frame_x,
 	_frame_w = frame_w,
 	_frame_h = frame_h;
 
+
 // Background/Surface
 point_xy(x - left, y - up);
 bg_x = point_x;
@@ -53,7 +54,7 @@ frame_h = _frame_h;
 
 
 //Check if soul is colliding
-var soul = oSoul,
+/*var soul = oSoul,
 	_angle = image_angle,
 	//Distances from center of board
 	UR = point_distance(0, 0, right, up), 

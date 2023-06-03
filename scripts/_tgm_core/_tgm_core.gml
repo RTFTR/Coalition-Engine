@@ -12,7 +12,7 @@
 	..............................
 	Special Thanks, contributions:
 	YellowAfterLife, Cecil, TheSnidr, Xot, Shaun Spalding, gnysek, icuurd12b42, DragoniteSpam,
-	Grisgram.
+	Grisgram, Red, JuJu Adams.
 	(authors' names written in comment inside the functions used)
 	
 	Supporters:
@@ -22,7 +22,7 @@
 /*
 	MIT License
 	
-	Copyright (c) 2022 Mozart Junior (FoxyOfJungle)
+	Copyright (c) 2023 Mozart Junior (FoxyOfJungle)
 	
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
@@ -255,7 +255,8 @@ function motion_predict_intersection(x1, y1, x2, y2, target_speed, target_angle,
 /// @param {Real} y2 Target Y position.
 /// @returns {real} 
 function point_direction_radians(x1, y1, x2, y2) {
-	return arctan2(y2-y1, x2-x1);
+	return degtorad(point_direction(x1, y1, x2, y2));
+	//(arctan2(y2-y1, x2-x1) + pi*2) % pi*2;
 }
 
 /// @desc This function returns the normalized direction between two points. Expected results: -1 to 1, both horizontal and vertical
@@ -266,8 +267,8 @@ function point_direction_radians(x1, y1, x2, y2) {
 /// @returns {Struct} 
 function point_direction_normalized(x1, y1, x2, y2) {
 	//var dir = degtorad(-point_direction(x1, y1, x2, y2));
-	var dir = arctan2(y2-y1, x2-x1);
-	return new Vector2(cos(dir), sin(dir));
+	var len = point_distance(x1, y1, x2, y2);
+	return new Vector2((x2 - x1)/len, (y2 - y1)/len);
 }
 
 function point_in_cone(px, py, x, y, angle, dist, fov) {
@@ -282,6 +283,14 @@ function point_in_arc(px, py, x, y, angle, dist, fov) {
 	return (point_distance(px, py, x, y) < dist && abs(angle_difference(angle, point_direction(x, y, px, py))) < fov/2);
 }
 
+function point_in_parallelogram(px, py, parallelogram) {
+	// in first
+	if point_in_triangle(px, py, parallelogram[0], parallelogram[1], parallelogram[2], parallelogram[3], parallelogram[6], parallelogram[7]) return true;
+	// in second
+	if point_in_triangle(px, py, parallelogram[4], parallelogram[5], parallelogram[2], parallelogram[3], parallelogram[6], parallelogram[7]) return true;
+	return false;
+}
+
 /// @desc This function prevents it from returning 0, returning another value instead, if this happen.
 /// @param {Real} value The value.
 /// @param {Real} zero_value Value to return.
@@ -291,7 +300,7 @@ function non_zero(value, zero_value=1) {
 }
 
 function is_fractional(number) {
-	return (frac(number) > 0);
+	return (abs(frac(number)) > 0);
 }
 
 function is_even_number(number) {
@@ -1019,10 +1028,7 @@ function ___fps_average() {
 
 
 function game_in_IDE() {
-	//if (debug_mode) return true;
-	if (code_is_compiled()) return false;
-	if (parameter_count() == 3 && parameter_string(1) == "-game") return true;
-	return false;
+	return (GM_build_type == "run");
 }
 
 
@@ -1048,6 +1054,17 @@ function print() {
 		}
 		show_debug_message(_log);
 	}
+}
+
+
+#macro trace  __trace(_GMFILE_ + "/" + _GMFUNCTION_ + ":" + string(_GMLINE_) + ": ")
+function __trace(_location) {
+	// credits: "Red", "JuJu Adams"
+	static __struct = {};
+	__struct.__location = _location;
+	return method(__struct, function(_str) {
+		show_debug_message(__location + ": " + string(_str));
+	});
 }
 
 
@@ -2598,6 +2615,21 @@ function aspect_ratio_maintain(resolution_x, resolution_y, size_x, size_y) {
 //}
 
 
+//function draw_get_resolutions(x, y, extra_str="") {
+//	var _sep = "";//string_repeat("-", 40);
+//	var _text =
+//	$"display_get_width: {display_get_width()} \ndisplay_get_height: {display_get_height()} | {display_get_width()/display_get_height()}\n{_sep}\n" +
+//	$"window_get_width: {window_get_width()} \nwindow_get_height: {window_get_height()} | {window_get_width()/window_get_height()}\n{_sep}\n" +
+//	$"browser_width: {browser_width} \nbrowser_height: {browser_height} | {browser_width/browser_height}\n{_sep}\n" +
+//	$"application_get_position(): {application_get_position()} | {(application_get_position()[2]-application_get_position()[0])/(application_get_position()[3]-application_get_position()[1])}\n{_sep}\n" +
+//	$"display_get_gui_width: {display_get_gui_width()} \ndisplay_get_gui_height: {display_get_gui_height()} | {display_get_gui_width()/display_get_gui_height()}\n{_sep}\n" +
+//	$"application_surface width: {surface_get_width(application_surface)} \napplication_surface height: {surface_get_height(application_surface)} | {surface_get_width(application_surface)/surface_get_height(application_surface)}\n{_sep}\n" +
+//	$"view_wport0: {view_wport[0]} \nview_hport0: {view_hport[0]} | {view_wport[0]/view_hport[0]}\n{_sep}\n" +
+//	$"camera_get_view_width0: {camera_get_view_width(view_camera[0])} \ncamera_get_view_height0: {camera_get_view_height(view_camera[0])} | {camera_get_view_width(view_camera[0])/camera_get_view_height(view_camera[0])}\n{_sep}\n" + string(extra_str);
+//	draw_text(x, y, _text);
+//}
+
+
 /// @desc Saves a HDR surface to a image file.
 /// @param {Id.Surface} surface_id The surface id.
 /// @param {string} fname The name of the saved image file.
@@ -2663,8 +2695,10 @@ function particle_create(x, y, layer_id, particle_asset) {
 	return _part;
 }
 
-function particle_type_create(x, y, part_system, particle_asset, amount) {
-	part_particles_create(part_system, x, y, particle_get_info(particle_asset).emitters[0].parttype.ind, amount);
+/// @desc Used to get the particle type from a particle system created via IDE.
+/// So you can use part_particles_create() to create the particles from it.
+function particle_get_type(particle_asset, emitter_index=0) {
+	return particle_get_info(particle_asset).emitters[emitter_index].parttype.ind;
 }
 
 function particle_move(part_system, x, y) {

@@ -290,6 +290,12 @@ switch battle_state {
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
 								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
+								if i == choice
+									item_lerp_color_amount_target[i] = 1;
+								else if abs(i - choice) == 1
+									item_lerp_color_amount_target[i] = 0.5;
+								else item_lerp_color_amount_target[i] = 16 / 255;
+								item_lerp_color_amount[i] = lerp(item_lerp_color_amount[i], item_lerp_color_amount_target[i], 0.24);
 							}
 							
 						break

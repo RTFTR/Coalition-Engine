@@ -145,19 +145,19 @@ board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_alpha = [.5, .5, .5];
 
-var n = Item_Space();
-item_lerp_y = array_create(n, 0);
-item_lerp_x = array_create(n, 0);
+item_lerp_y = array_create(8, 0);
+item_lerp_x = array_create(8, 0);
 
-color_dkgray = [16,16,16];
-for (var i = 0; i < n; ++i)
+for (var i = 0; i < 8; ++i)
 {
-	item_lerp_color[i] = color_dkgray; 
+	item_lerp_color[i] = c_dkgray; 
 }
 
 item_lerp_x_target = 0;
 item_lerp_y_target = 0;
-item_lerp_color_target =  [ [16,16,16] , [128,128,128] , [255,255,255] ]; // c_gray - c_white
+item_lerp_color_target_values =  [ [16,16,16] , [128,128,128] , [255,255,255] ]; // c_gray - c_white
+item_lerp_color_amount = array_create(8, 16 / 255);
+item_lerp_color_amount_target = array_create(8, 16 / 255);
 item_desc_x = 360;
 item_desc_alpha = 0;
 #endregion

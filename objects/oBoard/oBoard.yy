@@ -12,7 +12,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Boards",
-    "path": "folders/Objects/Battle/Boards.yy",
+    "path": "folders/Objects/(Engine)/Battle/Boards.yy",
   },
   "parentObjectId": null,
   "persistent": false,

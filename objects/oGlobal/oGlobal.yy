@@ -16,8 +16,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "(Engine)",
+    "path": "folders/Objects/(Engine).yy",
   },
   "parentObjectId": null,
   "persistent": true,
