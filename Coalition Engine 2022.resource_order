@@ -240,7 +240,7 @@
     {"name":"input_binding_get","order":2,"path":"scripts/input_binding_get/input_binding_get.yy",},
     {"name":"input_held_time","order":13,"path":"scripts/input_held_time/input_held_time.yy",},
     {"name":"Sound","order":17,"path":"scripts/Sound/Sound.yy",},
-    {"name":"snd_encounter_soul_move","order":4,"path":"sounds/snd_encounter_soul_move/snd_encounter_soul_move.yy",},
+    {"name":"snd_encounter_soul_move","order":19,"path":"sounds/snd_encounter_soul_move/snd_encounter_soul_move.yy",},
     {"name":"input_system_import","order":10,"path":"scripts/input_system_import/input_system_import.yy",},
     {"name":"TGMX_Terms_of_Use","order":1,"path":"notes/TGMX_Terms_of_Use/TGMX_Terms_of_Use.yy",},
     {"name":"scribble_refresh_everything","order":9,"path":"scripts/scribble_refresh_everything/scribble_refresh_everything.yy",},

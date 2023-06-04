@@ -10,8 +10,8 @@ image_speed = 0;
 allow_run = true;
 speed_multiplier = 1;
 
-Dialog_BeginOption("test option question", ["ans 1", "ans 2", "ans 3"],
-[function(){game_restart()}, function(){game_end()}, function() {show_message("functioning")}]);
+Dialog_BeginOption("what you want do", ["restart", "end", "continue"],
+[function(){game_restart()}, function(){game_end()}, function() {}]);
 //OW_Dialog("Welcome to the\n  Underg- Overworld!");
 
 encounter_state = 0;
