@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.6.9.1 (Eden)
+added dolater
+added some more functions on the new camera
+
 v4.6.9 (Eden)
 overworld option texts has been done
 overworld now has object culling, so you can place hundreds or thousands of instances without dying

@@ -9,6 +9,6 @@ window_center();
 
 room_speed = 60;
 
-//room_goto_next();
+room_goto_next();
 
-room_goto(room_overworld);
+room_goto(room_gameover);

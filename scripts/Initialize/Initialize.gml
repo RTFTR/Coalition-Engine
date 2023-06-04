@@ -6,8 +6,8 @@ function Initialize()
 	randomize();
 	
 	//Soul position (Gameover usage)
-	global.soul_x = 0;
-	global.soul_y = 0;
+	global.soul_x = 320;
+	global.soul_y = 320;
 	
 	//Debugging (Engine usage)
 	global.debug = false;
@@ -109,8 +109,6 @@ function Initialize()
 		DefenseItem :	global.SaveFile[? "Arm"],
 		Kills :			global.SaveFile[? "Kills"],
 	}
-	global.data.AttackItem = "Gun"
-	global.data.AttackItem = "Pan"
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
 	

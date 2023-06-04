@@ -68,6 +68,8 @@ function end_turn()
 	//Code to prevent crash
 	array_push(dialog_text, "");
 	TurnData.IsHeal = false;
+	//Debugging
+	event_user(1);
 }
 
 if state == 2 and !died {

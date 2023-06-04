@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "snd_encounter_soul_move",
   "audioGroupId": {
-    "name": "audgrpoverworld",
-    "path": "audiogroups/audgrpoverworld",
+    "name": "audgrpbattle",
+    "path": "audiogroups/audgrpbattle",
   },
   "bitDepth": 1,
   "bitRate": 128,
@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 0.333787,
   "parent": {
-    "name": "Overworld",
-    "path": "folders/Sounds/SFX/Overworld.yy",
+    "name": "Battle",
+    "path": "folders/Sounds/SFX/Battle.yy",
   },
   "preload": false,
   "sampleRate": 44100,
