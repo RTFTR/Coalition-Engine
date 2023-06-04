@@ -171,8 +171,13 @@ if battle_state == BATTLE_STATE.MENU {
 						_target_time += 6.4;
 						var _aim_distance = abs(320 - _aim_target_x);
 						_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
-					
-						if input_confirm and Target.buffer < 0 {
+						
+						if _target_time >= 575 {
+							menu_state = 0;
+							_target_state = 3;
+							battle_state = 0;
+						}
+						else if input_confirm and Target.buffer < 0 {
 							battle_turn++;
 							Target.buffer = 3;
 							_target_state = 2;
@@ -189,11 +194,6 @@ if battle_state == BATTLE_STATE.MENU {
 							Calculate_MenuDamage(_aim_distance, target_option);
 							instance_create_depth(strike_target_x, 160, -10, oStrike);
 							audio_play_sound(snd_slice, 50, false);
-						}
-						if _target_time >= 575 {
-							menu_state = 0;
-							_target_state = 3;
-							battle_state = 0;
 						}
 					}
 					else _target_frame += 0.2;

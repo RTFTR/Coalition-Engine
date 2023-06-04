@@ -1,3 +1,5 @@
+if !audio_group_is_loaded(audgrpoverworld)
+	audio_group_load(audgrpoverworld);
 #region Culling
 CullObject(oOWCollision);
 ProcessCulls();

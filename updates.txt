@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.6.9.2 (Eden)
+some bug fixes
+
 v4.6.9.1 (Eden)
 added dolater
 added some more functions on the new camera

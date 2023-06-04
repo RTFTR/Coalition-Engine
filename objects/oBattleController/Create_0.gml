@@ -1,4 +1,5 @@
 texturegroup_load("texbattle");
+Fader_Fade(1, 0, 20);
 menu_state = 0;
 battle_state = 0;
 battle_turn = 0;

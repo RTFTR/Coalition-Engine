@@ -1,5 +1,5 @@
 texturegroup_load("texoverworld");
-audio_group_load(audgrpoverworld);
+Fader_Fade(1, 0, 15);
 OverWorld_ID = OVERWORLD.CORRIDOR; // The Overworld ID (For room changing and stuff)
 
 enum INTERACT_STATE

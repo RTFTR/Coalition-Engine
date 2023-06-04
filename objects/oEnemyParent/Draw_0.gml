@@ -8,7 +8,6 @@ function RemoveEnemy()
 			enemy[enemy_slot] = noone;
 			enemy_draw_hp_bar[enemy_slot] = 0;
 			array_delete(enemy_instance, menu_choice[0], 1);
-			if array_length(enemy_instance) == 0 end_battle();
 		}
 }
 #endregion
@@ -242,6 +241,7 @@ if !died and !is_spared
 				enemy_in_battle = false;
 				global.data.Kills++;
 				RemoveEnemy();
+				if array_length(oBattleController.enemy_instance) == 0 oBattleController.end_battle();
 			}
 		}
 	}
@@ -283,7 +283,7 @@ if is_being_spared {
 if is_spared and image_alpha == 0.5 {
 	//Remove enemy
 	enemy_in_battle = false;
-	RemoveEnemy();
+	if array_length(oBattleController.enemy_instance) == 0 RemoveEnemy();
 }
 
 if state == 2 {

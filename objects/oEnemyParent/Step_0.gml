@@ -72,7 +72,7 @@ function end_turn()
 	event_user(1);
 }
 
-if state == 2 and !died {
+if state == 2 and !died and enemy_in_battle {
 	//Timer
 	if start time++;
 	var _turn = oBattleController.battle_turn - 1;
