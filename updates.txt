@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.6.9 (Eden)
+overworld option texts has been done
+overworld now has object culling, so you can place hundreds or thousands of instances without dying
+even more funny game over screen
+
 v4.6.8 (Eden)
 fixed some overworld collisions semi-broken but it works perfectly fine so ignore the semi-broken collision method
 added 3d camera in gameover for the funny

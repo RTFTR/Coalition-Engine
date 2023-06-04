@@ -1,3 +1,8 @@
+#region Culling
+CullObject(oOWCollision);
+ProcessCulls();
+#endregion
+
 #region // Menu lerping
 if instance_exists(oOWPlayer)
 {

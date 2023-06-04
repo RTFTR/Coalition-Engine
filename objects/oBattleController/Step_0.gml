@@ -9,7 +9,7 @@ function scr_enemy_choice()
 
 function scr_enemy_num()
 {
-	for (var i = 0, n = 1; i < 2; i++)
+	for (var i = 0, n = 0; i < 2; i++)
 		if enemy[i] != noone
 			n++;
 	return n;

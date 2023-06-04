@@ -46,10 +46,13 @@ if battle_state == BATTLE_STATE.MENU {
 					decrease_y -= 32;
 					draw_set_color(c_red);
 					var lineheight = 32,
-						y_start = 247;
-					draw_rectangle(xwrite, y_start + (i * lineheight) - decrease_y, xwrite + 100, y_start + (i * lineheight) + 17 - decrease_y, false);
+						y_start = 247,
+						remaining_hp_width = xwrite + ((enemy_hp[i] / enemy_hp_max[i]) * 100);
+					//Background
+					draw_rectangle(remaining_hp_width, y_start + (i * lineheight) - decrease_y, xwrite + 100, y_start + (i * lineheight) + 17 - decrease_y, false);
+					//Remaining HP
 					draw_set_color(c_lime);
-					draw_rectangle(xwrite, y_start + (i * lineheight) - decrease_y, xwrite + ((enemy_hp[i] / enemy_hp_max[i]) * 100), y_start + (i * lineheight) + 17 - decrease_y, false);
+					draw_rectangle(xwrite, y_start + (i * lineheight) - decrease_y, remaining_hp_width, y_start + (i * lineheight) + 17 - decrease_y, false);
 					draw_set_color(c_white);
 					decrease_y += 32;
 				}
@@ -89,9 +92,6 @@ if battle_state == BATTLE_STATE.MENU {
 					yy = item_lerp_y[0] + (32 * (i));
 				
 				draw_set_font(fnt_dt_mono);
-				//var txt_color = (i != _coord) ? c_gray : c_white;
-				//draw_set_color(txt_color);
-				
 				var color = merge_color(c_black, c_white, item_lerp_color_amount[i]);
 				draw_set_color(color);
 				draw_text(xx, yy, "* " + item_name[i]);
@@ -100,8 +100,6 @@ if battle_state == BATTLE_STATE.MENU {
 				//if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
 				//draw_set_alpha(1);
 				draw_set_color(c_white);
-				//item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
-				//item_desc_x = lerp(item_desc_x, 320, 1/3);
 			}	
 			Battle_Masking_End();
 			break

@@ -24,14 +24,17 @@ if dialog_exists
 	//Dialog Text drawing
 	text_writer.starting_format(dialog_font,c_white)
 	text_writer.draw(dialog_box_x + 20, dialog_box_y + 20, dialog_typist)
-	//Check if the dialog is currently an option (INCOMPLETE)
-	if dialog_option
+	//Check if the dialog is currently an option and draw if question is asked and buffer time has expired
+	if dialog_option and dialog_typist.get_state() == 1
 	{
-		option_text.starting_format(dialog_font, c_white)
-		option_text.draw(dialog_box_x + 20, dialog_box_y + 130, option_typist)
-		if input_horizontal != 0
-			option = !option;
-		draw_sprite_ext(sprSoul, 0, dialog_box_x + 20 + Sigma(option_length, 0, option), 320, 1, 1, 0, c_red, 1);
+		if option_buffer > 0 option_buffer--;
+		if !option_buffer
+		{
+			option_text.draw(dialog_box_x + 45, dialog_box_y + 110, option_typist)
+			if input_horizontal != 0
+				option = posmod(option + input_horizontal, option_amount);
+			draw_sprite_ext(sprSoul, 0, dialog_box_x + option_length[option], dialog_box_y + 110, 1, 1, 90, c_red, 1);
+		}
 	}
 		
 	//Dialog skipping
@@ -50,6 +53,11 @@ if dialog_exists
 			is_saving = Saving;
 			Choice = 0;
 			oOWPlayer.moveable = true;
+			if dialog_option
+			{
+				//Executes the event of the option
+				option_event[option]();
+			}
 		}
 	}
 }

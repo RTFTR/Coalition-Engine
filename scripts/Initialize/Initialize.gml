@@ -1,5 +1,6 @@
 function Initialize()
 {
+	show_debug_message("This is Coalition Engine " + ENGINE_VERSION);
 	//Set to true when releasing your game
 	gml_release_mode(true);
 	randomize();
@@ -146,4 +147,7 @@ function Initialize()
 	global.TrailP = part_type_create();
 	part_type_life(global.TrailP, 30, 30);
 	part_type_alpha2(global.TrailP, 1, 0);
+	
+	global.deactivatedInstances = ds_list_create();
+	global.trueInstanceCache = ds_list_create();
 }
