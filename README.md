@@ -22,7 +22,9 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 These github projects will be seperated like:
 > Canary : This will be getting the cutting edge updates, which means most likely it will cause unexpected errors or crashes.
+
 > Dev : When the feature is 60% finalized, It will move to the Dev branch.
+
 > Stable : When the feature is **completly** done, It will move to the Stable branch.
 
 You are on the Canary branch, This branch will have very unstable, reliable builds. Yeah, most likely.
