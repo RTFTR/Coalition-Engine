@@ -21,6 +21,7 @@ These github projects will be seperated like:
 > Dev : When the feature is 60% finalized, It will move to the Dev branch.
 > Stable : When the feature is **completly** done, It will move to the Stable branch.
 
+You are on the Canary branch, This branch will most likely be very unstable, reliable builds.
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
 ## Project Founder:
