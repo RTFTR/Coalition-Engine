@@ -16,10 +16,12 @@ To make this engine run perfectly in Low-End PCs, We're trying our best to optim
 > We protect You, Developer's codes.
 
 Messy codes? Precious codes? All of them are easily stolen by UndertaleModTool, but no worry!
-We are finding a way to block your codes. So no one will be able to steal your codes.
+We are finding a way to block your codes. So no one will be able to steal your codes. (Unless they can read disassembly codes, then there is this next feature that might help)
+Don't want people to steal your assets? Don't want people to mod your games for fun/to cheat?
+Fear not, the anti-export and save corruption is already a built-in feature of this engine, if people want to steal your protected assets or mod some protected codes, they will experience an error instead!
 
 These github projects will be seperated like:
-> Canary : This will be getting everyday-update, which means most likely it will cause unexpected errors or crashes.
+> Canary : This will be getting the cutting edge updates, which means most likely it will cause unexpected errors or crashes.
 > Dev : When the feature is 60% finalized, It will move to the Dev branch.
 > Stable : When the feature is **completly** done, It will move to the Stable branch.
 
