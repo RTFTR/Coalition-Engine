@@ -4,6 +4,6 @@
   "name": "TGMX_Terms_of_Use",
   "parent": {
     "name": "Docs",
-    "path": "folders/Addons/TweenGMX/Docs.yy",
+    "path": "folders/Coalition Engine/Addons/TweenGMX/Docs.yy",
   },
 }

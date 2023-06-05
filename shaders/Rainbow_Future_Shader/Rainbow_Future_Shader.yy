@@ -4,7 +4,7 @@
   "name": "Rainbow_Future_Shader",
   "parent": {
     "name": "Rainbow Future",
-    "path": "folders/Addons/Rainbow Future.yy",
+    "path": "folders/Coalition Engine/Addons/Rainbow Future.yy",
   },
   "type": 1,
 }

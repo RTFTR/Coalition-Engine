@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "compatibility",
-    "path": "folders/Scripts/(Coalition Engine Internal Use)/compatibility.yy",
+    "path": "folders/Coalition Engine/Scripts/compatibility.yy",
   },
 }

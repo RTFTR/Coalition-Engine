@@ -4,7 +4,7 @@
   "name": "__shd_scribble_bake_outline_8dir",
   "parent": {
     "name": "Shaders",
-    "path": "folders/Addons/Scribble/(System - don't call these functions)/Shaders.yy",
+    "path": "folders/Coalition Engine/Addons/Scribble/(System - don't call these functions)/Shaders.yy",
   },
   "type": 1,
 }

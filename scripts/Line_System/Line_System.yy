@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Line System",
-    "path": "folders/Addons/Line System.yy",
+    "path": "folders/Coalition Engine/Addons/Line System.yy",
   },
 }

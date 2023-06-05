@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "DoLater",
-    "path": "folders/Addons/DoLater.yy",
+    "path": "folders/Coalition Engine/Addons/DoLater.yy",
   },
 }

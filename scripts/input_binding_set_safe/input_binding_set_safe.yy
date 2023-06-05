@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Binding Access",
-    "path": "folders/Addons/Input/Binding Access.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Binding Access.yy",
   },
 }

@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Checkers",
-    "path": "folders/Addons/Input/Checkers.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Checkers.yy",
   },
 }

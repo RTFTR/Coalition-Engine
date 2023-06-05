@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "2D Checkers",
-    "path": "folders/Addons/Input/2D Checkers.yy",
+    "path": "folders/Coalition Engine/Addons/Input/2D Checkers.yy",
   },
 }

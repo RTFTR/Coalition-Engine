@@ -4,7 +4,7 @@
   "name": "shdClipMask",
   "parent": {
     "name": "Shaders",
-    "path": "folders/Shaders.yy",
+    "path": "folders/Coalition Engine/Shaders.yy",
   },
   "type": 1,
 }

@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "TurboGML",
-    "path": "folders/Addons/TurboGML.yy",
+    "path": "folders/Coalition Engine/Addons/TurboGML.yy",
   },
 }

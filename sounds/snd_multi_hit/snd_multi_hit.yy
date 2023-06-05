@@ -13,7 +13,7 @@
   "duration": 0.218571,
   "parent": {
     "name": "Attack",
-    "path": "folders/Sounds/SFX/Battle/Menu/Attack.yy",
+    "path": "folders/Coalition Engine/Sounds/SFX/Battle/Menu/Attack.yy",
   },
   "preload": false,
   "sampleRate": 44100,

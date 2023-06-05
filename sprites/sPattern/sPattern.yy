@@ -26,7 +26,7 @@
   "origin": 4,
   "parent": {
     "name": "Effect_Usage",
-    "path": "folders/Sprites/Effect_Usage.yy",
+    "path": "folders/Coalition Engine/Sprites/Effect_Usage.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

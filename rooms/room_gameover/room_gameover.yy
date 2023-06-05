@@ -18,7 +18,7 @@
   ],
   "parent": {
     "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "path": "folders/Coalition Engine/Rooms.yy",
   },
   "parentRoom": null,
   "physicsSettings": {

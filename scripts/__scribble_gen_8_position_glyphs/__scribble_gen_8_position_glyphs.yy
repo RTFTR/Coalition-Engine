@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Generator",
-    "path": "folders/Addons/Scribble/(System - don't call these functions)/Generator.yy",
+    "path": "folders/Coalition Engine/Addons/Scribble/(System - don't call these functions)/Generator.yy",
   },
 }

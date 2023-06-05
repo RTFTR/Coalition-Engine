@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Keyboard (Direct)",
-    "path": "folders/Addons/Input/Keyboard (Direct).yy",
+    "path": "folders/Coalition Engine/Addons/Input/Keyboard (Direct).yy",
   },
 }

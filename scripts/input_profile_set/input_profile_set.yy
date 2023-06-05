@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Profiles",
-    "path": "folders/Addons/Input/Profiles.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Profiles.yy",
   },
 }

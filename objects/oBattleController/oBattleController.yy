@@ -15,7 +15,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Controllers",
-    "path": "folders/Objects/(Engine)/Controllers.yy",
+    "path": "folders/Coalition Engine/Objects/Controllers.yy",
   },
   "parentObjectId": null,
   "persistent": false,

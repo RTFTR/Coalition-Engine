@@ -57,7 +57,7 @@
   "origin": 7,
   "parent": {
     "name": "Oversave Tale",
-    "path": "folders/Sprites/Battle/Enemy/Oversave Tale.yy",
+    "path": "folders/Coalition Engine/Sprites/Battle/Enemy/Oversave Tale.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

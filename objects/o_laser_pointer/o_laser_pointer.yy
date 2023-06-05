@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Point Distance Closest",
-    "path": "folders/Addons/Point Distance Closest.yy",
+    "path": "folders/Coalition Engine/Addons/Point Distance Closest.yy",
   },
   "parentObjectId": null,
   "persistent": false,

@@ -11,7 +11,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Effects",
-    "path": "folders/Objects/Effects.yy",
+    "path": "folders/Coalition Engine/Objects/Effects.yy",
   },
   "parentObjectId": null,
   "persistent": false,

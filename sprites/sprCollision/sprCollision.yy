@@ -22,11 +22,34 @@
   "layers": [
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"0e341002-98e1-45b1-aa39-45c42998848c","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
-  "nineSlice": null,
+  "nineSlice": {
+    "resourceType": "GMNineSliceData",
+    "resourceVersion": "1.0",
+    "bottom": 0,
+    "enabled": false,
+    "guideColour": [
+      4294902015,
+      4294902015,
+      4294902015,
+      4294902015,
+    ],
+    "highlightColour": 1728023040,
+    "highlightStyle": 0,
+    "left": 0,
+    "right": 0,
+    "tileMode": [
+      0,
+      0,
+      0,
+      0,
+      0,
+    ],
+    "top": 0,
+  },
   "origin": 0,
   "parent": {
     "name": "Tiles",
-    "path": "folders/Sprites/Overworld/Tiles.yy",
+    "path": "folders/Coalition Engine/Sprites/Overworld/Tiles.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

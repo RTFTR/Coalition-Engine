@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Verbs",
-    "path": "folders/Addons/Input/Verbs.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Verbs.yy",
   },
 }

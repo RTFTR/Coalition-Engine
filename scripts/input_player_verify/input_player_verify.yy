@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Exporting and Importing",
-    "path": "folders/Addons/Input/Exporting and Importing.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Exporting and Importing.yy",
   },
 }

@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Deprecated",
-    "path": "folders/Addons/Input/(System)/Deprecated.yy",
+    "path": "folders/Coalition Engine/Addons/Input/(System)/Deprecated.yy",
   },
 }

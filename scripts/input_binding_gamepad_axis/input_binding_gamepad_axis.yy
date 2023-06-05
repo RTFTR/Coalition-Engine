@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Binding Creators",
-    "path": "folders/Addons/Input/Binding Creators.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Binding Creators.yy",
   },
 }

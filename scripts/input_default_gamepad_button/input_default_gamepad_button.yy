@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Default Bindings",
-    "path": "folders/Addons/Input/(System)/Deprecated/Default Bindings.yy",
+    "path": "folders/Coalition Engine/Addons/Input/(System)/Deprecated/Default Bindings.yy",
   },
 }

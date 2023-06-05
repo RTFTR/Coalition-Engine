@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Players",
-    "path": "folders/Addons/Input/(System)/Deprecated/Players.yy",
+    "path": "folders/Coalition Engine/Addons/Input/(System)/Deprecated/Players.yy",
   },
 }

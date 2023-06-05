@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Mouse (Direct)",
-    "path": "folders/Addons/Input/Mouse (Direct).yy",
+    "path": "folders/Coalition Engine/Addons/Input/Mouse (Direct).yy",
   },
 }

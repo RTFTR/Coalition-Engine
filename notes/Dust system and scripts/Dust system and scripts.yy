@@ -4,6 +4,6 @@
   "name": "Dust system and scripts",
   "parent": {
     "name": "Notes",
-    "path": "folders/Notes.yy",
+    "path": "folders/Coalition Engine/Notes.yy",
   },
 }

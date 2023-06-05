@@ -13,7 +13,7 @@
   "duration": 0.141179,
   "parent": {
     "name": "Text Voices",
-    "path": "folders/Sounds/SFX/Text Voices.yy",
+    "path": "folders/Coalition Engine/Sounds/SFX/Text Voices.yy",
   },
   "preload": false,
   "sampleRate": 44100,

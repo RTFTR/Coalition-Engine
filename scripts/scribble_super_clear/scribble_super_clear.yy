@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Superfonts",
-    "path": "folders/Addons/Scribble/Superfonts.yy",
+    "path": "folders/Coalition Engine/Addons/Scribble/Superfonts.yy",
   },
 }

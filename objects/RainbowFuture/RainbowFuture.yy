@@ -12,7 +12,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Rainbow Future",
-    "path": "folders/Addons/Rainbow Future.yy",
+    "path": "folders/Coalition Engine/Addons/Rainbow Future.yy",
   },
   "parentObjectId": null,
   "persistent": false,

@@ -4,7 +4,7 @@
   "name": "shd_Bloom",
   "parent": {
     "name": "Bloom",
-    "path": "folders/Addons/Bloom.yy",
+    "path": "folders/Coalition Engine/Addons/Bloom.yy",
   },
   "type": 1,
 }

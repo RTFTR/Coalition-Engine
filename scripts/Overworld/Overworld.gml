@@ -90,8 +90,8 @@ function tile_meeting(_x, _y, _layer) {
 		_x2 = tilemap_get_cell_x_at_pixel(_tm, bbox_right + (_x - x), y),
 		_y2 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_bottom + (_y - y));
 
-	for (var __x = _x1; _x <= _x2; _x++) {
-		for (var __y = _y1; _y <= _y2; _y++) {
+	for (var __x = _x1; __x <= _x2; __x++) {
+		for (var __y = _y1; __y <= _y2; __y++) {
 			if (tile_get_index(tilemap_get(_tm, __x, __y))) {
 					return true;
 			}
@@ -115,8 +115,8 @@ function tile_meeting_precise(_x, _y, _layer) {
 		_x2 = tilemap_get_cell_x_at_pixel(_tm, bbox_right + (_x - x), y),
 		_y2 = tilemap_get_cell_y_at_pixel(_tm, x, bbox_bottom + (_y - y));
 
-	for (var __x = _x1; _x <= _x2; _x++) {
-	 for (var __y = _y1; _y <= _y2; _y++) {
+	for (var __x = _x1; __x <= _x2; __x++) {
+	 for (var __y = _y1; __y <= _y2; __y++) {
 		var _tile = tile_get_index(tilemap_get(_tm, __x, __y));
 			if (_tile) {
 				if (_tile == 1) return true;

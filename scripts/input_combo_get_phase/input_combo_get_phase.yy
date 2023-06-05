@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Extended Verbs",
-    "path": "folders/Addons/Input/Extended Verbs.yy",
+    "path": "folders/Coalition Engine/Addons/Input/Extended Verbs.yy",
   },
 }

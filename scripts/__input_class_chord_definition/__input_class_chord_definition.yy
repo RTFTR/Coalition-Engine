@@ -6,6 +6,6 @@
   "isDnD": false,
   "parent": {
     "name": "Classes",
-    "path": "folders/Addons/Input/(System)/Classes.yy",
+    "path": "folders/Coalition Engine/Addons/Input/(System)/Classes.yy",
   },
 }

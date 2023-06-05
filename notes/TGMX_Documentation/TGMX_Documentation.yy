@@ -4,6 +4,6 @@
   "name": "TGMX_Documentation",
   "parent": {
     "name": "Docs",
-    "path": "folders/Addons/TweenGMX/Docs.yy",
+    "path": "folders/Coalition Engine/Addons/TweenGMX/Docs.yy",
   },
 }

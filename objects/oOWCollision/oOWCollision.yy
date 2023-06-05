@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Overworld",
-    "path": "folders/Objects/(Engine)/Overworld.yy",
+    "path": "folders/Coalition Engine/Objects/Overworld.yy",
   },
   "parentObjectId": null,
   "persistent": false,
