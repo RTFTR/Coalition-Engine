@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.6.9.4 (Eden)
+small update
+
 v4.6.9.3 (Eden)
 fixed overworld collision bug
 

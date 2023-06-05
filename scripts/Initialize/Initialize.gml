@@ -24,7 +24,7 @@ function Initialize()
 	global.ReplaySaveFileName = "";
 	global.ReplayLoadFileName = "";
 	global.ReplayMode = "Record";
-	global.RecordReplay = true;
+	global.RecordReplay = false;
 	
 	//BPM of the song (Rhythm usage)
 	global.SongBPM = 0;
@@ -85,9 +85,9 @@ function Initialize()
 	for (var i = 0; i < 8; i++) {
 		if i < 3
 			for (var ii = 0; ii < 8; ii++)
-				global.SaveFile[? "Box "+string(i) + "_" + string(ii)];
-		global.SaveFile[? ("Cell "+string(i))] = Cell_Preset[i];
-		global.SaveFile[? ("Item "+string(i))] = Item_Preset[i];
+				global.SaveFile[? "Box " + string(i) + "_" + string(ii)];
+		global.SaveFile[? ("Cell " + string(i))] = Cell_Preset[i];
+		global.SaveFile[? ("Item " + string(i))] = Item_Preset[i];
 	}
 	
 	//Save file Save/Loading

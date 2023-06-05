@@ -196,6 +196,7 @@
     {"name":"snd_item_swallow","order":14,"path":"sounds/snd_item_swallow/snd_item_swallow.yy",},
     {"name":"input_combo_get_phase","order":2,"path":"scripts/input_combo_get_phase/input_combo_get_phase.yy",},
     {"name":"sprSoulFlee","order":7,"path":"sprites/sprSoulFlee/sprSoulFlee.yy",},
+    {"name":"Line System Documentation","order":2,"path":"notes/Line System Documentation/Line System Documentation.yy",},
     {"name":"snd_warning","order":18,"path":"sounds/snd_warning/snd_warning.yy",},
     {"name":"input_check_double_pressed","order":2,"path":"scripts/input_check_double_pressed/input_check_double_pressed.yy",},
     {"name":"spr_sans_head","order":1,"path":"sprites/spr_sans_head/spr_sans_head.yy",},

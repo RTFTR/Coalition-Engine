@@ -5,55 +5,6 @@ function Encounter_Begin(exclaim = 1, move = 1)
 	encounter_state = 3 - move - exclaim;
 	if encounter_state == 1 audio_play(snd_warning);
 }
-function CollidingWithTile(Name)
-{
-	var input_horizontal = input_check("right") - input_check("left"),
-		input_vertical =   input_check("down") - input_check("up"),
-		input_cancel =     input_check("cancel"),
-		spd = (global.spd + input_cancel) * speed_multiplier;
-	// Check collision with tiles
-	var lay_id = layer_get_id(Name),
-		map_id, colliding = [true, true];
-	//Collision checking
-	map_id = layer_tilemap_get_id(lay_id);
-	if input_horizontal != 0
-	{
-		var Left =  [true, true],
-			Right = [true, true];
-		if input_check("left")
-			Left =  [tilemap_get_at_pixel(map_id, bbox_left - spd, bbox_top),
-					tilemap_get_at_pixel(map_id, bbox_left - spd, bbox_bottom)];
-		else if input_check("right")
-			Right = [tilemap_get_at_pixel(map_id, bbox_right + spd, bbox_top),
-						tilemap_get_at_pixel(map_id, bbox_right + spd, bbox_bottom)];
-	
-		Left =  !(Left[0] and Left[1]);
-		Right = !(Right[0] and Right[1]);
-		if Right or Left
-		{
-			colliding[0] = false;
-		}	 
-	}
-	if input_vertical != 0
-	{
-		var Up =   [true, true],
-			Down = [true, true];
-		if input_check("up")
-			Up =  [tilemap_get_at_pixel(map_id, bbox_left, bbox_top - spd),
-					tilemap_get_at_pixel(map_id, bbox_right, bbox_top - spd)];
-		else if input_check("down")
-			Down = [tilemap_get_at_pixel(map_id, bbox_left, bbox_bottom + spd),
-						tilemap_get_at_pixel(map_id, bbox_right, bbox_bottom + spd)];
-	
-		Up =   !(Up[0] and Up[1]);
-		Down = !(Down[0] and Down[1]);
-		if Down or Up
-		{
-			colliding[1] = false;
-		}
-	}
-	return colliding;
-}
 #region Encounter
 if encounter_state
 {

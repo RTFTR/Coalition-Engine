@@ -1,6 +1,6 @@
 ///@desc Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
-function Enemy_Function_Load(encounter_number) {
+function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 	enemy = [];
 	enemy_name = [];
 	enemy_hp = [];
@@ -83,12 +83,14 @@ function Enemy_NameUpdate() {
 }
 
 ///@desc Sets the ACT texts of the enemy
-///@param {string} name		The name of the ACT option
-///@param {string} text		The text that appears when the ACT option is selected
-function Enemy_SetActTexts(name, text)
+///@param {Array} name		The names of the ACT options
+///@param {Array} text		The texts that appears when the ACT options are selected
+///@param {Array} function	The event to happen when the ACT options are selected (Default none)
+function Enemy_SetActTexts(name, text, functions = array_create(6, function() {}))
 {
 	enemy_act = name;
 	enemy_act_text = text;
+	enemy_act_function = functions;
 }
 
 ///@desc Sets the (Max) HP and the visibility of the hp bar of the enemy

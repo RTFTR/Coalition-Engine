@@ -149,4 +149,20 @@ if state == 2 and !died and enemy_in_battle {
 }
 
 if ContainsDust
+{
 	if !surface_exists(dust_surface) dust_surface = surface_create(640, 480);
+		if !died and is_dying and death_time >= 1 + attack_end_time {
+			//Dust height adding
+			if dust_height < enemy_total_height {
+				dust_height += enemy_total_height / dust_speed * 6;
+			}
+			for (var i = 0; i < dust_height * dust_amount / enemy_total_height; i += 3) {
+				if dust_alpha[i] > 0 {
+					dust_pos[i, 0] += dust_displace[i, 0];
+					dust_pos[i, 1] += dust_displace[i, 1];
+					dust_alpha[i] -= 1 / dust_life[i];
+					if !dust_being_drawn dust_being_drawn = true;
+				}
+			}
+		}
+}

@@ -23,7 +23,6 @@ if state > 0.5 and state < 1
 
 
 //Dusting
-var total_height = enemy_total_height;
 if !died {
 	if !is_dying or(is_dying and death_time < 1 + attack_end_time) {
 		//If not dying then normal drawing
@@ -33,20 +32,11 @@ if !died {
 	if death_time >= 1 + attack_end_time {
 		if ContainsDust
 		{
-			//Dust height adding
-			if dust_height < total_height {
-				var Height_decrease = total_height / dust_speed;
-				dust_height += Height_decrease * 6;
-			}
 			//Main dust drawing
 			dust_being_drawn = false;
-			for (var i = 0; i < dust_height * dust_amount / total_height; i++) {
-				if dust_alpha[i] > 1 / dust_life[i] {
+			for (var i = 0; i < dust_height * dust_amount / enemy_total_height; i += 3) {
+				if dust_alpha[i] > 0 {
 					draw_sprite_ext(sprPixel, 0, dust_pos[i, 0], dust_pos[i, 1], 1.5, 1.5, 0, c_white, dust_alpha[i]);
-					dust_pos[i, 0] += dust_displace[i, 0];
-					dust_pos[i, 1] += dust_displace[i, 1];
-					dust_alpha[i] -= 1 / dust_life[i];
-					if !dust_being_drawn dust_being_drawn = true;
 				}
 			}
 		}

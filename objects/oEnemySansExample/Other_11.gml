@@ -23,7 +23,7 @@ TurnCreate(0, 3, 170, function() {
 TurnCreate(0, 4, 220, function() {
 	var dir = time * 2.5;
 	Blaster_Circle([320, 320], [600, 150], [dir, dir], [dir + 180, dir + 180], [1, 2], [30, 30, 20])
-}, (520 - 220) / 3, 3)
+}, 100, 3)
 #endregion
 #region Turn 1 Orange Soul
 TurnCreate(1, 0, 30, function() {

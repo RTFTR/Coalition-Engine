@@ -7,7 +7,7 @@ enemy_act_function = [-1, -1, -1, -1, -1, -1];
 enemy_hp_max = 100;
 enemy_hp = 100;
 _enemy_hp = 100;
-enemy_draw_hp_bar = 1;
+enemy_draw_hp_bar = true;
 enemy_defense = 1;
 enemy_in_battle = true;
 is_boss = false;
@@ -107,7 +107,7 @@ if ContainsDust {
 	dust_displace = array_create_ext(dust_amount, _f);
 	_f = function()
 	{
-		return random_range(60, 120);
+		return irandom_range(60, 120);
 	}
 	dust_life = array_create_ext(dust_amount, _f);
 	dust_alpha = array_create(dust_amount, 1);

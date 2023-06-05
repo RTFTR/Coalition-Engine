@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.6.9.3"
+#macro ENGINE_VERSION "Beta v4.6.9.4"
 //Input
 enum INPUT
 {

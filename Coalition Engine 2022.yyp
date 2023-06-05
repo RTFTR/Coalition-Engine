@@ -115,6 +115,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Objects","folderPath":"folders/Objects.yy",},
   ],
   "IncludedFiles": [
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Coalition Engine License.txt","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"controllerblacklist.csv","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"controllertypes.csv","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"licenses.txt","CopyToMask":-1,"filePath":"datafiles",},
@@ -255,6 +256,7 @@
     {"id":{"name":"snd_item_swallow","path":"sounds/snd_item_swallow/snd_item_swallow.yy",},},
     {"id":{"name":"input_combo_get_phase","path":"scripts/input_combo_get_phase/input_combo_get_phase.yy",},},
     {"id":{"name":"sprSoulFlee","path":"sprites/sprSoulFlee/sprSoulFlee.yy",},},
+    {"id":{"name":"Line System Documentation","path":"notes/Line System Documentation/Line System Documentation.yy",},},
     {"id":{"name":"snd_warning","path":"sounds/snd_warning/snd_warning.yy",},},
     {"id":{"name":"Bloomer","path":"objects/Bloomer/Bloomer.yy",},},
     {"id":{"name":"input_check_double_pressed","path":"scripts/input_check_double_pressed/input_check_double_pressed.yy",},},
