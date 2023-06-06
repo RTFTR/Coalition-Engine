@@ -53,7 +53,7 @@ function begin_turn() {
 	}
 	else
 	{
-		menu_choice = [0, 0, 0, 0];
+		menu_choice = array_create(4, 0);
 		if activate_heal[last_choice]
 		{
 			with oEnemyParent
@@ -99,8 +99,7 @@ function end_battle() {
 		if global.data.Exp + Result.Exp >= Player_GetExpNext() {
 			var maxhp = false;
 			global.data.lv++;
-			if global.hp == global.hp_max 
-				maxhp = true
+			if global.hp == global.hp_max maxhp = true;
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
 				battle_end_text += "\n You LOVE increased!";
@@ -131,7 +130,8 @@ for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
 	}
 	else continue;
 }
-var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
+var target_option = menu_choice[0];
+if menu_choice[0] >= no_enemy_pos[0] target_option += ncontains_enemy;
 
 switch battle_state {
 	case BATTLE_STATE.MENU:
@@ -247,12 +247,12 @@ switch battle_state {
 								choice = posmod(choice + input_horizontal, len);
 								menu_choice[2] = choice;
 								audio_play(snd_menu_switch);
-						}
-						if input_vertical != 0 {
-								choice = posmod(choice + (input_vertical * 2), len);
-								menu_choice[2] = choice;
-								audio_play(snd_menu_switch);
-						}
+							}
+							if input_vertical != 0 {
+									choice = posmod(choice + (input_vertical * 2), len);
+									menu_choice[2] = choice;
+									audio_play(snd_menu_switch);
+							}
 						break
 
 						case ITEM_SCROLL.VERTICAL:
@@ -288,6 +288,7 @@ switch battle_state {
 							oSoul.x += (72 - oSoul.x) / 3;
 							oSoul.y += (320 - oSoul.y) / 3;
 							item_lerp_y[0] = lerp(item_lerp_y[0], 304 - (32 * choice), 1/3);
+							item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
 							for (var i = 0, n = Item_Space(); i < n; ++i)
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
@@ -309,6 +310,7 @@ switch battle_state {
 
 					}
 				} else {
+					item_desc_alpha = lerp(item_desc_alpha, 0, 1/3);
 					oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
 					oSoul.y += ((288 + ((floor(choice / 2)) * 32)) - oSoul.y) / 3;
 				}
@@ -403,7 +405,7 @@ if debug {
 	if keyboard_check(ord("R")) room_speed = 60;
 	if keyboard_check(ord("F")) room_speed = 600;
 	}
-	if keyboard_check(vk_control) {
+	if battle_state == 0 and keyboard_check(vk_control) {
 		battle_turn += input_horizontal;
 		battle_turn = max(0, battle_turn);
 	}

@@ -26,7 +26,7 @@ if global.Autoplay
 			{
 				var DrawAngle = round(soul.ShieldDrawAngle[i]/90)*90;
 				soul.ShieldTargetAngle[i] = dir;
-			
+				
 				if DrawAngle == 270 and dir == 0	soul.ShieldDrawAngle[i] -= 360;
 				if DrawAngle == 0 and dir == 270	soul.ShieldDrawAngle[i] = 360;
 				if soul.ShieldTargetAngle[i] < 0		soul.ShieldTargetAngle[i] += 360;
@@ -41,6 +41,6 @@ if global.Autoplay
 			}
 		}
 
-x = lengthdir_x(len, dir + dir_e + dir_a) + soul.x;
-y = lengthdir_y(len, dir + dir_e + dir_a) + soul.y;
+x = len * dcos(dir + dir_e + dir_a) + soul.x;
+y = len * -dsin(dir + dir_e + dir_a) + soul.y;
 

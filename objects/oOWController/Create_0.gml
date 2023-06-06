@@ -7,7 +7,7 @@ enum INTERACT_STATE
 	IDLE,
 	MENU,
 }
-global.interact_state = INTERACT_STATE.IDLE
+global.interact_state = INTERACT_STATE.IDLE;
 
 #region // Dialog properties 
 dialog_exists = false;
@@ -35,7 +35,7 @@ menu_choice = array_create(8, 0); // Works respectively based on enum MENU_MODE
 menu_buffer = 2;
 
 menu_ui_x = -640;
-menu_ui_y = [-480,-480,-480,-480];
+menu_ui_y = array_create(4, -480);
 
 menu_soul_pos = [-606, 211];
 menu_soul_alpha = 1;

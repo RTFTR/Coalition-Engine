@@ -4,14 +4,13 @@ menu_state = 0;
 battle_state = 0;
 battle_turn = 0;
 menu_button_choice = 0;
-menu_choice = [0, 0, 0, 0] // Fight - Act - Item - Mercy
+menu_choice = array_create(4, 0); // Fight - Act - Item - Mercy
 activate_turn = [1, 0, 0, 1];
 activate_heal = [0, 0, 0, 0];
 begin_at_turn = false;
 last_choice = 0;
 
 global.kr_activation = true;
-global.kr = 0;
 global.hp = global.hp_max;
 max_kr = 40;
 
@@ -87,7 +86,7 @@ function ResetFightAim()
 		Aim.Attack.Index = 0;
 		Aim.Attack.Angle = 0;
 		Aim.Attack.Alpha = 1;
-		//frypan star angle, alpha, angle change, distance, speed, friction
+		//star angle, alpha, angle change, distance, speed, friction
 		Aim.Attack.StarData = array_create(8, [0, 1, 12.25, 0, 8, 0.34]);
 		Aim.Attack.Time = 0;
 		Aim.Attack.Distance = 0;
@@ -111,18 +110,13 @@ hp_previous = global.hp;
 #region Button Functions
 button_spr			= [sprButtonFight, sprButtonAct, sprButtonItem, sprButtonMercy];
 button_pos			= [[87, 453], [240, 453], [400, 453], [555, 453]];
-button_alpha		= [0.25, 0.25, 0.25, 0.25];
-button_scale		= [1, 1, 1, 1];
+button_alpha		= array_create(4, 0.25);
+button_scale		= array_create(4, 1);
 button_color		= [[242, 101, 34], [242, 101, 34], [242, 101, 34], [242, 101, 34]];
 button_alpha_target = [0.25, 1];
 button_scale_target = [1, 1.2];
-button_color_target = [
-					[[242, 101, 34], [255, 255, 0]],
-					[[242, 101, 34], [255, 255, 0]],
-					[[242, 101, 34], [255, 255, 0]],
-					[[242, 101, 34], [255, 255, 0]]
-					];
-button_override_alpha = [1, 1, 1, 1];
+button_color_target = array_create(4, [[242, 101, 34], [255, 255, 0]]);
+button_override_alpha = array_create(4, 1);
 button_background_cover = false;
 #endregion
 #region UI Functions
@@ -133,7 +127,7 @@ ui_x = 275;
 ui_y = 400;
 ui_alpha = 1;
 //Name, LV, HP Icon, HP Bar, KR Text, HP Text
-ui_override_alpha = [1, 1, 1, 1, 1, 1];
+ui_override_alpha = array_create(6, 1);
 hp = global.hp;
 hp_max = global.hp_max;
 kr = global.kr;
@@ -143,7 +137,7 @@ board_cover_hp_bar = false;
 board_cover_button = false;
 board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
-item_scroll_alpha = [.5, .5, .5];
+item_scroll_alpha = array_create(3, 0.5);
 
 item_lerp_y = array_create(8, 0);
 item_lerp_x = array_create(8, 0);

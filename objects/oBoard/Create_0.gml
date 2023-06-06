@@ -9,10 +9,10 @@ down = 65;
 left = 283;
 right = 283;
 
-frame_x = [0, 0, 0, 0];
-frame_y = [0, 0, 0, 0];
-frame_w = [0, 0, 0, 0];
-frame_h = [0, 0, 0, 0];
+frame_x = array_create(4, 0);
+frame_y = array_create(4, 0);
+frame_w = array_create(4, 0);
+frame_h = array_create(4, 0);
 
 bg_x = 0;
 bg_y = 0;

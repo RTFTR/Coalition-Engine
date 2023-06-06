@@ -1,9 +1,9 @@
 //Data
 Camera_Scale(1, 1);
 enemy_name = "";
-enemy_act = ["", "", "", "", ""];
-enemy_act_text = ["", "", "", "", ""];
-enemy_act_function = [-1, -1, -1, -1, -1, -1];
+enemy_act = array_create(5, "");
+enemy_act_text = array_create(5, "");
+enemy_act_function = array_create(6, -1);
 enemy_hp_max = 100;
 enemy_hp = 100;
 _enemy_hp = 100;

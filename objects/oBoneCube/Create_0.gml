@@ -2,8 +2,8 @@
 vert_list = [];
 vert_list_draw = [];
 edge_list = [];
-angles = [0, 0, 0];
-angleAdd = [0, 0, 0];
+angles = array_create(3, 0);
+angleAdd = array_create(3, 0);
 scalex = 0;
 scaley = 0;
 scalez = 0;

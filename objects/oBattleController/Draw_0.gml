@@ -73,10 +73,8 @@ if battle_state == BATTLE_STATE.MENU {
 			for (var i = 0, n = min(4, itm_ln - _coord); i < n; ++i) {
 				var xx = (64 + ((i % 2) * 256)) + 32,
 					yy = 272 + (floor(i / 2) * 32);
-
 				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
 			}
-
 			// Heal text and Page
 			draw_text_scribble(128, 341, "[fnt_dt_mono][c_lime](+" + string(item_heal[coord]) + ")");
 			draw_text_scribble(384, 341, "[fnt_dt_mono]PAGE " + string(c_div + 1));
@@ -90,15 +88,15 @@ if battle_state == BATTLE_STATE.MENU {
 			{	
 				var xx = item_lerp_x[i],
 					yy = item_lerp_y[0] + (32 * (i));
-				
 				draw_set_font(fnt_dt_mono);
 				var color = merge_color(c_black, c_white, item_lerp_color_amount[i]);
 				draw_set_color(color);
 				draw_text(xx, yy, "* " + item_name[i]);
-				//draw_set_alpha(item_desc_alpha);
-				//draw_set_color(c_gray);
-				//if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
-				//draw_set_alpha(1);
+				//Item description
+				draw_set_alpha(item_desc_alpha);
+				draw_set_color(c_gray);
+				if i == c_div draw_text(item_desc_x, yy, item_battle_desc[coord]);
+				draw_set_alpha(1);
 				draw_set_color(c_white);
 			}	
 			Battle_Masking_End();
@@ -132,17 +130,18 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
 	{
-		for (var i = 0, act_num = array_length(enemy_act[target_option]),
-				enemy_check_texts = ""; i < act_num; ++i) {
+		var i = 0, enemy_check_texts = "";
+		repeat array_length(enemy_act[target_option]) {
 			var assign_act_text = enemy_act[target_option, i];
 			if assign_act_text != ""
 				enemy_check_texts += "* " + assign_act_text;
 			if (i % 2) enemy_check_texts += "\n";
 			else
-				for (var ii = 14, n = string_length(enemy_act[target_option, i]); ii > n; --ii)
+				repeat(14 - string_length(enemy_act[target_option, i]))
 					enemy_check_texts += " ";
+			++i;
 		}
-		draw_text_scribble(96, 272, "[fnt_dt_mono]" + enemy_check_texts)
+		draw_text_scribble(96, 272, "[fnt_dt_mono]" + enemy_check_texts);
 	}
 
 	if menu_state == MENU_STATE.FIGHT_AIM //Fight Anim

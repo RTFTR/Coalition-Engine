@@ -35,10 +35,5 @@ repeat(array_length(Fade.Activate))
 //Draws above shaders
 if global.ShowFPS and !global.debug and room != rRestart  //Prevent debug UI overlap
 {
-	draw_set_font(fnt_dotum);
-	draw_set_halign(fa_right);
-	draw_set_color(c_red);
-	draw_text(635, 5, "FPS: " + string(fps));
-	draw_set_halign(fa_left);
-	draw_set_color(c_white);
+	draw_text_scribble(635, 5, "[fnt_dotum][fa_right][c_red]FPS: " + string(fps));
 }

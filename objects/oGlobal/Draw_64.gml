@@ -45,11 +45,7 @@ if RGBShake
 //Fader
 if fader_alpha > 0
 {
-	draw_set_color(fader_color);
-	draw_set_alpha(fader_alpha);
-	draw_rectangle(0, 0, 640, 480, false);
-	draw_set_color(c_white);
-	draw_set_alpha(1);
+	draw_sprite_ext(sprPixel, 0, 0, 0, 640, 480, 0, fader_color, fader_alpha);
 }
 
 //Song Name
@@ -66,9 +62,7 @@ if Song.Activate
 						col[1], col[0], false);
 	draw_triangle_color(dist - 11, 10, dist + 20, (15 + Height + 10) / 2, dist - 11, 15 + Height,
 						col[1], col[1], col[1], false);
-	draw_set_font(fnt_dt_sans);
-	draw_set_color(c_white);
-	draw_text(dist - Length + 10, 15, Text);
+	draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
 	if Song.Time < 60
 		Song.Dist = lerp(dist, Length, 0.21);
 	if Song.Time > 180
@@ -84,15 +78,10 @@ if Song.Activate
 //Tip thing
 if room == rRestart
 {
-	draw_set_halign(fa_center);
-	draw_set_color(c_white);
-	draw_set_font(fnt_dt_mono);
-	var RestartTxt = ["Restarting", "Restarting.", "Restarting..",
-					"Restarting..."],
+	var text = "[fa_center][c_white][fnt_dt_mono]Restarting",
 		num = restart_timer div 10;
-	num %= 4
-	draw_text(320, 240, RestartTxt[num]);
-	draw_set_color(c_ltgray);
-	draw_set_font(fnt_dotum);
-	draw_text(320, 420, restart_tip);
+	num %= 4;
+	repeat num text += ".";
+	draw_text_scribble(320, 240, text);
+	draw_text_scribble(320, 420, "[fa_center][c_ltgray][fnt_dotum]" + restart_tip);
 }

@@ -53,6 +53,8 @@ if mode = SOUL_MODE.GREEN
 							draw_set_color(c_white)
 							draw_line(_x, _y, __x, __y)
 						}
+						if collision_line(_x, _y, __x, __y, other, false, false)
+							DestroyArrow(other);
 						 _x -= XChange;
 						__x -= XChange;
 						 _y += YChange;

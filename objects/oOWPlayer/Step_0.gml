@@ -77,7 +77,7 @@ if global.interact_state == INTERACT_STATE.IDLE and !oOWController.menu_disable 
 						audio_play(snd_menu_switch);
 						moveable = false;
 					}
-		var _handle = call_later(1, time_source_units_frames, delay);
+		var _handle = DoLater(1, delay);
 	}
 }
 
@@ -85,7 +85,6 @@ if keyboard_check_pressed(vk_space) or (x >= 830 and encounter_state == 0) Encou
 
 if moveable and global.interact_state == INTERACT_STATE.IDLE // When the player can move around
 {
-	//var colliding = CollidingWithTile("TileCollision");
 	var displace = 0;
 	repeat spd
 	{

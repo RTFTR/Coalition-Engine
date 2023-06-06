@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.6.9.5 (Eden)
+better overworld object collision
+some optimisation
+
 v4.6.9.4 (Eden)
 small update
 

@@ -287,6 +287,7 @@ if STATE == 2 {
 				if abs(ShieldTargetAngle[i] - ShieldDrawAngle[i]) <= 0.1
 					ShieldDrawAngle[i] = ShieldTargetAngle[i];
 				if ShieldAlpha[i] > 0 ShieldAlpha[i] -= 1 / 30;
+				
 			}
 		break
 		}
