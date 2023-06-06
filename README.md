@@ -20,15 +20,13 @@ We are finding a way to block your codes. So no one will be able to steal your c
 Don't want people to steal your assets? Don't want people to mod your games for fun/to cheat?
 Fear not, the anti-export and save corruption is already a built-in feature of this engine, if people want to steal your protected assets or mod some protected codes, they will experience an error instead!
 
-These github projects will be seperated like:
+## Branch Purposes:
+
 > Canary : This will be getting the cutting edge updates, which means most likely it will cause unexpected errors or crashes.
 
-> Dev : When the feature is 60% finalized, It will move to the Dev branch.
+> Stable : When the feature is **completly** done and stable, It will move to the Stable branch.
 
-> Stable : When the feature is **completly** done, It will move to the Stable branch.
-
-You are on the Canary branch, This branch will have very unstable, reliable builds. Yeah, most likely.
-If you're lucky, you may get at least an useful build.
+**You are on the Stable branch. Although The features that we consider them to be completly done on programming, There could be still some unexpected problems. If you found it, Let us know in our Discord server. The invitation link is at the bottom.**
 
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
