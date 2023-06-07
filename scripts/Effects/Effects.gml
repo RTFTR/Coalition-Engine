@@ -170,12 +170,13 @@ function Camera_Scale(sx, sy, duration = 0, ease = EaseLinear)
 ///@param {real}				x The x position
 ///@param {real}				y The y position
 ///@param {real} duration		The anim duration of the movement
+///@param {real} delay			The anim delay of the movement
 ///@param {function} ease		The easing of the animation
-function Camera_SetPos(x, y, duration = 0, ease = EaseLinear)
+function Camera_SetPos(x, y, duration, delay = 0, ease = EaseLinear)
 {
 	with oGlobal {
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_x", camera_scale_x, x);
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_y", camera_scale_y, y);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_x", camera_x, x);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_y", camera_y, y);
 	}
 }
 

@@ -134,7 +134,7 @@ function Initialize()
 	global.TempData = ds_map_create();
 	
 	//Sets the current battle encounter ID
-	global.battle_encounter = 0;
+	global.battle_encounter = 3;
 	
 	//Sets the current Overworld dialog sprite (Currently unused)
 	global.text_face = 0;
