@@ -26,7 +26,9 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 > Stable : When the feature is **completly** done and stable, It will move to the Stable branch.
 
-**You are on the Stable branch. Although The features that we consider them to be completly done on programming, There could be still some unexpected problems. If you found it, Let us know in our Discord server. The invitation link is at the bottom.**
+> Long-Term Support : This branch will barely get updates. Its purposes are to maintain stability.
+
+**You are on the Long-Term Support branch. This branch will get updates much less frequently than Stable branch!**
 
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
