@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "scribble_super_glyph_copy_all",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Superfonts",
-    "path": "folders/Coalition Engine/Addons/Scribble/Superfonts.yy",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/Superfonts.yy",
   },
 }

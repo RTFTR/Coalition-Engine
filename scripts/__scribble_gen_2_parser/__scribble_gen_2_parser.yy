@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "__scribble_gen_2_parser",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Generator",
-    "path": "folders/Coalition Engine/Addons/Scribble/(System - don't call these functions)/Generator.yy",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/(System - don't call these functions)/Generator.yy",
   },
 }

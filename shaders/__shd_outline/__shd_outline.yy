@@ -2,9 +2,9 @@
   "resourceType": "GMShader",
   "resourceVersion": "1.0",
   "name": "__shd_outline",
+  "type": 1,
   "parent": {
     "name": "Outline Shader",
-    "path": "folders/Coalition Engine/Addons/Outline Shader.yy",
+    "path": "folders/Addons/Unknown Creators/Outline Shader.yy",
   },
-  "type": 1,
 }

@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "DoLaterLoop",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
-    "name": "DoLater",
-    "path": "folders/Coalition Engine/Addons/DoLater.yy",
+    "name": "DoLater v4.0.0",
+    "path": "folders/Addons/Juju Adams/DoLater v4.0.0.yy",
   },
 }

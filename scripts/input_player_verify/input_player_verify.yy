@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "input_player_verify",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Exporting and Importing",
-    "path": "folders/Coalition Engine/Addons/Input/Exporting and Importing.yy",
+    "path": "folders/Addons/Juju Adams/Input v5.6.1/Exporting and Importing.yy",
   },
 }

@@ -347,7 +347,7 @@ function EaseInOutCirc(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseInExpo(_time, _start, _change, _duration)
 {
-	return _change * power(2, 10 * (_time/_duration - 1)) + _start;
+	return (_time == 0) ? _start : _change * power(2, 10 * (_time/_duration - 1)) + _start;
 }
 
 /// @param {real} time 
@@ -356,7 +356,7 @@ function EaseInExpo(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseOutExpo(_time, _start, _change, _duration)
 {
-	return _change * (-power(2, -10 * _time / _duration) + 1) + _start;
+	return (_time == _duration) ? _start + _change : _change * (-power(2, -10 * _time / _duration) + 1) + _start;
 }
 
 /// @param {real} time 
@@ -365,9 +365,11 @@ function EaseOutExpo(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseInOutExpo(_time, _start, _change, _duration)
 {
+	if (_time == 0) { return _start; }
+	if (_time == _duration) { return _start + _change; }
+	
 	_time = 2 * _time / _duration;
-	return _time < 1 ? _change * 0.5 * power(2, 10 * (_time-1)) + _start
-					 : _change * 0.5 * (-power(2, -10 * (_time-1)) + 2) + _start;
+	return (_time < 1) ? _change * 0.5 * power(2, 10 * (_time-1)) + _start : _change * 0.5 * (-power(2, -10 * (_time-1)) + 2) + _start;
 }
 	
 	
@@ -570,10 +572,10 @@ function TGMX_2_EaseFunctions()
 	// MAKE SURE SYSTEM IS INTITIALIZED
 	static _ = TGMX_Begin();
 	
-	// MAKE SURE THIS ONLY CALLED ONCE
-	static a = false;
-	if (a) { return 0; }
-	a = true;
+	// MAKE SURE THIS ONLY FIRES ONCE
+	static __initialized = false;
+	if (__initialized) { return 0; }
+	__initialized = true;
 	
 	//======================
 	// EASING "SHORT CODES"

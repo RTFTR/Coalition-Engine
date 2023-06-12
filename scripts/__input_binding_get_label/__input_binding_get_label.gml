@@ -1,6 +1,6 @@
 function __input_binding_get_label(_type, _value, _axis_negative)
 {
-    if (__INPUT_TOUCH_SUPPORT)
+    if (__INPUT_TOUCH_SUPPORT && (os_type != os_windows))
     {
         //Touch bindings
         if (__INPUT_ON_PS)
@@ -80,6 +80,10 @@ function __input_binding_get_label(_type, _value, _axis_negative)
                 
                 default: return "gamepad input unknown"; break;
             }
+        break;
+        
+        case __INPUT_BINDING_VIRTUAL_BUTTON:
+            return "virtual button";
         break;
         
         default:

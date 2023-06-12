@@ -1,4 +1,4 @@
-function Initialize()
+function initialize()
 {
 	show_debug_message("This is Coalition Engine " + ENGINE_VERSION);
 	//Set to true when releasing your game
@@ -129,7 +129,7 @@ function Initialize()
 	global.ShowFPS = false;
 	//Input keys are defined at __input_config_profiles_and_default_bindings
 	
-	if !file_exists("Settings.ini") Save_Settings(); else Load_Settings();
+	if !file_exists("Settings.ini") save_file(FILE.SETTINGS); else save_file(FILE.SETTINGS);
 	
 	global.TempData = ds_map_create();
 	

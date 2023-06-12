@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "scribble_typist",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
-    "name": "Scribble",
-    "path": "folders/Coalition Engine/Addons/Scribble.yy",
+    "name": "Scribble v8.7.0",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0.yy",
   },
 }

@@ -1074,6 +1074,22 @@ function __scribble_class_element(_string, _unique_id) constructor
     
     #region Typewriter
     
+    static pre_update_typist = function(_typist)
+    {
+        var _function_scope = other;
+        
+        if (is_struct(_typist))
+        {
+            with(_typist)
+            {
+                //Tick over the typist
+                __tick(other, _function_scope);
+            }
+        }
+        
+        return self;
+    }
+    
     static reveal = function(_character)
     {
         if (__tw_reveal != _character)
@@ -1230,7 +1246,11 @@ function __scribble_class_element(_string, _unique_id) constructor
     static refresh = function()
     {
         var _model = __get_model(false);
-        if (_model != undefined) _model.__flush();
+        if (_model != undefined)
+        {
+            _model.__flush();
+            __get_model(true);
+        }
         
         return self;
     }
@@ -1374,7 +1394,7 @@ function __scribble_class_element(_string, _unique_id) constructor
         __text      = _text;
         __unique_id = _unique_id;
         
-        var _new_cache_name = __text + ":" + __unique_id;
+        var _new_cache_name = __text + ((_unique_id == undefined)? SCRIBBLE_DEFAULT_UNIQUE_ID : (":" + string(_unique_id)));
         if (__cache_name != _new_cache_name)
         {
             flush();

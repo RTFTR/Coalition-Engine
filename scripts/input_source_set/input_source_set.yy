@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "input_source_set",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Sources",
-    "path": "folders/Coalition Engine/Addons/Input/Sources.yy",
+    "path": "folders/Addons/Juju Adams/Input v5.6.1/Sources.yy",
   },
 }

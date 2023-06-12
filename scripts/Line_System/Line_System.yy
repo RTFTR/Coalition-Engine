@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "Line_System",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Line System",
-    "path": "folders/Coalition Engine/Addons/Line System.yy",
+    "path": "folders/Addons/Unknown Creators/Line System.yy",
   },
 }

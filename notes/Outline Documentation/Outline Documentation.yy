@@ -4,6 +4,6 @@
   "name": "Outline Documentation",
   "parent": {
     "name": "Outline Shader",
-    "path": "folders/Coalition Engine/Addons/Outline Shader.yy",
+    "path": "folders/Addons/Unknown Creators/Outline Shader.yy",
   },
 }

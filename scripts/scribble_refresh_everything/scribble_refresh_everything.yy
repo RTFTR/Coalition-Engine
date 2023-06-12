@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "scribble_refresh_everything",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Miscellaneous",
-    "path": "folders/Coalition Engine/Addons/Scribble/Miscellaneous.yy",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/Miscellaneous.yy",
   },
 }

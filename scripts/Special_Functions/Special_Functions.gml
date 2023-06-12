@@ -29,7 +29,7 @@ function lengthdir_xy(length, dir) constructor
 ///@param {array} array		The name of the array
 ///@param {real}  begin		The slot to begin
 ///@param {real}  end		The slot to end
-function Sigma(arr, n, k)
+function sigma(arr, n, k)
 {
 	for(var i = n, value = 0; i <= k; ++i)
 		value += arr[i];
@@ -99,7 +99,7 @@ function check_outside(){
 		)
 }
 
-function Screenshot(filename = "") {
+function screenshot(filename = "") {
 	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
 		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
 	screen_save("Screenshots/" + string(filename) + date + ".png")
@@ -125,7 +125,7 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 		  0 is by using numbers to indicate the turn number (during battle)
 		  1 is by using tags to let the script read which text to load
 */
-function LoadTextFromFile(filename, read_method = 0, tag = "")
+function load_text_from_file(filename, read_method = 0, tag = "")
 {
 	var file, DialogText, TurnNumber, current, n, i = 0;
 	file = file_text_open_read("./Texts/" + filename);
@@ -180,7 +180,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 
 ///@desc Converts the values to respective keys
 ///@param {real} Value The to convert
-function ConvertRealToKey(val)
+function convert_realtokey(val)
 {
 	//This is so cringe, it converts vk_* (real) to string by a massive switch statement
 	if is_string(val)
@@ -295,7 +295,7 @@ function audio_create_stream_array()
 }
 
 
-function tips()
+function random_tip()
 {
 	var tips = [
 					"Reasons for engine: There are none",

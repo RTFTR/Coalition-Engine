@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "__tgm_core",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
-    "name": "TurboGML",
-    "path": "folders/Scripts/TurboGML.yy",
+    "name": "TurboGML v1.1.0",
+    "path": "folders/Addons/FoxyOfJungles/TurboGML v1.1.0.yy",
   },
 }

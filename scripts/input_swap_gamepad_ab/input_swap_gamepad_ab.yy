@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "input_swap_gamepad_ab",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Other",
-    "path": "folders/Coalition Engine/Addons/Input/Other.yy",
+    "path": "folders/Addons/Juju Adams/Input v5.6.1/Other.yy",
   },
 }

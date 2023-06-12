@@ -1,21 +1,46 @@
-#macro __INPUT_VERSION "5.1.2"
-#macro __INPUT_DATE    "2022-08-28"
+#macro __INPUT_VERSION "5.6.1"
+#macro __INPUT_DATE    "2023-04-16"
 #macro __INPUT_DEBUG   false
+
+
+
+#region Forbidden Fruit
+
+#macro __INPUT_2D_CHECKER_STATIC_RESULT  true
+
+#macro __INPUT_DEBUG_PROFILES  false
+#macro __INPUT_DEBUG_SOURCES   false
+#macro __INPUT_DEBUG_BINDING   false
+#macro __INPUT_DEBUG_VERBS     false
+
+#macro __INPUT_EXTERNAL_DEBUG_LOG  false  //Do NOT set to <true> unless directed (!)
+
+//How many frames to wait before scanning for connected gamepads
+//This works around Steam sometimes reporting confusing connection/disconnection events on boot
+#macro __INPUT_GAMEPADS_TICK_PREDELAY  10     
+
+#endregion
+
+
 
 #macro __INPUT_BINDING_KEY               "key"
 #macro __INPUT_BINDING_MOUSE_BUTTON      "mouse button"
 #macro __INPUT_BINDING_MOUSE_WHEEL_UP    "mouse wheel up"
 #macro __INPUT_BINDING_MOUSE_WHEEL_DOWN  "mouse wheel down"
+#macro __INPUT_BINDING_VIRTUAL_BUTTON    "virtual button"
 #macro __INPUT_BINDING_GAMEPAD_BUTTON    "gamepad button"
 #macro __INPUT_BINDING_GAMEPAD_AXIS      "gamepad axis"
 
 #macro INPUT_KEYBOARD      global.__input_source_keyboard
 #macro INPUT_MOUSE         global.__input_source_mouse
 #macro INPUT_GAMEPAD       global.__input_source_gamepad
+#macro INPUT_TOUCH         global.__input_source_touch
 #macro INPUT_MAX_GAMEPADS  12
 
 #macro INPUT_KEYBOARD_LOCALE  global.__input_keyboard_locale
 #macro INPUT_KEYBOARD_TYPE    global.__input_keyboard_type
+
+#macro INPUT_VIRTUAL_BACKGROUND  global.__input_virtual_background
 
 #macro __INPUT_ON_PS       ((os_type == os_ps4)     || (os_type == os_ps5))
 #macro __INPUT_ON_XBOX     ((os_type == os_xboxone) || (os_type == os_xboxseriesxs))
@@ -28,13 +53,16 @@
 #macro __INPUT_ON_OPERAGX  (os_type == os_operagx)
 #macro __INPUT_ON_WEB      ((os_browser != browser_not_a_browser) || __INPUT_ON_OPERAGX)
 
-#macro __INPUT_TOUCH_SUPPORT      (__INPUT_ON_MOBILE  || __INPUT_ON_PS  || (os_type == os_switch))
-#macro __INPUT_KEYBOARD_NORMATIVE (__INPUT_ON_DESKTOP || __INPUT_ON_WEB || (os_type == os_switch))
-#macro __INPUT_KEYBOARD_SUPPORT   (__INPUT_KEYBOARD_NORMATIVE || (os_type == os_android))
+#macro __INPUT_STEAMWORKS_SUPPORT         (((os_type == os_windows) || (os_type == os_linux)) && !__INPUT_ON_WEB)
+#macro __INPUT_TOUCH_SUPPORT              (__INPUT_ON_MOBILE  || __INPUT_ON_PS  || (os_type == os_switch) || (os_type == os_windows))
+#macro __INPUT_TOUCH_PRIMARY              (!INPUT_TOUCH_IS_MOUSE && (__INPUT_ON_MOBILE  || (os_type == os_switch) || (global.__input_on_steam_deck && (os_type == os_windows))))
+#macro __INPUT_KEYBOARD_NORMATIVE         (__INPUT_ON_DESKTOP || __INPUT_ON_WEB || (os_type == os_switch))
+#macro __INPUT_KEYBOARD_SUPPORT           (__INPUT_KEYBOARD_NORMATIVE || (os_type == os_android))
+#macro __INPUT_GAMEPAD_VIBRATION_SUPPORT  (__INPUT_ON_CONSOLE || (!__INPUT_ON_WEB && (os_type == os_windows)))
+#macro __INPUT_SDL2_SUPPORT               (!__INPUT_ON_WEB && (__INPUT_ON_DESKTOP || (os_type == os_android)))
 
-#macro __INPUT_SDL2_SUPPORT  (!__INPUT_ON_WEB && (__INPUT_ON_DESKTOP || (os_type == os_android)))
-
-#macro __INPUT_HOLD_THRESHOLD  0.2 //Minimum value from an axis for that axis to be considered activated at the gamepad layer. This is *not* the same as min/max thresholds for players
+#macro __INPUT_HOLD_THRESHOLD           0.2  //Minimum value from an axis for that axis to be considered activated at the gamepad layer. This is *not* the same as min/max thresholds for players
+#macro __INPUT_DELTA_HOTSWAP_THRESHOLD  0.1  //Minimum (absolute) change in gamepad mapping value between frames to register as new input. This triggers hotswapping
 
 #macro __INPUT_RATE_LIMIT_DURATION  500 //In milliseconds
 
@@ -43,13 +71,30 @@
 #macro __INPUT_KEYCODE_MAX 57343
 
 //Extended gamepad constants
-#macro gp_guide     32789
-#macro gp_misc1     32790
-#macro gp_touchpad  32791
-#macro gp_paddle1   32792
-#macro gp_paddle2   32793
-#macro gp_paddle3   32794
-#macro gp_paddle4   32795
+#macro gp_guide     32889
+#macro gp_misc1     32890
+#macro gp_touchpad  32891
+#macro gp_paddle1   32892
+#macro gp_paddle2   32893
+#macro gp_paddle3   32894
+#macro gp_paddle4   32895
+
+//Enables analogue axis checks from triggers on XInput
+#macro __XINPUT_AXIS_LT  4106
+#macro __XINPUT_AXIS_RT  4107
+
+//Unfortunately, versions prior to v5.2 used these values for extended gamepad constants
+//They collide with GameMaker's native constants for gamepad axis values for PS4/PS5 controllers
+#macro __INPUT_LEGACY_GP_GUIDE     32789 //gp_axis_acceleration_x
+#macro __INPUT_LEGACY_GP_MISC1     32790 //gp_axis_acceleration_y
+#macro __INPUT_LEGACY_GP_TOUCHPAD  32791 //gp_axis_acceleration_z
+#macro __INPUT_LEGACY_GP_PADDLE1   32792 //gp_axis_angular_velocity_x
+#macro __INPUT_LEGACY_GP_PADDLE2   32793 //gp_axis_angular_velocity_y
+#macro __INPUT_LEGACY_GP_PADDLE3   32794 //gp_axis_angular_velocity_z
+#macro __INPUT_LEGACY_GP_PADDLE4   32795 //gp_axis_orientation_x
+                                         //gp_axis_orientation_y = 32796
+                                         //gp_axis_orientation_z = 32797
+                                         //gp_axis_orientation_w = 32798
 
 //Extended keycode constants
 #macro vk_clear       12
@@ -94,19 +139,20 @@
 // gp_select     = 32777             32787 = gp_axisrh
 // gp_start      = 32778             32788 = gp_axisrv
 // Plus custom buttons:
-// gp_guide      = 32789             32789 = gp_guide
-// gp_misc1      = 32790             32790 = gp_misc1
-// gp_touchpad   = 32791             32791 = gp_touchpad
-// gp_paddle1    = 32792             32792 = gp_paddle1
-// gp_paddle2    = 32793             32793 = gp_paddle2
-// gp_paddle3    = 32794             32794 = gp_paddle3
-// gp_paddle4    = 32795             32795 = gp_paddle4
+// gp_guide      = 32889             32889 = gp_guide
+// gp_misc1      = 32890             32890 = gp_misc1
+// gp_touchpad   = 32891             32891 = gp_touchpad
+// gp_paddle1    = 32892             32892 = gp_paddle1
+// gp_paddle2    = 32893             32893 = gp_paddle2
+// gp_paddle3    = 32894             32894 = gp_paddle3
+// gp_paddle4    = 32895             32895 = gp_paddle4
 
 enum __INPUT_SOURCE
 {
     KEYBOARD,
     MOUSE,
     GAMEPAD,
+    TOUCH,
     __SIZE
 }
 
@@ -119,16 +165,6 @@ enum __INPUT_MAPPING
     BUTTON_TO_AXIS,
     SPLIT_AXIS,
     __SIZE
-}
-
-//INPUT_STATUS.DISCONNECTED *must* be zero so that array_size() initializes gamepad status to disconnected
-//See input_tick() for more details
-enum INPUT_STATUS
-{
-    NEWLY_DISCONNECTED = -1,
-    DISCONNECTED       =  0,
-    NEWLY_CONNECTED    =  1,
-    CONNECTED          =  2,
 }
 
 enum __INPUT_COMBO_STATE
@@ -153,6 +189,13 @@ enum __INPUT_VERB_TYPE
     __COMBO,
 }
 
+enum __INPUT_TRIGGER_EFFECT
+{
+    __TYPE_OFF,
+    __TYPE_FEEDBACK,
+    __TYPE_WEAPON,
+    __TYPE_VIBRATION,
+}
 
 
 
@@ -161,57 +204,6 @@ function __input_axis_is_directional(_axis)
 {
     return ((_axis == gp_padu)   || (_axis == gp_padd)   || (_axis == gp_padl)   || (_axis == gp_padr)
          || (_axis == gp_axislh) || (_axis == gp_axislv) || (_axis == gp_axisrh) || (_axis == gp_axisrv));
-}
-
-/// @param GUID
-/// @param legacy
-/// @param suppressWarnings
-function __input_gamepad_guid_parse(_guid, _legacy, _suppress)
-{
-    var _vendor  = "";
-    var _product = "";
-    
-    if (_guid == "00000000000000000000000000000000")
-    {
-        if (!_suppress) __input_trace("Warning! GUID was empty");
-        return { vendor : "", product : "" };
-    }
-    
-    if (_legacy)
-    {
-        //GM on Windows uses an older version of SDL so we strip out VID + PID as a special case
-        _vendor  = string_copy(_guid, 1, 4);
-        _product = string_copy(_guid, 5, 4);
-    }
-    else
-    {
-        //Check to see if this GUID fits our expected pattern:
-        //
-        //  ****0000****0000****0000****????
-        //  ^       ^       ^       ^
-        //  Driver  Vendor  Product Revision
-        //
-        //If not, return an invalid VID+PID
-        if ((string_copy(_guid,  5, 4) != "0000")
-        ||  (string_copy(_guid, 13, 4) != "0000")
-        ||  (string_copy(_guid, 21, 4) != "0000"))
-        {
-            if (!_suppress) __input_trace("Warning! GUID \"", _guid, "\" does not fit expected pattern. VID+PID cannot be extracted");
-            return { vendor : "", product : "" };
-        }
-        
-        //Check to see if the driver for this GUID is what we expect
-        //In some cases, what we expect for the driver ID is going to be different so this isn't necessarily something that invalidates VID+PID checking
-        if ((string_copy(_guid, 1, 4) != "0300") && (string_copy(_guid, 1, 4) != "0500"))
-        {
-            if (!_suppress) __input_trace("Warning! GUID \"", _guid, "\" driver ID does not match expected (Found ", string_copy(_guid, 1, 4), ", expect either 0300 or 0500)");
-        }
-        
-        _vendor  = string_copy(_guid,  9, 4);
-        _product = string_copy(_guid, 17, 4);
-    }
-    
-    return { vendor : _vendor, product : _product };
 }
 
 function __input_trace()
@@ -226,7 +218,7 @@ function __input_trace()
     
     show_debug_message("Input: " + _string);
     
-    if (INPUT_EXTERNAL_DEBUG_LOG)
+    if (__INPUT_EXTERNAL_DEBUG_LOG)
     {
         var _file = file_text_open_append(global.__input_debug_log);
         file_text_write_string(_file, _string);
@@ -247,7 +239,7 @@ function __input_trace_loud()
     
     show_debug_message("Input: LOUD " + _string);
     
-    if (INPUT_EXTERNAL_DEBUG_LOG)
+    if (__INPUT_EXTERNAL_DEBUG_LOG)
     {
         var _file = file_text_open_append(global.__input_debug_log);
         file_text_write_string(_file, _string);
@@ -270,11 +262,11 @@ function __input_error()
     
     if (os_browser == browser_not_a_browser)
     {
-        show_error("Input:\n" + _string + "\n ", false);
+        show_error("Input " + __INPUT_VERSION + ":\n" + _string + "\n ", false);
     }
     else
     {
-        show_error("Input:\n" + _string + "\n" + string(debug_get_callstack()), false);
+        show_error("Input " + __INPUT_VERSION + ":\n" + _string + "\n" + string(debug_get_callstack()), false);
     }
 }
 

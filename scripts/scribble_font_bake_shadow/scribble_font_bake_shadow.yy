@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "scribble_font_bake_shadow",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Fonts",
-    "path": "folders/Coalition Engine/Addons/Scribble/Fonts.yy",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/Fonts.yy",
   },
 }

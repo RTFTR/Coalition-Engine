@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "input_combo_get_phase",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Extended Verbs",
-    "path": "folders/Coalition Engine/Addons/Input/Extended Verbs.yy",
+    "path": "folders/Addons/Juju Adams/Input v5.6.1/Extended Verbs.yy",
   },
 }

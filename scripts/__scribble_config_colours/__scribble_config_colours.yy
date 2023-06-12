@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "__scribble_config_colours",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "Configuration - Please edit these!",
-    "path": "folders/Coalition Engine/Addons/Scribble/Configuration - Please edit these!.yy",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/Configuration - Please edit these!.yy",
   },
 }

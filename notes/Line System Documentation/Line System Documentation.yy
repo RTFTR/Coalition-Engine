@@ -4,6 +4,6 @@
   "name": "Line System Documentation",
   "parent": {
     "name": "Line System",
-    "path": "folders/Coalition Engine/Addons/Line System.yy",
+    "path": "folders/Addons/Unknown Creators/Line System.yy",
   },
 }

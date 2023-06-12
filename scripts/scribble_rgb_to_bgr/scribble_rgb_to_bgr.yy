@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "scribble_rgb_to_bgr",
-  "isCompatibility": false,
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
-    "name": "Miscellaneous",
-    "path": "folders/Coalition Engine/Addons/Scribble/Miscellaneous.yy",
+    "name": "Colours",
+    "path": "folders/Addons/Juju Adams/Scribble v8.7.0/Colours.yy",
   },
 }
