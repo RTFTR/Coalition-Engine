@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_ParentBullet",
+  "name": "obj_BoardCover",
   "spriteId": null,
   "solid": false,
   "visible": true,
@@ -25,7 +25,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Bullet",
-    "path": "folders/Coalition Engine/Objects/Battle/Bullet.yy",
+    "name": "Board",
+    "path": "folders/Coalition Engine/Objects/Battle/Board.yy",
   },
 }
