@@ -26,7 +26,7 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 > Stable : When the feature is **completly** done and stable, It will move to the Stable branch.
 
-> Long-Term Support : This branch will barely get updates. Its purposes are to maintain stability.
+> Long-Term Support : Specified for GameMaker LTS users! This branch will barely get updates. Its purposes are to maintain stability.
 
 **You are on the Stable branch. Although The features that we consider them to be completly done on programming, There could be still some unexpected problems. If you found it, Let us know in our Discord server. The invitation link is at the bottom.**
 
