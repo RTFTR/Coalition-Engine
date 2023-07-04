@@ -32,7 +32,7 @@ TurnCreate(0, 4, 220, function() {
 TurnCreate(1, 0, 30, function() {
 	{
 		Battle_SoulMode(SOUL_MODE.ORANGE);
-		TweenFire(oGlobal, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 300, "camera_angle", 0, 360)
+		TweenFire(obj_Global, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 300, "camera_angle", 0, 360)
 	}
 });
 TurnCreate(1, 1, 60, function() {
@@ -59,7 +59,7 @@ TurnCreate(2, 1, 40, function() {
 	{
 		var pos = [random_range(100, 540), random_range(150, 200)];
 		var a = Battle_BoneCube(pos, [0, 10, 20], [.6, -1, .3], [20, 20, 20], 60, EaseOutQuad)
-		a.direction = point_direction(pos[0], pos[1], oSoul.x, oSoul.y)
+		a.direction = point_direction(pos[0], pos[1], obj_Soul.x, obj_Soul.y)
 		TweenFire(a, EaseInBack, TWEEN_MODE_ONCE, false, 0, 50, "speed", 0, 9)
 	}
 }, 15, 40)
@@ -75,7 +75,7 @@ TurnCreate(3, 1, 30, function() {
 		Bullet_BoneRight(480 + i * 70, 70, -3, 0, 1, 0, 0);
 		Bullet_BoneLeft(0 - i * 70, 70, 3, 0, 1, 0, 0);
 	}
-	oBulletBone.axis = 1;
+	obj_BulletBone.axis = 1;
 });
 #endregion
 #region Turn 4 Board Moving
@@ -93,7 +93,7 @@ TurnCreate(4, 3, 120, function() {
 	Set_BoardPos(130, 320, 580, EaseLinear);
 });
 TurnCreate(4, 4, 100, function() {
-	Bullet_BoneGapV(oBoard.x - 90, random_range(340, 370), 2.5, 20);
+	Bullet_BoneGapV(obj_Board.x - 90, random_range(340, 370), 2.5, 20);
 }, 10, 60);
 #endregion
 #region Turn 5 Corridor Axis
@@ -105,33 +105,33 @@ TurnCreate(5, 1, 120, function() {
 	for (var i = 0; i < 200; ++i) {
 		Bullet_BoneGapV(-i * 12, sin(i/15)*20+320, 4, 25, 0, 0, 0);
 	}
-	oBulletBone.axis = 1;
+	obj_BulletBone.axis = 1;
 	Set_BoardAngle(-540, 720, EaseLinear);
-	with oSoul
+	with obj_Soul
 	{
 		Blend = c_blue;
 		TweenEasyBlend(c_red, c_blue, 0, 30, EaseLinear);
 		alarm[0] = 1
 	}
-	TweenFire(oSoul, EaseLinear, TWEEN_MODE_ONCE, false, 0, 720, "draw_angle", 270, -270);
+	TweenFire(obj_Soul, EaseLinear, TWEEN_MODE_ONCE, false, 0, 720, "draw_angle", 270, -270);
 });
 #endregion
 #region Turn 6 Board Cover
 TurnCreate(6, 0, 30, function() {
 	Battle_SoulMode(SOUL_MODE.YELLOW)
-	with instance_create_depth(360,320,0,oBoardCover) {
+	with instance_create_depth(360,320,0,obj_BoardCover) {
 		up = irandom_range(10,20);
 		down = irandom_range(10,20);
 		left = irandom_range(10,20);
 		right = irandom_range(10,20);
 	}
-	//instance_create_depth(250,320,0,oBoardCover,
+	//instance_create_depth(250,320,0,obj_BoardCover,
 	//{
 	//	image_angle : 45
 	//});
 });
 TurnCreate(6, 1, 570, function() {
-	with oBoardCover
+	with obj_BoardCover
 	{
 		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "up", up, 0);
 		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, 30, "down", down, 0);
@@ -140,7 +140,7 @@ TurnCreate(6, 1, 570, function() {
 	}
 });
 TurnCreate(6, 2, 599, function() {
-	instance_destroy(oBoardCover);
+	instance_destroy(obj_BoardCover);
 });
 #endregion
 #region Turn 7 Purple Soul

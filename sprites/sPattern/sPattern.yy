@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Effect_Usage",
-    "path": "folders/Coalition Engine/Sprites/Effect_Usage.yy",
+    "name": "Effect Usage",
+    "path": "folders/Coalition Engine/Sprites/Effect Usage.yy",
   },
 }

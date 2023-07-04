@@ -42,14 +42,14 @@ function end_turn()
 	}
 	//Reset box
 	Set_BoardSize();
-	oBoard.image_angle %= 360;
+	obj_Board.image_angle %= 360;
 	Set_BoardAngle();
 	Set_BoardPos();
 	//Reset soul
-	with oSoul
+	with obj_Soul
 		draw_angle = (mode == SOUL_MODE.YELLOW ? 180 : 0);
 	//Clear bones
-	with oBulletBone
+	with obj_BulletBone
 		if retract_on_end
 		{
 			at_turn_end = true;
@@ -58,7 +58,7 @@ function end_turn()
 			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 0);
 			alarm[1] = 25;
 		}
-	with oBulletParents
+	with obj_ParentBullet
 		if destroy_on_turn_end instance_destroy();
 	state = 0;
 	draw_damage = false;

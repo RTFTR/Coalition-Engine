@@ -2,7 +2,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_BoardCover",
-  "spriteId": null,
+  "spriteId": {
+    "name": "sprPixelBig",
+    "path": "sprites/sprPixelBig/sprPixelBig.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,

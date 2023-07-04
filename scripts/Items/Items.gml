@@ -107,7 +107,7 @@ function Item_Use(item){
 			heal_text = "You drank the sea tea.";
 			global.spd *= 2;
 			audio_play(snd_spdup)
-			with oBattleController
+			with obj_BattleController
 				{
 					Effect.SeaTea = true;
 					Effect.SeaTeaTurns = 4;
@@ -121,7 +121,8 @@ function Item_Use(item){
 	audio_play(snd_item_heal);
 	
 	if global.item_heal_override_kr
-		if global.hp + heal >= global.hp_max global.kr = 0;
+		if global.hp + heal > global.hp_max and global.kr > 0
+			global.kr = min(global.kr - ((global.hp + heal) - global.hp_max), 0);
 	
 	global.hp = min(global.hp + heal, global.hp_max);
 	var hp_text = "[delay, 333]\n* You recovered " + string(heal) + " HP!";
@@ -131,7 +132,7 @@ function Item_Use(item){
 	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
 	
 	//If is in battle
-	if instance_exists(oBattleController)
+	if instance_exists(obj_BattleController)
 	{
 		if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
 	

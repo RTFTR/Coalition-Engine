@@ -135,10 +135,10 @@ function load_text_from_file(filename, read_method = 0, tag = "")
 		case 0:
 			switch current
 			{
-				case "oEnemyParent":
+				case "obj_ParentEnemy":
 					n = array_length(turn_time);
 				break
-				case "oBattleController":
+				case "obj_BattleController":
 					n = array_length(global.item);
 				break
 			}
@@ -146,7 +146,7 @@ function load_text_from_file(filename, read_method = 0, tag = "")
 			{
 				switch current
 				{
-					case "oEnemyParent":
+					case "obj_ParentEnemy":
 						TurnNumber = file_text_read_real(file);
 						file_text_readln(file);
 						DialogText = file_text_read_string(file);
@@ -292,6 +292,18 @@ function audio_create_stream_array()
 		array_push(arr, audio_create_stream(text));
 	}
 	return arr;
+}
+
+///@desc Creates an array with given size and initalising each element with the given function
+///@param {real} size    The size of the array
+///@param {function} function    The function to be used for initalising the elements
+function array_create_ext(size, func) 
+{
+    var arr = array_create(size);
+    for (var i = 0; i < size; ++i) {
+        arr[i] = is_method(func) ? func() : func;
+    }
+    return arr;
 }
 
 

@@ -47,7 +47,7 @@ function begin_turn() {
 	if activate_turn[last_choice]
 	{
 		battle_state = 2;
-		oEnemyParent.state = 2;
+		obj_ParentEnemy.state = 2;
 		obj_Soul.image_angle = 0;
 		Battle_SetSoulPos(320, 320, 0);
 	}
@@ -56,7 +56,7 @@ function begin_turn() {
 		menu_choice = array_create(4, 0);
 		if activate_heal[last_choice]
 		{
-			with oEnemyParent
+			with obj_ParentEnemy
 			{
 				TurnData.IsHeal = true;
 				TurnData.HealNum = irandom(array_length(TurnData.HealAttacks) - 1);
@@ -69,7 +69,7 @@ function begin_turn() {
 			menu_state = 0;
 			var end_turn_text = battle_turn - 1;
 			end_turn_text = min(0, battle_turn);
-			Battle_SetMenuDialog(oEnemyParent.end_turn_menu_text[end_turn_text]);
+			Battle_SetMenuDialog(obj_ParentEnemy.end_turn_menu_text[end_turn_text]);
 		}
 		last_choice = 0;
 	}
@@ -84,8 +84,8 @@ function gameover() {
 }
 
 function begin_spare(activate_the_turn) {
-	oEnemyParent.is_being_spared = true;
-	oEnemyParent.spare_end_begin_turn = activate_the_turn;
+	obj_ParentEnemy.is_being_spared = true;
+	obj_ParentEnemy.spare_end_begin_turn = activate_the_turn;
 	if !activate_the_turn {
 		menu_state = -1;
 		battle_state = -1;
@@ -113,7 +113,7 @@ function end_battle() {
 			.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
 	}
 	else {
-		Fader_Fade(0, 1, 40, 0, c_black);
+		fader_fade(0, 1, 40, 0, c_black);
 	}
 }
 #endregion
@@ -199,7 +199,7 @@ switch battle_state {
 						ResetFightAim();
 
 						//Code that makes soul invincible
-						if instance_exists(oBulletParents) oBulletParents.can_hurt = 0;
+						if instance_exists(obj_ParentBullet) obj_ParentBullet.can_hurt = 0;
 					}
 					if menu_state == BATTLE_MENU_STATE.ACT menu_state = BATTLE_MENU_STATE.ACT_SELECT; // Act Selection
 					if menu_state == BATTLE_MENU_STATE.MERCY {

@@ -87,7 +87,7 @@ var col = make_color_hsv(global.timer % 255, 255, 255),
 draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
 draw_text_color(5, 65, "Current Room : " + string(room_get_name(room)), c_white, col, c_black, col, debug_alpha)
 
-//draw_text_color(5, 65, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha)
+//draw_text_color(5, 65, "Camera Position : " + string(obj_Global.camera_x) + ", " + string(obj_Global.camera_y), c_white, col, c_black, col, debug_alpha)
 var inst = instance_position(mouse_x, mouse_y, all);
 var inst_name = "";
 

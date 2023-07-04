@@ -183,7 +183,7 @@ if battle_state == BATTLE_STATE.MENU {
 							if _aim_distance < 15
 							{
 								if !global.CompatibilityMode
-									Blur_Screen(45, (15 - _aim_distance) / 2);
+									blur_screen(45, (15 - _aim_distance) / 2);
 							}
 						
 							Target.WaitTime = 60;
@@ -191,7 +191,7 @@ if battle_state == BATTLE_STATE.MENU {
 							var strike_target_x = 160 * (target_option + 1);
 							enemy[target_option].is_being_attacked = true;
 							Calculate_MenuDamage(_aim_distance, target_option);
-							instance_create_depth(strike_target_x, 160, -10, oStrike);
+							instance_create_depth(strike_target_x, 160, -10, obj_Strike);
 							audio_play_sound(snd_slice, 50, false);
 						}
 					}
@@ -550,12 +550,12 @@ if battle_state == BATTLE_STATE.MENU {
 	if menu_state = BATTLE_MENU_STATE.FLEE
 	{
 		draw_text_scribble(96, 272, "[fnt_dt_mono]* " + FleeText[FleeTextNum]);
-		if oSoul.x <= 10 and FleeState == 1
+		if obj_Soul.x <= 10 and FleeState == 1
 		{
-			Fader_Fade(0, 1, 30);
+			fader_fade(0, 1, 30);
 			FleeState++;
 		}
-		if FleeState == 2 and oGlobal.fader_alpha == 1
+		if FleeState == 2 and obj_Global.fader_alpha == 1
 		{
 			//Event after fight ends
 			game_restart();
@@ -578,7 +578,7 @@ if battle_state == BATTLE_STATE.RESULT {
 				game_restart();
 		}
 	}
-	else if oGlobal.fader_alpha == 1 game_restart();
+	else if obj_Global.fader_alpha == 1 game_restart();
 }
 
 #region Debug
@@ -677,7 +677,7 @@ repeat(array_length(_button_spr)) // Button initialize
 }
 if board_cover_button {
 	Battle_Masking_Start(true);
-	var board = oBoard;
+	var board = obj_Board;
 	if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
 		draw_rectangle_color(23, 432, 640, 480, c_black, c_black, c_black, c_black, 0);
 	Battle_Masking_End();
@@ -808,7 +808,7 @@ draw_set_alpha(1);
 
 if board_cover_hp_bar {
 	Battle_Masking_Start(true);
-	var board = oBoard;
+	var board = obj_Board;
 	if !(board.left + board.right >= 640 and board.up + board.down >= 480 and board_full_cover)
 		draw_rectangle_color(0, hp_y, 640, hp_y + 20, c_black, c_black, c_black, c_black, 0);
 	Battle_Masking_End();

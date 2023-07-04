@@ -40,9 +40,9 @@ function BasicMovement(hor = true, ver = true, fast = false) {
 		move_y = v_spd * move_spd;
 
 		if moveable {
-			if instance_exists(oBoardCover)
+			if instance_exists(obj_BoardCover)
 			{
-				move_and_collide(lengthdir_x(move_x, _angle), lengthdir_y(move_y, _angle - 90), oBoardCover, move_spd * 10);
+				move_and_collide(lengthdir_x(move_x, _angle), lengthdir_y(move_y, _angle - 90), obj_BoardCover, move_spd * 10);
 			}
 			else
 			{

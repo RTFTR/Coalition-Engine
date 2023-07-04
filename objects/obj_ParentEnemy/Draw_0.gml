@@ -161,7 +161,7 @@ if !died and !is_spared
 		}
 		else
 		{
-			if !instance_exists(oStrike) {
+			if !instance_exists(obj_Strike) {
 				if attack_time == 0 {
 					audio_play(snd_damage);
 					_enemy_hp = enemy_hp;

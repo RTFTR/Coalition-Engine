@@ -187,7 +187,7 @@ allow_debug = 1;
 #endregion
 
 function dialog_start() {
-	oEnemyParent.state = 1;
+	obj_ParentEnemy.state = 1;
 	battle_state = 1;
 	Battle_SetSoulPos(320, 320, 0);
 }

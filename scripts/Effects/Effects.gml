@@ -313,7 +313,7 @@ function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20)
 
 //@desc Creates a trail of the object
 ///@param {real} duration		The duration of the effect
-function instance_create_trail(duration = 30) {
+function instance_trail_create(duration = 30) {
 	part_system_depth(global.TrailS, depth + 1);
 	part_type_sprite(global.TrailP, sprite_index, 0, 0, 0);
 	part_type_life(global.TrailP, duration, duration);

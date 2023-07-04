@@ -41,7 +41,7 @@ if mode = SOUL_MODE.GREEN
 				 _y = ShieldDistY + y + ShieldWidthY;
 			var __x = ShieldDistX + x - ShieldWidthX,
 				__y = ShieldDistY + y - ShieldWidthY;
-			with oBulletParents
+			with obj_ParentBullet
 				with other
 				{
 					var XChange = dcos(ShieldAng);
@@ -68,10 +68,10 @@ if mode = SOUL_MODE.GREEN
 
 if mode == SOUL_MODE.PURPLE and STATE == 2
 {
-	var TopLine =		oBoard.y - oBoard.up + 15,
-		BottomLine =	oBoard.y + oBoard.down - 15,
-		LeftLine =		oBoard.x - oBoard.left + 15,
-		RightLine =		oBoard.x + oBoard.right - 15,
+	var TopLine =		obj_Board.y - obj_Board.up + 15,
+		BottomLine =	obj_Board.y + obj_Board.down - 15,
+		LeftLine =		obj_Board.x - obj_Board.left + 15,
+		RightLine =		obj_Board.x + obj_Board.right - 15,
 		XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1),
 		YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
 	draw_set_alpha(Purple.Mode == 0 ? 1 : 0.3);
@@ -92,8 +92,8 @@ if mode == SOUL_MODE.PURPLE and STATE == 2
 	draw_set_alpha(Purple.ForceAlpha);
 	draw_set_color(c_purple);
 	Battle_Masking_Start();
-	draw_rectangle(oBoard.x - oBoard.left, oBoard.y - oBoard.up,
-					oBoard.x + oBoard.right, oBoard.y + oBoard.down, 0);
+	draw_rectangle(obj_Board.x - obj_Board.left, obj_Board.y - obj_Board.up,
+					obj_Board.x + obj_Board.right, obj_Board.y + obj_Board.down, 0);
 	Battle_Masking_End();
 	draw_set_color(c_white);
 	draw_set_alpha(1);

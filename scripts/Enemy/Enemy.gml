@@ -37,7 +37,7 @@ function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 				battle_turn++;
 				begin_at_turn = true;
 				dialog_start();
-				oSoul.visible = true;
+				obj_Soul.visible = true;
 			}
 		}
 		else
@@ -58,7 +58,7 @@ function Enemy_SetName(name)
 //@desc UNUSED
 function Enemy_NameUpdate() {
 	////Check which slot doesn't have enemy
-	//with oBattleController {
+	//with obj_BattleController {
 	//	for(var i = 0; i < 3; ++i)
 	//		enemy_name_extra[i] = "";
 	//	var temp_enemy = [],

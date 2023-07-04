@@ -55,9 +55,9 @@ function Set_GreenBox()
 ///@desc Deals damage to the soul
 ///@param {real} dmg	The Damage to Yellow HP (Default 1)
 ///@param {real} kr		The Damage to Purple KR (Default 1)
-function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
+function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
 {
-	if !global.inv and can_hurt
+	if !global.inv and harmful
 	{
 		audio_play(snd_hurt);
 		global.inv = global.assign_inv + global.player_inv_boost;
@@ -71,12 +71,12 @@ function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
 function Slam(direction, move = 20, hurt = false)
 {
 	direction = posmod(direction,360);
-	oEnemyParent.Slamming = true;
-	oEnemyParent.SlamDirection = direction;
+	obj_ParentEnemy.Slamming = true;
+	obj_ParentEnemy.SlamDirection = direction;
 	Battle_SoulMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
-	with oSoul
+	with obj_Soul
 	{
 		dir = direction;
 		image_angle = (direction + 90) % 360

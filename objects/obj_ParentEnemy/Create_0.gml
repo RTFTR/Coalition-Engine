@@ -104,23 +104,23 @@ if ContainsDust {
 		return [dust_speed * dcos(dust_direction),
 				dust_speed * -dsin(dust_direction)];
 	}
-	dust_displace = array_create(dust_amount, _f);
+	dust_displace = array_create_ext(dust_amount, _f);
 	_f = function()
 	{
 		return irandom_range(60, 120);
 	}
-	dust_life = array_create(dust_amount, _f);
+	dust_life = array_create_ext(dust_amount, _f);
 	dust_alpha = array_create(dust_amount, 1);
 	_f = function()
 	{
 		return random(360);
 	}
-	dust_angle = array_create(dust_amount, _f);
+	dust_angle = array_create_ext(dust_amount, _f);
 	_f = function()
 	{
 		return random_range(1, -1);
 	}
-	dust_rotate = array_create(dust_amount, _f);
+	dust_rotate = array_create_ext(dust_amount, _f);
 	i = 0;
 	repeat(dust_amount)
 	{
@@ -227,3 +227,4 @@ start = 1;
 time = -1;
 
 base_bone_col = c_white;
+

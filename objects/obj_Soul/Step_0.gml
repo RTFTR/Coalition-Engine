@@ -3,7 +3,7 @@ if global.inv > 0 {
 	global.inv--;
 	if !global.kr_activation {
 		if image_speed == 0 {
-			image_speed = 1 / 2;
+			image_speed = 1/2;
 			image_index = 1;
 		}
 	}
@@ -27,10 +27,10 @@ if STATE == 2 {
 		x_offset = sprite_width / 2,
 		y_offset = sprite_height / 2,
 		
-		check_board = instance_exists(oBoard);
+		check_board = instance_exists(obj_Board);
 	if check_board // When the board is real XD
 	{
-		var board = oBoard,
+		var board = obj_Board,
 			board_x			= board.x,
 			board_y			= board.y,
 			board_angle		= posmod(board.image_angle, 360),
@@ -51,8 +51,8 @@ if STATE == 2 {
 
 	//Check if soul follows the movement of the board
 	if follow_board {
-		x += board_x - oBoard.xprevious;
-		y += board_y - oBoard.yprevious;
+		x += board_x - obj_Board.xprevious;
+		y += board_y - obj_Board.yprevious;
 	}
 
 	switch mode
@@ -142,11 +142,11 @@ if STATE == 2 {
 			}
 		
 			//Platform checking
-			var RespecitvePlatform = instance_position(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform);
+			var RespecitvePlatform = instance_position(x + platform_check[0, 0], y + platform_check[1, 0], obj_Platform);
 
-			if position_meeting(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform) and _fall_spd >= 0 {
+			if position_meeting(x + platform_check[0, 0], y + platform_check[1, 0], obj_Platform) and _fall_spd >= 0 {
 				_on_platform = true;
-				while position_meeting(x + platform_check[0, 1], y + platform_check[1, 1], oPlatform) {
+				while position_meeting(x + platform_check[0, 1], y + platform_check[1, 1], obj_Platform) {
 					with RespecitvePlatform {
 						other.x += lengthdir_x(0.1, image_angle + 90);
 						other.y += lengthdir_y(0.1, image_angle + 90);
@@ -163,7 +163,7 @@ if STATE == 2 {
 			if _on_ground or _on_platform or (_fall_spd < 0 and _on_ceil) {
 				if slam {
 					slam = false;
-					Camera_Shake(global.slam_power / 2);
+					camera_shake(global.slam_power / 2);
 					if global.slam_damage {
 						global.hp = global.hp > 1 ? global.hp-- : 1;
 					}
@@ -196,7 +196,7 @@ if STATE == 2 {
 		case SOUL_MODE.ORANGE : {
 			//Movement particle
 			if moveable {
-				if !(global.timer % 5) TrailStep(25);
+				if !(global.timer % 5) instance_trail_create(25);
 				var input = [input_check("right"), input_check("up"),
 					input_check("left"), input_check("down")
 				];
@@ -242,7 +242,7 @@ if STATE == 2 {
 			///@param {Array} Input		The input keys of the shield
 			function AddShield(Input = -1)
 			{
-				with oSoul
+				with obj_Soul
 				{
 					array_push(ShieldAlpha, 0);
 					array_push(ShieldDrawAngle, 0);
@@ -255,7 +255,7 @@ if STATE == 2 {
 			}
 			function RemoveShield(num)
 			{
-				with oSoul
+				with obj_Soul
 				{
 					array_delete(ShieldAlpha, num, 1);
 					array_delete(ShieldDrawAngle, num, 1);
@@ -304,8 +304,8 @@ if STATE == 2 {
 			{
 				BasicMovement(true, false);
 				var NowLine = Purple.CurrentVLine,
-					TopLine = oBoard.y - oBoard.up + 15,
-					BottomLine = oBoard.y + oBoard.down - 15,
+					TopLine = obj_Board.y - obj_Board.up + 15,
+					BottomLine = obj_Board.y + obj_Board.down - 15,
 					YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
 				Purple.CurrentVLine += input_check_pressed("down") - input_check_pressed("up");
 				Purple.CurrentVLine = clamp(Purple.CurrentVLine, 0, Purple.VLineAmount - 1);
@@ -316,8 +316,8 @@ if STATE == 2 {
 			{
 				BasicMovement(false, true);
 				var NowLine = Purple.CurrentHLine,
-					LeftLine = oBoard.x - oBoard.left + 15,
-					RightLine = oBoard.x + oBoard.right - 15,
+					LeftLine = obj_Board.x - obj_Board.left + 15,
+					RightLine = obj_Board.x + obj_Board.right - 15,
 					XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1);
 				Purple.CurrentHLine += input_check_pressed("right") - input_check_pressed("left");
 				Purple.CurrentHLine = clamp(Purple.CurrentHLine, 0, Purple.HLineAmount - 1);
@@ -346,10 +346,10 @@ if STATE == 2 {
 		}
 	
 		//Collision check of the Cover Board
-		//if instance_exists(oBoardCover) {
+		//if instance_exists(obj_BoardCover) {
 		//	//Old Collision Checker
-		//	for (var i = 0, n = instance_number(oBoardCover); i < n; i++) {
-		//		var board_cover = instance_find(oBoardCover, i);
+		//	for (var i = 0, n = instance_number(obj_BoardCover); i < n; i++) {
+		//		var board_cover = instance_find(obj_BoardCover, i);
 		//		with board_cover {
 		//			var board_cover_angle = posmod(image_angle, 360),
 		//				board_cover_margin = [up, down, left, right],
@@ -414,7 +414,7 @@ if STATE == 2 {
 //	{
 //		if Grazer == -1
 //		{
-//			GrazeObj = instance_create_depth(x, y, depth, oSoul)
+//			GrazeObj = instance_create_depth(x, y, depth, obj_Soul)
 //			Grazer = 1;
 //		}
 //		with GrazeObj
