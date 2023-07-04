@@ -21,7 +21,8 @@ for (var i = 0; i < 4; ++i)
 
 //Drawing of the Cover Board
 var i = 0;
-repeat(instance_number(obj_BoardCover)) {
+repeat(instance_number(obj_BoardCover)) 
+{
 	var BoardCoverID = instance_find(obj_BoardCover, i);
 	
 	draw_surface_part(BoardCoverID.surface, bg_x, bg_y, bg_w + 10, bg_h + 10,

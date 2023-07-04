@@ -221,7 +221,7 @@ if STATE == 2 {
 			//Shooting the bullet
 			if !timer {
 				if input_check_pressed("confirm") {
-					instance_create_depth(x, y, 0, oYellowBullet,
+					instance_create_depth(x, y, 0, obj_SoulBullet,
 					{
 						image_angle : other.image_angle
 					});

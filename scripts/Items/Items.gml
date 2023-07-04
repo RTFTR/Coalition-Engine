@@ -148,7 +148,7 @@ function Item_Use(item){
 	}
 	
 	//If is in overworld
-	if instance_exists(oOWController)
+	if instance_exists(obj_OverworldController)
 	{
 		if !global.item_uses_left[item] Item_Shift(menu_choice[1], 0);
 		healing_text = heal_text + hp_text;

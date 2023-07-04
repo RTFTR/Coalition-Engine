@@ -12,7 +12,7 @@
 ///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 ///@param {Constant.Color} Base_Color	The color of the bone
-function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1,base_col = oEnemyParent.base_bone_col){
+function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1,base_col = obj_ParentEnemy.base_bone_col){
 	var DEPTH = -10
 	if instance_exists(obj_Board)
 	{
@@ -265,7 +265,7 @@ function Bullet_BoneWaveV(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT =
 ///@param {function} Easing			The easing of the scaling animation (Default EaseLinear)
 function Battle_BoneCube(pos, ans, rots, scale, anim_time = 0, ease = EaseLinear)
 {
-	var inst = instance_create_depth(pos[0], pos[1], -2, oBoneCube)
+	var inst = instance_create_depth(pos[0], pos[1], -2, obj_BulletBoneCube)
 	with inst
 	{
 		angles = ans;

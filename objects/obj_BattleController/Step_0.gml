@@ -397,20 +397,20 @@ if Target.WaitTime == 0 {
 }
 
 //Debug
-if debug {
-	if keyboard_check(vk_rshift) {
-		if room_speed > 5 {
-			room_speed += 5 * input_horizontal;
-		}
-	if keyboard_check(ord("R")) room_speed = 60;
-	if keyboard_check(ord("F")) room_speed = 600;
-	}
-	if battle_state == 0 and keyboard_check(vk_control) {
-		battle_turn += input_horizontal;
-		battle_turn = max(0, battle_turn);
-	}
-	if global.hp <= 1 {
-		global.hp = global.hp_max;
-		audio_play(snd_item_heal);
-	}
-}
+//if debug {
+//	if keyboard_check(vk_rshift) {
+//		if room_speed > 5 {
+//			room_speed += 5 * input_horizontal;
+//		}
+//	if keyboard_check(ord("R")) room_speed = 60;
+//	if keyboard_check(ord("F")) room_speed = 600;
+//	}
+//	if battle_state == 0 and keyboard_check(vk_control) {
+//		battle_turn += input_horizontal;
+//		battle_turn = max(0, battle_turn);
+//	}
+//	if global.hp <= 1 {
+//		global.hp = global.hp_max;
+//		audio_play(snd_item_heal);
+//	}
+//}

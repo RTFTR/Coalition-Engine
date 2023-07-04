@@ -79,13 +79,21 @@ if Song.Activate
 gpu_set_blendmode(bm_add);
 debug_alpha = lerp(debug_alpha, global.debug, 0.12);
 draw_set_alpha(debug_alpha);
-draw_set_font(fnt_mnc);
+draw_set_font(fnt_dt_sans);
 var col = make_color_hsv(global.timer % 255, 255, 255),
 	mx = window_mouse_get_x(),
 	my = window_mouse_get_y();
 //draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha)
-draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
-draw_text_color(5, 65, "Current Room : " + string(room_get_name(room)), c_white, col, c_black, col, debug_alpha)
+draw_text_ext_transformed_color(5, 0, "Mouse Position : " + string(mx) + ", " + string(my), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
+draw_text_ext_transformed_color(5, 15, "Current Room : " + string(room_get_name(room)), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
+draw_text_ext_transformed_color(5, 30, "Speed: " + string(room_speed / 60) + "x (" + string(room_speed) + " FPS)", -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
+draw_text_ext_transformed_color(5, 45, "Instances: " + string(instance_count), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
+
+if instance_exists(obj_BattleController)
+{	
+	draw_set_halign(fa_right);
+	draw_text_ext_transformed_color(635, 15, "Turn: " + string(obj_BattleController.battle_turn), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
+}
 
 //draw_text_color(5, 65, "Camera Position : " + string(obj_Global.camera_x) + ", " + string(obj_Global.camera_y), c_white, col, c_black, col, debug_alpha)
 var inst = instance_position(mouse_x, mouse_y, all);
@@ -111,9 +119,9 @@ var inst_name = "";
 //}
 //else inst_name = "Nothing";
 
-draw_text_color(5, 45, "Pointing At : " + inst_name, c_white, col, c_black, col, debug_alpha);
+//draw_text_ext_transformed_color(5, 45, "Pointing At : " + inst_name, -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha);
 draw_set_halign(fa_right);
-draw_text_color(635, 5, "FPS: " + string(fps) + " (" + string(fps_real) + ")", c_white, col, c_black, col, debug_alpha);
+draw_text_ext_transformed_color(635, 0, "FPS: " + string(fps) + " (" + string(fps_real) + ")", -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha);
 draw_set_halign(fa_left);
 draw_set_alpha(1);
 draw_set_color(c_white);

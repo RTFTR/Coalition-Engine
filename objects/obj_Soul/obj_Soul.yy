@@ -34,7 +34,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Battle",
-    "path": "folders/Coalition Engine/Objects/Battle.yy",
+    "name": "Soul and Abilities",
+    "path": "folders/Coalition Engine/Objects/Battle/Soul and Abilities.yy",
   },
 }

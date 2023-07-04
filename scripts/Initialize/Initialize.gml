@@ -1,43 +1,45 @@
 function initialize()
 {
 	show_debug_message("This is Coalition Engine " + ENGINE_VERSION);
-	//Set to true when releasing your game
-	gml_release_mode(true);
+	
+	// Set to true when releasing your game
+	gml_release_mode(false);
+	
 	randomize();
 	
-	//Soul position (Gameover usage)
+	// Soul position (Gameover usage)
 	global.soul_x = 320;
 	global.soul_y = 320;
 	
-	//Debugging (Engine usage)
+	// Debugging (Engine usage)
 	global.debug = false;
 	global.show_hitbox = 0;
 	global.timer = 0;
 	
-	//Sets whether slam does damage
-	global.slam_damage = false;
+	// Sets whether slam does damage
+	global.slam_damage = true;
 	
-	//Sets Whether Blasters cause RGB splitting effect
-	global.RGBBlaster = false;
+	// Sets Whether Blasters cause RGB splitting effect
+	global.RGBBlaster = true;
 	
-	//Replaying uses
+	// Replaying uses
 	global.ReplaySaveFileName = "";
 	global.ReplayLoadFileName = "";
 	global.ReplayMode = "Record";
 	global.RecordReplay = false;
 	
-	//BPM of the song (Rhythm usage)
+	// BPM of the song (Rhythm usage)
 	global.SongBPM = 0;
 	
-	//Sets whether the current text is skippable (Engine usage)
+	// Sets whether the current text is skippable (Engine usage)
 	global.TextSkipEnabled = true;
 	
-	//Player stats
+	// Player stats
 	global.player_attack_boost = 0;
 	global.player_def_boost = 0;
 	global.player_inv_boost = 0;
 	
-	//Battle stats
+	// Battle stats
 	global.kr = 0;
 	global.kr_activation = false;
 	global.damage = 1;
@@ -47,22 +49,22 @@ function initialize()
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
 	
-	//Grazing
+	// Grazing
 	global.EnableGrazing = false;
 	global.TP = 0;
 	
-	//Items
-	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
+	// Items
+	global.item_heal_override_kr = true; // Does kr reduce when max heal or not
 	global.item_uses_left = array_create(ITEM_COUNT + 1, 1);
 	global.item_uses_left[ITEM.PIE] = 2;
 	
-	//Spare
+	// Spare
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
 	
-	//Whether the current fight is a boss fight or not (Engine usage)
+	// Whether the current fight is a boss fight or not (Engine usage)
 	global.BossFight = false;
 	
-	//Save file (Free to edit)
+	// Save file (Free to edit)
 	global.SaveFile = ds_map_create();
 	global.SaveFile[? "Name"] =			"Chara";
 	global.SaveFile[? "LV"] =			20;
@@ -90,7 +92,7 @@ function initialize()
 		global.SaveFile[? ("Item " + string(i))] = Item_Preset[i];
 	}
 	
-	//Save file Save/Loading
+	// Save file Save/Loading
 	if !file_exists("Data.dat")
 		ds_map_secure_save(global.SaveFile, "Data.dat");
 	else
@@ -122,25 +124,25 @@ function initialize()
 		}
 	}
 	
-	//Custom Settings
+	// Custom Settings
 	global.Settings = ds_map_create();
 	global.Volume = 100;
 	global.CompatibilityMode = false;
 	global.ShowFPS = false;
-	//Input keys are defined at __input_config_profiles_and_default_bindings
+	// Input keys are defined at __input_config_verbs_and_bindings
 	
 	if !file_exists("Settings.ini") save_file(FILE.SETTINGS); else save_file(FILE.SETTINGS);
 	
 	global.TempData = ds_map_create();
 	
-	//Sets the current battle encounter ID
+	// Sets the current battle encounter ID
 	global.battle_encounter = 0;
 	
-	//Sets the current Overworld dialog sprite (Currently unused)
+	// Sets the current Overworld dialog sprite (Currently unused)
 	global.text_face = 0;
 	global.text_emotion = 0;
 	
-	//Particles
+	// Particles
 	global.TrailS = part_system_create();
 	global.TrailP = part_type_create();
 	part_type_life(global.TrailP, 30, 30);
