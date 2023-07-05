@@ -11,8 +11,8 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "audiogroup_overworld",
+    "path": "audiogroups/audiogroup_overworld",
   },
   "soundFile": "snd_phone_box",
   "duration": 0.290249,

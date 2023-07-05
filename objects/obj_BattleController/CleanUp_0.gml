@@ -3,5 +3,5 @@ delete Effect;
 delete Target;
 delete Aim.Attack;
 delete Aim;
-//texturegroup_unload("texbattle");
-//audio_group_unload(audgrpbattle);
+texturegroup_unload("TexGroup_Battle");
+audio_group_unload(audiogroup_battle);

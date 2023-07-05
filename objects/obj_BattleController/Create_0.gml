@@ -1,4 +1,6 @@
-//texturegroup_load("texbattle");
+// Loading battle texture group
+texturegroup_load("TexGroup_Battle");
+
 fader_fade(1, 0, 20);
 menu_state = 0;
 battle_state = 0;

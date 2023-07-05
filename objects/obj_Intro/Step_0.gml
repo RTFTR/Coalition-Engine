@@ -12,7 +12,7 @@ name_scale += ((state ? 2.5 : 1) - name_scale) * 0.12;
 switch menu_state
 {
 	case INTRO_MENU_STATE.LOGO:
-		room_goto(room_battle);
+		room_goto(room_overworld);
 		name = "";
 		if input_vertical != 0 menu_choice[0] = posmod(menu_choice[0] + input_vertical, 2);
 		else if input_confirm

@@ -2,7 +2,10 @@
   "resourceType": "GMTileSet",
   "resourceVersion": "1.0",
   "name": "TileCollisionWall",
-  "spriteId": null,
+  "spriteId": {
+    "name": "sprCollision",
+    "path": "sprites/sprCollision/sprCollision.yy",
+  },
   "tileWidth": 1,
   "tileHeight": 1,
   "tilexoff": 0,
@@ -11,8 +14,8 @@
   "tilevsep": 0,
   "spriteNoExport": true,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "TexGroup_Overworld",
+    "path": "texturegroups/TexGroup_Overworld",
   },
   "out_tilehborder": 2,
   "out_tilevborder": 2,

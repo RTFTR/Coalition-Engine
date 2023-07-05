@@ -83,7 +83,7 @@ draw_set_font(fnt_dt_sans);
 var col = make_color_hsv(global.timer % 255, 255, 255),
 	mx = window_mouse_get_x(),
 	my = window_mouse_get_y();
-//draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha)
+//draw_text_color(5, 5, "Char Position : " + string(obj_OverworldCharMain.x) + ", " + string(obj_OverworldCharMain.y), c_white, col, c_black, col, debug_alpha)
 draw_text_ext_transformed_color(5, 0, "Mouse Position : " + string(mx) + ", " + string(my), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
 draw_text_ext_transformed_color(5, 15, "Current Room : " + string(room_get_name(room)), -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
 draw_text_ext_transformed_color(5, 30, "Speed: " + string(room_speed / 60) + "x (" + string(room_speed) + " FPS)", -1, -1, 0.5, 0.5, 0, c_white, col, c_white, col, debug_alpha)
@@ -104,10 +104,10 @@ var inst_name = "";
 //{
 //	switch object_get_name(inst.object_index)
 //	{
-//		case "oOWPlayer":
+//		case "obj_OverworldCharMain":
 //			inst_name = "Player";
 //		break
-//		case "oOWCollision":
+//		case "obj_OverworldCollision":
 //		switch inst.sprite_index
 //		{
 //			case sprOWSave:

@@ -11,8 +11,8 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_default",
-    "path": "audiogroups/audiogroup_default",
+    "name": "audiogroup_battle",
+    "path": "audiogroups/audiogroup_battle",
   },
   "soundFile": "snd_boom.wav",
   "duration": 1.620658,

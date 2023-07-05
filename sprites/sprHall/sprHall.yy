@@ -21,8 +21,8 @@
   "width": 1200,
   "height": 200,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "TexGroup_Overworld",
+    "path": "texturegroups/TexGroup_Overworld",
   },
   "swatchColours": null,
   "gridX": 0,

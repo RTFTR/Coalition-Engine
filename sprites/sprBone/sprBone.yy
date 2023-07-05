@@ -21,8 +21,8 @@
   "width": 14,
   "height": 10,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "TexGroup_Battle",
+    "path": "texturegroups/TexGroup_Battle",
   },
   "swatchColours": null,
   "gridX": 0,
@@ -43,7 +43,7 @@
     "name": "sprBone",
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 30.0,
+    "playbackSpeed": 0.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
@@ -92,7 +92,7 @@
       4294902015,
     ],
     "highlightColour": 1728023040,
-    "highlightStyle": 0,
+    "highlightStyle": 1,
     "enabled": true,
     "tileMode": [
       0,

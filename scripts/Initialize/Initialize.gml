@@ -17,10 +17,10 @@ function initialize()
 	global.timer = 0;
 	
 	// Sets whether slam does damage
-	global.slam_damage = true;
+	global.slam_damage = false;
 	
 	// Sets Whether Blasters cause RGB splitting effect
-	global.RGBBlaster = true;
+	global.RGBBlaster = false;
 	
 	// Replaying uses
 	global.ReplaySaveFileName = "";

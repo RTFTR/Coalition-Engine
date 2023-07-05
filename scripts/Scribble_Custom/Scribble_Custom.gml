@@ -20,7 +20,7 @@ function flash(_element, _parameter_array, _character_index)
 		fader_alpha = !fader_alpha;
 	if _parameter_array[0] audio_play(snd_noise);
 }
-//function sansfightstart(_element, _parameter_array, _character_index)
-//{
-//	oOWPlayer.Encounter_Begin();
-//}
+function sansfightstart(_element, _parameter_array, _character_index)
+{
+	obj_OverworldCharMain.Encounter_Begin();
+}

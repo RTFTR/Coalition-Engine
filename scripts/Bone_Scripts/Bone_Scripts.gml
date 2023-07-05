@@ -13,12 +13,12 @@
 ///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 ///@param {Constant.Color} Base_Color	The color of the bone
 function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1,base_col = obj_ParentEnemy.base_bone_col){
-	var DEPTH = -10
+	var DEPTH = -10;
 	if instance_exists(obj_Board)
 	{
-		DEPTH = obj_Board.depth
+		DEPTH = obj_Board.depth;
 		
-		if OUT DEPTH -= 1
+		if OUT DEPTH -= 1;
 	}
 	
 	var bone = instance_create_depth(X,Y,DEPTH,obj_BulletBone,

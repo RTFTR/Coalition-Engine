@@ -1,5 +1,6 @@
-//if !audio_group_is_loaded(audgrpbattle)
-//	audio_group_load(audgrpbattle);
+if !audio_group_is_loaded(audiogroup_battle)
+	audio_group_load(audiogroup_battle);
+	
 #region Local Functions
 function scr_enemy_choice()
 {

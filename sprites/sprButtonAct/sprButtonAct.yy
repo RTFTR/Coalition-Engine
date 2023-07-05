@@ -21,8 +21,8 @@
   "width": 110,
   "height": 42,
   "textureGroupId": {
-    "name": "Default",
-    "path": "texturegroups/Default",
+    "name": "TexGroup_Battle",
+    "path": "texturegroups/TexGroup_Battle",
   },
   "swatchColours": null,
   "gridX": 0,

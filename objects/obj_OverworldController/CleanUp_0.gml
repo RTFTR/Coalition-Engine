@@ -1,0 +1,2 @@
+texturegroup_unload("TexGroup_Overworld");
+audio_group_unload(audiogroup_overworld)
