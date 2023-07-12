@@ -2,7 +2,7 @@
   "resourceType": "GMMainOptions",
   "resourceVersion": "1.4",
   "name": "Main",
-  "option_gameguid": "0ebcf83a-3763-45cc-9287-276ebe545e27",
+  "option_gameguid": "c8469a8f-5a07-4aca-93e0-60b1bdecc16b",
   "option_gameid": "0",
   "option_game_speed": 60,
   "option_mips_for_3d_textures": false,
@@ -16,5 +16,5 @@
   "option_spine_licence": false,
   "option_template_image": "${base_options_dir}/main/template_image.png",
   "option_template_icon": "${base_options_dir}/main/template_icon.png",
-  "option_template_description": "",
+  "option_template_description": null,
 }

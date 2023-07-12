@@ -14,8 +14,8 @@
   "tilevsep": 0,
   "spriteNoExport": true,
   "textureGroupId": {
-    "name": "TexGroup_Overworld",
-    "path": "texturegroups/TexGroup_Overworld",
+    "name": "texoverworld",
+    "path": "texturegroups/texoverworld",
   },
   "out_tilehborder": 2,
   "out_tilevborder": 2,

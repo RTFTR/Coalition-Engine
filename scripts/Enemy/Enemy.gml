@@ -10,7 +10,10 @@ function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 	
 	var enemy_presets=
 	[
-		[noone, obj_EnemyTest, noone],
+		[noone, oEnemySansExample, noone],
+		[noone, oEnemySans2, noone],
+		[noone, oRhythm, noone],
+		[noone, oEnemyTest, noone],
 	];
 	
 	enemy_instance = [];
@@ -37,7 +40,7 @@ function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 				battle_turn++;
 				begin_at_turn = true;
 				dialog_start();
-				obj_Soul.visible = true;
+				oSoul.visible = true;
 			}
 		}
 		else
@@ -58,7 +61,7 @@ function Enemy_SetName(name)
 //@desc UNUSED
 function Enemy_NameUpdate() {
 	////Check which slot doesn't have enemy
-	//with obj_BattleController {
+	//with oBattleController {
 	//	for(var i = 0; i < 3; ++i)
 	//		enemy_name_extra[i] = "";
 	//	var temp_enemy = [],

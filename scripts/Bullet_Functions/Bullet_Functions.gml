@@ -48,7 +48,7 @@ function axis_step()
 {
 	if axis
 	{
-		var board = obj_Board,
+		var board = oBoard,
 			_ang = axis_override ? axis_override_angle : board.image_angle;
 		axis_x += hspeed;
 		axis_y += vspeed;

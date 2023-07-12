@@ -3,7 +3,7 @@
 ///@param {bool} effect	Whether to create the soul effect or not (Default True)
 function Battle_SoulMode(soul_mode, effect = true)
 {
-	with obj_Soul
+	with oSoul
 	{
 		dir = DIR.DOWN;
 		draw_angle = 0;
@@ -36,12 +36,12 @@ function Battle_SoulMode(soul_mode, effect = true)
 ///@param {real} delay		The delay of executing the Anim (Default 0)
 function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
-	with obj_Soul
+	with oSoul
 		TweenEasyMove(x, y, target_x, target_y, delay, duration, Easing);
 }
 
 ///@desc Return whether is soul moving or not
 function IsSoulMoving() {
-	return (floor(obj_Soul.x) != floor(obj_Soul.xprevious) or floor(obj_Soul.y) != floor(obj_Soul.yprevious));
+	return (floor(oSoul.x) != floor(oSoul.xprevious) or floor(oSoul.y) != floor(oSoul.yprevious));
 }
 

@@ -5,7 +5,7 @@
 ///@param {real}   top_bottom	Decide whether the box is up or down (Default up)
 function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bottom = 0)
 {
-	with obj_OverworldController
+	with oOWController
 	{
 		dialog_option = false;
 		dialog_font = font;
@@ -27,8 +27,8 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 ///@desc Start an option
 function Option()
 {
-	obj_OverworldController.dialog_exists = true;
-	obj_OverworldController.dialog_option = true;
+	oOWController.dialog_exists = true;
+	oOWController.dialog_option = true;
 }
 
 ///@desc Sets the name of the options
@@ -41,7 +41,7 @@ function Option()
 ///@param {bool} is_vertical			Whether the options are verical or not
 function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bottom = 0, ver = false)
 {
-	with obj_OverworldController
+	with oOWController
 	{
 		dialog_font = font;
 		dialog_typist = scribble_typist()
@@ -106,7 +106,7 @@ function tile_meeting(_x, _y, _layer) {
 ///@param layer
 function tile_meeting_precise(_x, _y, _layer) {
 	var _tm = layer_tilemap_get_id(_layer),
-		_checker = obj_Global;
+		_checker = oGlobal;
 		//Get real object reusing
 
 	var _x1 = tilemap_get_cell_x_at_pixel(_tm, bbox_left + (_x - x), y),

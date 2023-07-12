@@ -17,7 +17,7 @@ function audio_play(soundid, single = false, loops = false, volume = 1, pitch = 
 ///@param {Asset.GMSound} Audio		The audio to stick
 ///@param {real} Time				The target time to set the audio with
 ///@param {real} Margin				The margin of error of the audio, Default 0.05 sec / 3 frames
-function audio_sync_to_time(aud, time, margin = 3/60)
+function AudioStickToTime(aud, time, margin = 3/60)
 {
 	if abs(audio_sound_get_track_position(aud) - time) >= margin
 		audio_sound_set_track_position(aud, time);

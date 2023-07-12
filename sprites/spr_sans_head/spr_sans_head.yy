@@ -21,8 +21,8 @@
   "width": 62,
   "height": 60,
   "textureGroupId": {
-    "name": "TexGroup_Battle",
-    "path": "texturegroups/TexGroup_Battle",
+    "name": "texbattle",
+    "path": "texturegroups/texbattle",
   },
   "swatchColours": null,
   "gridX": 0,
@@ -100,7 +100,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Sans sprites by Kuri",
-    "path": "folders/Coalition Engine/Sprites/Battle/Enemy/Sans sprites by Kuri.yy",
+    "name": "Sans by Kuri",
+    "path": "folders/Coalition Engine/Sprites/Battle/Enemy/Sans by Kuri.yy",
   },
 }

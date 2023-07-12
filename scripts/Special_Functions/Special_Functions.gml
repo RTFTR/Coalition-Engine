@@ -29,7 +29,7 @@ function lengthdir_xy(length, dir) constructor
 ///@param {array} array		The name of the array
 ///@param {real}  begin		The slot to begin
 ///@param {real}  end		The slot to end
-function sigma(arr, n, k)
+function Sigma(arr, n, k)
 {
 	for(var i = n, value = 0; i <= k; ++i)
 		value += arr[i];
@@ -99,7 +99,7 @@ function check_outside(){
 		)
 }
 
-function screenshot(filename = "") {
+function Screenshot(filename = "") {
 	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
 		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
 	screen_save("Screenshots/" + string(filename) + date + ".png")
@@ -125,7 +125,7 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 		  0 is by using numbers to indicate the turn number (during battle)
 		  1 is by using tags to let the script read which text to load
 */
-function load_text_from_file(filename, read_method = 0, tag = "")
+function LoadTextFromFile(filename, read_method = 0, tag = "")
 {
 	var file, DialogText, TurnNumber, current, n, i = 0;
 	file = file_text_open_read("./Texts/" + filename);
@@ -135,10 +135,10 @@ function load_text_from_file(filename, read_method = 0, tag = "")
 		case 0:
 			switch current
 			{
-				case "obj_ParentEnemy":
+				case "oEnemyParent":
 					n = array_length(turn_time);
 				break
-				case "obj_BattleController":
+				case "oBattleController":
 					n = array_length(global.item);
 				break
 			}
@@ -146,7 +146,7 @@ function load_text_from_file(filename, read_method = 0, tag = "")
 			{
 				switch current
 				{
-					case "obj_ParentEnemy":
+					case "oEnemyParent":
 						TurnNumber = file_text_read_real(file);
 						file_text_readln(file);
 						DialogText = file_text_read_string(file);
@@ -180,7 +180,7 @@ function load_text_from_file(filename, read_method = 0, tag = "")
 
 ///@desc Converts the values to respective keys
 ///@param {real} Value The to convert
-function convert_realtokey(val)
+function ConvertRealToKey(val)
 {
 	//This is so cringe, it converts vk_* (real) to string by a massive switch statement
 	if is_string(val)
@@ -294,11 +294,11 @@ function audio_create_stream_array()
 	return arr;
 }
 
+
 ///@desc Creates an array with given size and initalising each element with the given function
 ///@param {real} size    The size of the array
 ///@param {function} function    The function to be used for initalising the elements
-function array_create_ext(size, func) 
-{
+function array_create_ext(size, func) {
     var arr = array_create(size);
     for (var i = 0; i < size; ++i) {
         arr[i] = is_method(func) ? func() : func;
@@ -306,8 +306,7 @@ function array_create_ext(size, func)
     return arr;
 }
 
-
-function random_tip()
+function tips()
 {
 	var tips = [
 					"Reasons for engine: There are none",

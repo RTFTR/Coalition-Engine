@@ -11,8 +11,8 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_battle",
-    "path": "audiogroups/audiogroup_battle",
+    "name": "audgrpbattle",
+    "path": "audiogroups/audgrpbattle",
   },
   "soundFile": "snd_gb_release.ogg",
   "duration": 1.899683,

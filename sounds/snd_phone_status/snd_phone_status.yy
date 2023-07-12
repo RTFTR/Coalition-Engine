@@ -11,8 +11,8 @@
   "type": 0,
   "bitDepth": 1,
   "audioGroupId": {
-    "name": "audiogroup_overworld",
-    "path": "audiogroups/audiogroup_overworld",
+    "name": "audgrpoverworld",
+    "path": "audiogroups/audgrpoverworld",
   },
   "soundFile": "snd_phone_status",
   "duration": 0.565986,

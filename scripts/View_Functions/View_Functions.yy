@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Compatibility",
-    "path": "folders/Coalition Engine/Scripts/Compatibility.yy",
+    "name": "compatibility",
+    "path": "folders/Coalition Engine/Scripts/compatibility.yy",
   },
 }

@@ -2,7 +2,7 @@
 ///@param {string} text The Menu text
 function Battle_SetMenuDialog(text)
 {
-	with obj_BattleController
+	with oBattleController
 	{
 		text_writer = scribble("* " + text);
 		if text_writer.get_page() != 0 text_writer.page(0);
@@ -16,7 +16,7 @@ function Battle_SetMenuDialog(text)
 ///@param {real} right		The Disatance Rightwards (Default 283)
 ///@param {real} time		The duration of the Anim (0 = instant, Default 30)
 ///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = obj_Board)
+function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = oBoard)
 {
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up);
 	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "down", board.down,down);
@@ -28,7 +28,7 @@ function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, e
 ///@param {real} angle		The target angle (Default 0)
 ///@param {real} time		The duration of the Anim (0 = instant, Default 30)
 ///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = obj_Board)
+function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = oBoard)
 {
 	with board
 		TweenEasyRotate(image_angle, angle, 0, time, ease);
@@ -39,7 +39,7 @@ function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = obj_Bo
 ///@param {real} y	The y position
 ///@param {real} time	The time taken for the anim
 ///@param {function} ease	The easing
-function Set_BoardPos(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = obj_Board)
+function Set_BoardPos(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = oBoard)
 {
 	with board
 		TweenEasyMove(x, y, xx, yy, 0, time, ease)
@@ -55,9 +55,9 @@ function Set_GreenBox()
 ///@desc Deals damage to the soul
 ///@param {real} dmg	The Damage to Yellow HP (Default 1)
 ///@param {real} kr		The Damage to Purple KR (Default 1)
-function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
+function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
 {
-	if !global.inv and harmful
+	if !global.inv and can_hurt
 	{
 		audio_play(snd_hurt);
 		global.inv = global.assign_inv + global.player_inv_boost;
@@ -71,12 +71,12 @@ function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
 function Slam(direction, move = 20, hurt = false)
 {
 	direction = posmod(direction,360);
-	obj_ParentEnemy.Slamming = true;
-	obj_ParentEnemy.SlamDirection = direction;
+	oEnemyParent.Slamming = true;
+	oEnemyParent.SlamDirection = direction;
 	Battle_SoulMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
-	with obj_Soul
+	with oSoul
 	{
 		dir = direction;
 		image_angle = (direction + 90) % 360
@@ -85,11 +85,11 @@ function Slam(direction, move = 20, hurt = false)
 	}
 }
 
-function Battle_Masking_Start(spr = false, board = obj_Board) {
+function Battle_Masking_Start(spr = false, board = oBoard) {
 	
 	if instance_exists(board) and depth >= board.depth
 	{
-		var shader = spr ? shd_ClipMaskSpr : shd_ClipMask;
+		var shader = spr ? shdClipMaskSpr : shdClipMask;
 	
 		shader_set(shader);
 		var u_mask = shader_get_sampler_index(shader, "u_mask");
@@ -105,21 +105,21 @@ function Battle_Masking_Start(spr = false, board = obj_Board) {
 
 }
 
-function Battle_Masking_End(board = obj_Board){
+function Battle_Masking_End(board = oBoard){
 	if instance_exists(board) shader_reset();
 }
 
 ///@desc Gets the State of the battle
 function Battle_GetState()
 {
-	return (instance_exists(obj_BattleController) ? obj_BattleController.battle_state : -1);
+	return (instance_exists(oBattleController) ? oBattleController.battle_state : -1);
 }
 
 ///@desc Sets the State of the battle
 ///@param {real} state	The state to set it to
 function Battle_SetState(state)
 {
-	obj_BattleController.battle_state = state;
+	oBattleController.battle_state = state;
 }
 
 ///@desc Check whether an obj is collidiing with a board
@@ -127,7 +127,7 @@ function Battle_SetState(state)
 ///@param {Asset.GMObject} object	The object to check
 ///@param {bool} precise	Whether it checks based on precise check
 ///@param {bool} notme		Whether the object is not themselves or yes
-function collision_board(dir, obj, prec, notme, board = obj_Board)
+function collision_board(dir, obj, prec, notme, board = oBoard)
 {
 	var board_pos = [board.x + board.right, board.y - board.up, board.x - board.left, board.down + board.y],
 		dir_check =
@@ -148,7 +148,7 @@ function ButtonSprites(fname = "Normal", format = ".png")
 	for (var i = 0, buttons, ButtonNames = ["Fight", "Act", "Item", "Mercy"]; i < 4; ++i) {
 		buttons[i] = sprite_add("./Sprites/Buttons/"+ fname + "/" + ButtonNames[i] + format, 2, 0, 0, 55, 21);
 	}
-	with obj_BattleController
+	with oBattleController
 	{
 		button_spr = buttons;
 	}
