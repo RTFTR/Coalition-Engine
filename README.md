@@ -7,7 +7,9 @@
 
 ![About](https://user-images.githubusercontent.com/83257329/226114468-3823b116-01ae-4941-be38-c6683bd428ea.png)
 
-This is what you can make your Undertale Fangame ideas come true.
+Have you ever wanted to make your own Undertale fangames, Like, putting your own characters to the battles in undertale?
+
+Well! This Engine can be a good source for you. Unlike other Undertale engines, We provide many advantages but here are these two good examples:
 
 > We value Game's Perfect Environment.
 
@@ -16,7 +18,7 @@ To make this engine run perfectly in Low-End PCs, We're trying our best to optim
 > We protect You, Developer's codes.
 
 Messy codes? Precious codes? All of them are easily stolen by UndertaleModTool, but no worry!
-We are finding a way to block your codes. So no one will be able to steal your codes. (Unless they can read disassembly codes, then there is this next feature that might help)
+We are finding ways as many as possible so that we can block your codes safe. So no one will be able to steal your codes. (Unless they can read disassembly codes, then there is this next feature that might help)
 Don't want people to steal your assets? Don't want people to mod your games for fun/to cheat?
 Fear not, the anti-export and save corruption is already a built-in feature of this engine, if people want to steal your protected assets or mod some protected codes, they will experience an error instead!
 
