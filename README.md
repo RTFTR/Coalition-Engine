@@ -9,7 +9,7 @@
 
 Have you ever wanted to make your own Undertale fangames, Like, putting your own characters to the battles in undertale?
 
-Well! This Engine can be a good source for you. Unlike other Undertale engines, We provide many advantages but here are these two good examples:
+Well! This Engine can be a good source for you. Unlike other Undertale engines, We provide many advantages, So here are these two good examples:
 
 > We value Game's Perfect Environment.
 
