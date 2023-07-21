@@ -60,7 +60,7 @@ function LineSystem_Load()
 	FadingAlphaFade = [];
 	FadingLineParentIndex = [];
 	
-	//Show that the object is created
+	//Show that the data is created
 	show_debug_message("Line System is created");
 }
 

@@ -303,10 +303,10 @@ function draw_cube_width(_draw_x ,_draw_y, _size, _point_h, _point_v, _colour, _
 	
 }
 
-function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20)
+function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20, color = c_white)
 {
 	var jadd = 360/segments;
-	draw_set_color(c_black);
+	draw_set_color(color);
 	draw_primitive_begin(pr_trianglestrip);
 	for (var j = 0; j <= 360; j+=jadd)
 	{
@@ -326,6 +326,25 @@ function TrailStep(duration = 30) {
 	part_type_life(global.TrailP, duration, duration);
 	part_type_orientation(global.TrailP, image_angle, image_angle, 0, 0, 0);
 	part_particles_create_color(global.TrailS, x, y, global.TrailP, image_blend, 1);
+}
+
+/**
+	@desc Creates a trail of given sprite and params
+*/
+function TrailEffect(Duration, Sprite = sprite_index, Subimg = image_index, X = x, Y = y, Xscale = image_xscale,
+					Yscale = image_yscale, Rot = image_angle, Col = image_blend, Alpha = image_alpha)
+{
+	with instance_create_depth(X, Y, depth + 1, oEffect)
+	{
+		sprite = Sprite;
+		subimg = Subimg;
+		xscale = Xscale;
+		yscale = Yscale;
+		rot = Rot;
+		col = Col;
+		alpha = Alpha;
+		duration = Duration;
+	}
 }
 
 function draw_circular_bar(x ,y ,value, max, colour, radius, transparency, width)
@@ -378,4 +397,21 @@ function draw_circular_bar(x ,y ,value, max, colour, radius, transparency, width
 	    }
     
 	}
+}
+
+/// @desc Draws a surface normally (top-left origin), but rotates around the center origin
+function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _alpha) {
+    var _halfW = surface_get_width(_surf) * 0.5 * _xscale;
+    var _halfH = surface_get_height(_surf) * 0.5 * _yscale;
+    
+    var _rad = degtorad(_rot);
+    
+    var _rotX = -_halfW * cos(_rad) - _halfH * sin(_rad);
+    var _rotY = -_halfW * -sin(_rad) - _halfH * cos(_rad);
+
+    // If you want to *always* draw from center origin, remove `_half`s below
+    var _surfX = _x + _halfW + _rotX;
+    var _surfY = _y + _halfH + _rotY;
+
+    draw_surface_ext(_surf, _surfX, _surfY, _xscale, _yscale, _rot, _col, _alpha);
 }

@@ -196,7 +196,9 @@ if STATE == 2 {
 		case SOUL_MODE.ORANGE : {
 			//Movement particle
 			if moveable {
-				if !(global.timer % 5) TrailStep(25);
+				if !(global.timer % 5)
+					//TrailStep(25);
+					TrailEffect(25, , , , , , , , c_orange);
 				var input = [input_check("right"), input_check("up"),
 					input_check("left"), input_check("down")
 				];
@@ -209,8 +211,8 @@ if STATE == 2 {
 				else if input[2] dir = 180;
 				else if input[1] dir = 90;
 				else if input[0] dir = 0;
-				x += lengthdir_x(move_spd, dir + image_angle);
-				y += lengthdir_y(move_spd, dir + image_angle);
+				x += lengthdir_x(move_spd, dir + image_angle + draw_angle);
+				y += lengthdir_y(move_spd, dir + image_angle + draw_angle);
 			}
 		break
 		}
@@ -240,7 +242,7 @@ if STATE == 2 {
 				instance_destroy(obj);
 			}
 			///@param {Array} Input		The input keys of the shield
-			function AddShield(Input = -1)
+			function AddShield(Input = [])
 			{
 				with oSoul
 				{
@@ -343,6 +345,15 @@ if STATE == 2 {
 
 			x = lengthdir_x(_dist, _dir + board_angle) + board_x;
 			y = lengthdir_y(_dist, _dir + board_angle) + board_y;
+			//var arr = [], i = 0, func = new BoardClampSoul();
+			//repeat array_length(oBoard.frame_x)
+			//{
+			//	array_push(arr, oBoard.frame_x[i]);
+			//	array_push(arr, oBoard.frame_y[i]);
+			//	++i;
+			//}
+			//func.__Polygon(0, arr)
+			//window_set_caption(string(oSoul.x) + ", " + string(oSoul.y));
 		}
 	
 		//Collision check of the Cover Board

@@ -28,3 +28,7 @@ rotate = 0;
 
 //Board frame color
 image_blend = c_white;
+
+SpecialMode = "Circle";
+SpecialMode = "";
+CircleRaidus = 70;

@@ -47,3 +47,9 @@ for(var i = 0; i < 12; i++)
 	text = LoadTextFromFile("SansTest2.txt", 1, "@" + string(i));
 	Battle_EnemyDialog(i, text);
 }
+
+TurnData.AttackLoopCondition = function()
+{
+	return oBattleController.battle_turn > 2
+}
+TurnData.AttackLoopTurn = [0];

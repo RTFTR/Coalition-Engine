@@ -64,18 +64,31 @@ function end_turn()
 	draw_damage = false;
 	time = -1;
 	Enemy_NameUpdate();
+	//Code to prevent crash
+	array_push(dialog_text, "");
 	dialog_init(dialog_text[turn + 1]);
 	//Code to prevent crash
 	array_push(dialog_text, "");
 	TurnData.IsHeal = false;
 	//Debugging
+	TurnData.AttacksLoaded = false;
 	event_user(1);
+	oBattleController.battle_turn = TurnData.TempTurn + 1;
+	TurnData.TempTurn = -1;
+	TurnData.LoopChecked = false;
 }
 
 if state == 2 and !died and enemy_in_battle {
 	//Timer
 	if start time++;
 	var _turn = oBattleController.battle_turn - 1;
+	if !TurnData.LoopChecked && TurnData.AttackLoopCondition()
+	{
+		TurnData.LoopChecked = true;
+		TurnData.TempTurn = _turn;
+		oBattleController.battle_turn = array_choose(TurnData.AttackLoopTurn) + 1;
+		_turn = oBattleController.battle_turn - 1;
+	}
 	if _turn <= -1 {
 		end_turn();
 		exit;

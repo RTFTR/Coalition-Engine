@@ -211,16 +211,34 @@ board_size = [
 
 TurnData = 
 {
+	//The attacks are stored in functions
 	Functions : [],
+	//The delay of the attacks to execute
 	AttackDelay : [],
+	//Total times of the attack to repeat itself
 	AttackRepeat : [],
+	//Amount of times the attack has repeated itself
 	AttackRepeatCount : [],
+	//The interval between each repeating attack
 	AttackInterval : [],
+	//Whether all attacks are loaded
 	AttacksLoaded : false,
+	//Healing attacks (in functions)
 	HealAttacks : [-1],
+	//Duration of healing attacks
 	HealTime : [100],
+	//Which healing attack
 	HealNum : 0,
+	//Is the attack a healing attack
 	IsHeal : false,
+	//Condition that causes the attacks to loop (Default false to progress normally)
+	AttackLoopCondition : function() { return false;},
+	//The number of the turn to loop (i.e. loop turn 1, 6, 9 would be [1, 6, 9])
+	AttackLoopTurn : [-1],
+	//Check if the condition is checked already
+	LoopChecked : false,
+	//Store the current turn number during loop
+	TempTurn : -1,
 }
 
 start = 1;

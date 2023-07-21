@@ -24,16 +24,25 @@ else
 }
 
 for (var i = 0; i < E_Sprites; ++i) {
+	if enemy_sprite_draw_method[i] == ""
+	{
+		draw_sprite_ext(FinalSprites[i], FinalIndex[i],
+			x + enemy_sprite_pos[i, 0],
+			y + enemy_sprite_pos[i, 1],
+			enemy_sprite_scale[i, 0], enemy_sprite_scale[i, 1],
+			0, c_white, image_alpha);
+		break;
+	}
 	if temp[i, 0] == "sin"
-	FinalPosition = [
-			sin(wiggle_timer * temp[i, 1]) * temp[i, 3],
-			sin(wiggle_timer * temp[i, 2]) * temp[i, 4]
-		]
+		FinalPosition = [
+				sin(wiggle_timer * temp[i, 1]) * temp[i, 3],
+				sin(wiggle_timer * temp[i, 2]) * temp[i, 4]
+			]
 	if temp[i, 0] == "cos"
-	FinalPosition = [
-			cos(wiggle_timer * temp[i, 1]) * temp[i, 3],
-			cos(wiggle_timer * temp[i, 2]) * temp[i, 4]
-		]
+		FinalPosition = [
+				cos(wiggle_timer * temp[i, 1]) * temp[i, 3],
+				cos(wiggle_timer * temp[i, 2]) * temp[i, 4]
+			]
 	if enemy_sprite_draw_method[i] == "ext"
 		draw_sprite_ext(FinalSprites[i], FinalIndex[i],
 			x + enemy_sprite_pos[i, 0] + FinalPosition[0],

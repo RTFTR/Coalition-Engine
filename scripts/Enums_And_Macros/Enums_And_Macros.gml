@@ -1,4 +1,63 @@
-#macro ENGINE_VERSION "Beta v4.6.9.5"
+#macro ENGINE_VERSION "Beta v4.7"
+
+enum FONTS {
+	GAMEOVER,
+	DAMAGE,
+	COT,
+	DTMONO,
+	DTSANS,
+	LOGO,
+	MNC,
+	SANS,
+	UI,
+}
+function LoadFonts() {
+	static loaded = false;
+	if !loaded
+	{
+		global.__CoalitionFonts = [
+			font_add("Fonts/8-BIT WONDER.TTF", 36, false, false, 32, 128),
+			font_add("Fonts/Hachicro.ttf", 30, false, false, 32, 128),
+			font_add("Fonts/crypt of tomorrow.ttf", 9, false, false, 32, 128),
+			font_add("Fonts/Determination Mono.otf", 20, false, false, 32, 128),
+			font_add("Fonts/Determination Sans.otf", 20, false, false, 32, 128),
+			font_add("Fonts/Monster Friend Fore.otf", 36, false, false, 32, 128),
+			font_add("Fonts/Mars Needs Cunnilingus.ttf", 18, false, false, 32, 128),
+			font_add("Fonts/Comic Sans UT.ttf", 12, false, false, 32, 128),
+			font_add("Fonts/UT Hp Font.ttf", 7.5, false, false, 32, 128),
+		];
+		//#macro fnt_8bitwonder global.__CoalitionFonts[0]
+		//font_enable_sdf(fnt_8bitwonder, true);
+		//#macro fnt_dmg global.__CoalitionFonts[1]
+		//font_enable_sdf(fnt_dmg, true);
+		//#macro fnt_cot global.__CoalitionFonts[2]
+		//font_enable_sdf(fnt_cot, true);
+		//#macro fnt_dt_mono global.__CoalitionFonts[3]
+		//font_enable_sdf(fnt_dt_mono, true);
+		//#macro fnt_dt_sans global.__CoalitionFonts[4]
+		//font_enable_sdf(fnt_dt_sans, true);
+		//#macro fnt_logo global.__CoalitionFonts[5]
+		//font_enable_sdf(fnt_logo, true);
+		//#macro fnt_mnc global.__CoalitionFonts[6]
+		//font_enable_sdf(fnt_mnc, true);
+		//#macro fnt_sans global.__CoalitionFonts[7]
+		//font_enable_sdf(fnt_sans, true);
+		//#macro fnt_uicon global.__CoalitionFonts[8]
+		//font_enable_sdf(fnt_uicon, true);
+		loaded = true;
+	}
+}
+
+function UnloadFonts() {
+	var i = 0;
+	repeat array_length(global.__CoalitionFonts)
+	{
+		if font_exists(global.__CoalitionFonts[i])
+			font_delete(global.__CoalitionFonts[i]);
+		++i;
+	}
+}
+
 //Input
 enum INPUT
 {
