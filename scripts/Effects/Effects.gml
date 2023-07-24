@@ -25,7 +25,7 @@ function Fade_Out(mode = FADE.CIRCLE, duration = 30, delay = 60)
 ///@param {real} amount		The amount to blur
 function Blur_Screen(duration, amount)
 {
-	var shader_blur = instance_create_depth(0,0,-1000,blur_shader)
+	var shader_blur = instance_create_depth(0, 0, -1000, blur_shader)
 	with shader_blur
 	{
 		duration = duration            //sets duration
@@ -109,11 +109,13 @@ function Camera_RotateTo(start, target, duration, ease = EaseLinear, delay = 0)
 ///@desc Creates the effect with the shader given
 ///@param {Asset.GMShader} Shader	The shader to use
 ///@param {array} Parameter_Values	The name (in string) and value of the uniform parameter ([name, [values]])
-function Effect_Shader(shd, uniforms)
+///@param {real} duration The duration of the shader
+function Effect_Shader(shd, uniforms, duration = -1)
 {
 	var eff = instance_create_depth(0, 0, -100000, shaderEffect)
 	with(eff)
 	{
+		duration = duration;
 		effect_shader = shd;
 		array_push(effect_param, uniforms);
 	}
@@ -437,24 +439,24 @@ function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _
     draw_surface_ext(_surf, _surfX, _surfY, _xscale, _yscale, _rot, _col, _alpha);
 }
 
-//function draw_gradient(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, bound_dist = -1, move = sin, intensity = 20, rate = 1) {
+/**
+	@desc Draws a gradient effect (transparent -> given color)
+	@param {real} x X position of the bottom left corner
+	@param {real} y Y position of the bottom right corner
+	@param {real} width The width of the gradient
+	@param {real} height The default height of the gradient
+	@param {real} angle The angle of the gradient
+	@param {Constant.Color} color The color of the gradient
+	@param {function} move The funciton to use to move the gradient (Default dsin)
+	@param {real} intensity The intensity of the gradient (How many pixels will it move +/-)
+	@param {real} rate The rate of the movement (Multiplies to the function declared in 'move')
+*/
 function draw_gradient(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, move = dsin, intensity = 20, rate = 1) {
-	//Unused version with more functions (WIP)
 	static displace = 0;
 	static time = 0;
 	time++;
 	displace = move(time * rate) * intensity;
 	height += displace;
-	//var WidthX = width * dcos(angle);
-	//var WidthY = width * -dsin(angle);
-	//var HeightX = height * dcos(angle + 90);
-	//var HeightY = height * -dsin(height + 90);
-	////Bottom left, Bottom right, Top left
-	//draw_triangle_color(x, y, x + WidthX, y + WidthY, x + HeightX, y - HeightY, color, color, c_black, false);
-	////Top left, Top right, Bottom right
-	//draw_triangle_color(x + HeightX, y - HeightY, x + WidthX + HeightX, y + WidthY - HeightY, x + WidthX, y + WidthY, c_black, c_black, color, false);
-
-
 	gpu_set_blendmode(bm_add);
 	draw_surface_ext(oGlobal.GradientSurf, x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
 	gpu_set_blendmode(bm_normal);

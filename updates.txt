@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.7.2 (Eden)
+fixed blur shader
+
 v4.7.1 (Eden)
 testing polyboard collision
 added gradient drawing, very optimised lmao literally 0.03ms for 4 sides

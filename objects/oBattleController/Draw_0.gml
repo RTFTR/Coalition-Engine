@@ -183,7 +183,7 @@ if battle_state == BATTLE_STATE.MENU {
 							if _aim_distance < 15
 							{
 								if !global.CompatibilityMode
-									Blur_Screen(45, (15 - _aim_distance) / 2);
+									Blur_Screen(45, 25 - _aim_distance);
 							}
 						
 							Target.WaitTime = 60;
