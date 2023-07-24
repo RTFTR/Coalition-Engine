@@ -55,3 +55,9 @@ frame_x = _frame_x;
 frame_y = _frame_y;
 frame_w = _frame_w;
 frame_h = _frame_h;
+
+//draw_set_color(c_lime);
+//for (var i = 0; i < 10; i += 2) {
+//	draw_line_width(Vertex[i], Vertex[i + 1], Vertex[posmod(i + 2, 10)], Vertex[posmod(i + 3, 10)], 5)
+//}
+//draw_set_color(c_white);

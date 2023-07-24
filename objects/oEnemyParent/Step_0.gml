@@ -73,7 +73,8 @@ function end_turn()
 	//Debugging
 	TurnData.AttacksLoaded = false;
 	event_user(1);
-	oBattleController.battle_turn = TurnData.TempTurn + 1;
+	if TurnData.TempTurn != -1
+		oBattleController.battle_turn = TurnData.TempTurn + 1;
 	TurnData.TempTurn = -1;
 	TurnData.LoopChecked = false;
 }

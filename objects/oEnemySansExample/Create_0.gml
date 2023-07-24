@@ -49,8 +49,8 @@ for(var i = 0; i < 12; i++)
 	Battle_EnemyDialog(i, text);
 }
 
-TurnData.AttackLoopCondition = function()
-{
-	return oBattleController.battle_turn > 2
-}
-TurnData.AttackLoopTurn = [0];
+//TurnData.AttackLoopCondition = function()
+//{
+//	return is_val(oBattleController.battle_turn, 2, 3)
+//}
+//TurnData.AttackLoopTurn = [0];

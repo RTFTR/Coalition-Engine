@@ -188,7 +188,7 @@ if !died and !is_spared
 			draw_set_valign(fa_middle);
 			draw_set_font(fnt_dmg);
 			draw_set_color(damage_color);
-			draw_text(xstart, damage_y, string(damage));
+			outline_draw_text(xstart, damage_y, string(damage), damage_color, 1, 1, 0, 3, c_black);
 			// Bar retract speed thing idk
 			if is_string(damage) == false {
 				draw_set_color(c_dkgray);

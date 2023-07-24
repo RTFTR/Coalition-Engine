@@ -346,7 +346,7 @@ if STATE == 2 {
 			x = lengthdir_x(_dist, _dir + board_angle) + board_x;
 			y = lengthdir_y(_dist, _dir + board_angle) + board_y;
 			
-			//BoardClampSoul() TESTING
+			//BoardClampSoul();
 			
 		}
 	

@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.7.3 (Eden)
+fixed turn looping
+
 v4.7.2 (Eden)
 fixed blur shader
 

@@ -524,11 +524,16 @@ function SnapToNearestEdge(_px, _py, _pointArray)
 */
 function BoardClampSoul()
 {
-	if !InsidePolygon(oSoul.x, oSoul.y, oBoard.Vertex)
-	{
-		var _ = SnapToNearestEdge(oSoul.x, oSoul.y, oBoard.Vertex);
-		oSoul.x = _[0];
-		oSoul.y = _[1];
+	for (var i = -8; i < 8; ++i) {
+		for (var ii = -8; ii < 8; ++ii) {
+			if !InsidePolygon(oSoul.x + i, oSoul.y + ii, oBoard.Vertex)
+			{
+				var _ = SnapToNearestEdge(oSoul.x + i, oSoul.y + ii, oBoard.Vertex);
+				oSoul.x = _[0] - i;
+				oSoul.y = _[1] - ii;
+				exit
+			}
+		}
 	}
 }
 #endregion
