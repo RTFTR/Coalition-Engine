@@ -107,41 +107,62 @@ function Camera_RotateTo(start, target, duration, ease = EaseLinear, delay = 0)
 }
 
 ///@desc Creates the effect with the shader given
-///@param {Assets.GMShader} Shader	The shader to use
-///@param {string} Parameter_Name	The name of the uniform parameter
-///@param {real} Parameter_Value	The value of the uniform parameter
-function Effect_Shader()
+///@param {Asset.GMShader} Shader	The shader to use
+///@param {array} Parameter_Values	The name (in string) and value of the uniform parameter ([name, [values]])
+function Effect_Shader(shd, uniforms)
 {
-	var shd = argument[0],
-		param = ["", 1];
-	for(var i = 1; i < argument_count; i+=2)
-	{
-		param[i - 1] = argument[i];
-		param[i] = argument[i + 1];
-	}
-	var eff = instance_create_depth(0,0,-100000, shaderEffect)
+	var eff = instance_create_depth(0, 0, -100000, shaderEffect)
 	with(eff)
 	{
 		effect_shader = shd;
-		effect_param = param;
+		array_push(effect_param, uniforms);
 	}
 	return eff
 }
 
-///@desc Sets the uniform vars of the given shader, if drawn using Effect_Shader() (1 VECTOR ONLY)
-///@param {Assets.GMShader} Shader	The name of the shader to apply to
-///@param {string} Param_Name	The name of the uniform variable
-///@param {string} Param_value	The value of the uniform variable
-function Effect_SetParam()
+///@desc Sets the uniform vars of the given shader, if drawn using Effect_Shader()
+///@param {any} Shader	The name of the shader to apply to or a specific shader effect instance
+///@param {array} Param_values	The name (in string) and values of the uniform variable ([name, [value]])
+function Effect_SetParam(ID, name, val)
 {
-	with shaderEffect
+	var ID_type = asset_get_type(string(ID));
+	if ID_type == asset_shader
 	{
-		if effect_shader == argument[0]
+		with shaderEffect
 		{
-			for(var i = 1; i < argument_count; i += 2)
+			if effect_shader == ID
 			{
-				effect_param = [argument[i], argument[i + 1]];
+				var i = 0;
+				repeat array_length(effect_param)
+				{
+					if effect_param[i][0] == name
+					{
+						effect_param[i][1] = val;
+						return
+					}
+					else i += 2;
+				}
+				//If not set before
+				array_push(effect_param, [name, val]);
 			}
+		}
+	}
+	else if ID_type == asset_object
+	{
+		with ID
+		{
+			var i = 0;
+			repeat array_length(effect_param)
+			{
+				if effect_param[i][0] == name
+				{
+					effect_param[i][1] = val;
+					return
+				}
+				else i += 2;
+			}
+			//If not set before
+			array_push(effect_param, [name, val]);
 		}
 	}
 }
@@ -414,4 +435,27 @@ function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _
     var _surfY = _y + _halfH + _rotY;
 
     draw_surface_ext(_surf, _surfX, _surfY, _xscale, _yscale, _rot, _col, _alpha);
+}
+
+//function draw_gradient(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, bound_dist = -1, move = sin, intensity = 20, rate = 1) {
+function draw_gradient(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, move = dsin, intensity = 20, rate = 1) {
+	//Unused version with more functions (WIP)
+	static displace = 0;
+	static time = 0;
+	time++;
+	displace = move(time * rate) * intensity;
+	height += displace;
+	//var WidthX = width * dcos(angle);
+	//var WidthY = width * -dsin(angle);
+	//var HeightX = height * dcos(angle + 90);
+	//var HeightY = height * -dsin(height + 90);
+	////Bottom left, Bottom right, Top left
+	//draw_triangle_color(x, y, x + WidthX, y + WidthY, x + HeightX, y - HeightY, color, color, c_black, false);
+	////Top left, Top right, Bottom right
+	//draw_triangle_color(x + HeightX, y - HeightY, x + WidthX + HeightX, y + WidthY - HeightY, x + WidthX, y + WidthY, c_black, c_black, color, false);
+
+
+	gpu_set_blendmode(bm_add);
+	draw_surface_ext(oGlobal.GradientSurf, x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
+	gpu_set_blendmode(bm_normal);
 }

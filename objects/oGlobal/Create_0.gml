@@ -61,3 +61,6 @@ Naming =
 	Named : false,
 	State : 1
 };
+
+shader_enable_corner_id(true);
+GradientSurf = -1;

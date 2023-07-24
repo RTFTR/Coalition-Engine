@@ -32,3 +32,5 @@ image_blend = c_white;
 SpecialMode = "Circle";
 SpecialMode = "";
 CircleRaidus = 70;
+
+Vertex = [0, 0];

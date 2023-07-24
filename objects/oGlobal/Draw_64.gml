@@ -85,3 +85,14 @@ if room == rRestart
 	draw_text_scribble(320, 240, text);
 	draw_text_scribble(320, 420, "[fa_center][c_ltgray][fnt_dotum]" + restart_tip);
 }
+
+//Gradient, will only run once to store the surface
+if global.timer == 1
+{
+	surface_set_target(GradientSurf);
+	shader_set(shdGradient);
+	draw_sprite_ext(sprPixel, 0, 0, 0, 640, 480, 0, c_white, 1);
+	shader_reset();
+	surface_reset_target();
+	shader_enable_corner_id(false);
+}

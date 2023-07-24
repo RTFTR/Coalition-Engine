@@ -44,3 +44,5 @@ if room == rRestart
 	restart_timer++;
 	if restart_timer == restart_ender game_restart();
 }
+
+if !surface_exists(GradientSurf) GradientSurf = surface_create(640, 480);

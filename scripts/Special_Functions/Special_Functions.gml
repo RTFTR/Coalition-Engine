@@ -5,7 +5,7 @@
 function posmod(a,b)
 {
 	var value = a % b;
-	if (value < 0 and b > 0) or (value > 0 and b < 0) 
+	while (value < 0 and b > 0) or (value > 0 and b < 0) 
 		value += b;
 	return value;
 }
@@ -388,260 +388,84 @@ function json_save(_filename, _value) {
 }
 #endregion
 
-#region functions where idk what to do with them
+#region functions where idk
 
 
 #endregion
 
-#region The part where things go insane
-/**
-	* Clamps the soul inside the board (Codes are modified from Vinyl by JujuAdams)
-*/
-function BoardClampSoul() constructor
+#region The part where things go insane (Codes are modified from Vinyl by JujuAdams)
+function DistanceToEdge(_px, _py, _x0, _y0, _x1, _y1)
 {
-	static __StateReset = function()
-    {   
-        __reference = undefined;
+    var _dx = _x1 - _x0;
+    var _dy = _y1 - _y0;
+    var _lengthSqr = _dx * _dx + _dy * _dy;
         
-        __mode = 0; //0 = __Point, 1 = __Circle, 2 = __Rectangle
+    //Edge case where the line has length 0
+    if (_lengthSqr <= 0) return point_distance(_px, _py, _x0, _y0);
         
-        __actualX = 0;
-        __actualY = 0;
-        
-        __x      = 0;
-        __y      = 0;
-        __radius = 0;
-        
-        __left   = 0;
-        __top    = 0;
-        __right  = 0;
-        __bottom = 0;
-        
-        __pointArray = undefined;
+    var _t = clamp((_dx * (_px - _x0) + (_py - _y0) * _dy) / _lengthSqr, 0, 1);
+    return point_distance(_px, _py, _x0 + _t * _dx, _y0 + _t * _dy);
+}
+
+function ClosestPointOnEdge(_px, _py, _x0, _y0, _x1, _y1)
+{
+    static _result = {
+        x: undefined,
+        y: undefined,
     }
-	static __PositionSet = function(_x, _y)
+	
+    var _dx = _x1 - _x0;
+    var _dy = _y1 - _y0;
+    var _lengthSqr = _dx * _dx + _dy * _dy;
+        
+    //Edge case where the line has length 0
+    if (_lengthSqr <= 0)
     {
-        var _dx = _x - __x;
-        var _dy = _y - __y;
-        
-        __x       =  _x;
-        __y       =  _y;
-        __left   += _dx;
-        __top    += _dy;
-        __right  += _dx;
-        __bottom += _dy;
-        
-        //Immediately update
-        if ((_dx != 0) || (_dy != 0)) __ManagePosition();
+        _result.x = _x0;
+        _result.y = _y0;
     }
-    
-    static __PositionGet = function()
+    else
     {
-        static _result = {
-            x: undefined,
-            y: undefined,
-        };
-        
-        _result.x = __x;
-        _result.y = __y;
-        
-        return _result;
+        var _t = clamp((_dx * (_px - _x0) + (_py - _y0) * _dy) / _lengthSqr, 0, 1);
+        _result.x = _x0 + _t * _dx;
+        _result.y = _y0 + _t * _dy;
     }
-    
-    static __Point = function(_x, _y)
+        
+    return [_result.x, _result.y];
+}
+
+function InsidePolygon(px, py, polygon)
+{
+    var inside = false;
+    var n, i = 0, polyX, polyY, x1, y1, x2, y2;
+    n = array_length(polygon) div 2;
+    repeat n
     {
-        __mode = 0;
-        
-        __x      = _x;
-        __y      = _y;
-        __radius = 0;
-        
-        __left   = _x - __radius;
-        __top    = _y - __radius;
-        __right  = _x + __radius;
-        __bottom = _y + __radius;
-        
-        __pointArray = undefined;
-        
-        __ManagePosition();
+        polyX[i] = polygon[2 * i];
+        polyY[i] = polygon[2 * i + 1];
+		++i;
     }
-    
-    static __Circle = function(_x, _y, _radius)
+    polyX[n] = polyX[0];
+    polyY[n] = polyY[0];
+	i = 0;
+    repeat n
     {
-        __mode = 1;
-        
-        __x      = _x;
-        __y      = _y;
-        __radius = _radius;
-        
-        __left   = _x - _radius;
-        __top    = _y - _radius;
-        __right  = _x + _radius;
-        __bottom = _y + _radius;
-        
-        __pointArray = undefined;
-        
-        __ManagePosition();
-    }
-    
-    static __Rectangle = function(_left, _top, _right, _bottom)
-    {
-        __mode = 2;
-        
-        __left   = _left;
-        __top    = _top;
-        __right  = _right;
-        __bottom = _bottom;
-        
-        __pointArray = undefined;
-        
-        __x      = 0.5*(__left + __right);
-        __y      = 0.5*(__top + __bottom);
-        __radius = 0;
-        
-        __ManagePosition();
-    }
-    
-    static __Polyline = function(_radius, _pointArray, _x = 0, _y = 0)
-    {
-        __mode = 3;
-        
-        var _length = array_length(_pointArray);
-        if ((_length mod 2) != 0) __VinylError("Polyline-type emitters should have an even number of elements, structured as coordinate pairs (length=", _length, ")");
-        if (_length < 4) __VinylError("Polyline-type emitters should have at least 2 coordinate pairs (length=", _length, ")");
-        
-        __radius     = _radius;
-        __pointArray = _pointArray;
-        __x          = _x;
-        __y          = _y;
-        
-        __BuildBoundsFromPointArray();
-        
-        __ManagePosition();
-    }
-    
-    static __Polygon = function(_radius, _pointArray, _x = 0, _y = 0)
-    {
-        __mode = 4;
-        
-        var _length = array_length(_pointArray);
-        if ((_length mod 2) != 0) __VinylError("Polygon-type emitters should have an even number of elements, structured as coordinate pairs (length=", _length, ")");
-        if (_length < 6) __VinylError("Polygon-type emitters should have at least 3 coordinate pairs (length=", _length, ")");
-        
-        //Ensure the polygon is closed
-        if ((_pointArray[0] != _pointArray[_length-2]) || (_pointArray[1] != _pointArray[_length-1]))
+        x1 = polyX[i];
+        y1 = polyY[i];
+        x2 = polyX[i + 1];
+        y2 = polyY[i + 1];
+ 
+        if ((y2 > py) != (y1 > py)) 
         {
-            array_push(_pointArray, _pointArray[0], _pointArray[1]);
-        }
-        
-        __radius     = _radius;
-        __pointArray = _pointArray;
-        __x          = _x;
-        __y          = _y;
-        
-        __BuildBoundsFromPointArray();
-        
-        __ManagePosition();
+            inside ^= (px < (x1-x2) * (py-y2) / (y1-y2) + x2);
+        }       
+		++i;
     }
-    
-    static __BuildBoundsFromPointArray = function()
-    {
-        __left   =  infinity;
-        __top    =  infinity;
-        __right  = -infinity;
-        __bottom = -infinity;
-        
-        var _i = 0;
-        repeat(array_length(__pointArray) div 2)
-        {
-            var _x = __pointArray[_i  ];
-            var _y = __pointArray[_i+1];
-            
-            __left   = min(_x, __left  );
-            __top    = min(_y, __top   );
-            __right  = max(_x, __right );
-            __bottom = max(_y, __bottom);
-            
-            _i += 2;
-        }
-        
-        __x = 0.5*(__left + __right);
-        __y = 0.5*(__top + __bottom);
-    }
-	static __ManagePosition = function()
-    {
-        if (__mode == 0) //Point
-        {
-            __actualX = __x;
-            __actualY = __y;
-        }
-        else if (__mode == 1) //Circle
-        {
-            __ManageFromCircle(__x, __y);
-        }
-        else if (__mode == 2) //Rectangle
-        {
-            __actualX = clamp(oSoul.x, __left, __right );
-            __actualY = clamp(oSoul.y, __top,  __bottom);
-        }
-        else if (__mode == 3) //Polyline
-        {
-            __ManageFromEdges();
-        }
-        else if (__mode == 4) //Polygon
-        {
-            var _px = oSoul.x - __x;
-            var _py = oSoul.y - __y;
-            
-            var _pointArray = __pointArray;
-            
-            var _x0 = undefined;
-            var _y0 = undefined;
-            var _x1 = _pointArray[0];
-            var _y1 = _pointArray[1];
-            
-            var _inside = false;
-            
-            //Find the closest line to the point
-            var _i = 2;
-            repeat((array_length(_pointArray) div 2)-1)
-            {
-                _x0 = _x1;
-                _y0 = _y1;
-                _x1 = _pointArray[_i  ];
-                _y1 = _pointArray[_i+1];
-                
-                if ((_y1 > _py) != (_y0 > _py))
-                {
-                    _inside ^= (_px < _x1 + ((_x0 - _x1)*(_py - _y1) / (_y0 - _y1)));
-                }
-                
-                _i += 2;
-            }
-            
-            if (_inside)
-            {
-                //If the listener is inside the polygon, set our emitter position to the listener
-                __actualX = _px + __x;
-                __actualY = _py + __y;
-            }
-            else
-            {
-                //Otherwise find the nearest edge
-                __ManageFromEdges();
-            }
-        }
-		oSoul.x = __actualX;
-		oSoul.y = __actualY;
-    }
-    
-    static __ManageFromEdges = function()
-    {
-        var _px = oSoul.x - __x;
-        var _py = oSoul.y - __y;
-        
-        var _pointArray = __pointArray;
-        
+    return inside;
+}
+
+function SnapToNearestEdge(_px, _py, _pointArray)
+{
         var _x0 = undefined;
         var _y0 = undefined;
         var _x1 = _pointArray[0];
@@ -652,14 +476,14 @@ function BoardClampSoul() constructor
         
         //Find the closest line to the point
         var _i = 0;
-        repeat((array_length(_pointArray) div 2)-1)
+        repeat((array_length(_pointArray) div 2) - 1)
         {
             _x0 = _x1;
             _y0 = _y1;
-            _x1 = _pointArray[_i+2];
-            _y1 = _pointArray[_i+3];
+            _x1 = _pointArray[_i + 2];
+            _y1 = _pointArray[_i + 3];
              
-            var _distance = __DistanceToEdge(_px, _py, _x0, _y0, _x1, _y1);
+            var _distance = DistanceToEdge(_px, _py, _x0, _y0, _x1, _y1);
             if (_distance < _minDist)
             {
                 _minDist = _distance;
@@ -672,100 +496,39 @@ function BoardClampSoul() constructor
         if (_minI != undefined)
         {
             //Get the point on the line closest to the listener
-            var _point = __ClosestPointOnEdge(_px, _py, _pointArray[_minI], _pointArray[_minI+1], _pointArray[_minI+2], _pointArray[_minI+3]);
-            
-            //We then use the same maths as the Circle emitter to create a circular area around the polyline
-            __ManageFromCircle(_point.x + __x, _point.y + __y);
-        }
-    }
-    
-    static __ManageFromCircle = function(_circleX, _circleY)
-    {
-        var _dX = oSoul.x - _circleX;
-        var _dY = oSoul.y - _circleY;
+            var _point = ClosestPointOnEdge(_px, _py, _pointArray[_minI], _pointArray[_minI+1], _pointArray[_minI+2], _pointArray[_minI+3]);
+			var _angle = point_direction(_pointArray[_minI], _pointArray[_minI + 1], _pointArray[_minI + 2], _pointArray[_minI + 3]);
+			_point[2] = _angle;
+			
+			var _dX = _point[0] - oSoul.x;
+	        var _dY = _point[1] - oSoul.y;
         
-        var _length = sqrt(_dX*_dX + _dY*_dY);
-        if (_length > __radius)
-        {
-            var _factor = __radius/_length;
-            __actualX = _factor*_dX + _circleX;
-            __actualY = _factor*_dY + _circleY;
-        }
-        else
-        {
-            __actualX = oSoul.x;
-            __actualY = oSoul.y;
-        }
-    }
-    
-    static __DistanceToEdge = function(_px, _py, _x0, _y0, _x1, _y1)
-    {
-        var _dx = _x1 - _x0;
-        var _dy = _y1 - _y0;
-        var _lengthSqr = _dx*_dx + _dy*_dy;
-        
-        //Edge case where the line has length 0
-        if (_lengthSqr <= 0) return point_distance(_px, _py, _x0, _y0);
-        
-        var _t = clamp((_dx*(_px - _x0) + (_py - _y0)*_dy) / _lengthSqr, 0, 1);
-        return point_distance(_px, _py, _x0 + _t*_dx, _y0 + _t*_dy);
-    }
-    
-    static __ClosestPointOnEdge = function(_px, _py, _x0, _y0, _x1, _y1)
-    {
-        static _result = {
-            x: undefined,
-            y: undefined,
-        }
-        
-        var _dx = _x1 - _x0;
-        var _dy = _y1 - _y0;
-        var _lengthSqr = _dx*_dx + _dy*_dy;
-        
-        //Edge case where the line has length 0
-        if (_lengthSqr <= 0)
-        {
-            _result.x = _x0;
-            _result.y = _y0;
-        }
-        else
-        {
-            var _t = clamp((_dx*(_px - _x0) + (_py - _y0)*_dy) / _lengthSqr, 0, 1);
-            _result.x = _x0 + _t*_dx;
-            _result.y = _y0 + _t*_dy;
-        }
-        
-        return _result;
-    }
-	static __DebugDraw = function()
-    {
-        draw_line(__x-7, __y-7, __x+7, __y+7);
-        draw_line(__x+7, __y-7, __x-7, __y+7);
-        draw_rectangle(__actualX-3, __actualY-3, __actualX+3, __actualY+3, true);
-        
-        if (__mode == 1) //Circle
-        {
-            draw_circle(__x, __y, __radius, true);
-        }
-        else if (__mode == 2) //Rectangle
-        {
-            draw_rectangle(__left, __top, __right, __bottom, true);
-        }
-        else if ((__mode == 3) || (__mode == 4)) //Polyline or Polygon
-        {
-            draw_primitive_begin(pr_linestrip);
-            
-            var _i = 0;
-            repeat(array_length(__pointArray) div 2)
-            {
-                draw_vertex(__pointArray[_i] + __x, __pointArray[_i+1] + __y);
-                _i += 2;
-            }
-            
-            draw_primitive_end();
-            
-            if (__radius > 0) draw_circle(__actualX, __actualY, __radius, true);
-        }
-    }
+	        var _length = sqrt(_dX*_dX + _dY*_dY);
+	        if (_length > 8)
+	        {
+	            var _factor = 8/_length;
+	            _point[0] = _factor*_dX + oSoul.x;
+	            _point[1] = _factor*_dY + oSoul.y;
+	        }
+	        else
+	        {
+	            _point[0] = _point[0];
+	            _point[1] = _point[1];
+	        }
+			
+			return _point;
+		}
+}
+/**
+	* Clamps the soul inside the board
+*/
+function BoardClampSoul()
+{
+	if !InsidePolygon(oSoul.x, oSoul.y, oBoard.Vertex)
+	{
+		var _ = SnapToNearestEdge(oSoul.x, oSoul.y, oBoard.Vertex);
+		oSoul.x = _[0];
+		oSoul.y = _[1];
+	}
 }
 #endregion

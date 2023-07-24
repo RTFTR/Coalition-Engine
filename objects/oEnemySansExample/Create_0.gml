@@ -6,7 +6,8 @@ Enemy_SetActTexts(
 	);
 Enemy_SetHPStats(100, 100, false);
 is_dodge = false;
-
+surf = -1;
+//Effect_Shader(shdBlueReduce, ["reduceAmount", [0.25]]);
 Battle_SetTurnTime(
 [
 	600,

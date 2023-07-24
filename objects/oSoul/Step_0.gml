@@ -345,15 +345,9 @@ if STATE == 2 {
 
 			x = lengthdir_x(_dist, _dir + board_angle) + board_x;
 			y = lengthdir_y(_dist, _dir + board_angle) + board_y;
-			//var arr = [], i = 0, func = new BoardClampSoul();
-			//repeat array_length(oBoard.frame_x)
-			//{
-			//	array_push(arr, oBoard.frame_x[i]);
-			//	array_push(arr, oBoard.frame_y[i]);
-			//	++i;
-			//}
-			//func.__Polygon(0, arr)
-			//window_set_caption(string(oSoul.x) + ", " + string(oSoul.y));
+			
+			//BoardClampSoul() TESTING
+			
 		}
 	
 		//Collision check of the Cover Board

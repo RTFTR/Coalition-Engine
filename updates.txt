@@ -1,5 +1,14 @@
 Update Logs (This is the beta builds)
 
+v4.7.1 (Eden)
+testing polyboard collision
+added gradient drawing, very optimised lmao literally 0.03ms for 4 sides
+fixed shader scripts, added blue reducing shader and gradient shader
+
+v4.7 (Eden)
+added an object for effects (currently only sprite fading)
+i completely forgot lmfao
+
 v4.6.9.5 (Eden)
 better overworld object collision
 some optimisation
