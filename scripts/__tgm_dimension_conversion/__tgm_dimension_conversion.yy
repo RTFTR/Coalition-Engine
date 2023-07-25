@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "_tgm_core",
+  "name": "__tgm_dimension_conversion",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "TurboGML",
-    "path": "folders/Coalition Engine/Addons/TurboGML.yy",
+    "name": "Code",
+    "path": "folders/Coalition Engine/Addons/TurboGML/Code.yy",
   },
 }

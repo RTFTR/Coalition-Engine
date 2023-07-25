@@ -4,9 +4,8 @@ switch OverWorld_ID
 	case OVERWORLD.CORRIDOR:
 	var scrollspeed = 2,
 		camera = view_camera[0];
-	if camera_get_view_x(camera) >= 0
-		var xx = 200 + floor(camera_get_view_x(camera) * (1 - scrollspeed)),
-			gg = (room_width - (oGlobal.camera_view_width / oGlobal.camera_scale_x));
+	var xx = 200 + floor(camera_get_view_x(camera) * (1 - scrollspeed)),
+		gg = (room_width - (oGlobal.camera_view_width / oGlobal.camera_scale_x));
 	if camera_get_view_x(camera) >= gg
 		xx = 200 + floor(gg * (1 - scrollspeed));
 	for (var i = 0; i < 9; i++)

@@ -20,6 +20,7 @@ function point_xy(p_x, p_y)
 }
 
 ///@desc Returns the lengthdir_x/y values in a Vector2 (stupidly useless)
+///@return {struct}
 function lengthdir_xy(length, dir) constructor
 {
 	return new Vector2(lengthdir_x(length, dir), lengthdir_y(length, dir));
@@ -29,6 +30,7 @@ function lengthdir_xy(length, dir) constructor
 ///@param {array} array		The name of the array
 ///@param {real}  begin		The slot to begin
 ///@param {real}  end		The slot to end
+///@return {real}
 function Sigma(arr, n, k)
 {
 	for(var i = n, value = 0; i <= k; ++i)
@@ -37,6 +39,7 @@ function Sigma(arr, n, k)
 }
 
 ///@desc Checks if the value is equal to the other given values
+///@return {bool}
 function is_val()
 {
 	for (var i = 1; i < argument_count; ++i)
@@ -49,40 +52,8 @@ function is_val()
 	return false;
 }
 
-#region Replaced in TurboGML / _tgm_core
-/*function Vector2(vec2_x, vec2_y) constructor
-{
-	x = vec2_x;
-	y = vec2_y;
-}
-
-function Vector3(vec3_x, vec3_y, vec3_z) constructor
-{
-	x = vec3_x;
-	y = vec3_y;
-	z = vec3_z;
-	xy = 
-	{
-		x : vec3_x,
-		y : vec3_y
-	};
-	
-	yz = 
-	{
-		y : vec3_y,
-		z : vec3_z
-	};
-	
-	xz = 
-	{
-		x : vec3_x,
-		z : vec3_z
-	};
-}*/
-#endregion
-
-
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
+///@return {bool}
 function check_outside(){
 	var cam = view_camera[0],
 		view_x = camera_get_view_x(cam),
@@ -99,13 +70,14 @@ function check_outside(){
 		)
 }
 
+///@desc Takes a screenshot and saves it with given filename + current time
 function Screenshot(filename = "") {
 	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
 		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
 	screen_save("Screenshots/" + string(filename) + date + ".png")
 }
 
-///@desc Draws a rectagle with given width
+///@desc Draws a rectagle with given width and color
 function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 {
 	var prev_col = draw_get_color();
@@ -124,6 +96,7 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white)
 	@desc Loads the text from an external text file, there are 2 reading methods for now:
 		  0 is by using numbers to indicate the turn number (during battle)
 		  1 is by using tags to let the script read which text to load
+	@return {string}
 */
 function LoadTextFromFile(filename, read_method = 0, tag = "")
 {
@@ -180,6 +153,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 
 ///@desc Converts the values to respective keys
 ///@param {real} Value The to convert
+///@return {string}
 function ConvertRealToKey(val)
 {
 	//This is so cringe, it converts vk_* (real) to string by a massive switch statement
@@ -283,6 +257,7 @@ function ConvertRealToKey(val)
 }
 
 ///@desc Creates an array of audios from audio_create_stream(), arguments are all strings, no folder name and file format needed
+///@return {Array<Asset.GMSound>}
 function audio_create_stream_array()
 {
 	for(var i = 0, arr = []; i < argument_count; ++i)

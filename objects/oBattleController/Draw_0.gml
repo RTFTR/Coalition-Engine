@@ -65,7 +65,7 @@ if battle_state == BATTLE_STATE.MENU {
 		Item_Info_Load();
 		var coord = menu_choice[2],
 			c_div = floor(coord / 4),
-			itm_ln = Item_Space(),
+			itm_ln = item_space,
 			_coord = c_div * 4;
 		switch item_scroll_type
 		{
@@ -635,7 +635,7 @@ var _button_spr =	button_spr,
 repeat(array_length(_button_spr)) // Button initialize
 {
 	// If no item left then item button commit gray
-	if Item_Space() <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+	if item_space <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 
 	// Check if the button is chosen
 	var select = (_menu == i) and _state >= 0 and _state != -1

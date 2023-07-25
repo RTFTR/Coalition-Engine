@@ -27,28 +27,6 @@ function Save_Settings()
 	ini_open("Settings.ini");
 	ini_write_real("Settings", "Volume", global.Volume);
 	ini_write_real("Settings", "CompMode", global.CompatibilityMode);
-	
-	var keytexts =
-	[
-		"Up", "Down", "Left", "Right",
-		"Confirm", "Cancel", "Settings",
-	], i = 0, ID = "";
-	repeat(array_length(keytexts))
-	{
-		if is_real(global.InputKeys[i])
-		{
-			ini_write_real("Input Keys", keytexts[i], global.InputKeys[i]);
-			ID += "1";
-		}
-		else
-		{
-			ini_write_string("Input Keys", keytexts[i], global.InputKeys[i]);
-			ID += "0";
-		}
-		i++;
-	}
-	ini_write_real("Input Keys", "Input ID", ID);
-	ini_write_real("Settings", "CompMode", global.CompatibilityMode);
 	ini_write_real("Settings", "ShowFPS", global.ShowFPS);
 	ini_close();
 }
@@ -61,22 +39,6 @@ function Load_Settings()
 	global.Volume = ini_read_real("Settings", "Volume", 100);
 	global.CompatibilityMode = ini_read_real("Settings", "CompMode", false);
 	global.ShowFPS = ini_read_real("Settings", "ShowFPS", 100);
-	var ID = ini_read_string("Input Keys", "Input ID", "");
-	var keytexts =
-	[
-		"Up", "Down", "Left", "Right",
-		"Confirm", "Cancel", "Settings",
-	];
-	global.InputKeys = [];
-	var FinInput, i = 0;
-	repeat(array_length(keytexts))
-	{
-		if string_char_at(ID, i + 1) == "1"
-			FinInput = ini_read_real("Input Keys", keytexts[i], 0);
-		else FinInput = ini_read_string("Input Keys", keytexts[i], "");
-		array_push(global.InputKeys, FinInput);
-		i++;
-	}
 	ini_close();
 }
 
@@ -109,3 +71,4 @@ function PlayReplay(FileName)
 	instance_destroy(oReplayer);
 	instance_create_depth(0, 0, -1000, oReplayer);
 }
+

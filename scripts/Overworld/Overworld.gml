@@ -78,10 +78,13 @@ function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono",
 	}
 }
 
-///@description Checks whether an object position is colliding with a tile (Rectangle collision)
-///@param x
-///@param y
-///@param layer
+/**
+	@description Checks whether an object position is colliding with a tile (Rectangle collision)
+	@param {real} x The object x
+	@param {real} y The object y
+	@param {string} layer The tile layer name
+	@return {bool}
+*/
 function tile_meeting(_x, _y, _layer) {
 	var _tm = layer_tilemap_get_id(_layer),
 		_x1 = tilemap_get_cell_x_at_pixel(_tm, bbox_left + (_x - x), y),
@@ -100,10 +103,13 @@ function tile_meeting(_x, _y, _layer) {
 	return false;
 }
 
-///@desc Checks whether an object position is colliding with a tile (Precise collision)
-///@param x
-///@param y
-///@param layer
+/**
+	@description Checks whether an object position is colliding with a tile (Precise collision)
+	@param {real} x The object x
+	@param {real} y The object y
+	@param {string} layer The tile layer name
+	@return {bool}
+*/
 function tile_meeting_precise(_x, _y, _layer) {
 	var _tm = layer_tilemap_get_id(_layer),
 		_checker = oGlobal;

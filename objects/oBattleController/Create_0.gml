@@ -141,6 +141,7 @@ item_scroll_alpha = array_create(3, 0.5);
 
 item_lerp_y = array_create(8, 0);
 item_lerp_x = array_create(8, 0);
+item_space = Item_Space();
 
 for (var i = 0; i < 8; ++i)
 {

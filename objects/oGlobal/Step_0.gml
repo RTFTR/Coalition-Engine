@@ -29,15 +29,18 @@
 	var shake = 0;
 	if camera_shake_i > 0
 	{
-		shake = round(camera_shake_i);
-		if shake camera_shake_i--;
+		shake = camera_shake_i
+		if shake > 0 camera_shake_i -= camera_decrease_i;
 		cam_shake_x = random_range(-shake, shake);
 		cam_shake_y = random_range(-shake, shake);
+		camera_set_view_target(cam, noone);
+		if camera_shake_i == 0
+			camera_set_view_target(cam, camera_previous_target);
 	}
 	camera_set_view_pos(cam, camToX + cam_shake_x, camToY + cam_shake_y);
 	
 	// You know
-	camera_set_view_size (cam,	cam_width, cam_height);
-	camera_set_view_angle(cam,	cam_angle);
+	camera_set_view_size(cam, cam_width, cam_height);
+	camera_set_view_angle(cam, cam_angle);
 	camera_previous_target = cam_target;
 }

@@ -1,4 +1,5 @@
 ///@desc Gets the amount of phone numbers you have
+///@desc return {real}
 function Cell_Count() {
 	for (var i = 0, cnt = 0; i < 8; i++)
 		if global.cell[i] != 0 cnt++;
@@ -7,6 +8,7 @@ function Cell_Count() {
 
 ///@desc Gets the name of the Cell Slot
 ///@param {real} slot The slot to get the name of
+///@return {string}
 function Cell_GetName(slot) {
 	var name = ["", "Phone", "Dimensional Box A"];
 	return name[global.cell[slot - 1]];
@@ -14,6 +16,7 @@ function Cell_GetName(slot) {
 
 ///@desc Gets the dialog of the Cell Slot
 ///@param {real} slot The slot to get the dialog of
+///@return {string}
 function Cell_GetText(slot) {
 	var text = ["", "Test Phone text 1", ""];
 	return text[global.cell[slot]];
@@ -21,6 +24,7 @@ function Cell_GetText(slot) {
 
 ///@desc Check if a Cell slot is a Dimensional box
 ///@param {real} slot The slot to get the data of
+///@return {real}
 function Is_CellABox(slot) {
 	var is_box = [0, 0, 1];
 	return is_box[global.cell[slot]];
@@ -28,6 +32,7 @@ function Is_CellABox(slot) {
 
 ///@desc Check the BOx ID of the Cell if it's a D.Box
 ///@param {real} slot The slot to get the data of
+///@return {real}
 function Cell_GetBoxID(slot) {
 	var NameToID = ["Dimensional Box A"],
 		ID = [1, 2],

@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v4.7.4 (Eden)
+optimised battle engine
+updated TurboGML
+added function descriptions and user friendly functions
+fixed camera bug of having target wont allow you to shake it (game maker issue, bypassed it with cringe way that is another bug but it works)
+
 v4.7.3 (Eden)
 fixed turn looping
 

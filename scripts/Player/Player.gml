@@ -102,7 +102,8 @@ function Player_GetBaseStats()
 	global.player_base_def = floor(global.data.lv / 5);
 }
 
-
+///@desc Gets the exp needed for the current lv
+///@return {real}
 function Player_GetLvBaseExp()
 {
 	var base_exp = 
@@ -111,6 +112,8 @@ function Player_GetLvBaseExp()
 	return base_exp[global.data.lv - 1];
 }
 
+///@desc Gets the exp needed for the lext lv
+///@return {real}
 function Player_GetExpNext()
 {
 	var _exp = 
@@ -119,5 +122,65 @@ function Player_GetExpNext()
 	return Sigma(_exp, 0, global.data.lv - 2);
 }
 
+///@desc Sets/Gets the name of the player
+///@param {string} name The name to set (If needed)
+function Player_Name(name = "~")
+{
+	if name != "~"
+		global.data.name = name;
+	else return global.data.name;
+}
 
+///@desc Sets/Gets the lv of the player
+///@param {real} lv The lv to set (If needed)
+function Player_LV(lv = infinity)
+{
+	if lv != infinity
+		global.data.lv = lv;
+	else return global.data.lv;
+}
 
+///@desc Sets/Gets the current Gold the player has
+///@param {real} amount The amount of gold to set (If needed)
+function Player_Gold(ammount = -1)
+{
+	if amount != -1
+		global.data.Gold = amount;
+	else return global.data.Gold;
+}
+
+///@desc Sets/Gets the current Exp the player has
+///@param {real} amount The amount of exp to set (If needed)
+function Player_Exp(ammount = -1)
+{
+	if amount != -1
+		global.data.Exp = amount;
+	else return global.data.Exp;
+}
+
+///@desc Sets/Gets the speed of the player
+///@param {real} spd The speed to set (If needed)
+function Player_Spd(spd = -1)
+{
+	if spd != -1
+		global.spd = spd;
+	else return global.spd;
+}
+
+///@desc Sets/Gets the hp of the player
+///@param {real} hp The HP to set (If needed)
+function Player_HP(hp = infinity)
+{
+	if hp != infinity
+		global.hp = hp;
+	else return global.hp;
+}
+
+///@desc Sets/Gets the max hp of the player
+///@param {real} maxhp The max HP to set (If needed)
+function Player_HPMax(maxhp = infinity)
+{
+	if maxhp != infinity
+		global.hp_max = maxhp;
+	else return global.hp_max;
+}

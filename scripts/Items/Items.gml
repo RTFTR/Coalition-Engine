@@ -106,7 +106,7 @@ function Item_Use(item){
 		case ITEM.SEATEA:
 			heal_text = "You drank the sea tea.";
 			global.spd *= 2;
-			audio_play(snd_spdup)
+			audio_play(snd_spdup);
 			with oBattleController
 				{
 					Effect.SeaTea = true;
@@ -128,11 +128,12 @@ function Item_Use(item){
 	
 	if global.hp >= global.hp_max hp_text = "[delay, 333]\n* Your HP has been maxed out."
 	
-	var stat_text = (stats == "" ? "" : "[delay, 333]\n* " + stats);
-	
 	//If is in battle
 	if instance_exists(oBattleController)
 	{
+		var stat_text = "";
+		if stats != ""
+			stat_text = "[delay, 333]\n* " + stats;
 		if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
 	
 		default_menu_text = menu_text;
@@ -155,18 +156,25 @@ function Item_Use(item){
 	}
 }
 
-///@desc Shifts the Item position
-function Item_Shift(item,coord){
-	var n = Item_Count();
+///@desc Shifts the Item position and resize the global item array
+function Item_Shift(item, coord){
+	var i = item, n = Item_Count();
 	global.item[n] = coord;
-	for (var i = item; i < n; ++i) global.item[i] = global.item[i + 1];
-		array_resize(global.item, n - 1);
+	repeat n - item
+	{
+		global.item[i] = global.item[i + 1];
+		++i;
+	}
+	array_resize(global.item, n - 1);
 }
 
-///@desc Item numbers(?)
+///@desc Number of valid items
+///@return {real}
 function Item_Space(){
-	for (var i = 0, space = 0, n = Item_Count(); i < n; ++i)
-		if global.item[i] != 0 space++;
+	var i = 0, space = 0;
+	repeat Item_Count()
+		if global.item[i++] != 0
+			space++;
 	return space;
 }
 
@@ -184,12 +192,14 @@ function Item_Remove(item) {
 }
 
 ///@desc Gets the number of items
+///@return {real}
 function Item_Count() {
 	return array_length(global.item);
 }
 
 ///@desc Converts item Slot to item ID
-///@param slot
+///@param {real} slot The slot of the item in the global item array
+///@return {real}
 function Item_SlotToId(item) {
 	return global.item[item];
 }

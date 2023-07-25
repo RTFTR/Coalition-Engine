@@ -171,9 +171,11 @@ function Effect_SetParam(ID, name, val)
 
 ///@desc Shakes the Camera
 ///@param {real} Amount		The amount in pixels to shake
-function Camera_Shake(amount)
+///@param {real} Decrease	The amount of intensity to decrease after each frame
+function Camera_Shake(amount, decrease = 1)
 {
 	oGlobal.camera_shake_i = ceil(amount);
+	oGlobal.camera_decrease_i = ceil(decrease);
 }
 
 ///@desc Sets the scale of the Camera
@@ -218,8 +220,8 @@ function draw_cube_outline(_draw_x,_draw_y,_size,_point_h,_point_v,_colour) {
 	var edges = [[0, 1], [1, 3], [3, 2], [2, 0], [4, 5], [5, 7], [7, 6],
 	[6, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
 
-	_point_h *= pi
-	_point_v *= pi
+	_point_h *= pi;
+	_point_v *= pi;
 
 	var sinX = sin(_point_h);
 	var cosX = cos(_point_h);
@@ -227,10 +229,10 @@ function draw_cube_outline(_draw_x,_draw_y,_size,_point_h,_point_v,_colour) {
 	var sinY = sin(_point_v);
 	var cosY = cos(_point_v);
 	
-	var number_of_nodes = array_length(nodes)
+	var number_of_nodes = array_length(nodes);
 	for (var i = 0; i < number_of_nodes; ++i) {
 	
-		var node = nodes[i]
+		var node = nodes[i];
 
 	    var _x = node[0];
 	    var _y = node[1];
@@ -244,21 +246,19 @@ function draw_cube_outline(_draw_x,_draw_y,_size,_point_h,_point_v,_colour) {
 	    node[1] = _y * cosY - _z * sinY;
 	    node[2] = _z * cosY + _y * sinY;
 	
-		nodes[i] = node
+		nodes[i] = node;
 	};
 
-	draw_set_colour(_colour)
+	draw_set_colour(_colour);
 
-	var number_of_edges = array_length(edges)
+	var number_of_edges = array_length(edges);
 	for (var i = 0; i < number_of_edges; ++i) {
 	
-		var edge = edges[i]
+		var edge = edges[i];
 	
 	    var p1 = nodes[edge[0]];
 	    var p2 = nodes[edge[1]];
-		draw_line(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_draw_x+(p2[0]*_size),_draw_y+(p2[1]*_size))
-
-
+		draw_line(_draw_x + (p1[0] * _size), _draw_y + (p1[1] * _size),_draw_x+(p2[0]*_size),_draw_y+(p2[1]*_size));
 	};
 
 }
@@ -280,8 +280,8 @@ function draw_cube_width(_draw_x ,_draw_y, _size, _point_h, _point_v, _colour, _
 	var edges = [[0, 1], [1, 3], [3, 2], [2, 0], [4, 5], [5, 7], [7, 6],
 	[6, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
 
-	_point_h *= pi
-	_point_v *= pi
+	_point_h *= pi;
+	_point_v *= pi;
 
 	var sinX = sin(_point_h);
 	var cosX = cos(_point_h);
@@ -289,10 +289,10 @@ function draw_cube_width(_draw_x ,_draw_y, _size, _point_h, _point_v, _colour, _
 	var sinY = sin(_point_v);
 	var cosY = cos(_point_v);
 	
-	var number_of_nodes = array_length(nodes)
+	var number_of_nodes = array_length(nodes);
 	for (var i = 0; i < number_of_nodes; ++i) {
 	
-		var node = nodes[i]
+		var node = nodes[i];
 
 	    var _x = node[0];
 	    var _y = node[1];
@@ -306,40 +306,40 @@ function draw_cube_width(_draw_x ,_draw_y, _size, _point_h, _point_v, _colour, _
 	    node[1] = _y * cosY - _z * sinY;
 	    node[2] = _z * cosY + _y * sinY;
 	
-		nodes[i] = node
+		nodes[i] = node;
 	};
 
-	draw_set_colour(_colour)
+	draw_set_colour(_colour);
 
-	var number_of_edges = array_length(edges)
+	var number_of_edges = array_length(edges);
 	for (var i = 0; i < number_of_edges; ++i) {
 	
-		var edge = edges[i]
+		var edge = edges[i];
 	
 	    var p1 = nodes[edge[0]];
 	    var p2 = nodes[edge[1]];
-		draw_line_width(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_draw_x+(p2[0]*_size),_draw_y+(p2[1]*_size),_width)
+		draw_line_width(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_draw_x+(p2[0]*_size),_draw_y+(p2[1]*_size),_width);
 		
 		if _edge_circ
-		draw_circle(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_width/2,false)
+			draw_circle(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_width/2,false);
 	};
 	
 }
 
-function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20, color = c_white)
-{
-	var jadd = 360/segments;
-	draw_set_color(color);
-	draw_primitive_begin(pr_trianglestrip);
-	for (var j = 0; j <= 360; j+=jadd)
-	{
-	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
-		radius += thickness;
-	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
-		radius -= thickness;
-	}
-	draw_primitive_end();
-}
+//function draw_circle_width(x, y, radius = 100, thickness = 4, segments = 20, color = c_white)
+//{
+//	var jadd = 360/segments;
+//	draw_set_color(color);
+//	draw_primitive_begin(pr_trianglestrip);
+//	for (var j = 0; j <= 360; j+=jadd)
+//	{
+//	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
+//		radius += thickness;
+//	    draw_vertex(x + lengthdir_x(radius, j), y + lengthdir_y(radius, j));
+//		radius -= thickness;
+//	}
+//	draw_primitive_end();
+//}
 
 //@desc Creates a trail of the object
 ///@param {real} duration		The duration of the effect
@@ -451,7 +451,7 @@ function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _
 	@param {real} intensity The intensity of the gradient (How many pixels will it move +/-)
 	@param {real} rate The rate of the movement (Multiplies to the function declared in 'move')
 */
-function draw_gradient(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, move = dsin, intensity = 20, rate = 1) {
+function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, move = dsin, intensity = 20, rate = 1) {
 	static displace = 0;
 	static time = 0;
 	time++;

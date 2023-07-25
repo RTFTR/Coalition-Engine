@@ -9,6 +9,7 @@ camera_scale_y = 1;
 camera_view_width = 640;
 camera_view_height = 480;
 camera_shake_i = 0;
+camera_decrease_i = 1;
 
 camera_x = 0;
 camera_y = 0;

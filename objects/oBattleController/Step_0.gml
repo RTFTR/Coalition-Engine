@@ -158,7 +158,7 @@ switch battle_state {
 					audio_play(snd_menu_confirm);
 					menu_state = _button_slot + 1;
 
-					if menu_state == MENU_STATE.ITEM and Item_Space() == 0 {
+					if menu_state == MENU_STATE.ITEM and item_space == 0 {
 						menu_state = MENU_STATE.BUTTON_SELECTION;
 						
 						if item_scroll_type == ITEM_SCROLL.VERTICAL menu_choice[MENU_STATE.ITEM] = 0;
@@ -289,7 +289,7 @@ switch battle_state {
 							oSoul.y += (320 - oSoul.y) / 3;
 							item_lerp_y[0] = lerp(item_lerp_y[0], 304 - (32 * choice), 1/3);
 							item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
-							for (var i = 0, n = Item_Space(); i < n; ++i)
+							for (var i = 0, n = item_space; i < n; ++i)
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
 								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
@@ -325,6 +325,7 @@ switch battle_state {
 							ItemID *= 8/12
 						Item_Use(global.item[ceil(ItemID)]);
 						last_choice = 2;
+						item_space = Item_Space();
 					}
 					else // Action-executing code
 					{

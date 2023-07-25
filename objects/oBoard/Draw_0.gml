@@ -44,7 +44,8 @@ else if SpecialMode == "Circle"
 	gpu_set_colorwriteenable(true, true, true, true);
 	surface_reset_target();
 	draw_set_circle_precision(64);
-	draw_circle_width(x, y, CircleRaidus + thickness_frame * 1.5, thickness_frame);
+	var inner = CircleRaidus + thickness_frame * 1.5
+	draw_circle_width(x, y, inner, inner + thickness_frame, 20);
 }
 
 image_blend = _color;
