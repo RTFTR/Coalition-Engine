@@ -12,4 +12,5 @@ room_speed = 60;
 
 //room_goto(rIntro);
 //room_goto(room_battle);
-room_goto(room_overworld);
+//room_goto(room_overworld);
+room_goto(rDebug);

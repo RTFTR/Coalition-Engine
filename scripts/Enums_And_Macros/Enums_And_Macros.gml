@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.7.4"
+#macro ENGINE_VERSION "Beta v4.7.5"
 
 enum FONTS {
 	GAMEOVER,

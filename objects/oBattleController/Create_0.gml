@@ -192,3 +192,5 @@ function dialog_start() {
 	battle_state = 1;
 	Battle_SetSoulPos(320, 320, 0);
 }
+
+

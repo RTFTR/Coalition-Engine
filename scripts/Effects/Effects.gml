@@ -461,3 +461,85 @@ function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, 
 	draw_surface_ext(oGlobal.GradientSurf, x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
 	gpu_set_blendmode(bm_normal);
 }
+
+///@desc Sets the noise sprite to use for a noise fade
+function SpriteNoiseSet(sprite = sprNoiseRect) constructor
+{
+	NoiseSprite = sprite;
+	NoiseTexture = sprite_get_texture(sprite, 0);
+	Noiseuvs = texture_get_uvs(NoiseTexture);
+}
+
+/**
+	@desc Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite if the duration is reached)
+	@param {Asset.sprite} sprite		The sprite to draw
+	@param {real} subimg				The subimg of the sprite
+	@param {real} x						The x position of the sprite to draw
+	@param {real} y						The y position of the sprite to draw
+	@param {real} time					The time of the noise fade (The value of this needs to change constantly)
+	@param {real} duration				The total duration of the fade in
+	@param {Asset.sprite} noise_sprite	The noise sprite to use (It has to be a sprite of a noise)
+*/
+function draw_noise_fade_sprite(sprite, subimg, x, y, time, duration, noise_sprite = sprNoiseRect)
+{
+	if !variable_instance_exists(id, "NoiseVars")
+		NoiseVars = new SpriteNoiseSet(noise_sprite);
+	if time < duration
+	{
+		var UV = shader_get_uniform(shdNoiseFade, "mainuv"),
+			Rat = shader_get_uniform(shdNoiseFade, "mainrat"),
+			Level = shader_get_uniform(shdNoiseFade, "mainlev"),
+			Sampler = shader_get_sampler_index(shdNoiseFade, "mainnoise"),
+			NoiseFadeLevel = 1 - time / duration,
+			gettexture = sprite_get_texture(sprite, subimg),
+			texuvs = texture_get_uvs(gettexture);
+		shader_set(shdNoiseFade);
+		texture_set_stage(Sampler, NoiseVars.NoiseTexture);
+		shader_set_uniform_f(Level, NoiseFadeLevel);
+		shader_set_uniform_f(UV, NoiseVars.Noiseuvs[0], NoiseVars.Noiseuvs[1], texuvs[0], texuvs[1]);
+		shader_set_uniform_f(Rat, (NoiseVars.Noiseuvs[2] - NoiseVars.Noiseuvs[0]) / (texuvs[2] - texuvs[0]), (NoiseVars.Noiseuvs[3] - NoiseVars.Noiseuvs[1]) / (texuvs[3] - texuvs[1]));
+		draw_set_alpha(1 - NoiseFadeLevel);
+		draw_sprite(sprite, subimg, x, y);
+		draw_set_alpha(1);
+		shader_reset();
+	}
+	else draw_sprite(sprite, subimg, x, y);
+}
+
+/**
+	@desc Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite_ext if the duration is reached)
+	@param {Asset.sprite} sprite		The sprite to draw
+	@param {real} subimg				The subimg of the sprite
+	@param {real} x						The x position of the sprite to draw
+	@param {real} y						The y position of the sprite to draw
+	@param {real} xscale				The xscale of the sprite to draw
+	@param {real} yscale				The yscale of the sprite to draw
+	@param {real} rot					The rotation of the sprite to draw
+	@param {Constant.Color} col			The color of the sprite to draw
+	@param {real} time					The time of the noise fade (The value of this needs to change constantly)
+	@param {real} duration				The total duration of the fade in
+	@param {Asset.sprite} noise_sprite	The noise sprite to use (It has to be a sprite of a noise)
+*/
+function draw_noise_fade_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, col, time, duration, noise_sprite = sprNoiseRect)
+{
+	if !variable_instance_exists(id, "NoiseVars")
+		NoiseVars = new SpriteNoiseSet(noise_sprite);
+	if time < duration
+	{
+		var UV = shader_get_uniform(shdNoiseFade, "mainuv"),
+			Rat = shader_get_uniform(shdNoiseFade, "mainrat"),
+			Level = shader_get_uniform(shdNoiseFade, "mainlev"),
+			Sampler = shader_get_sampler_index(shdNoiseFade, "mainnoise"),
+			NoiseFadeLevel = 1 - time / duration,
+			gettexture = sprite_get_texture(sprite, subimg),
+			texuvs = texture_get_uvs(gettexture);
+		shader_set(shdNoiseFade);
+		texture_set_stage(Sampler, NoiseVars.NoiseTexture);
+		shader_set_uniform_f(Level, NoiseFadeLevel);
+		shader_set_uniform_f(UV, NoiseVars.Noiseuvs[0], NoiseVars.Noiseuvs[1], texuvs[0], texuvs[1]);
+		shader_set_uniform_f(Rat, (NoiseVars.Noiseuvs[2] - NoiseVars.Noiseuvs[0]) / (texuvs[2] - texuvs[0]), (NoiseVars.Noiseuvs[3] - NoiseVars.Noiseuvs[1]) / (texuvs[3] - texuvs[1]));
+		draw_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, col , 1 - NoiseFadeLevel);
+		shader_reset();
+	}
+	else draw_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, col , 1);
+}

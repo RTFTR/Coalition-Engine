@@ -9,7 +9,7 @@ if keyboard_check(vk_escape)
 }
 else
 {
-	quit_timer = quit_timer ? quit_timer - 2 : 0;
+	quit_timer = quit_timer > 0 ? quit_timer - 2 : 0;
 }
 
 global.timer++;
@@ -18,8 +18,8 @@ if keyboard_check_pressed(vk_f2)
 {
 	audio_stop_all();
 	instance_destroy(oBulletParents);
-	room_goto(rRestart);
-	//game_restart();
+	//room_goto(rRestart);
+	game_restart();
 }
 if keyboard_check_pressed(vk_f4)
 {
@@ -28,6 +28,10 @@ if keyboard_check_pressed(vk_f4)
 }
 if keyboard_check_pressed(vk_f9)
 	global.show_hitbox = !global.show_hitbox;
+
+if keyboard_check_pressed(vk_f7)
+	room_goto(rDebug);
+
 if keyboard_check_pressed(vk_f3)
 {
 	global.debug = !global.debug;

@@ -63,5 +63,6 @@ Naming =
 	State : 1
 };
 
+//Effects
 shader_enable_corner_id(true);
 GradientSurf = -1;
