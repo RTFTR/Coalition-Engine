@@ -9,23 +9,25 @@ enum DEBUG_STATE
 State = 0;
 
 //List of main options
-MainOptions =
+MainOption = {};
+MainOption.Options =
 [
 	"Rooms",
 	"Sounds",
 	"Sprites",
 ];
-MainOptionSurf = -1;
-MainOptionDisplaceX = 0;
-MainOptionDisplaceY = 0;
-MainOptionDisplaceXTarget = 0;
-MainOptionDisplaceYTarget = 0;
-MainOptionChoice = -1;
-MainOptionLerp = 0;
+MainOption.Surf = -1;
+MainOption.DisplaceX = 0;
+MainOption.DisplaceY = 0;
+MainOption.DisplaceXTarget = 0;
+MainOption.DisplaceYTarget = 0;
+MainOption.Choice = -1;
+MainOption.Lerp = 0;
 var MainOptionMaxHeight = 440;
-MainOptionTotalHeight = 70 * array_length(MainOptions);
-MainOptionMaxY = -max(0, MainOptionTotalHeight - MainOptionMaxHeight);
-SubOptionSurf = -1;
+MainOption.TotalHeight = 70 * array_length(MainOption.Options);
+MainOption.MaxY = -max(0, MainOption.TotalHeight - MainOptionMaxHeight);
+SubOption = {};
+SubOption.Surf = -1;
 
 //Load rooms
 RoomList = [room_get_name(room_first)];
@@ -66,17 +68,17 @@ function LoadSubOptions(listnum)
 		];
 	
 	//Sub-options
-	SubOptions = Lists[listnum];
-	SubOptionDisplaceX = 0;
-	SubOptionDisplaceY = 0;
-	SubOptionDisplaceXTarget = 0;
-	SubOptionDisplaceYTarget = 0;
-	SubOptionChoice = -1;
-	SubOptionLerp = 0;
+	SubOption.Options = Lists[listnum];
+	SubOption.DisplaceX = 0;
+	SubOption.DisplaceY = 0;
+	SubOption.DisplaceXTarget = 0;
+	SubOption.DisplaceYTarget = 0;
+	SubOption.Choice = -1;
+	SubOption.Lerp = 0;
 	var SubOptionMaxHeight = 440;
-	SubOptionTotalHeight = 70 * array_length(SubOptions);
-	SubOptionMaxY = -max(0, SubOptionTotalHeight - SubOptionMaxHeight);
-	SubOptionDrawSprite = -1;
+	SubOption.TotalHeight = 70 * array_length(SubOption.Options);
+	SubOption.MaxY = -max(0, SubOption.TotalHeight - SubOptionMaxHeight);
+	SubOption.DrawSprite = -1;
 }
 
 function SubOptionAction(index)
@@ -91,10 +93,14 @@ function SubOptionAction(index)
 			audio_play(asset_get_index(AudioList[index]));
 		break
 		case DEBUG_STATE.SPRITES:
-			MainOptionDisplaceXTarget = -260;
-			SubOptionDisplaceXTarget = -250;
-			SubOptionDrawSprite = asset_get_index(SpriteList[index]);
+			MainOption.DisplaceXTarget = -260;
+			SubOption.DisplaceXTarget = -250;
+			SubOption.DrawSprite = asset_get_index(SpriteList[index]);
 		break
 		
 	}
 }
+
+var t = CreateTextWriter(320, 240, "[c_white][fnt_dt_sans]blablalba");
+t[0].in(0.5, 0)
+t[0].sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")

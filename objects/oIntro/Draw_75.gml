@@ -156,7 +156,6 @@
 //				exit;
 //			}
 //	        input_binding_set_safe(KeySetVerb, _binding);
-//			global.InputKeys[KeySet] = input_binding_get_icon(input_binding_get(KeySetVerb))
 //			KeyIsSetting = false;
 //			KeySet = -1;
 //			KeySetVerb = "";

@@ -61,7 +61,6 @@ SettingVar =
 	global.CompatibilityMode,
 	global.ShowFPS,
 	global.easy,
-	global.InputKeys,
 	undefined
 ];
 SettingVarChange = [5, 0, 0, 0, 0];

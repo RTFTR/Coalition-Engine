@@ -1,64 +1,64 @@
+var Main = MainOption, Sub = SubOption;
 //Surfaces
-if !surface_exists(MainOptionSurf) MainOptionSurf = surface_create(640, 480);
-if !surface_exists(SubOptionSurf) SubOptionSurf = surface_create(640, 480);
+if !surface_exists(Main.Surf) Main.Surf = surface_create(640, 480);
+if !surface_exists(Sub.Surf) Sub.Surf = surface_create(640, 480);
 
 //Main Option Scrolling
-if MainOptionDisplaceYTarget < MainOptionMaxY
+if Main.DisplaceYTarget < Main.MaxY
 {
-	MainOptionLerp = lerp(MainOptionLerp, 0.12, 0.09);
-	MainOptionDisplaceYTarget = round(lerp(MainOptionDisplaceYTarget, MainOptionMaxY, MainOptionLerp));
+	Main.Lerp = lerp(Main.Lerp, 0.12, 0.09);
+	Main.DisplaceYTarget = round(lerp(Main.DisplaceYTarget, Main.MaxY, Main.Lerp));
 }
-else if MainOptionDisplaceYTarget > 0
+else if Main.DisplaceYTarget > 0
 {
-	MainOptionLerp = lerp(MainOptionLerp, 0.12, 0.09);
-	MainOptionDisplaceYTarget = round(lerp(MainOptionDisplaceYTarget, 0, MainOptionLerp));
+	Main.Lerp = lerp(Main.Lerp, 0.12, 0.09);
+	Main.DisplaceYTarget = round(lerp(Main.DisplaceYTarget, 0, Main.Lerp));
 }
 else
 {
-	MainOptionLerp = 0.16;
+	Main.Lerp = 0.16;
 }
-MainOptionDisplaceX = lerp(MainOptionDisplaceX, MainOptionDisplaceXTarget, 0.16);
-MainOptionDisplaceY = lerp(MainOptionDisplaceY, MainOptionDisplaceYTarget, 0.16);
+Main.DisplaceX = lerp(Main.DisplaceX, Main.DisplaceXTarget, 0.16);
+Main.DisplaceY = lerp(Main.DisplaceY, Main.DisplaceYTarget, 0.16);
 
 if point_in_rectangle(mouse_x, mouse_y, 20, 20, 240, 460)
 {
 	var displace = mouse_wheel_up() - mouse_wheel_down();
-	displace *= 20;
-	MainOptionDisplaceYTarget += displace;
+	Main.DisplaceYTarget += displace * 20;
 }
 
 //Sub-Option Scrolling
 if State != DEBUG_STATE.MAIN
 {
-	if SubOptionDisplaceYTarget < SubOptionMaxY
+	if Sub.DisplaceYTarget < Sub.MaxY
 	{
-		SubOptionLerp = lerp(SubOptionLerp, 0.12, 0.09);
-		SubOptionDisplaceYTarget = round(lerp(SubOptionDisplaceYTarget, SubOptionMaxY, SubOptionLerp));
+		Sub.Lerp = lerp(Sub.Lerp, 0.12, 0.09);
+		Sub.DisplaceYTarget = round(lerp(Sub.DisplaceYTarget, Sub.MaxY, Sub.Lerp));
 	}
-	else if SubOptionDisplaceYTarget > 0
+	else if Sub.DisplaceYTarget > 0
 	{
-		SubOptionLerp = lerp(SubOptionLerp, 0.12, 0.09);
-		SubOptionDisplaceYTarget = round(lerp(SubOptionDisplaceYTarget, 0, SubOptionLerp));
+		Sub.Lerp = lerp(Sub.Lerp, 0.12, 0.09);
+		Sub.DisplaceYTarget = round(lerp(Sub.DisplaceYTarget, 0, Sub.Lerp));
 	}
 	else
 	{
-		SubOptionLerp = 0.16;
+		Sub.Lerp = 0.16;
 	}
-	SubOptionDisplaceX = lerp(SubOptionDisplaceX, SubOptionDisplaceXTarget, 0.16);
-	SubOptionDisplaceY = lerp(SubOptionDisplaceY, SubOptionDisplaceYTarget, 0.16);
+	Sub.DisplaceX = lerp(Sub.DisplaceX, Sub.DisplaceXTarget, 0.16);
+	Sub.DisplaceY = lerp(Sub.DisplaceY, Sub.DisplaceYTarget, 0.16);
 	
-	var BaseX = 270 + SubOptionDisplaceX,
+	var BaseX = 270 + Sub.DisplaceX,
 		RightX = BaseX + 200;
 	if point_in_rectangle(mouse_x, mouse_y, BaseX, 20, RightX, 460)
 	{
 		var displace = mouse_wheel_up() - mouse_wheel_down();
 		displace *= 60;
-		SubOptionDisplaceYTarget += displace;
+		Sub.DisplaceYTarget += displace;
 		if State == DEBUG_STATE.SPRITES && mouse_check_button_pressed(mb_right)
 		{
-			MainOptionDisplaceXTarget = 0;
-			SubOptionDisplaceXTarget = 0;
-			SubOptionDrawSprite = -1;
+			Main.DisplaceXTarget = 0;
+			Sub.DisplaceXTarget = 0;
+			Sub.DrawSprite = -1;
 		}
 	}
 }

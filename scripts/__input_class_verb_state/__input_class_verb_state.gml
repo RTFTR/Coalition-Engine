@@ -1,5 +1,7 @@
 function __input_class_verb_state() constructor
 {
+    __INPUT_GLOBAL_STATIC_VARIABLE  //Set static __global
+    
     name = undefined;
     type = undefined;
     __player = undefined;
@@ -9,6 +11,8 @@ function __input_class_verb_state() constructor
     __consumed       = false;
     
     previous_value = 0.0;
+    previous_raw_analogue = false;
+    
     value          = 0.0;
     raw            = 0.0;
     analogue       = false;
@@ -40,16 +44,29 @@ function __input_class_verb_state() constructor
     long_held_time    = -1;
     long_release_time = -1;
     
+    __quick_press      = false;
+    __quick_press_time = -1;
+    
     //Used for "toggle momentary" accessibility feature 
     __toggle_prev_value = 0.0;
     __toggle_value      = 0.0;
     __toggle_state      = false;
+    
+    //Used for quick tap checkers
+    __raw_history_array = array_create(INPUT_QUICK_BUFFER+1, 0);
+    
+    //Used for virtual buttons
+    __virtual_value     = undefined;
+    __virtual_raw_value = undefined;
+    __virtual_analogue  = undefined;
     
     
     
     static __clear = function()
     {
         previous_value = value;
+        previous_raw_analogue = raw_analogue;
+        
         value = 0.0;
         raw   = 0.0;
         
@@ -63,18 +80,21 @@ function __input_class_verb_state() constructor
         long_press   = false;
         long_release = false;
         
+        __quick_press = false;
+        
         //Used for "toggle momentary" accessibility feature 
         __toggle_prev_value = __toggle_value;
         __toggle_value = 0.0;
     }
     
-    static tick = function(_verb_group_state_dict)
+    static tick = function(_verb_group_state_dict, _player_active)
     {
         var _time = __input_get_time();
+        var _reset_history_array = false;
         
         __toggle_value = value;
         
-        if (global.__input_toggle_momentary_state && (type == __INPUT_VERB_TYPE.__BASIC) && variable_struct_exists(global.__input_toggle_momentary_dict, name))
+        if (__global.__toggle_momentary_state && (type == __INPUT_VERB_TYPE.__BASIC) && variable_struct_exists(__global.__toggle_momentary_dict, name))
         {
             //Catch the leading edge to toggle the verb
             if ((__toggle_prev_value < 0.1) && (__toggle_value > 0.1)) __toggle_state = !__toggle_state;
@@ -84,7 +104,7 @@ function __input_class_verb_state() constructor
             raw   = __toggle_state;
         }
         
-        if (global.__input_cooldown_state && (type == __INPUT_VERB_TYPE.__BASIC) && variable_struct_exists(global.__input_cooldown_dict, name))
+        if (__global.__cooldown_state && (type == __INPUT_VERB_TYPE.__BASIC) && variable_struct_exists(__global.__cooldown_dict, name))
         {
             if (_time < release_time + (INPUT_TIMER_MILLISECONDS? __INPUT_RATE_LIMIT_DURATION : ((__INPUT_RATE_LIMIT_DURATION/1000)*game_get_speed(gamespeed_fps))))
             {
@@ -95,7 +115,7 @@ function __input_class_verb_state() constructor
         
         if (value > 0)
         {
-            __player.__last_input_time = global.__input_current_time;
+            __player.__last_input_time = __global.__current_time;
             
             held      = true;
             held_time = _time;
@@ -165,6 +185,50 @@ function __input_class_verb_state() constructor
         if (double_held) double_held_time = _time;
         if (long_held) long_held_time = _time;
         
-        __inactive = (__group_inactive || __consumed);
+        var _inactive = (__group_inactive || __consumed || !_player_active);
+        if (_inactive && !__inactive)
+        {
+            //Newly inactive, better reset the raw history array
+            _reset_history_array = true;
+        }
+        else
+        {
+            //Not inactive, update our raw history array if we're using analogue input
+            if (raw_analogue)
+            {
+                array_insert(__raw_history_array, 0, raw);
+                array_pop(__raw_history_array);
+                
+                //Check for the quick tap only on the frame that we cross the max threshold
+                if ((previous_value < max_threshold) && (value >= max_threshold))
+                {
+                    var _i = 1;
+                    repeat(INPUT_QUICK_BUFFER)
+                    {
+                        //We've performed a quick tap if we've gone from the min to max threshold in INPUT_QUICK_BUFFER frames (or less)
+                        if (__raw_history_array[_i] <= min_threshold)
+                        {
+                            __quick_press      = true;
+                            __quick_press_time = _time;
+                            break;
+                        }
+                        
+                        ++_i;
+                    }
+                }
+            }
+            else if (raw_analogue != previous_raw_analogue)
+            {
+                //Newly non-analogue, better reset the raw history array
+                _reset_history_array = true;
+            }
+        }
+        
+        __inactive = _inactive;
+        
+        if (_reset_history_array)
+        {
+            __raw_history_array = array_create(INPUT_QUICK_BUFFER+1, 0);
+        }
     }
 }

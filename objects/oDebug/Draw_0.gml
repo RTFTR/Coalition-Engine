@@ -1,14 +1,15 @@
+var Main = MainOption, Sub = SubOption;
 //Draw main option texts
-surface_set_target(MainOptionSurf);
+surface_set_target(Main.Surf);
 draw_set_font(fnt_dt_sans);
 draw_set_halign(fa_left);
 var i = 0;
-repeat array_length(MainOptions)
+repeat array_length(Main.Options)
 {
 	draw_set_color(State == i + 1 ? c_yellow : c_white);
-	var BaseY = 40 + MainOptionDisplaceY + i * 70,
-		BottomY = BaseY + string_height(MainOptions[i]) + 5,
-		BaseX = 30 + MainOptionDisplaceX,
+	var BaseY = 40 + Main.DisplaceY + i * 70,
+		BottomY = BaseY + string_height(Main.Options[i]) + 5,
+		BaseX = 30 + Main.DisplaceX,
 		RightX = BaseX + 200;
 	if point_in_rectangle(mouse_x, mouse_y, BaseX, BaseY - 5, RightX, BottomY)
 	{
@@ -19,7 +20,7 @@ repeat array_length(MainOptions)
 		if mouse_check_button_pressed(mb_left)
 		{
 			State = i + 1;
-			MainOptionChoice = i;
+			Main.Choice = i;
 			LoadSubOptions(i);
 			audio_play(snd_menu_confirm);
 		}
@@ -30,27 +31,27 @@ repeat array_length(MainOptions)
 		}
 	}
 	draw_rectangle_width(BaseX, BaseY - 5, RightX, BottomY, 5, draw_get_color());
-	draw_text(BaseX + 10, BaseY, MainOptions[i]);
+	draw_text(BaseX + 10, BaseY, Main.Options[i]);
 	draw_set_color(c_white);
 	++i;
 }
 surface_reset_target();
 //Main options box
 draw_rectangle_width(BaseX - 10, 20, RightX + 10, 460, 5);
-draw_surface_part(MainOptionSurf, BaseX - 10, 20, 240, 440, BaseX - 10, 20);
-surface_free(MainOptionSurf);
+draw_surface_part(Main.Surf, BaseX - 10, 20, 240, 440, BaseX - 10, 20);
+surface_free(Main.Surf);
 
 //Sub-options
 if State != DEBUG_STATE.MAIN
 {
-	surface_set_target(SubOptionSurf);
+	surface_set_target(Sub.Surf);
 	var i = 0;
-	repeat array_length(SubOptions)
+	repeat array_length(Sub.Options)
 	{
 		draw_set_color(c_white);
-		var BaseY = 40 + SubOptionDisplaceY + i * 70,
-			BottomY = BaseY + string_height(SubOptions[i]) + 5,
-			BaseX = 270 + SubOptionDisplaceX,
+		var BaseY = 40 + Sub.DisplaceY + i * 70,
+			BottomY = BaseY + string_height(Sub.Options[i]) + 5,
+			BaseX = 270 + Sub.DisplaceX,
 			RightX = BaseX + 200;
 		if point_in_rectangle(mouse_x, mouse_y, BaseX, BaseY - 5, RightX, BottomY)
 		{
@@ -58,28 +59,28 @@ if State != DEBUG_STATE.MAIN
 			if mouse_check_button_pressed(mb_left) SubOptionAction(i);
 		}
 		draw_rectangle_width(BaseX, BaseY - 5, RightX, BottomY, 5, draw_get_color());
-		draw_text(BaseX + 10, BaseY, string_limit(SubOptions[i], 180));
+		draw_text(BaseX + 10, BaseY, string_limit(Sub.Options[i], 180));
 		draw_set_color(c_white);
 		++i;
 	}
 	surface_reset_target();
 	//Sub-options box
 	draw_rectangle_width(BaseX - 10, 20, RightX + 10, 460, 5);
-	draw_surface_part(SubOptionSurf, BaseX - 10, 20, 240, 440, BaseX - 10, 20);
-	surface_free(SubOptionSurf);
+	draw_surface_part(Sub.Surf, BaseX - 10, 20, 240, 440, BaseX - 10, 20);
+	surface_free(Sub.Surf);
 	if State == DEBUG_STATE.SPRITES
 	{
-		if sprite_exists(SubOptionDrawSprite)
+		if sprite_exists(Sub.DrawSprite)
 		{
-			var offx = sprite_get_xoffset(SubOptionDrawSprite),
-				offy = sprite_get_yoffset(SubOptionDrawSprite),
-				sprwidth = sprite_get_width(SubOptionDrawSprite),
-				sprheight = sprite_get_height(SubOptionDrawSprite),
+			var offx = sprite_get_xoffset(Sub.DrawSprite),
+				offy = sprite_get_yoffset(Sub.DrawSprite),
+				sprwidth = sprite_get_width(Sub.DrawSprite),
+				sprheight = sprite_get_height(Sub.DrawSprite),
 				xscale = max(min(300 / sprwidth, 1), 100 / sprwidth),
 				yscale = max(min(160 / sprheight, 1), 100 / sprheight),
 				FinScale = min(xscale, yscale),
-				nine = sprite_get_nineslice(SubOptionDrawSprite);
-			draw_sprite_ext(SubOptionDrawSprite, 0, 430, 240, FinScale, FinScale, 0, c_white, 1);
+				nine = sprite_get_nineslice(Sub.DrawSprite);
+			draw_sprite_ext(Sub.DrawSprite, 0, 430, 240, FinScale, FinScale, 0, c_white, 1);
 			draw_set_font(fnt_mnc);
 			draw_set_halign(fa_center);
 			var text = "Scaled to: " + string(FinScale) + "x"

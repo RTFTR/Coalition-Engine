@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.7.6 (Eden)
+updated input to 6.0.4
+added text controller for easier text typer thing
+optimised oDebug for a little
+
 v4.7.5 (Eden)
 added debug room because why not, its literally room list sound list and sprite list, literally nothing useful because you can just see them in game maker anyways, but room can let you teleport so there is some use i guess
 added a nosie fade thingy, the use of this doesnt exist so uh yeah code flex real?
