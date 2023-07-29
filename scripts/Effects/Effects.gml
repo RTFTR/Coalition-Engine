@@ -543,3 +543,65 @@ function draw_noise_fade_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, c
 	}
 	else draw_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, col , 1);
 }
+
+/**
+	@desc Draws an rectangle with the colors inverted inside of it
+	@param {real} x1	The top left x position of the rectangle
+	@param {real} y1	The top left y position of the rectangle
+	@param {real} x2	The bottom right x position of the rectangle
+	@param {real} y2	The bottom right y position of the rectangle
+*/
+function draw_invert_rect(x1, y1, x2, y2)
+{
+	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
+	draw_rectangle(x1, y1, x2, y2, false);
+	gpu_set_blendmode(bm_normal);
+}
+
+/**
+	@desc Draws an triangle with the colors inverted inside of it
+	@param {real} x1	The x coordinate of the triangle's first corner
+	@param {real} y1	The y coordinate of the triangle's first corner
+	@param {real} x2	The x coordinate of the triangle's secpnd corner
+	@param {real} y2	The y coordinate of the triangle's secpnd corner
+	@param {real} x3	The x coordinate of the triangle's third corner
+	@param {real} y3	The y coordinate of the triangle's third corner
+*/
+function draw_invert_triangle(x1, y1, x2, y2, x3, y3)
+{
+	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
+	draw_triangle(x1, y1, x2, y2, x3, y3, false);
+	gpu_set_blendmode(bm_normal);
+}
+
+/**
+	@desc Draws an circle with the colors inverted inside of it
+	@param {real} x		 The top left x position of the circle
+	@param {real} y		 The top left y position of the circle
+	@param {real} radius The radius of the circle
+*/
+function draw_invert_cricle(x, y, radius)
+{
+	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
+	draw_circle(x, y, radius, false);
+	gpu_set_blendmode(bm_normal);
+}
+
+/**
+	@desc Draws an polygon with the colors inverted inside of it, make sure the points are in a clockwise/anticlockwise order or else there will be visual bugs (no auto sort for now)
+	@param {Array<Array<Real>>} Vertexes	The vertexes of the polygon in the form of [[x1, y1], [x2, y2]...]
+*/
+function draw_invert_polygon(vertexes)
+{
+	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
+	var i = 0, n = array_length(vertexes);
+	repeat n - 2
+	{
+		var k = posmod(i + 1, n),
+			j = posmod(i + 2, n);
+		draw_triangle(vertexes[i][0], vertexes[i][1], vertexes[k][0], vertexes[k][1],
+					vertexes[j][0], vertexes[j][1], false);
+		i += 2;
+	}
+	gpu_set_blendmode(bm_normal);
+}

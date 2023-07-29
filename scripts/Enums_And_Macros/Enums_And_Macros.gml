@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.7.6"
+#macro ENGINE_VERSION "Beta v4.7.7"
 
 enum FONTS {
 	GAMEOVER,
@@ -148,3 +148,5 @@ enum FADE
 	CIRCLE = 1,
 	LINES = 2
 }
+
+#macro c_dkgreen make_color_rgb(0, 255, 0)

@@ -8,7 +8,6 @@ y = 0;
 //	instance_create_depth(0,0,1,Bloomer);
 //var shd = choose(
 ////shdSepia,
-////shdInvert,
 //shdNoise
 //)
 //Effect_Shader(shd);

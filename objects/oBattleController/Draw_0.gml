@@ -294,7 +294,7 @@ if battle_state == BATTLE_STATE.MENU {
 				
 					//Input
 					if distance > 273 //Prevent input already registered
-					continue
+						continue
 				
 					_aim_target_x = Aim.InitialX[i] - (Target.side[i] * _target_time[i]);
 					
@@ -628,6 +628,7 @@ var _button_spr =	button_spr,
 	_button_alpha = button_alpha,
 	_button_scale = button_scale,
 	_button_color = button_color,
+	_button_angle = button_angle,
 	_state =		menu_state,
 	_menu =			menu_button_choice;
 	i = 0;
@@ -644,10 +645,10 @@ repeat(array_length(_button_spr)) // Button initialize
 	if button_background_cover
 	{
 		shader_set(shdBlackMask); //Prevent background covers the buttons
-		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, c_white, .5 - _button_alpha[i] / 2);
+		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], c_white, .5 - _button_alpha[i] / 2);
 		shader_reset();
 	}
-	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], 0, make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
+	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
 
 	// Animation - Color updating in real-time because yes
 	if (_state >= 0 and _state != -1) {

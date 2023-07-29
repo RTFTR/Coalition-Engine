@@ -4,19 +4,35 @@ restart_timer = 0;
 restart_ender = irandom_range(30, 120);
 restart_tip = tips();
 
+Main_Camera = view_camera[0];
+camera_x = 0;
+camera_y = 0;
 camera_scale_x = 1;
 camera_scale_y = 1;
 camera_view_width = 640;
 camera_view_height = 480;
 camera_shake_i = 0;
 camera_decrease_i = 1;
-
-camera_x = 0;
-camera_y = 0;
 camera_angle = 0;
 camera_target = noone;
 camera_previous_target = noone;
-Main_Camera = view_camera[0];
+camera_enable_z = false;
+// Set up 3D camera
+camDist	= -300;
+camFov	= 90;
+camAsp	= camera_get_view_width(Main_Camera) / camera_get_view_height(Main_Camera);
+camXDisplace = 0;
+camYDisplace = 0;
+
+// Rotation
+allowRotation = true;
+camSensitivityX = 1;
+camSensitivityY = 1;
+
+camAngleXRaw = 90;
+camAngleYRaw = 0;
+camAngleX = camAngleXRaw;
+camAngleY = camAngleYRaw;
 
 quit_timer = 0;
 
@@ -33,7 +49,10 @@ effect_param =
 	["", 1],
 ];
 
-RGBShake = 0;
+RGBShake = 5;
+RGBDecrease = 1;
+RGBSurf = -1;
+RGBShakeMethod = 0;
 
 Song = 
 {

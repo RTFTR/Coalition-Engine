@@ -68,6 +68,23 @@ if State != DEBUG_STATE.MAIN
 	draw_rectangle_width(BaseX - 10, 20, RightX + 10, 460, 5);
 	draw_surface_part(Sub.Surf, BaseX - 10, 20, 240, 440, BaseX - 10, 20);
 	surface_free(Sub.Surf);
+	
+	//Audio length
+	if State == DEBUG_STATE.SOUNDS && Sub.Audio != -1
+	{
+		var curPos = audio_sound_get_track_position(Sub.Audio);
+		draw_line_width(10, 10, curPos / Sub.AudioLength * 620 + 10, 10, 3);
+		draw_set_halign(fa_right);
+		var curPosMin = string(curPos div 60),
+			curPosSec = string(round(curPos mod 60));
+		//Zero-padding
+		if curPosSec < 10 curPosSec = "0" + curPosSec;
+		draw_set_font(fnt_dotum);
+		draw_text(635, 15, curPosMin + ":" + curPosSec + "/" + Sub.AudioLengthMin + ":" + Sub.AudioLengthSec);
+		draw_set_halign(fa_left);
+	}
+	
+	//Draw sprites
 	if State == DEBUG_STATE.SPRITES
 	{
 		if sprite_exists(Sub.DrawSprite)

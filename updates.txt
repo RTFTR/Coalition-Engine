@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v4.7.7 (Eden)
+updated debug room for more functions like external audio loading
+updated RGB shaking
+added 2.5D camera to oGlobal, useless for now
+added some more user friendly functions so drawing sprites in overworld is easier
+
 v4.7.6 (Eden)
 updated input to 6.0.4
 added text controller for easier text typer thing

@@ -59,6 +59,12 @@ if State != DEBUG_STATE.MAIN
 			Main.DisplaceXTarget = 0;
 			Sub.DisplaceXTarget = 0;
 			Sub.DrawSprite = -1;
+			if Sub.Stream != -1
+			{
+				audio_destroy_stream(Sub.Stream);
+				Sub.Stream = -1;
+			}
+			Sub.Audio = -1;
 		}
 	}
 }

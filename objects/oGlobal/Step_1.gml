@@ -50,3 +50,10 @@ if room == rRestart
 }
 
 if !surface_exists(GradientSurf) GradientSurf = surface_create(640, 480);
+
+if RGBShake > 0
+{
+	RGBShake -= RGBDecrease;
+	if !surface_exists(RGBSurf) RGBSurf = surface_create(640, 480);
+}
+else if surface_exists(RGBSurf) surface_free(RGBSurf);

@@ -47,6 +47,13 @@ while audio_exists(i)
 	array_push(AudioList, audio_get_name(i));
 	++i;
 }
+var file_name = file_find_first("Music/*.ogg", fa_none);
+while file_name != ""
+{
+    array_push(AudioList, file_name);
+    file_name = file_find_next();
+}
+file_find_close();
 array_sort(AudioList, true);
 //Load sprites
 SpriteList = [];
@@ -79,6 +86,9 @@ function LoadSubOptions(listnum)
 	SubOption.TotalHeight = 70 * array_length(SubOption.Options);
 	SubOption.MaxY = -max(0, SubOption.TotalHeight - SubOptionMaxHeight);
 	SubOption.DrawSprite = -1;
+	SubOption.Stream = -1;
+	SubOption.Audio = -1;
+	SubOption.AudioLength = -1;
 }
 
 function SubOptionAction(index)
@@ -90,7 +100,16 @@ function SubOptionAction(index)
 		break
 		case DEBUG_STATE.SOUNDS:
 			audio_stop_all();
-			audio_play(asset_get_index(AudioList[index]));
+			if string_ends_with(AudioList[index], ".ogg")
+			{
+				SubOption.Stream = audio_create_stream("Music/" + string(AudioList[index]));
+				SubOption.Audio = audio_play(SubOption.Stream);
+			}
+			else SubOption.Audio =  audio_play(asset_get_index(AudioList[index]));
+			SubOption.AudioLength = audio_sound_length(SubOption.Audio);
+			SubOption.AudioLengthMin = string(SubOption.AudioLength div 60);
+			SubOption.AudioLengthSec = string(round(SubOption.AudioLength mod 60));
+			if SubOption.AudioLengthSec < 10 SubOption.AudioLengthSec = "0" + SubOption.AudioLengthSec;
 		break
 		case DEBUG_STATE.SPRITES:
 			MainOption.DisplaceXTarget = -260;
@@ -101,6 +120,6 @@ function SubOptionAction(index)
 	}
 }
 
-var t = CreateTextWriter(320, 240, "[c_white][fnt_dt_sans]blablalba");
+var t = CreateTextWriter(320, 240, "[c_white][fnt_dt_sans][scale,3][sprFriskCell][scale,1]blabla[snd_item_heal]\nlba");
 t[0].in(0.5, 0)
 t[0].sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")

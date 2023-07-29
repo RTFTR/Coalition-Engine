@@ -2,7 +2,7 @@
 /// @param {real} a The number to be divided
 /// @param {real} b The number to divide
 /// @return {real}
-function posmod(a,b)
+function posmod(a, b)
 {
 	var value = a % b;
 	while (value < 0 and b > 0) or (value > 0 and b < 0) 

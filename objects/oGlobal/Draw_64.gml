@@ -2,14 +2,32 @@
 if quit_timer
 	draw_sprite_ext(sprQuitMesssge, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
 
+//RGBShake = 5;
 if RGBShake
 {
-	gpu_set_blendmode(bm_add);
-	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
-	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_lime, 1);
-	draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
-	gpu_set_blendmode(bm_normal);
-	RGBShake--;
+	switch RGBShakeMethod
+	{
+		//Extra surface drawing (has shadow)
+		case 0:
+			surface_set_target(RGBSurf);
+			draw_surface(application_surface, 0, 0);
+			surface_reset_target();
+			draw_clear(c_black);
+			gpu_set_blendmode(bm_add);
+			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
+			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
+			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, make_color_rgb(0, 255, 0), 1);
+			gpu_set_blendmode(bm_normal);
+		break
+		//Application surface drawing (No shadow, brighter)
+		case 1:
+			gpu_set_blendmode(bm_add);
+			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
+			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
+			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, make_color_rgb(0, 255, 0), 1);
+			gpu_set_blendmode(bm_normal);
+		break
+	}
 }
 
 //Fader
