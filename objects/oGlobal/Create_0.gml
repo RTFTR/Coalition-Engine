@@ -16,9 +16,10 @@ camera_decrease_i = 1;
 camera_angle = 0;
 camera_target = noone;
 camera_previous_target = noone;
+//Not recommended to enable until the correct default settings are found
 camera_enable_z = false;
 // Set up 3D camera
-camDist	= -300;
+camDist	= -240;
 camFov	= 90;
 camAsp	= camera_get_view_width(Main_Camera) / camera_get_view_height(Main_Camera);
 camXDisplace = 0;

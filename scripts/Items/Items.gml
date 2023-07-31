@@ -181,7 +181,7 @@ function Item_Space(){
 ///@desc Adds an item on the selected position
 ///@param {real} Item		The item to add (Use the Item ID from Item_Info)
 ///@param {real} Position	The item position to add (Default last)
-function Item_Add(item, pos = Item_Count() + 1) {
+function Item_Add(item, pos = Item_Count()) {
 	global.item[pos] = item;
 }
 

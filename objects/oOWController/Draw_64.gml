@@ -154,10 +154,7 @@ if is_saving
 		ui_box_frame = 6
 
 	// Box Drawing
-	draw_set_color(c_white); // Outline
-	draw_rectangle(ui_box_x - ui_box_frame, ui_box_y - ui_box_frame, ui_box_x + ui_width + ui_box_frame - 1, ui_box_y + ui_height + ui_box_frame - 1, false);
-	draw_set_color(c_black); // Inside background
-	draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, false);
+				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
 
 	// String var declaration
 	var name =			string(global.data.name),
@@ -193,10 +190,7 @@ if is_saving
 		ui_box_frame = 6;
 	
 	// Box Drawing
-	draw_set_color(c_white); // Outline
-	draw_rectangle(ui_box_x - ui_box_frame, ui_box_y - ui_box_frame, ui_box_x + ui_width + ui_box_frame - 1, ui_box_y + ui_height + ui_box_frame - 1, false);
-	draw_set_color(c_black); // Inside background
-	draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, false);
+				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
 
 	// Menu Label
 	var menu_label = ["ITEM","STAT","CELL"],
@@ -230,15 +224,9 @@ if is_saving
 					ui_box_y = menu_ui_y[MENU_MODE.ITEM] + 6;
 	
 				// Box Drawing
-				draw_set_alpha(0.4);
-				draw_set_color(c_white); // Outline
-				draw_rectangle(ui_box_x - ui_box_frame, ui_box_y - ui_box_frame, ui_box_x + ui_width + ui_box_frame - 1, ui_box_y + ui_height + ui_box_frame - 1, false);
-				draw_set_color(c_black); // Inside background
-				draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, false);
-				draw_set_alpha(1);
+				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,, 0.4, true);
 	
 				// Item text drawing
-				Item_Info_Load(); // Loading item's info
 				draw_set_font(fnt_dt_sans);
 				draw_set_color(c_white);
 
@@ -263,12 +251,7 @@ if is_saving
 					ui_box_y = menu_ui_y[MENU_MODE.STAT] + 6;
 				
 				// Box Drawing
-				draw_set_alpha(0.4);
-				draw_set_color(c_white); // Outline
-				draw_rectangle(ui_box_x - ui_box_frame, ui_box_y - ui_box_frame, ui_box_x + ui_width + ui_box_frame - 1, ui_box_y + ui_height + ui_box_frame - 1, false);
-				draw_set_color(c_black); // Inside background
-				draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, false);
-				draw_set_alpha(1);
+				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,, 0.4, true);
 	
 				// Stat text drawing
 				draw_set_font(fnt_dt_sans);
@@ -293,12 +276,7 @@ if is_saving
 					ui_box_y = menu_ui_y[MENU_MODE.CELL] + 6;
 	
 				// Box Drawing
-				draw_set_alpha(0.4);
-				draw_set_color(c_white); // Outline
-				draw_rectangle(ui_box_x - ui_box_frame, ui_box_y - ui_box_frame, ui_box_x + ui_width + ui_box_frame - 1, ui_box_y + ui_height + ui_box_frame - 1, false);
-				draw_set_color(c_black); // Inside background
-				draw_rectangle(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, false);
-				draw_set_alpha(1);
+				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,, 0.4, true);
 		
 				// Cell text drawing
 				draw_set_font(fnt_dt_sans);
@@ -310,52 +288,58 @@ if is_saving
 
 	#endregion
 
-// Check if player has opened a Box
-if box_mode
-{
-	oOWPlayer.moveable = false;
-	var dialog_box_x = 20,
-		dialog_box_y = 20,
-		dialog_width = 600,
-		dialog_height = 440,
-		dialog_box_frame = 5;
-	//Box UI drawing
-	draw_set_color(c_white);
-	draw_rectangle(dialog_box_x, dialog_box_y, dialog_box_x + dialog_width,
-					dialog_box_y + dialog_height, false);
-	draw_set_color(c_black);
-	draw_rectangle(dialog_box_x + dialog_box_frame, dialog_box_y + dialog_box_frame,
-					dialog_box_x + dialog_width - dialog_box_frame,
-					dialog_box_y + dialog_height - dialog_box_frame, false);
-	draw_set_color(c_white);
-	draw_line_width(320, 90, 320, 390, 5);
-	draw_set_font(fnt_dt_sans);
-	draw_set_halign(fa_center);
-	//Box Text drawing
-	draw_text(170, 35, "INVENTORY");
-	draw_text(470, 35, "BOX");
-	draw_text(320, 410, "Press [X] to Finish");
-	draw_set_halign(fa_left);
-	Item_Info_Load();
+	// Check if player has opened a Box
+	if box_mode
+	{
+		oOWPlayer.moveable = false;
+		var dialog_box_x = 20,
+			dialog_box_y = 20,
+			dialog_width = 600,
+			dialog_height = 440,
+			dialog_box_frame = 5;
+		//Box UI drawing
+		draw_set_color(c_white);
+		draw_rectangle(dialog_box_x, dialog_box_y, dialog_box_x + dialog_width,
+						dialog_box_y + dialog_height, false);
+		draw_set_color(c_black);
+		draw_rectangle(dialog_box_x + dialog_box_frame, dialog_box_y + dialog_box_frame,
+						dialog_box_x + dialog_width - dialog_box_frame,
+						dialog_box_y + dialog_height - dialog_box_frame, false);
+		draw_set_color(c_white);
+		draw_line_width(320, 90, 320, 390, 5);
+		draw_set_font(fnt_dt_sans);
+		draw_set_halign(fa_center);
+		//Box Text drawing
+		draw_text(170, 35, "INVENTORY");
+		draw_text(470, 35, "BOX");
+		draw_text(320, 410, "Press [X] to Finish");
+		draw_set_halign(fa_left);
+		Item_Info_Load();
 	
-	for (var i = 0, n = ItemCount; i < n; ++i)
-		draw_text(80, 70 + i * 35, item_name[i]);
+		for (var i = 0, n = ItemCount; i < n; ++i)
+			draw_text(80, 70 + i * 35, item_name[i]);
 		
-	for (var i = n; i < 8; ++i)
-	{
-		draw_set_color(c_red);
-		draw_line_width(95, 85 + i * 35, 245, 85 + i * 35, 2);
-	}
-	//Item Text / line drawing
-	for (var i = 0; i < 10; ++i)
-	{
-		if i < 8
+		for (var i = n; i < 8; ++i)
 		{
-			if global.Box[Box_ID, i]
+			draw_set_color(c_red);
+			draw_line_width(95, 85 + i * 35, 245, 85 + i * 35, 2);
+		}
+		//Item Text / line drawing
+		for (var i = 0; i < 10; ++i)
+		{
+			if i < 8
 			{
-				Box_Info_Load();
-				draw_set_color(c_white);
-				draw_text(380, 70 + i * 35, box_name[i]);
+				if global.Box[Box_ID, i]
+				{
+					Box_Info_Load();
+					draw_set_color(c_white);
+					draw_text(380, 70 + i * 35, box_name[i]);
+				}
+				else
+				{
+					draw_set_color(c_red);
+					draw_line_width(395, 85 + i * 35, 545, 85 + i * 35, 2);
+				}
 			}
 			else
 			{
@@ -363,14 +347,7 @@ if box_mode
 				draw_line_width(395, 85 + i * 35, 545, 85 + i * 35, 2);
 			}
 		}
-		else
-		{
-			draw_set_color(c_red);
-			draw_line_width(395, 85 + i * 35, 545, 85 + i * 35, 2);
-		}
 	}
-	
-}
 	// Drawing the soul over everything
 	draw_sprite_ext(sprSoulMenu, 0, menu_soul_pos[0], menu_soul_pos[1], 1, 1, 0, c_red, menu_soul_alpha);
 
@@ -378,44 +355,47 @@ if box_mode
 #endregion
 
 #region // Debugger
-gpu_set_blendmode(bm_add);
-debug_alpha = lerp(debug_alpha, debug, 0.12);
-draw_set_alpha(debug_alpha);
-draw_set_font(fnt_mnc);
-var col = make_color_hsv(global.timer % 255, 255, 255),
-	mx = window_mouse_get_x(),
-	my = window_mouse_get_y();
-draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha)
-draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
-draw_text_color(5, 65, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha)
-var inst = instance_position(mouse_x, mouse_y, all);
-var inst_name = "";
-
-//Naming
-if inst != noone
+if debug_alpha > 0
 {
-	switch object_get_name(inst.object_index)
+	gpu_set_blendmode(bm_add);
+	debug_alpha = lerp(debug_alpha, debug, 0.12);
+	draw_set_alpha(debug_alpha);
+	draw_set_font(fnt_mnc);
+	var col = make_color_hsv(global.timer % 255, 255, 255),
+		mx = window_mouse_get_x(),
+		my = window_mouse_get_y();
+	draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha)
+	draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
+	draw_text_color(5, 65, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha)
+	var inst = instance_position(mouse_x, mouse_y, all);
+	var inst_name = "";
+
+	//Naming
+	if inst != noone
 	{
-		case "oOWPlayer":
-			inst_name = "Player";
-		break
-		case "oOWCollision":
-		switch inst.sprite_index
+		switch object_get_name(inst.object_index)
 		{
-			case sprOWSave:
-				inst_name = "Save Point";
+			case "oOWPlayer":
+				inst_name = "Player";
+			break
+			case "oOWCollision":
+			switch inst.sprite_index
+			{
+				case sprOWSave:
+					inst_name = "Save Point";
+				break
+			}
 			break
 		}
-		break
 	}
+	else inst_name = "Nothing";
+	draw_text_color(5, 45, "Pointing At : " + inst_name, c_white, col, c_black, col, debug_alpha);
+	draw_set_halign(fa_right);
+	draw_text_color(635, 5, "FPS: " + string(fps) + " (" + string(fps_real) + ")", c_white, col, c_black, col, debug_alpha);
+	draw_set_halign(fa_left);
+	draw_set_alpha(1);
+	draw_set_color(c_white);
+	gpu_set_blendmode(bm_normal);
 }
-else inst_name = "Nothing";
-draw_text_color(5, 45, "Pointing At : " + inst_name, c_white, col, c_black, col, debug_alpha);
-draw_set_halign(fa_right);
-draw_text_color(635, 5, "FPS: " + string(fps) + " (" + string(fps_real) + ")", c_white, col, c_black, col, debug_alpha);
-draw_set_halign(fa_left);
-draw_set_alpha(1);
-draw_set_color(c_white);
-gpu_set_blendmode(bm_normal);
 #endregion
 

@@ -30,7 +30,7 @@ function Is_CellABox(slot) {
 	return is_box[global.cell[slot]];
 }
 
-///@desc Check the BOx ID of the Cell if it's a D.Box
+///@desc Check the Box ID of the Cell if it's a D.Box
 ///@param {real} slot The slot to get the data of
 ///@return {real}
 function Cell_GetBoxID(slot) {

@@ -8,6 +8,7 @@ enum INTERACT_STATE
 	MENU,
 }
 global.interact_state = INTERACT_STATE.IDLE;
+Item_Info_Load(); // Loading item's info
 
 #region // Dialog properties 
 dialog_exists = false;

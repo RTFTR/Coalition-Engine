@@ -43,10 +43,10 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 	// Switching between ITEM - STAT - CELL and confirm input
 	if menu_state == MENU_MODE.IDLE
 	{
-		var exist_check = 3;
+		var exist_check = 3,
 		
 		// Soul positioning and lerping
-		var	menu_soul_target = [menu_ui_x + 34, 205 + (36 * menu_choice[MENU_MODE.IDLE])];
+			menu_soul_target = [menu_ui_x + 34, 205 + (36 * menu_choice[MENU_MODE.IDLE])];
 		
 		if input_vertical != 0
 		{
@@ -64,7 +64,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 				audio_stop_sound(snd_menu_confirm);
 			}
 		}
-		if input_menu // This closes the menu
+		if input_menu or input_cancel // This closes the menu
 		{
 			menu = false;
 			global.interact_state = INTERACT_STATE.IDLE;
@@ -116,7 +116,6 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 			}
 			if input_confirm
 			{
-				Item_Info_Load();
 				if input_confirm
 				{
 					menu_state = MENU_MODE.ITEM_DONE;
@@ -131,6 +130,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 					
 					var item_use_text = [healing_text, item_desc[menu_choice[MENU_MODE.ITEM]], item_throw_txt[menu_choice[MENU_MODE.ITEM]]];
 					OW_Dialog(item_use_text[menu_choice[MENU_MODE.ITEM_INTERACTING]], "fnt_dt_mono", snd_txtTyper, !menu_at_top);
+					Item_Info_Load();
 				}
 			}
 			if input_cancel
@@ -185,6 +185,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 					menu_state = MENU_MODE.BOX_MODE;
 					box_mode = true;
 					Box_ID = Cell_GetBoxID(menu_choice[MENU_MODE.CELL]);
+					menu_soul_target = [60, 70];
 					audio_play(snd_phone_box);
 				}
 			}
@@ -210,14 +211,32 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 		}
 		else if menu_state == MENU_MODE.BOX_MODE
 		{
+			var menu_soul_target = [60 + box_state * 300, 85 + box_choice[box_state] * 35];
 			if input_horizontal != 0 // Moving between 2 side during box mode
+			{
 				box_state = (box_state == BOX_STATE.INVENTORY) ? BOX_STATE.BOX : BOX_STATE.INVENTORY;
+				box_choice[box_state] = clamp(box_choice[!box_state], 0, box_state ? 10 : 8);
+			}
 			if input_vertical != 0
 			{
-				var len = [8, 10];
-				box_choice[box_state] = posmod(box_choice[box_state] + input_vertical, len[box_state]); 
+				var len = box_state == BOX_STATE.INVENTORY ? 8 : 10;
+				box_choice[box_state] = posmod(box_choice[box_state] + input_vertical, len); 
+				audio_play(snd_menu_switch);
 			}
-			
+			if input_confirm
+			{
+				if box_state == BOX_STATE.INVENTORY && box_choice[0] < Item_Count()
+				{
+					global.Box[Box_ID, Box_GetFirstEmptySlot(Box_ID)] = global.item[box_choice[0]];
+					Item_Remove(box_choice[0]);
+				}
+				if box_state == BOX_STATE.BOX && box_choice[1] < 10 && global.Box[Box_ID, box_choice[1]] != 0 && Item_Count() < 8
+				{
+					Item_Add(global.Box[Box_ID, box_choice[1]]);
+					global.Box[Box_ID, box_choice[1]] = 0;
+					Box_Shift(Box_ID);
+				}
+			}
 			if input_cancel // When the box is no longer real
 			{
 				box_mode = false;

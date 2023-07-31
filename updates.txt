@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.7.8 (Eden)
+added new function for drawing rectangles
+optimised oOWController for a bit
+fixed box
+
 v4.7.7 (Eden)
 updated debug room for more functions like external audio loading
 updated RGB shaking

@@ -81,6 +81,7 @@ if global.interact_state == INTERACT_STATE.IDLE and !oOWController.menu_disable 
 	}
 }
 
+//Debug
 if keyboard_check_pressed(vk_space) or (x >= 830 and encounter_state == 0) Encounter_Begin();
 
 if moveable and global.interact_state == INTERACT_STATE.IDLE // When the player can move around

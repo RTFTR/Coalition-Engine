@@ -1,3 +1,11 @@
+///@desc Gets the amount of items in the box
+///@param {real} Box_ID The ID of the box
+//@return {real}
+function Box_Item_Count(Box_ID)
+{
+	return array_length(global.Box[Box_ID]);
+}
+
 ///@desc Gets the first empty slot of a box
 ///@param {real} Box_ID The Box ID to check (0 - Overworld, 1 - D.Box A, 2 - D.Box B)
 function Box_GetFirstEmptySlot(Box_ID) {
@@ -48,4 +56,18 @@ function Box_Count(ID) {
 	for (var i = 0, num = 0; i < 10; ++i)
 		if global.Box[ID, i] num++;
 	return num;
+}
+
+function Box_Shift(Box_ID)
+{
+	var i = 0;
+	repeat Box_Item_Count(Box_ID) - 1
+	{
+		if global.Box[Box_ID, i] == 0 && global.Box[Box_ID, i + 1] != 0
+		{
+			array_delete(global.Box[Box_ID], i, 1);
+			array_push(global.Box[Box_ID], 0);
+		}
+		++i;
+	}
 }
