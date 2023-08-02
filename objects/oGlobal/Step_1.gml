@@ -26,22 +26,23 @@ if keyboard_check_pressed(vk_f4)
 	window_set_fullscreen(!window_get_fullscreen());
 	alarm[0] = 1;
 }
-if keyboard_check_pressed(vk_f9)
-	global.show_hitbox = !global.show_hitbox;
-
-if keyboard_check_pressed(vk_f7)
-	room_goto(rDebug);
-
-if keyboard_check_pressed(vk_f3)
+//Debug functions
+if ALLOW_DEBUG
 {
-	global.debug = !global.debug;
-	if instance_exists(oOWController)
-		with oOWController
-			debug = !debug;
+	if keyboard_check_pressed(vk_f9)
+		global.show_hitbox = !global.show_hitbox;
+
+	if keyboard_check_pressed(vk_f7)
+		room_goto(rDebug);
+
+	if keyboard_check_pressed(vk_f3)
+	{
+		global.debug = !global.debug;
+	}
+	if keyboard_check(vk_alt)
+		if keyboard_check_pressed(ord("S"))
+			Screenshot(room_get_name(room));
 }
-if keyboard_check(vk_alt)
-	if keyboard_check_pressed(ord("S"))
-		Screenshot(room_get_name(room));
 
 if room == rRestart
 {
@@ -49,6 +50,7 @@ if room == rRestart
 	if restart_timer == restart_ender game_restart();
 }
 
+//Effect surfaces
 if !surface_exists(GradientSurf) GradientSurf = surface_create(640, 480);
 
 if RGBShake > 0

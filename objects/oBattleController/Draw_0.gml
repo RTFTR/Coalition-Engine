@@ -582,43 +582,7 @@ if battle_state == BATTLE_STATE.RESULT {
 }
 
 #region Debug
-debug_alpha = lerp(debug_alpha, debug, 0.12);
-
-debug = allow_debug ? global.debug : 0
-
-if debug_alpha > 0
-{
-	draw_set_alpha(debug_alpha);
-	draw_set_font(fnt_mnc);
-	var ca = global.timer,
-		col = make_color_hsv(ca % 255, 255, 255),
-		dis = dcos(global.timer * 3) * 20,
-		debug_pos = [
-			[ui_x - 245 - dsin(ca)		 * dis, ui_y + dcos(ca)			* dis],
-			[ui_x - 245 - dsin(ca + 120) * dis, ui_y + dcos(ca + 120)	* dis],
-			[ui_x - 245 - dsin(ca + 240) * dis, ui_y + dcos(ca + 240)	* dis]
-		],
-		color = [
-			c_red,
-			c_lime,
-			c_blue
-		];
-	if !global.CompatibilityMode
-	{
-		gpu_set_blendmode(bm_add);
-		for (var i = 0; i < 3; ++i)
-			draw_text_ext_transformed_color(debug_pos[2 - i, 0], debug_pos[2 - i, 1], "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
-	}
-
-
-	draw_text_ext_transformed_color(5, 10, "SPEED: " + string(room_speed / 60) + "x (" + string(room_speed) + " FPS)", -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
-	draw_text_ext_transformed_color(5, 35, "FPS: " + string(fps) + " (" + string(fps_real) + ")", -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
-	draw_text_ext_transformed_color(5, 60, "TURN: " + string(battle_turn), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
-	draw_text_ext_transformed_color(5, 85, "INSTANCES: " + string(instance_count), -1, -1, 1, 1, 0, c_white, col, c_black, col, debug_alpha)
-	gpu_set_blendmode(bm_normal);
-	draw_set_color(c_white);
-	draw_set_alpha(1);
-}
+DrawDebugUI();
 #endregion
 
 #region Buttons 
@@ -732,7 +696,10 @@ if board_cover_button {
 	if f_alpha > 0
 		draw_text_color(name_x, name_y, name, name_col, name_col, name_col, name_col, f_alpha);
 	if debug_alpha > 0
+	{
+		var col = make_color_hsv(global.timer % 255, 255, 255)
 		draw_text_color(name_x, name_y, name, col, col, col, col, debug_alpha);
+	}
 	// LV Icon
 	f_alpha = min(ui_override_alpha[1], _alpha);
 	if f_alpha > 0

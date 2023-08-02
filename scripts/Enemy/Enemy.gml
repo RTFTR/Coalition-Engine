@@ -86,11 +86,16 @@ function Enemy_NameUpdate() {
 ///@param {Array} name		The names of the ACT options
 ///@param {Array} text		The texts that appears when the ACT options are selected
 ///@param {Array} function	The event to happen when the ACT options are selected (Default none)
-function Enemy_SetActTexts(name, text, functions = array_create(6, function() {}))
+function Enemy_SetActTexts(name, text, functions = array_create(array_length(name), function() {}))
 {
-	enemy_act = name;
-	enemy_act_text = text;
-	enemy_act_function = functions;
+	var i = 0;
+	repeat array_length(name)
+	{
+		enemy_act[i] = name[i];
+		enemy_act_text[i] = text[i];
+		enemy_act_function[i] = functions[i];
+		++i;
+	}
 }
 
 ///@desc Sets the (Max) HP and the visibility of the hp bar of the enemy

@@ -5,16 +5,18 @@
 ///@param {real} volume		The volume of the audio (Max 1, Min 0, Default 1)
 ///@param {real} pitch		The pitch of the audio (Default 1)
 ///@param {real} time		The time taken for the audio to change it's volume (In Miliseconds, Default 0)
+///@param {real} position	The position to play the audio in seconds (Not 3D position, audio position)
 ///@return {Id.Sound}
-function audio_play(soundid, single = false, loops = false, volume = 1, pitch = 1, time = 0)
+function audio_play(soundid, single = false, loops = false, volume = 1, pitch = 1, time = 0, position = 0)
 {
 	if single audio_stop_sound(soundid);
 	var audio = audio_play_sound(soundid, 1, loops, volume, 0, pitch);
 	audio_sound_gain(audio,volume,time);
+	if position != 0 audio_sound_set_track_position(audio, position);
 	return audio;
 }
 
-///@desc Sticks the audio to given time
+///@desc Sticks the audio to given time (in seconds, so you have to do divide frame by 60)
 ///@param {Asset.GMSound} Audio		The audio to stick
 ///@param {real} Time				The target time to set the audio with
 ///@param {real} Margin				The margin of error of the audio, Default 0.05 sec / 3 frames

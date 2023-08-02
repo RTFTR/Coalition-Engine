@@ -1,7 +1,7 @@
 if t >= 0 && time < 19640
 {
 	t = time / 60;
-	AudioStickToTime(bgm, t)
+	AudioStickToTime(bgm, t);
 }
 if time and time < 2780
 	if keyboard_check_pressed(ord("S"))

@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.7.9 (Eden)
+moved debug ui drawing to a function
+overworld dialog now fully supports face (character face during dialog), i dont know why this isnt a thing before its so easy
+
 v4.7.8 (Eden)
 added new function for drawing rectangles
 optimised oOWController for a bit

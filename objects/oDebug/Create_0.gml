@@ -1,3 +1,4 @@
+Camera_Scale(1, 1);
 audio_stop_all();
 enum DEBUG_STATE
 {

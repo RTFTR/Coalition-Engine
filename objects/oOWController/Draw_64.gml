@@ -22,8 +22,19 @@ if dialog_exists
 					dialog_box_y + dialog_height - dialog_box_frame, false);
 	
 	//Dialog Text drawing
-	text_writer.starting_format(dialog_font,c_white)
-	text_writer.draw(dialog_box_x + 20, dialog_box_y + 20, dialog_typist)
+	var dis = 0;
+	if dialog_sprite != -1
+	{
+		dis = 95;
+		var spr_w = sprite_get_width(dialog_sprite),
+			spr_h = sprite_get_height(dialog_sprite),
+			sprite_dis_x = sprite_get_xoffset(dialog_sprite) - spr_w / 2,
+			sprite_dis_y = sprite_get_yoffset(dialog_sprite) - spr_h / 2;
+		draw_sprite_ext(dialog_sprite, dialog_sprite_index, dialog_box_x + 60 + sprite_dis_x, dialog_box_y + 80 + sprite_dis_y, 80 /spr_w, 80 / spr_h, 0, c_white, 1);
+	}
+	text_writer.starting_format(dialog_font, c_white)
+	text_writer.draw(dialog_box_x + 25 + dis, dialog_box_y + 20, dialog_typist)
+	
 	//Check if the dialog is currently an option and draw if question is asked and buffer time has expired
 	if dialog_option and dialog_typist.get_state() == 1
 	{
@@ -355,47 +366,6 @@ if is_saving
 #endregion
 
 #region // Debugger
-if debug_alpha > 0
-{
-	gpu_set_blendmode(bm_add);
-	debug_alpha = lerp(debug_alpha, debug, 0.12);
-	draw_set_alpha(debug_alpha);
-	draw_set_font(fnt_mnc);
-	var col = make_color_hsv(global.timer % 255, 255, 255),
-		mx = window_mouse_get_x(),
-		my = window_mouse_get_y();
-	draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha)
-	draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha)
-	draw_text_color(5, 65, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha)
-	var inst = instance_position(mouse_x, mouse_y, all);
-	var inst_name = "";
-
-	//Naming
-	if inst != noone
-	{
-		switch object_get_name(inst.object_index)
-		{
-			case "oOWPlayer":
-				inst_name = "Player";
-			break
-			case "oOWCollision":
-			switch inst.sprite_index
-			{
-				case sprOWSave:
-					inst_name = "Save Point";
-				break
-			}
-			break
-		}
-	}
-	else inst_name = "Nothing";
-	draw_text_color(5, 45, "Pointing At : " + inst_name, c_white, col, c_black, col, debug_alpha);
-	draw_set_halign(fa_right);
-	draw_text_color(635, 5, "FPS: " + string(fps) + " (" + string(fps_real) + ")", c_white, col, c_black, col, debug_alpha);
-	draw_set_halign(fa_left);
-	draw_set_alpha(1);
-	draw_set_color(c_white);
-	gpu_set_blendmode(bm_normal);
-}
+DrawDebugUI();
 #endregion
 

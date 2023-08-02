@@ -304,7 +304,18 @@ function audio_create_stream_array()
 	}
 	return arr;
 }
-
+///@desc Destroys all audio that were streams in the array then remove the array
+///@param {Array<Asset.GMSound>} array	The array of streamed audio to destroy
+function audio_destroy_stream_array(arr)
+{
+	var i = 0;
+	repeat array_length(arr)
+	{
+		audio_stream_destroy(arr[i]);
+		++i;
+	}
+	arr = -1;
+}
 
 function tips()
 {

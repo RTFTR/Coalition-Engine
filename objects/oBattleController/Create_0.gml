@@ -183,10 +183,6 @@ Effect =
 	SeaTeaTurns : 4,
 };
 #endregion
-#region Debug
-allow_debug = false;
-allow_debug = 1;
-#endregion
 
 function dialog_start() {
 	oEnemyParent.state = 1;

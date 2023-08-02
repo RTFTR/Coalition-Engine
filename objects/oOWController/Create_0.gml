@@ -13,6 +13,8 @@ Item_Info_Load(); // Loading item's info
 #region // Dialog properties 
 dialog_exists = false;
 dialog_option = false;
+dialog_sprite = -1;
+dialog_sprite_index = 0;
 #endregion
 
 #region // Menu properties
