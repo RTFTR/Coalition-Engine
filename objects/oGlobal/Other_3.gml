@@ -10,4 +10,6 @@ ds_map_destroy(global.TempData);
 part_system_destroy(global.TrailS);
 part_type_destroy(global.TrailP);
 
-UnloadFonts();
+//UnloadFonts();
+
+time_source_destroy(all);

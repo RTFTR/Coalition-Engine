@@ -115,14 +115,26 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full =
 */
 function draw_rectangle_width_background(x1, y1, x2, y2, width = 1, ocolor = c_white, oalpha = 1, bcolor = c_black, balpha = 1, full = false)
 {
-	var al = draw_get_alpha(), col = draw_get_color();
-	draw_set_alpha(balpha);
-	draw_set_color(bcolor);
-	draw_rectangle(x1, y1, x2, y2, false);
-	draw_set_alpha(oalpha);
-	draw_rectangle_width(x1, y1, x2, y2, width, ocolor, full);
-	draw_set_alpha(al);
-	draw_set_color(col);
+	if !full && oalpha != 1 && balpha != 1
+	{
+		var al = draw_get_alpha(), col = draw_get_color();
+		draw_set_alpha(balpha);
+		draw_set_color(bcolor);
+		draw_rectangle(x1, y1, x2, y2, false);
+		draw_set_alpha(oalpha);
+		draw_rectangle_width(x1, y1, x2, y2, width, ocolor, full);
+		draw_set_alpha(al);
+		draw_set_color(col);
+	}
+	else
+	{
+		var col = draw_get_color();
+		draw_set_color(ocolor);
+		draw_rectangle(x1, y1, x2, y2, false);
+		draw_set_color(bcolor);
+		draw_rectangle(x1 + width, y1 + width, x2 - width, y2 - width, false);
+		draw_set_color(col);
+	}
 }
 
 /**

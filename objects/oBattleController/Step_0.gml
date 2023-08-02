@@ -398,7 +398,7 @@ if Target.WaitTime == 0 {
 }
 
 //Debug
-if debug {
+if global.debug {
 	if keyboard_check(vk_rshift) {
 		if room_speed > 5 {
 			room_speed += 5 * input_horizontal;

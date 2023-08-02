@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.7.9"
+#macro ENGINE_VERSION "Beta v4.7.10"
 #macro ALLOW_DEBUG  true
 
 enum FONTS {

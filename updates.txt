@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.7.10 (Eden)
+2.5D camera is semi functional, angle is broken, thinking how to fix
+fixed some functions
+
 v4.7.9 (Eden)
 moved debug ui drawing to a function
 overworld dialog now fully supports face (character face during dialog), i dont know why this isnt a thing before its so easy

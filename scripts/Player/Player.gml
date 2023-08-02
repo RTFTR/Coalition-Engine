@@ -119,7 +119,7 @@ function Player_GetExpNext()
 	var _exp = 
 	[10, 20, 40, 50, 80, 100, 200, 300, 400, 500,
 	 800, 1000, 1500, 2000, 3000, 5000, 10000, 25000, 49999];
-	return Sigma(_exp, 0, max(0, global.data.lv - 1));
+	return (global.data.lv == 20) ? 0 : _exp[global.data.lv - 1];
 }
 
 ///@desc Sets/Gets the name of the player

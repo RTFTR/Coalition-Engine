@@ -174,8 +174,16 @@ function Effect_SetParam(ID, name, val)
 ///@param {real} Decrease	The amount of intensity to decrease after each frame
 function Camera_Shake(amount, decrease = 1)
 {
-	oGlobal.camera_shake_i = ceil(amount);
-	oGlobal.camera_decrease_i = ceil(decrease);
+	with oGlobal
+	{
+		camera_shake_i = ceil(amount);
+		camera_decrease_i = ceil(decrease);
+		if camera_enable_z
+		{
+			camAngleXShake = amount / 2;
+			camAngleYShake = -amount / 2;
+		}
+	}
 }
 
 ///@desc Sets the scale of the Camera
@@ -440,7 +448,7 @@ function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _
 }
 
 /**
-	@desc Draws a gradient effect (transparent -> given color)
+	@desc Draws a gradient effect using shader (not gpu intensive) (transparent -> given color)
 	@param {real} x X position of the bottom left corner
 	@param {real} y Y position of the bottom right corner
 	@param {real} width The width of the gradient

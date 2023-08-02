@@ -162,10 +162,10 @@ if is_saving
 		ui_box_y = menu_at_top ? 45 : 328,
 		ui_width = 130,
 		ui_height = 98,
-		ui_box_frame = 6
+		ui_box_frame = 5
 
 	// Box Drawing
-				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
+	draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
 
 	// String var declaration
 	var name =			string(global.data.name),
@@ -177,17 +177,17 @@ if is_saving
 	// String drawing
 	draw_set_color(c_white);
 
-	draw_text_scribble(ui_box_x + 8, ui_box_y + 3, "[fnt_dt_sans]" + name);
+	draw_text_scribble(ui_box_x + 12, ui_box_y + 3, "[fnt_dt_sans]" + name);
 
 
 	draw_set_font(fnt_cot);
-	draw_text(ui_box_x + 8, ui_box_y + 36, "LV  " + lv);
-	draw_text(ui_box_x + 8, ui_box_y + 54, "HP  " + hp + "/" + max_hp);
+	draw_text(ui_box_x + 12, ui_box_y + 36, "LV  " + lv);
+	draw_text(ui_box_x + 12, ui_box_y + 54, "HP  " + hp + "/" + max_hp);
 
 	// Toby Fox method because the number in Gold is not aligned correctly with spaces
-	var ui_num_x = ui_box_x + 8 + string_width("LV  ");
-	draw_text(ui_box_x + 8, ui_box_y + 72, "G");
-	draw_text(ui_num_x, ui_box_y + 72, gold)
+	var ui_num_x = ui_box_x + 12 + string_width("LV  ");
+	draw_text(ui_box_x + 12, ui_box_y + 72, "G");
+	draw_text(ui_num_x, ui_box_y + 72, gold);
 
 	#endregion
 
@@ -273,7 +273,7 @@ if is_saving
 				draw_text(216, ui_box_y + 183, "AT " + string(global.player_base_atk) + " (" + string(global.player_attack) + ")");
 				draw_text(216, ui_box_y + 215, "DF " + string(global.player_base_def) + " (" + string(global.player_def) + ")");
 				draw_text(384, ui_box_y + 183, "EXP: " + string(global.data.Exp));
-				draw_text(384, ui_box_y + 215, "NEXT: " + string(Player_GetExpNext() - Player_GetLvBaseExp()));
+				draw_text(384, ui_box_y + 215, "NEXT: " + string(Player_GetExpNext()));
 				draw_text(216, ui_box_y + 273, "WEAPON: " + string(global.data.AttackItem));
 				draw_text(216, ui_box_y + 305, "ARMOR: " + string(global.data.DefenseItem));
 				draw_text(216, ui_box_y + 347, "GOLD: " + gold);

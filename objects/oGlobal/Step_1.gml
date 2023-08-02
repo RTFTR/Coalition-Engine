@@ -29,16 +29,10 @@ if keyboard_check_pressed(vk_f4)
 //Debug functions
 if ALLOW_DEBUG
 {
-	if keyboard_check_pressed(vk_f9)
-		global.show_hitbox = !global.show_hitbox;
-
+	global.debug ^= keyboard_check_released(vk_f3);
+	global.show_hitbox ^= keyboard_check_released(vk_f9);
 	if keyboard_check_pressed(vk_f7)
 		room_goto(rDebug);
-
-	if keyboard_check_pressed(vk_f3)
-	{
-		global.debug = !global.debug;
-	}
 	if keyboard_check(vk_alt)
 		if keyboard_check_pressed(ord("S"))
 			Screenshot(room_get_name(room));

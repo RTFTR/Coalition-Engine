@@ -16,24 +16,22 @@ camera_decrease_i = 1;
 camera_angle = 0;
 camera_target = noone;
 camera_previous_target = noone;
-//Not recommended to enable until the correct default settings are found
+//camera angle is bugged when enabled, so don't set camera_angle to be non-zero if enabled
 camera_enable_z = false;
 // Set up 3D camera
 camDist	= -240;
 camFov	= 90;
-camAsp	= camera_get_view_width(Main_Camera) / camera_get_view_height(Main_Camera);
+camAsp	= camera_view_width / camera_view_height;
 camXDisplace = 0;
 camYDisplace = 0;
 
 // Rotation
-allowRotation = true;
-camSensitivityX = 1;
-camSensitivityY = 1;
-
 camAngleXRaw = 90;
 camAngleYRaw = 0;
 camAngleX = camAngleXRaw;
 camAngleY = camAngleYRaw;
+camAngleXShake = 0;
+camAngleYShake = 0;
 
 quit_timer = 0;
 
