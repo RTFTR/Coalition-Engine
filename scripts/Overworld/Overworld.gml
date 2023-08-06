@@ -25,9 +25,9 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 		
 		var dialog_width = 580,
 			dialog_height = 150;
-		text_writer = scribble("* " + text)
+		__text_writer = scribble("* " + text)
 			.scale_to_box(dialog_width - 20 - dis, dialog_height - 20)
-		if text_writer.get_page() != 0 text_writer.page(0);
+		if __text_writer.get_page() != 0 __text_writer.page(0);
 		
 		dialog_is_down = top_bottom;
 		dialog_exists = true;
@@ -60,9 +60,9 @@ function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono",
 		
 		var dialog_width = 580,
 			dialog_height = 150;
-		text_writer = scribble("* " + question)
+		__text_writer = scribble("* " + question)
 			.scale_to_box(dialog_width - 20, dialog_height - 20)
-		if text_writer.get_page() != 0 text_writer.page(0);
+		if __text_writer.get_page() != 0 __text_writer.page(0);
 		
 		option_name = option_texts;
 		option_length[0] = 25;

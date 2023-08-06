@@ -39,7 +39,8 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amoun
 		}
 	}
 	damage = max(round(damage), 1);
-	Enemy_SetDamage(target, damage);
+	with target
+		Enemy_SetDamage(damage);
 }
 
 
@@ -96,7 +97,7 @@ function end_battle() {
 	battle_state = 3;
 	if !global.BossFight {
 		battle_end_text = "You WON![delay,333]\n* You earned " + string(Result.Exp) + " XP and " + string(Result.Gold) + " gold.";
-		if global.data.Exp + Result.Exp >= Player_GetExpNext() {
+		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
 			var maxhp = false;
 			global.data.lv++;
 			if global.hp == global.hp_max maxhp = true;
@@ -326,12 +327,15 @@ switch battle_state {
 						Item_Use(global.item[ceil(ItemID)]);
 						last_choice = 2;
 						item_space = Item_Space();
+						item_space = 0;
+						// If no item left then item button commit gray
+						if item_space <= 0 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 					}
 					else // Action-executing code
 					{
 						menu_text_typist.reset();
-						text_writer = scribble("* " + enemy_act_text[target_option, choice]);
-						if text_writer.get_page() != 0 text_writer.page(0);
+						__text_writer = scribble("* " + enemy_act_text[target_option, choice]);
+						if __text_writer.get_page() != 0 __text_writer.page(0);
 						menu_state = -1;
 						if enemy_act_function[target_option, choice] != -1
 							enemy_act_function[target_option, choice]();

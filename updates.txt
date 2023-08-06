@@ -1,5 +1,12 @@
 Update Logs (This is the beta builds)
 
+v4.7.11 (Eden)
+changed some variable names to know its a internal variable
+fixed some bugs
+optimised (what how)
+moved the sans drawing template from the parent object to the sans object (no idea why it was at parent object at all lmao)
+added function for mid-turn dialog
+
 v4.7.10 (Eden)
 2.5D camera is semi functional, angle is broken, thinking how to fix
 fixed some functions

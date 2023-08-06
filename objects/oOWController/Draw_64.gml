@@ -32,8 +32,8 @@ if dialog_exists
 			sprite_dis_y = sprite_get_yoffset(dialog_sprite) - spr_h / 2;
 		draw_sprite_ext(dialog_sprite, dialog_sprite_index, dialog_box_x + 60 + sprite_dis_x, dialog_box_y + 80 + sprite_dis_y, 80 /spr_w, 80 / spr_h, 0, c_white, 1);
 	}
-	text_writer.starting_format(dialog_font, c_white)
-	text_writer.draw(dialog_box_x + 25 + dis, dialog_box_y + 20, dialog_typist)
+	__text_writer.starting_format(dialog_font, c_white)
+	__text_writer.draw(dialog_box_x + 25 + dis, dialog_box_y + 20, dialog_typist)
 	
 	//Check if the dialog is currently an option and draw if question is asked and buffer time has expired
 	if dialog_option and dialog_typist.get_state() == 1
@@ -51,11 +51,11 @@ if dialog_exists
 	//Dialog skipping
 	if input_cancel and global.TextSkipEnabled
 	{
-		text_writer.page(text_writer.get_page_count() - 1);
-		dialog_typist.skip();
+		__text_writer.page(__text_writer.get_page_count() - 1);
+		dialog_typist.skip_to_pause();
 	}
-	if dialog_typist.get_state() == 1 and text_writer.get_page() < (text_writer.get_page_count() - 1)
-		text_writer.page(text_writer.get_page() + 1)
+	if dialog_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
+		__text_writer.page(__text_writer.get_page() + 1)
 	if dialog_typist.get_state() == 1
 	{
 		if input_confirm

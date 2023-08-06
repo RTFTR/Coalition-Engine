@@ -140,9 +140,9 @@ function Item_Use(item){
 		menu_choice[2] = 0;
 		menu_text_typist.reset();
 		menu_text = heal_text + hp_text + stat_text;
-		text_writer = scribble("* " + menu_text);
+		__text_writer = scribble("* " + menu_text);
 		menu_text = default_menu_text;
-		if text_writer.get_page() != 0 text_writer.page(0);
+		if __text_writer.get_page() != 0 __text_writer.page(0);
 	
 		menu_state = -1;
 	}

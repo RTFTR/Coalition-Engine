@@ -31,4 +31,4 @@ repeat(array_length(edge_list))
 	i++;
 }
 
-if Battle_GetState() == 0 instance_destroy();
+if Battle_State() == 0 instance_destroy();

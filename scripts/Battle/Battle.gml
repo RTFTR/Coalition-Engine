@@ -4,8 +4,8 @@ function Battle_SetMenuDialog(text)
 {
 	with oBattleController
 	{
-		text_writer = scribble("* " + text);
-		if text_writer.get_page() != 0 text_writer.page(0);
+		__text_writer = scribble("* " + text);
+		if __text_writer.get_page() != 0 __text_writer.page(0);
 	}
 }
 
@@ -86,7 +86,7 @@ function Slam(direction, move = 20, hurt = false)
 }
 
 function Battle_Masking_Start(spr = false, board = oBoard) {
-	
+	if oGlobal.camera_enable_z exit;
 	if instance_exists(board) and depth >= board.depth
 	{
 		var shader = spr ? shdClipMaskSpr : shdClipMask;
@@ -106,20 +106,26 @@ function Battle_Masking_Start(spr = false, board = oBoard) {
 }
 
 function Battle_Masking_End(board = oBoard){
+	if oGlobal.camera_enable_z exit;
 	if instance_exists(board) shader_reset();
 }
 
-///@desc Gets the State of the battle
-function Battle_GetState()
+///@desc Gets/Sets the State of the battle
+///@param {real} state	The state to set it to
+function Battle_State(state = infinity)
 {
-	return (instance_exists(oBattleController) ? oBattleController.battle_state : -1);
+	if state != infinity
+		oBattleController.battle_state = state;
+	else return instance_exists(oBattleController) ? oBattleController.battle_state : -1;
 }
 
-///@desc Sets the State of the battle
-///@param {real} state	The state to set it to
-function Battle_SetState(state)
+//@desc Gets/Sets the turn of the battle
+///@param {real} turn The turn to set it to
+function Battle_Turn(turn = infinity)
 {
-	oBattleController.battle_state = state;
+	if turn != infinity
+		oBattleController.battle_turn = turn + 1;
+	else return oBattleController.battle_turn - 1;
 }
 
 ///@desc Check whether an obj is collidiing with a board

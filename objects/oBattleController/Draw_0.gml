@@ -14,17 +14,17 @@ if battle_state == BATTLE_STATE.MENU {
 	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
 
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
-		text_writer.starting_format("fnt_dt_mono", c_white)
-		text_writer.draw(52, 272, menu_text_typist)
+		__text_writer.starting_format("fnt_dt_mono", c_white)
+		__text_writer.draw(52, 272, menu_text_typist)
 
 
 		if input_cancel and global.TextSkipEnabled
 		{
-			text_writer.page(text_writer.get_page_count() - 1);
+			__text_writer.page(__text_writer.get_page_count() - 1);
 			menu_text_typist.skip();
 		}
-		if menu_text_typist.get_state() == 1 and text_writer.get_page() < (text_writer.get_page_count() - 1)
-			text_writer.page(text_writer.get_page() + 1)
+		if menu_text_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
+			__text_writer.page(__text_writer.get_page() + 1)
 		if menu_state == -1 and menu_text_typist.get_state() == 1 {
 			if input_confirm begin_turn();
 		}
@@ -599,11 +599,8 @@ var _button_spr =	button_spr,
 
 repeat(array_length(_button_spr)) // Button initialize
 {
-	// If no item left then item button commit gray
-	if item_space <= 0 and i == 2 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
-
 	// Check if the button is chosen
-	var select = (_menu == i) and _state >= 0 and _state != -1
+	var select = (_menu == i) and _state >= 0;
 
 	// Draw the button by array order
 	if button_background_cover
@@ -615,7 +612,7 @@ repeat(array_length(_button_spr)) // Button initialize
 	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
 
 	// Animation - Color updating in real-time because yes
-	if (_state >= 0 and _state != -1) {
+	if (_state >= 0) {
 		if _menu == i // The chosen button
 		{
 			_button_scale[_menu] += (button_scale_target[1] - _button_scale[_menu]) / 6;
@@ -630,7 +627,8 @@ repeat(array_length(_button_spr)) // Button initialize
 			for (var ii = 0; ii < 3; ++ii)
 				_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 		}
-	} else // If the menu state is over
+	}
+	else // If the menu state is over
 	{
 		var final_alpha = min(button_alpha_target[1], button_override_alpha[i]);
 		_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
@@ -638,7 +636,7 @@ repeat(array_length(_button_spr)) // Button initialize
 		for (var ii = 0; ii < 3; ++ii)
 			_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 	}
-	i++;
+	++i;
 }
 if board_cover_button {
 	Battle_Masking_Start(true);
@@ -742,13 +740,14 @@ if board_cover_button {
 	// KR bar
 	if global.kr_activation {
 		krr_col = (round(kr) ? kr_col : krr_col);
-
+		
+		// Draw icon
+		f_alpha = min(ui_override_alpha[4], _alpha);
+		draw_set_alpha(f_alpha);
 		// Draw the bar
 		if round(kr)
 			draw_rectangle_color(hp_x + _hp + 1, hp_y, max(hp_x + _hp - _kr, hp_x), hp_y + 20, krr_col, krr_col, krr_col, krr_col, false);
 
-		// Draw icon
-		f_alpha = min(ui_override_alpha[4], _alpha);
 		draw_text_color((hp_x + 10) + _hp_max, hp_y + 5, kr_text, krr_col, krr_col, krr_col, krr_col, f_alpha);
 	}
 	draw_set_alpha(ui_alpha);

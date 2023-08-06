@@ -9,18 +9,21 @@ var E_Sprites = array_length(enemy_sprites),
 wiggle_timer = wiggle ? wiggle_timer + 1 : 0;
 
 //Slamming
-if Slamming {
-	SlamTimer++;
-	var _slam_dir = SlamDirection / 90;
-	if SlamTimer
-		FinalSprites[SlamSpriteNumber] = SlamSprites[_slam_dir, SlamSpriteIndex];
-	if SlamTimer and SlamTimer < 25
-		FinalIndex[SlamSpriteNumber] = SlamSpriteTargetIndex[_slam_dir, SlamTimer / 5];
-	if SlamTimer >= 30 Slamming = false;
-}
-else
+if SlammingEnabled
 {
-	SlamTimer = 0;
+	if Slamming {
+		SlamTimer++;
+		var _slam_dir = SlamDirection / 90;
+		if SlamTimer
+			FinalSprites[SlamSpriteNumber] = SlamSprites[_slam_dir, SlamSpriteIndex];
+		if SlamTimer and SlamTimer < 25
+			FinalIndex[SlamSpriteNumber] = SlamSpriteTargetIndex[_slam_dir, SlamTimer / 5];
+		if SlamTimer >= 30 Slamming = false;
+	}
+	else
+	{
+		SlamTimer = 0;
+	}
 }
 
 for (var i = 0; i < E_Sprites; ++i) {

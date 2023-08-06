@@ -16,7 +16,7 @@ if RGBShake
 			gpu_set_blendmode(bm_add);
 			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
 			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
-			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, make_color_rgb(0, 255, 0), 1);
+			draw_surface_ext(RGBSurf, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_dkgreen, 1);
 			gpu_set_blendmode(bm_normal);
 		break
 		//Application surface drawing (No shadow, brighter)
@@ -24,7 +24,7 @@ if RGBShake
 			gpu_set_blendmode(bm_add);
 			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
 			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_blue, 1);
-			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, make_color_rgb(0, 255, 0), 1);
+			draw_surface_ext(application_surface, random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_dkgreen, 1);
 			gpu_set_blendmode(bm_normal);
 		break
 	}
@@ -45,11 +45,10 @@ if Song.Activate
 		Length = string_width(Text),
 		Height = string_height(Text) * 1.3,
 		dist = Song.Dist;
-	var col = [c_teal, c_purple];
-	draw_rectangle_color(dist - 10, 10, dist - Length - 20, 15 + Height, col[0], col[1],
-						col[1], col[0], false);
+	draw_rectangle_color(dist - 10, 10, dist - Length - 20, 15 + Height, c_teal, c_purple,
+						c_purple, c_teal, false);
 	draw_triangle_color(dist - 11, 10, dist + 20, (15 + Height + 10) / 2, dist - 11, 15 + Height,
-						col[1], col[1], col[1], false);
+						c_purple, c_purple, c_purple, false);
 	draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
 	if Song.Time < 60
 		Song.Dist = lerp(dist, Length, 0.21);

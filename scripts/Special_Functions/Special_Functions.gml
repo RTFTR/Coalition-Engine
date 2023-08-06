@@ -554,7 +554,7 @@ function SnapToNearestEdge(_px, _py, _pointArray)
 		}
 }
 /**
-	* Clamps the soul inside the board
+	* Clamps the soul inside the board (testing)
 */
 function BoardClampSoul()
 {

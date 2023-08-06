@@ -14,26 +14,25 @@ function RemoveEnemy()
 // Check if other enemies are dying
 for (var i = 0, n = instance_number(oEnemyParent), enemy_find; i < n; ++i) {
 	enemy_find[i] = instance_find(oEnemyParent, i);
-	if enemy_find[i].is_dying
+	if enemy_find[i].__is_dying
 		state = 0.6;
 }
 var _turn = oBattleController.battle_turn - 1;
 if state > 0.5 and state < 1
-	state += 0.1
-
+	state += 0.1;
 
 //Dusting
-if !died {
-	if !is_dying or(is_dying and death_time < 1 + attack_end_time) {
+if !__died {
+	if !__is_dying or(__is_dying and __death_time < 1 + attack_end_time) {
 		//If not dying then normal drawing
 		event_user(0);
 	}
 	else
-	if death_time >= 1 + attack_end_time {
+	if __death_time >= 1 + attack_end_time {
 		if ContainsDust
 		{
 			//Main dust drawing
-			dust_being_drawn = false;
+			__dust_being_drawn = false;
 			for (var i = 0; i < dust_height * dust_amount / enemy_total_height; i += 3) {
 				if dust_alpha[i] > 0 {
 					draw_sprite_ext(sprPixel, 0, dust_pos[i, 0], dust_pos[i, 1], 1.5, 1.5, 0, c_white, dust_alpha[i]);
@@ -46,21 +45,21 @@ if !died {
 		{
 			//Make the enemy sprite fade from top to bottom by surface because
 			//draw_sprite_part_ext takes too much math and i dont have a brain
-			surface_set_target(dust_surface);
+			surface_set_target(__dust_surface);
 			draw_clear_alpha(c_black, 0);
 			event_user(0);
 			surface_reset_target();
 			var DrawingHeight = dust_height * 480 / dust_speed;
-			draw_surface_part(dust_surface, 0, DrawingHeight, 640, 480 - DrawingHeight, 0, DrawingHeight);
+			draw_surface_part(__dust_surface, 0, DrawingHeight, 640, 480 - DrawingHeight, 0, DrawingHeight);
 		}
 	}
 }
 
 //The dialog thing
-if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
+if (state == 1 or (state == 2 and dialog_at_mid_turn)) and !__died and !is_spared
 {
 	if dialog_at_mid_turn time--;
-	if _turn < 0 _turn = 0
+	if _turn < 0 _turn = 0;
 	if dialog_text[_turn] == ""
 	{
 		oBattleController.begin_turn();
@@ -96,18 +95,18 @@ if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
 					CornerPosition[3] - 1, CornerPosition[1] - CornerHeight - 1, 1);
 	draw_set_color(dialog_box_color);
 	var SpikePosition = [
-		[CornerPosition[3], CornerPosition[1] - SpikeHeight - 10],
-		[CornerPosition[2] + SpikeWidth + 10, CornerPosition[0]],
-		[CornerPosition[2], CornerPosition[1] - SpikeHeight - 10],
-		[CornerPosition[3] - SpikeWidth - 10, CornerPosition[1]],
-	],
-	SpikeScaleAngle = [
-		[-1, 1, 0],
-		[-1, 1, 90],
-		[1, 1, 0],
-		[1, 1, 90],
-	],
-	FinalDirection = dialog_dir / 90;
+			[CornerPosition[3], CornerPosition[1] - SpikeHeight - 10],
+			[CornerPosition[2] + SpikeWidth + 10, CornerPosition[0]],
+			[CornerPosition[2], CornerPosition[1] - SpikeHeight - 10],
+			[CornerPosition[3] - SpikeWidth - 10, CornerPosition[1]],
+		],
+		SpikeScaleAngle = [
+			[-1, 1, 0],
+			[-1, 1, 90],
+			[1, 1, 0],
+			[1, 1, 90],
+		],
+		FinalDirection = dialog_dir / 90;
 	draw_sprite_ext(SpikeSprite, 0, SpikePosition[FinalDirection, 0], SpikePosition[FinalDirection, 1],
 					SpikeScaleAngle[FinalDirection, 0], SpikeScaleAngle[FinalDirection, 1],
 					SpikeScaleAngle[FinalDirection, 2], dialog_box_color, 1);
@@ -120,34 +119,38 @@ if state == 1 or (state == 2 and dialog_at_mid_turn) and !died and !is_spared
 	draw_set_color(c_white);
 
 	//Text
-	text_writer.starting_format("fnt_sans", c_white)
-	text_writer.draw(CornerPosition[2] + CornerWidth, CornerPosition[0] + CornerHeight, dialog_text_typist)
+	__dialog_text_typist.sound_per_char(default_sound, 1, 1, " ^!.?,:/\\|*");
+	__text_writer.starting_format(default_font, c_black)
+	__text_writer.draw(CornerPosition[2] + CornerWidth, CornerPosition[0] + CornerHeight, __dialog_text_typist)
 
 
 	if input_check_pressed("cancel") and global.TextSkipEnabled
-		dialog_text_typist.skip_to_pause();
+		__dialog_text_typist.skip_to_pause();
 		
-	if dialog_text_typist.get_paused() and input_check_pressed("confirm")
-		dialog_text_typist.unpause();
+	if __dialog_text_typist.get_paused() and input_check_pressed("confirm")
+		__dialog_text_typist.unpause();
 		
-	if dialog_text_typist.get_state() == 1 and
-		text_writer.get_page() < (text_writer.get_page_count() - 1)
-		text_writer.page(text_writer.get_page() + 1);
+	if __dialog_text_typist.get_state() == 1 and
+		__text_writer.get_page() < (__text_writer.get_page_count() - 1)
+		__text_writer.page(__text_writer.get_page() + 1);
 		
-	if dialog_text_typist.get_state() == 1 {
+	if __dialog_text_typist.get_state() == 1 {
 		if input_check_pressed("confirm") {
+			__dialog_text_typist.reset();
+			if !dialog_at_mid_turn
+			{
+				var text = (oBattleController.battle_turn < array_length(dialog_text) and state == 1) ?
+					dialog_text[oBattleController.battle_turn] : "";
+				dialog_init(text);
+				if state == 1
+					oBattleController.begin_turn();
+			}
 			if dialog_at_mid_turn dialog_at_mid_turn = false;
-			dialog_text_typist.reset();
-			var text = (oBattleController.battle_turn < array_length(dialog_text) and state == 1) ?
-				dialog_text[oBattleController.battle_turn] : "";
-			dialog_init(text, true);
-			if state == 1
-				oBattleController.begin_turn();
 		}
 	}
 }
 
-if !died and !is_spared
+if !__died and !is_spared
 	if is_being_attacked {
 		if is_dodge // The movement for dodge
 		{
@@ -216,17 +219,17 @@ if !died and !is_spared
 		else
 		{
 			//If is gonna die
-			is_dying = true;
-			death_time++;
-			if death_time = 1 + attack_end_time {
+			__is_dying = true;
+			__death_time++;
+			if __death_time = 1 + attack_end_time {
 				//Play sound and stop damage display
 				draw_damage = false;
 				audio_play(snd_vaporize);
 			}
-			if death_time = 1 + attack_end_time + dust_speed + 60 {
+			if __death_time = 1 + attack_end_time + dust_speed + 60 {
 				//Set enemy is throughly dead when dust is gone
-				is_dying = false;
-				died = true;
+				__is_dying = false;
+				__died = true;
 				is_being_attacked = false;
 				enemy_in_battle = false;
 				global.data.Kills++;
@@ -237,7 +240,7 @@ if !died and !is_spared
 	}
 
 if is_being_spared {
-	if !died and!is_spared
+	if !__died and!is_spared
 		if enemy_is_spareable {
 			if spare_function == -1
 			{
