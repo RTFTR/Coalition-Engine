@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.7.12 (Eden)
+fixed some bugs
+added demo of multi language support
+moved included files to a seperate folder because tidy
+
 v4.7.11 (Eden)
 changed some variable names to know its a internal variable
 fixed some bugs

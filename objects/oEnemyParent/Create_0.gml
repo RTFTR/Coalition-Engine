@@ -105,6 +105,7 @@ draw_damage = false;
 damage_y = y - enemy_total_height / 2 - 60;
 damage = 0;
 damage_color = c_red;
+damage_event = function(){};
 bar_width = 120;
 bar_retract_speed = 0.6;
 

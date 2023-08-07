@@ -1,7 +1,10 @@
 var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
 	input_vertical = input_check_pressed("down") - input_check_pressed("up"),
 	input_confirm = input_check_pressed("confirm"),
-	input_cancel = input_check_pressed("cancel");
+	input_cancel = input_check_pressed("cancel"),
+	LangText = global.AllLanguageTexts[global.Language],
+	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
+	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
 // Text Functions
 if battle_state == BATTLE_STATE.MENU {
 	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
@@ -14,7 +17,7 @@ if battle_state == BATTLE_STATE.MENU {
 	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
 
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
-		__text_writer.starting_format("fnt_dt_mono", c_white)
+		__text_writer.starting_format(DefaultFontNB, c_white)
 		__text_writer.draw(52, 272, menu_text_typist)
 
 
@@ -40,7 +43,7 @@ if battle_state == BATTLE_STATE.MENU {
 			{
 				var spare_col = "[c_white]";
 				if enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
-					draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + "[fnt_dt_mono]* " + _enemy_name);
+					draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + DefaultFont + "* " + _enemy_name);
 				var xwrite = 450;
 				if menu_state == MENU_STATE.FIGHT and enemy_draw_hp_bar[i] == 1 {
 					decrease_y -= 32;
@@ -73,11 +76,11 @@ if battle_state == BATTLE_STATE.MENU {
 			for (var i = 0, n = min(4, itm_ln - _coord); i < n; ++i) {
 				var xx = (64 + ((i % 2) * 256)) + 32,
 					yy = 272 + (floor(i / 2) * 32);
-				draw_text_scribble(xx, yy, "[fnt_dt_mono]* " + item_name[i + _coord]);
+				draw_text_scribble(xx, yy, DefaultFont + "* " + item_name[i + _coord]);
 			}
 			// Heal text and Page
-			draw_text_scribble(128, 341, "[fnt_dt_mono][c_lime](+" + string(item_heal[coord]) + ")");
-			draw_text_scribble(384, 341, "[fnt_dt_mono]PAGE " + string(c_div + 1));
+			draw_text_scribble(128, 341, DefaultFont + "[c_lime](+" + string(item_heal[coord]) + ")");
+			draw_text_scribble(384, 341, DefaultFont + LangText[LANGUAGE_TEXTS.PAGE0] + string(c_div + 1) + LangText[LANGUAGE_TEXTS.PAGE1]);
 			break
 			
 			case ITEM_SCROLL.VERTICAL:
@@ -88,7 +91,7 @@ if battle_state == BATTLE_STATE.MENU {
 			{	
 				var xx = item_lerp_x[i],
 					yy = item_lerp_y[0] + (32 * (i));
-				draw_set_font(fnt_dt_mono);
+				draw_set_font(asset_get_index(DefaultFontNB));
 				var color = merge_color(c_black, c_white, item_lerp_color_amount[i]);
 				draw_set_color(color);
 				draw_text(xx, yy, "* " + item_name[i]);
@@ -111,7 +114,7 @@ if battle_state == BATTLE_STATE.MENU {
 					yy = 320 - abs(i * 40);
 				item_scroll_alpha[i + 1] += (ItemTxtAlTar - item_scroll_alpha[i + 1]) / 6;
 				var ItemTxtAl = "[alpha," + string(item_scroll_alpha[i + 1]) +"]";
-				draw_text_scribble(xx, yy, "[fnt_dt_mono][fa_center]" + ItemTxtAl + "* " + item_name[i + 1 + _coord])
+				draw_text_scribble(xx, yy, DefaultFont+ "[fa_center]" + ItemTxtAl + "* " + item_name[i + 1 + _coord])
 			}
 			break
 		}
@@ -126,7 +129,7 @@ if battle_state == BATTLE_STATE.MENU {
 					spare_col = global.SpareTextColor;
 			i++;
 		}
-		draw_text_scribble(96, 272, spare_col + "[fnt_dt_mono]* Spare" + (allow_run ? "[c_white]\n* Flee" : ""));
+		draw_text_scribble(96, 272, spare_col + DefaultFont + LangText[LANGUAGE_TEXTS.SPARE] + (allow_run ? "[c_white]\n" + LangText[LANGUAGE_TEXTS.FLEE] : ""));
 	}
 	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
 	{
@@ -141,7 +144,7 @@ if battle_state == BATTLE_STATE.MENU {
 					enemy_check_texts += " ";
 			++i;
 		}
-		draw_text_scribble(96, 272, "[fnt_dt_mono]" + enemy_check_texts);
+		draw_text_scribble(96, 272, DefaultFont + enemy_check_texts);
 	}
 
 	if menu_state == MENU_STATE.FIGHT_AIM //Fight Anim
@@ -199,6 +202,7 @@ if battle_state == BATTLE_STATE.MENU {
 				}
 				else {
 					_target_alpha -= 0.04;
+					if _target_retract_method == 0 _target_xscale -= 0.03;
 					if _target_retract_method == 0 _target_xscale -= 0.03;
 					else _target_yscale -= 0.03;
 
@@ -549,7 +553,7 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	if menu_state = MENU_STATE.FLEE
 	{
-		draw_text_scribble(96, 272, "[fnt_dt_mono]* " + FleeText[FleeTextNum]);
+		draw_text_scribble(96, 272, DefaultFont + "* " + FleeText[FleeTextNum]);
 		if oSoul.x <= 10 and FleeState == 1
 		{
 			Fader_Fade(0, 1, 30);
@@ -564,7 +568,7 @@ if battle_state == BATTLE_STATE.MENU {
 }
 if battle_state == BATTLE_STATE.RESULT {
 	if !global.BossFight {
-		battle_end_text_writer.starting_format("fnt_dt_mono", c_white)
+		battle_end_text_writer.starting_format(DefaultFontNB, c_white)
 		battle_end_text_writer.draw(52, 272, battle_end_text_typist)
 
 		if input_cancel {

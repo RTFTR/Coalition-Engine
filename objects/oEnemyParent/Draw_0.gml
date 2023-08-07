@@ -4,6 +4,9 @@ function RemoveEnemy()
 	instance_destroy();
 	if instance_exists(oBattleController)
 		with oBattleController {
+			//Add Reward
+			Result.Gold += other.Gold_Give;
+			Result.Exp += other.Exp_Give;
 			var enemy_slot = other.x / 160 - 1;
 			enemy[enemy_slot] = noone;
 			enemy_draw_hp_bar[enemy_slot] = 0;
@@ -166,6 +169,7 @@ if !__died and !is_spared
 		{
 			if !instance_exists(oStrike) {
 				if attack_time == 0 {
+					damage_event();
 					audio_play(snd_damage);
 					_enemy_hp = enemy_hp;
 					damage_color = c_ltgray;
@@ -282,7 +286,7 @@ if is_spared and image_alpha == 0.5 {
 if state == 2 {
 	draw_set_halign(fa_right);
 	draw_set_color(c_white);
-	if oBattleController.debug
+	if global.debug
 		if array_length(turn_time) > _turn
 			draw_text(640, 10, "Time: " + string(time) + " / " + string(turn_time[_turn]));
 	draw_set_halign(fa_left);

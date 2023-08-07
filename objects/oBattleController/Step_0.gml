@@ -1,5 +1,8 @@
 if !audio_group_is_loaded(audgrpbattle)
 	audio_group_load(audgrpbattle);
+var LangText = global.AllLanguageTexts[global.Language],
+	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
+	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
 #region Local Functions
 function scr_enemy_choice()
 {
@@ -96,14 +99,15 @@ function begin_spare(activate_the_turn) {
 function end_battle() {
 	battle_state = 3;
 	if !global.BossFight {
-		battle_end_text = "You WON![delay,333]\n* You earned " + string(Result.Exp) + " XP and " + string(Result.Gold) + " gold.";
+		var LangText = global.AllLanguageTexts[global.Language];
+		battle_end_text = LangText[LANGUAGE_TEXTS.WIN1] + "[delay,333]\n* " + LangText[LANGUAGE_TEXTS.WIN2] + string(Result.Exp) + LangText[LANGUAGE_TEXTS.WIN3] + string(Result.Gold) + LangText[LANGUAGE_TEXTS.WIN4];
 		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
 			var maxhp = false;
 			global.data.lv++;
 			if global.hp == global.hp_max maxhp = true;
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
-				battle_end_text += "\n You LOVE increased!";
+				battle_end_text += "\n " + LangText[LANGUAGE_TEXTS.INC_LOVE];
 			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);

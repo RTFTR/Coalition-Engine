@@ -19,6 +19,6 @@
 #macro INPUT_SDL2_ALLOW_EXTENDED  true
 
 //The following macros hold the names of various source files that Input uses to hold gamepad data
-#macro INPUT_SDL2_DATABASE_PATH    "sdl2.txt"                //Path to the SDL2 database to read gamepad remapping definitions from
-#macro INPUT_CONTROLLER_TYPE_PATH  "controllertypes.csv"     //Path to the controller type database to read gamepad types from
-#macro INPUT_BLACKLIST_PATH        "controllerblacklist.csv" //Path to the controller blacklist database to read from
+#macro INPUT_SDL2_DATABASE_PATH    "./Addons/sdl2.txt"                //Path to the SDL2 database to read gamepad remapping definitions from
+#macro INPUT_CONTROLLER_TYPE_PATH  "./Addons/controllertypes.csv"     //Path to the controller type database to read gamepad types from
+#macro INPUT_BLACKLIST_PATH        "./Addons/controllerblacklist.csv" //Path to the controller blacklist database to read from

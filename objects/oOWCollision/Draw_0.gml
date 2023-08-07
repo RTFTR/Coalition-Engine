@@ -1,4 +1,4 @@
-var input_confirm = input_check_pressed("confirm"),
+var input_confirm = oOWController.menu_state == INTERACT_STATE.IDLE and input_check_pressed("confirm"),
 	collide = instance_place(x, y, oOWPlayer);
 //Properties of Save (INCOMPLETE)
 switch sprite_index

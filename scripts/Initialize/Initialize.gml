@@ -148,4 +148,8 @@ function Initialize()
 	
 	global.deactivatedInstances = ds_list_create();
 	global.trueInstanceCache = ds_list_create();
+	
+	//Load languages
+	global.Language = LANGUAGE.ENGLISH;
+	LoadLanguageTexts();
 }
