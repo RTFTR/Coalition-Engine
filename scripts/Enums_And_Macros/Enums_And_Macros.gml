@@ -1,5 +1,7 @@
-#macro ENGINE_VERSION "Beta v4.7.12"
+#macro ENGINE_VERSION "Beta v4.8.0"
 #macro ALLOW_DEBUG  true
+#macro CHECK_HORIZONTAL input_check("right") - input_check("left")
+#macro CHECK_VERTICAL input_check("down") - input_check("up")
 
 enum FONTS {
 	GAMEOVER,
@@ -23,6 +25,7 @@ function LoadFonts() {
 		font_add("Fonts/Mars Needs Cunnilingus.ttf", 18, false, false, 32, 128),
 		font_add("Fonts/Comic Sans UT.ttf", 12, false, false, 32, 128),
 		font_add("Fonts/UT Hp Font.ttf", 7.5, false, false, 32, 128),
+		font_add("Fonts/fzxs12.ttf", 18, false, false, 32, 128),
 	];
 	//waiting for scribble to be updated to 9.0 so sdf from font_add are supported for scribble
 	//#macro fnt_8bitwonder global.__CoalitionFonts[0]
@@ -43,6 +46,8 @@ function LoadFonts() {
 	//font_enable_sdf(fnt_sans, true);
 	//#macro fnt_uicon global.__CoalitionFonts[8]
 	//font_enable_sdf(fnt_uicon, true);
+	//#macro fnt_menu_chin global.__CoalitionFonts[9]
+	//font_enable_sdf(fnt_menu_chin, true);
 }
 
 function UnloadFonts() {
@@ -120,6 +125,7 @@ enum ITEM_SCROLL
 enum OVERWORLD
 {
 	CORRIDOR = 0,
+	RUINS = 1,
 }
 
 // Batle or Menu States

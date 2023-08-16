@@ -61,7 +61,7 @@ function DrawDebugUI()
 			my = window_mouse_get_y();
 		draw_text_color(5, 5, "Char Position : " + string(oOWPlayer.x) + ", " + string(oOWPlayer.y), c_white, col, c_black, col, debug_alpha);
 		draw_text_color(5, 25, "Mouse Position : " + string(mx) + ", " + string(my), c_white, col, c_black, col, debug_alpha);
-		draw_text_color(5, 45, "Camera Position : " + string(oGlobal.camera_x) + ", " + string(oGlobal.camera_y), c_white, col, c_black, col, debug_alpha);
+		draw_text_color(5, 45, "Camera Position : " + string(camera_get_view_x(view_camera[0])) + ", " + string(camera_get_view_y(view_camera[0])), c_white, col, c_black, col, debug_alpha);
 		var inst = instance_position(mouse_x, mouse_y, all),
 			inst_name = "";
 

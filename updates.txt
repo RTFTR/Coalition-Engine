@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.8.0 (Eden)
+added a ruins sprite for camera lock testing
+fixed draw_invert_polygon (its like literal me sucking at math and fail whywhywhhwywyhw)
+replaced overworld camrea targetting to manual because camera_set_view_target() is trash
+
 v4.7.12 (Eden)
 fixed some bugs
 added demo of multi language support

@@ -602,14 +602,12 @@ function draw_invert_cricle(x, y, radius)
 function draw_invert_polygon(vertexes)
 {
 	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
-	var i = 0, n = array_length(vertexes);
-	repeat n - 2
+	var i = 1, n = array_length(vertexes) - 1;
+	repeat n - 1
 	{
-		var k = posmod(i + 1, n),
-			j = posmod(i + 2, n);
-		draw_triangle(vertexes[i][0], vertexes[i][1], vertexes[k][0], vertexes[k][1],
-					vertexes[j][0], vertexes[j][1], false);
-		i += 2;
+		draw_triangle(vertexes[0][0], vertexes[0][1], vertexes[i][0], vertexes[i][1],
+					vertexes[i + 1][0], vertexes[i + 1][1], false);
+		++i;
 	}
 	gpu_set_blendmode(bm_normal);
 }

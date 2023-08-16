@@ -54,8 +54,8 @@ if encounter_state
 #endregion
 
 // Input check as local variable for handy referencing
-var input_horizontal = input_check("right") - input_check("left"),
-	input_vertical =   input_check("down") - input_check("up"),
+var input_horizontal = CHECK_HORIZONTAL,
+	input_vertical =   CHECK_VERTICAL,
 	//input_confirm =    input_check("confirm"),
 	input_cancel =     input_check("cancel"),
 	input_menu =	   input_check_pressed("menu"),
@@ -82,7 +82,7 @@ if global.interact_state == INTERACT_STATE.IDLE and !oOWController.menu_disable 
 }
 
 //Debug
-if keyboard_check_pressed(vk_space) or (x >= 830 and encounter_state == 0) Encounter_Begin();
+//if keyboard_check_pressed(vk_space) or (x >= 830 and encounter_state == 0) Encounter_Begin();
 
 if moveable and global.interact_state == INTERACT_STATE.IDLE // When the player can move around
 {

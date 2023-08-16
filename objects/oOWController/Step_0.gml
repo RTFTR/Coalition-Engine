@@ -5,6 +5,17 @@ CullObject(oOWCollision);
 ProcessCulls();
 #endregion
 
+#region Overworld Camera Lock
+with oOWPlayer
+{
+	var target_x = x - camera_get_view_width(view_camera[0]) / 2,
+		target_y = y - camera_get_view_height(view_camera[0]) / 2;
+	target_x = clamp(target_x, 1024 - sprite_get_width(other.OverworldSprite) / 4, 1024 + sprite_get_width(other.OverworldSprite) / 4);
+	target_y = clamp(target_y, 0, sprite_get_height(other.OverworldSprite) - 240);
+	camera_set_view_pos(view_camera[0], target_x, target_y);
+}
+#endregion
+
 #region // Menu lerping
 if instance_exists(oOWPlayer)
 {

@@ -1,4 +1,5 @@
-oGlobal.camera_target = id;
+if !instance_exists(oOWController) instance_create_depth(0, 0, 0, oOWController);
+//oGlobal.camera_target = id;
 Camera_Scale(2, 2);
 moveable = true;
 dir_sprite = [sprFriskUp,  sprFriskDown, sprFriskLeft];

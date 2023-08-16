@@ -1,6 +1,6 @@
 ///@desc Drawing
-var input_horizontal = input_check("right") - input_check("left"),
-	input_vertical =   input_check("down") - input_check("up"),
+var input_horizontal = CHECK_HORIZONTAL,
+	input_vertical =   CHECK_VERTICAL,
 	//input_confirm =    input_check("confirm"),
 	input_cancel =     input_check("cancel"),
 	input_menu =	   input_check_pressed("menu"),
