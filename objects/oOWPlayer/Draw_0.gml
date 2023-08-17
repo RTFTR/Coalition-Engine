@@ -62,9 +62,11 @@ var input_horizontal = CHECK_HORIZONTAL,
 //	}
 #endregion
 
-shader_set(shdBlackMask);
+if room == room_overworld
+	shader_set(shdBlackMask);
 draw_self();
-shader_reset();
+if room == room_overworld
+	shader_reset();
 show_hitbox(c_purple);
 
 last_sprite = assign_sprite;

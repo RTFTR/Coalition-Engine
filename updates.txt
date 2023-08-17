@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.8.1 (Eden)
+added a room transition and camera locking system for overworld, currently only supports sub-room transitioning
+the method looks very dumb but its actually how commerical games work lmfao
+
 v4.8.0 (Eden)
 added a ruins sprite for camera lock testing
 fixed draw_invert_polygon (its like literal me sucking at math and fail whywhywhhwywyhw)

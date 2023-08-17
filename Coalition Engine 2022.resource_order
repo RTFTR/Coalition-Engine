@@ -272,6 +272,7 @@
     {"name":"Duster","order":3,"path":"objects/Duster/Duster.yy",},
     {"name":"spr_sans_slam_hor","order":3,"path":"sprites/spr_sans_slam_hor/spr_sans_slam_hor.yy",},
     {"name":"snd_gb_charge","order":31,"path":"sounds/snd_gb_charge/snd_gb_charge.yy",},
+    {"name":"Overworld_Rooms","order":1,"path":"scripts/Overworld_Rooms/Overworld_Rooms.yy",},
     {"name":"shdBlueReduce","order":13,"path":"shaders/shdBlueReduce/shdBlueReduce.yy",},
     {"name":"__tgm_math_and_related","order":14,"path":"scripts/__tgm_math_and_related/__tgm_math_and_related.yy",},
     {"name":"Overworld","order":13,"path":"scripts/Overworld/Overworld.yy",},

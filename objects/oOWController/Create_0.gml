@@ -1,9 +1,12 @@
 texturegroup_load("texoverworld");
+
 Fader_Fade(1, 0, 15);
-OverWorld_ID = OVERWORLD.RUINS; // The Overworld ID (For room changing and stuff)
 
 //Lock the camera inside the 'room', which is a sprite so there is no lock
+OverWorld_ID = OVERWORLD.RUINS_ROOM_1; // The Overworld ID (For room changing and stuff)
 OverworldSprite = sprUTDemo;
+OverworldSubRoom = 0;
+OverworldTransitioning = false;
 
 enum INTERACT_STATE
 {

@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.8.0"
+#macro ENGINE_VERSION "Beta v4.8.1"
 #macro ALLOW_DEBUG  true
 #macro CHECK_HORIZONTAL input_check("right") - input_check("left")
 #macro CHECK_VERTICAL input_check("down") - input_check("up")
@@ -13,6 +13,7 @@ enum FONTS {
 	MNC,
 	SANS,
 	UI,
+	CHINESE,
 }
 function LoadFonts() {
 	global.__CoalitionFonts = [
@@ -125,7 +126,8 @@ enum ITEM_SCROLL
 enum OVERWORLD
 {
 	CORRIDOR = 0,
-	RUINS = 1,
+	RUINS_ROOM_1 = 1,
+	RUINS_ROOM_2 = 2,
 }
 
 // Batle or Menu States

@@ -6,13 +6,53 @@ ProcessCulls();
 #endregion
 
 #region Overworld Camera Lock
-with oOWPlayer
+var target_x = oOWPlayer.x - camera_get_view_width(view_camera[0]) / 2,
+	target_y = oOWPlayer.y - camera_get_view_height(view_camera[0]) / 2,
+	half_rwidth = room_width / 2;
+//Entire room clamping
+target_x = clamp(target_x, half_rwidth - sprite_get_width(OverworldSprite) / 2, half_rwidth + sprite_get_width(other.OverworldSprite) / 2 - 320);
+target_y = clamp(target_y, 0, sprite_get_height(OverworldSprite) - 240);
+//Sub room clamping
+target_x = clamp(target_x, CameraLockPositions[OverworldSubRoom][0], CameraLockPositions[OverworldSubRoom][2] - 320);
+target_y = clamp(target_y, CameraLockPositions[OverworldSubRoom][1], CameraLockPositions[OverworldSubRoom][3] - 240);
+camera_set_view_pos(view_camera[0], target_x, target_y);
+#endregion
+
+#region Overworld room transition
+if !OverworldTransitioning
 {
-	var target_x = x - camera_get_view_width(view_camera[0]) / 2,
-		target_y = y - camera_get_view_height(view_camera[0]) / 2;
-	target_x = clamp(target_x, 1024 - sprite_get_width(other.OverworldSprite) / 4, 1024 + sprite_get_width(other.OverworldSprite) / 4);
-	target_y = clamp(target_y, 0, sprite_get_height(other.OverworldSprite) - 240);
-	camera_set_view_pos(view_camera[0], target_x, target_y);
+	var i = 0;
+	repeat array_length(RoomTransitionPositions[i])
+	{
+		if rectangle_in_rectangle(oOWPlayer.bbox_left, oOWPlayer.bbox_top, oOWPlayer.bbox_right, oOWPlayer.bbox_bottom, 
+			RoomTransitionPositions[OverworldSubRoom][i][0], RoomTransitionPositions[OverworldSubRoom][i][1],
+			RoomTransitionPositions[OverworldSubRoom][i][2], RoomTransitionPositions[OverworldSubRoom][i][3])
+		{
+			oOWPlayer.moveable = false;
+			OverworldTransitioning = true;
+			Fader_Fade(0, 1, 15, 0, c_black);
+			Fader_Fade(1, 0, 15, 15, c_black);
+			var _f = RoomTransitionPositions[OverworldSubRoom][i][4] == -1 ?
+				function(i)
+				{
+					room_goto(RoomTransitionPositions[OverworldSubRoom][i][5]);
+				}
+				:
+				function(i)
+				{
+					oOWPlayer.x = RoomTransitionPositions[OverworldSubRoom][i][5];
+					oOWPlayer.y = RoomTransitionPositions[OverworldSubRoom][i][6];
+					OverworldSubRoom = RoomTransitionPositions[OverworldSubRoom][i][4];
+				};
+			DoLater(15, _f, i);
+			DoLater(30, function() {
+				OverworldTransitioning = false;
+				oOWPlayer.moveable = true;
+				});
+			break
+		}
+	}
+	++i;
 }
 #endregion
 
