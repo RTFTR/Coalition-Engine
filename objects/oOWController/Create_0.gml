@@ -7,6 +7,7 @@ OverWorld_ID = OVERWORLD.RUINS_ROOM_1; // The Overworld ID (For room changing an
 OverworldSprite = sprUTDemo;
 OverworldSubRoom = 0;
 OverworldTransitioning = false;
+OverworldTransitionSpeed = 20;
 
 enum INTERACT_STATE
 {

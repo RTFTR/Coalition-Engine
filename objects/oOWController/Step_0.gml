@@ -15,6 +15,7 @@ target_y = clamp(target_y, 0, sprite_get_height(OverworldSprite) - 240);
 //Sub room clamping
 target_x = clamp(target_x, CameraLockPositions[OverworldSubRoom][0], CameraLockPositions[OverworldSubRoom][2] - 320);
 target_y = clamp(target_y, CameraLockPositions[OverworldSubRoom][1], CameraLockPositions[OverworldSubRoom][3] - 240);
+//Relax, clamp does basically 0ms to it won't matter, it looks cleaner than min(xxx), max(xxx) inside one clamp
 camera_set_view_pos(view_camera[0], target_x, target_y);
 #endregion
 
@@ -30,8 +31,8 @@ if !OverworldTransitioning
 		{
 			oOWPlayer.moveable = false;
 			OverworldTransitioning = true;
-			Fader_Fade(0, 1, 15, 0, c_black);
-			Fader_Fade(1, 0, 15, 15, c_black);
+			Fader_Fade(0, 1, OverworldTransitionSpeed, 0, c_black);
+			Fader_Fade(1, 0, OverworldTransitionSpeed, OverworldTransitionSpeed, c_black);
 			var _f = RoomTransitionPositions[OverworldSubRoom][i][4] == -1 ?
 				function(i)
 				{
@@ -44,8 +45,8 @@ if !OverworldTransitioning
 					oOWPlayer.y = RoomTransitionPositions[OverworldSubRoom][i][6];
 					OverworldSubRoom = RoomTransitionPositions[OverworldSubRoom][i][4];
 				};
-			DoLater(15, _f, i);
-			DoLater(30, function() {
+			DoLater(OverworldTransitionSpeed, _f, i);
+			DoLater(OverworldTransitionSpeed * 2, function() {
 				OverworldTransitioning = false;
 				oOWPlayer.moveable = true;
 				});
