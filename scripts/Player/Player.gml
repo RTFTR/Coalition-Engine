@@ -142,27 +142,27 @@ function Player_LV(lv = infinity)
 
 ///@desc Sets/Gets the current Gold the player has
 ///@param {real} amount The amount of gold to set (If needed)
-function Player_Gold(ammount = -1)
+function Player_Gold(ammount = infinity)
 {
-	if amount != -1
+	if amount != infinity
 		global.data.Gold = amount;
 	else return global.data.Gold;
 }
 
 ///@desc Sets/Gets the current Exp the player has
 ///@param {real} amount The amount of exp to set (If needed)
-function Player_Exp(ammount = -1)
+function Player_Exp(ammount = infinity)
 {
-	if amount != -1
+	if amount != infinity
 		global.data.Exp = amount;
 	else return global.data.Exp;
 }
 
 ///@desc Sets/Gets the speed of the player
 ///@param {real} spd The speed to set (If needed)
-function Player_Spd(spd = -1)
+function Player_Spd(spd = infinity)
 {
-	if spd != -1
+	if spd != infinity
 		global.spd = spd;
 	else return global.spd;
 }

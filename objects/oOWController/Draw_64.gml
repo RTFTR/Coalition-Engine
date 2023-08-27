@@ -1,6 +1,6 @@
 var ItemCount = Item_Count(),
 	CellCount = Cell_Count(),
-	input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
+	input_horizontal = PRESS_HORIZONTAL,
 	input_cancel = input_check_pressed("cancel"),
 	input_confirm = input_check_pressed("confirm");
 // Check if a Overworld Dialog is occuring

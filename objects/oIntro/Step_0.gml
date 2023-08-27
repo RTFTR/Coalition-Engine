@@ -1,5 +1,5 @@
-var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
-	input_vertical = input_check_pressed("down") - input_check_pressed("up"),
+var input_horizontal = PRESS_HORIZONTAL,
+	input_vertical = PRESS_VERTICAL,
 	input_confirm = input_check_pressed("confirm"),
 	input_cancel = input_check_pressed("cancel");
 	

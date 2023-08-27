@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.8.2 (Eden)
+added some functions and fixed some things
+
 v4.8.1 (Eden)
 added a room transition and camera locking system for overworld, currently only supports sub-room transitioning
 the method looks very dumb but its actually how commerical games work lmfao

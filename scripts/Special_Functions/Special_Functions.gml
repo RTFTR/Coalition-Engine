@@ -304,31 +304,6 @@ function ConvertRealToKey(val)
 	}
 }
 
-///@desc Creates an array of audios from audio_create_stream(), arguments are all strings, no folder name and file format needed
-///@return {Array<Asset.GMSound>}
-function audio_create_stream_array()
-{
-	for(var i = 0, arr = []; i < argument_count; ++i)
-	{
-		//Only pushes the array if file exists
-		var text = "Music/" + string(argument[i]) + ".ogg";
-		array_push(arr, audio_create_stream(text));
-	}
-	return arr;
-}
-///@desc Destroys all audio that were streams in the array then remove the array
-///@param {Array<Asset.GMSound>} array	The array of streamed audio to destroy
-function audio_destroy_stream_array(arr)
-{
-	var i = 0;
-	repeat array_length(arr)
-	{
-		audio_stream_destroy(arr[i]);
-		++i;
-	}
-	arr = -1;
-}
-
 function tips()
 {
 	var tips = [
@@ -353,6 +328,18 @@ function tips()
 				],
 	amt = array_length(tips);
 	return tips[irandom(amt - 1)];
+}
+
+/**
+	@desc Checks whether the mouse is inside a rectangle
+	@param {real} x1	The x coordinate of the top left coordinate of the rectangle
+	@param {real} y1	The y coordinate of the top left coordinate of the rectangle
+	@param {real} x2	The x coordinate of the bottom right coordinate of the rectangle
+	@param {real} y2	The y coordinate of the bottom right coordinate of the rectangle
+	
+*/
+function mouse_in_rectangle(x1, y1, x2, y2) {
+	return point_in_rectangle(mouse_x, mouse_y, x1, y1, x2, y2);
 }
 
 #region From Alice

@@ -66,14 +66,13 @@ if Song.Activate
 if room == rRestart
 {
 	var text = "[fa_center][c_white][fnt_dt_mono]Restarting",
-		num = restart_timer div 10;
-	num %= 4;
+		num = (restart_timer div 10) mod 4;
 	repeat num text += ".";
 	draw_text_scribble(320, 240, text);
 	draw_text_scribble(320, 420, "[fa_center][c_ltgray][fnt_dotum]" + restart_tip);
 }
 
-//Gradient, will only run once to store the surface
+//Gradient, pre-baked (will only run once to store the surface)
 if global.timer == 1
 {
 	surface_set_target(GradientSurf);

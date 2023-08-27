@@ -1,7 +1,9 @@
-#macro ENGINE_VERSION "Beta v4.8.1"
+#macro ENGINE_VERSION "Beta v4.8.2"
 #macro ALLOW_DEBUG  true
 #macro CHECK_HORIZONTAL input_check("right") - input_check("left")
 #macro CHECK_VERTICAL input_check("down") - input_check("up")
+#macro PRESS_HORIZONTAL input_check_pressed("right") - input_check_pressed("left")
+#macro PRESS_VERTICAL input_check_pressed("down") - input_check_pressed("up")
 
 enum FONTS {
 	GAMEOVER,

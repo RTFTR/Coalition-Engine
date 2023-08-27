@@ -309,7 +309,7 @@ if STATE == 2 {
 					TopLine = oBoard.y - oBoard.up + 15,
 					BottomLine = oBoard.y + oBoard.down - 15,
 					YDifference = (BottomLine - TopLine) / (Purple.VLineAmount - 1);
-				Purple.CurrentVLine += input_check_pressed("down") - input_check_pressed("up");
+				Purple.CurrentVLine += PRESS_VERTICAL;
 				Purple.CurrentVLine = clamp(Purple.CurrentVLine, 0, Purple.VLineAmount - 1);
 				Purple.YTarget = TopLine + Purple.CurrentVLine * YDifference;
 				y = lerp(y, Purple.YTarget, 0.3);
@@ -321,7 +321,7 @@ if STATE == 2 {
 					LeftLine = oBoard.x - oBoard.left + 15,
 					RightLine = oBoard.x + oBoard.right - 15,
 					XDifference = (RightLine - LeftLine) / (Purple.HLineAmount - 1);
-				Purple.CurrentHLine += input_check_pressed("right") - input_check_pressed("left");
+				Purple.CurrentHLine += PRESS_HORIZONTAL;
 				Purple.CurrentHLine = clamp(Purple.CurrentHLine, 0, Purple.HLineAmount - 1);
 				Purple.XTarget = LeftLine + Purple.CurrentHLine * XDifference;
 				x = lerp(x, Purple.XTarget, 0.3);

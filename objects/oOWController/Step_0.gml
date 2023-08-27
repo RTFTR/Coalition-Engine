@@ -86,8 +86,8 @@ var	menu_soul_target = [-606, 205 + (36 * menu_choice[MENU_MODE.IDLE])],
 if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 {
 	// Input check, horizontal and vertical using vector method
-	var input_horizontal = input_check_pressed("right") - input_check_pressed("left"),
-		input_vertical =   input_check_pressed("down") - input_check_pressed("up"),
+	var input_horizontal = PRESS_HORIZONTAL,
+		input_vertical =   PRESS_VERTICAL,
 		input_confirm =    input_check_pressed("confirm"),
 		input_cancel =     input_check_pressed("cancel"),
 		input_menu =       input_check_pressed("menu");
