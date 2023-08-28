@@ -1,57 +1,3 @@
-/// @desc Returns a Positive Quotient of the 2 values
-/// @param {real} a The number to be divided
-/// @param {real} b The number to divide
-/// @return {real}
-function posmod(a, b)
-{
-	var value = a % b;
-	while (value < 0 and b > 0) or (value > 0 and b < 0) 
-		value += b;
-	return value;
-}
-
-///@desc Calculating the legnthdir_xy position of the points
-function point_xy(p_x, p_y)
-{
-	var angle = image_angle;
-	
-	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x;
-	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y;
-}
-
-///@desc Returns the lengthdir_x/y values in a Vector2 (stupidly useless)
-///@return {struct}
-function lengthdir_xy(length, dir) constructor
-{
-	return new Vector2(lengthdir_x(length, dir), lengthdir_y(length, dir));
-}
-
-///@desc Returns the summation of an array from a to b
-///@param {array} array		The name of the array
-///@param {real}  begin		The slot to begin
-///@param {real}  end		The slot to end
-///@return {real}
-function Sigma(arr, n, k)
-{
-	for(var i = n, value = 0; i <= k; ++i)
-		value += arr[i];
-	return value;
-}
-
-///@desc Checks if the value is equal to the other given values
-///@return {bool}
-function is_val()
-{
-	for (var i = 1; i < argument_count; ++i)
-	{
-		if argument[0] == argument[i]
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
 ///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
 ///@return {bool}
 function check_outside(){
@@ -75,66 +21,6 @@ function Screenshot(filename = "") {
 	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
 		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
 	screen_save("Screenshots/" + string(filename) + date + ".png")
-}
-
-/**
-	@desc Draws a rectagle with given width and color
-	@param {real} x1 The x coordinate of the top left coordinate of the rectangle
-	@param {real} y1 The y coordinate of the top left coordinate of the rectangle
-	@param {real} x2 The x coordinate of the bottom right coordinate of the rectangle
-	@param {real} y2 The y coordinate of the bottom right coordinate of the rectangle
-	@param {real} width	The width of the outline of the rectangle (Default 1)
-	@param {Constant.Color} color The color of the rectangle (Default white)
-	@param {bool} full	Whether the rectangle is a semi-round angled rectangle or a full right-angled rectangle (Default former)
-*/
-function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full = false)
-{
-	var dis = real(full) * width / 2,
-		prev_col = draw_get_color();
-	draw_set_color(color);
-	draw_line_width(x1 - dis, y1, x2 + dis, y1, width);
-	draw_line_width(x1 - dis, y2, x2 + dis, y2, width);
-	draw_line_width(x1, y1 - dis, x1, y2 + dis, width);
-	draw_line_width(x2, y1 - dis, x2, y2 + dis, width);
-	draw_set_color(prev_col);
-}
-
-/**
-	@desc Draws a rectangle with a outline color and background color
-	@param {real} x1							The x coordinate of the top left coordinate of the rectangle
-	@param {real} y1							The y coordinate of the top left coordinate of the rectangle
-	@param {real} x2							The x coordinate of the bottom right coordinate of the rectangle
-	@param {real} y2							The y coordinate of the bottom right coordinate of the rectangle
-	@param {real} width							The width of the outline of the rectangle (Default 1)
-	@param {Constant.Color} outline_color		The color of the outline of the rectangle (Default white)
-	@param {real} outline_alpha					The alpha of the outline (Default 1)
-	@param {Constant.Color} background_color	The color of the background of the rectangle (Default black)
-	@param {real} background_alpha				The alpha of the background (Default 1)
-	@param {bool} full							Whether the rectangle is a semi-round angled rectangle
-												or a full right-angled rectangle (Default former)
-*/
-function draw_rectangle_width_background(x1, y1, x2, y2, width = 1, ocolor = c_white, oalpha = 1, bcolor = c_black, balpha = 1, full = false)
-{
-	if !full && oalpha != 1 && balpha != 1
-	{
-		var al = draw_get_alpha(), col = draw_get_color();
-		draw_set_alpha(balpha);
-		draw_set_color(bcolor);
-		draw_rectangle(x1, y1, x2, y2, false);
-		draw_set_alpha(oalpha);
-		draw_rectangle_width(x1, y1, x2, y2, width, ocolor, full);
-		draw_set_alpha(al);
-		draw_set_color(col);
-	}
-	else
-	{
-		var col = draw_get_color();
-		draw_set_color(ocolor);
-		draw_rectangle(x1, y1, x2, y2, false);
-		draw_set_color(bcolor);
-		draw_rectangle(x1 + width, y1 + width, x2 - width, y2 - width, false);
-		draw_set_color(col);
-	}
 }
 
 /**
@@ -407,11 +293,6 @@ function json_save(_filename, _value) {
 	var _json_content = json_stringify(_value);
 	file_write_all_text(_filename, _json_content);
 }
-#endregion
-
-#region functions where idk
-
-
 #endregion
 
 #region The part where things go insane (Codes are modified from Vinyl by JujuAdams)

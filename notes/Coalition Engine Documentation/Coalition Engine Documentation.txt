@@ -8,3 +8,13 @@ Please file a help post in our Discord server: https://discord.gg/Sxr5JzhhvG
 
 For details on how to use this engine, please read this:
 https://docs.google.com/document/d/1PxeJxLadrUCBvG7DbQhDqAS7m8n5o21E8o8JhcnuDWI/edit?usp=sharing
+
+Official Github repositories:
+Stable Build: When the feature is completly done and stable, It will move to the Stable branch.
+https://github.com/RTFTR/Coalition-Engine
+Canary Builds: This will be getting the cutting edge updates,
+			   which means most likely it will cause unexpected errors or crashes.
+https://github.com/RTFTR/Coalition-Engine/tree/Bleeding-Edge
+LTS Builds: Specified for GameMaker LTS users! This branch will barely get updates.
+			Its purposes are to maintain stability.
+https://github.com/RTFTR/Coalition-Engine/tree/Long-Term-Support

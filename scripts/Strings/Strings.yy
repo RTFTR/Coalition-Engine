@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Special_Functions",
+  "name": "Strings",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -19,6 +19,9 @@ function LoadCameraLockPositions()
 			array_push(CameraLockPositions, [1200, 1042, 1520, 1505]);
 			array_push(CameraLockPositions, [1200, 802, 1520, 1041]);
 		break
+		default:
+			array_push(CameraLockPositions, [0, 0, room_width, room_height]);
+		break
 	}
 }
 
@@ -39,6 +42,24 @@ function SetRoomTransitionPositions()
 		case rUTDemo:
 			array_push(RoomTransitionPositions, [[1348, 1138, 1370, 1141, 1, 1360, 1020]]);
 			array_push(RoomTransitionPositions, [[13480, 1138, 13700, 1141, 1]]);
+		break
+		default:
+			array_push(RoomTransitionPositions, [[0, 0, 0, 0, 0, 0, 0]]);
+		break
+	}
+}
+
+///Sets the names of the rooms (and sub-rooms)
+function SetRoomNames()
+{
+	RoomNames = [];
+	switch room
+	{
+		case rUTDemo:
+			array_push(RoomNames, "Ruins Entrance")
+		break
+		default:
+			array_push(RoomNames, room_get_name(room));
 		break
 	}
 }

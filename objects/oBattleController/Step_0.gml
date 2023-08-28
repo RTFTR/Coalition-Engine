@@ -124,8 +124,8 @@ function end_battle() {
 #endregion
 var input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
-	input_confirm = input_check_pressed("confirm"),
-	input_cancel = input_check_pressed("cancel");
+	input_confirm = PRESS_CONFIRM,
+	input_cancel = PRESS_CANCEL;
 
 //Check for empty slots of enemy
 for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
@@ -331,7 +331,6 @@ switch battle_state {
 						Item_Use(global.item[ceil(ItemID)]);
 						last_choice = 2;
 						item_space = Item_Space();
-						item_space = 0;
 						// If no item left then item button commit gray
 						if item_space <= 0 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
 					}

@@ -27,7 +27,6 @@ move_y = 0;
 
 ///@param {bool} Horizontal	Enable horzontal movement (Default true)
 ///@param {bool} Vertical	Enable vertical movement (Default true)
-///@param {bool} Fast_Diagonal	Whether diagonal movements will be faster (as in Pyth. Theorem) (Default false)
 function BasicMovement(hor = true, ver = true, fast = false) {
 	if !IsGrazer
 	{
@@ -35,7 +34,6 @@ function BasicMovement(hor = true, ver = true, fast = false) {
 			v_spd = CHECK_VERTICAL,
 			move_spd = global.spd / (input_check("cancel") + 1),
 			_angle = image_angle;
-		if fast and h_spd != 0 and v_spd != 0 move_spd *= sqrt(2);
 		move_x = h_spd * move_spd;
 		move_y = v_spd * move_spd;
 

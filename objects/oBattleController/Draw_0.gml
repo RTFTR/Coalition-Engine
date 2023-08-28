@@ -1,7 +1,7 @@
 var input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
-	input_confirm = input_check_pressed("confirm"),
-	input_cancel = input_check_pressed("cancel"),
+	input_confirm = PRESS_CONFIRM,
+	input_cancel = PRESS_CANCEL,
 	LangText = global.AllLanguageTexts[global.Language],
 	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
 	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];

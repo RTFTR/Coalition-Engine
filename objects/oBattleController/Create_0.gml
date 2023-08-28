@@ -119,6 +119,8 @@ button_scale_target = [1, 1.2];
 button_color_target = array_create(4, [[242, 101, 34], [255, 255, 0]]);
 button_override_alpha = array_create(4, 1);
 button_background_cover = false;
+button_color_lerp_scale = array_create(4, 0);
+button_color_lerp_timer = array_create(4, 30);
 #endregion
 #region UI Functions
 debug = false;

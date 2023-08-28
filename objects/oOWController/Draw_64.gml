@@ -1,8 +1,8 @@
 var ItemCount = Item_Count(),
 	CellCount = Cell_Count(),
 	input_horizontal = PRESS_HORIZONTAL,
-	input_cancel = input_check_pressed("cancel"),
-	input_confirm = input_check_pressed("confirm");
+	input_cancel = PRESS_CANCEL,
+	input_confirm = PRESS_CONFIRM;
 // Check if a Overworld Dialog is occuring
 if dialog_exists
 {
@@ -104,7 +104,7 @@ if is_saving
 	second = string(second);
 	draw_text(423, 140, minute + ":" + (real(second) < 10 ? "0" : "") + second);
 	//Placeholer room name getter
-	draw_text(140, 180, room_get_name(room));
+	draw_text(140, 180, RoomNames[OverworldSubRoom]);
 	if !Saved
 	{
 		if input_horizontal != 0

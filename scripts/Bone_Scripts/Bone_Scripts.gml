@@ -265,7 +265,7 @@ function Bullet_BoneWaveV(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT =
 ///@param {function} Easing			The easing of the scaling animation (Default EaseLinear)
 function Battle_BoneCube(pos, ans, rots, scale, anim_time = 0, ease = EaseLinear)
 {
-	var inst = instance_create_depth(pos[0], pos[1], -2, oBoneCube)
+	var inst = instance_create_depth(pos[0], pos[1], -2, o3DBone)
 	with inst
 	{
 		angles = ans;

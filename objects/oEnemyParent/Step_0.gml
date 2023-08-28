@@ -55,7 +55,7 @@ function end_turn()
 			at_turn_end = true;
 			destroy_on_turn_end = false;
 			can_hurt = 0;
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 0);
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 10);
 			alarm[1] = 25;
 		}
 	with oBulletParents

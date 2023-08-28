@@ -1,6 +1,6 @@
 function Initialize()
 {
-	show_debug_message("This is Coalition Engine " + ENGINE_VERSION);
+	show_debug_message("Coalition Engine: This is version " + ENGINE_VERSION);
 	//Set to true when releasing your game
 	gml_release_mode(true);
 	randomize();
@@ -46,6 +46,7 @@ function Initialize()
 	global.last_dmg_time = 0;
 	global.spd = 2; // Speed
 	global.inv = 2; // Invincibility frames
+	global.diagonal_speed = false;	//Whether moving digonally will move faster than moving horizontally or vertically
 	
 	//Grazing
 	global.EnableGrazing = false;
@@ -152,4 +153,7 @@ function Initialize()
 	//Load languages
 	global.Language = LANGUAGE.ENGLISH;
 	LoadLanguageTexts();
+	
+	//Extras
+	Load3DNodesAndEdges();
 }

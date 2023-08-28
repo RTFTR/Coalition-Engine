@@ -2,8 +2,8 @@
 for(var  i = 0; i < 3; ++i)
 	angles[i] += angleAdd[i];
 update_vert();
-var i = 0, out_cnt = 0;
-repeat(array_length(edge_list))
+var i = 0, out_cnt = 0, n = array_length(edge_list);
+repeat n
 {
 	var _prop = edge_list[i],
 		x1 = vert_list_draw[_prop[0]][0],
@@ -26,7 +26,7 @@ repeat(array_length(edge_list))
 		or (_bone.y > 480 + _bone.length and vspeed > 0)
 		or (_bone.y < 0 - _bone.length and vspeed < 0)
 			out_cnt++;
-		if out_cnt == 12 instance_destroy();
+		if out_cnt == n instance_destroy();
 	}
 	i++;
 }

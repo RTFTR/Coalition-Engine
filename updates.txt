@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v4.8.3 (Eden)
+bug fixes
+changed some functions
+added some more macros
+please remind me to change button color lerp to merge_color
+
 v4.8.2 (Eden)
 added some functions and fixed some things
 

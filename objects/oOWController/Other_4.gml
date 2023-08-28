@@ -1,2 +1,3 @@
 LoadCameraLockPositions();
 SetRoomTransitionPositions();
+SetRoomNames();

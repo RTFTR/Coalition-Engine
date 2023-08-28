@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Special_Functions",
+  "name": "Shaders",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
