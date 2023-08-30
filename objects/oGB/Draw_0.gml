@@ -27,17 +27,18 @@ if state = 4
 		ry = 0
 	
 	draw_set_alpha(_alpha);
-	var pre_col = color;
-	var cosx = dcos(image_angle);
-	var sinx = -dsin(image_angle);
+	var pre_col = color,
+		cosx = dcos(image_angle),
+		sinx = -dsin(image_angle);
 	draw_set_color(color);
+	//Thickest line (Further)
 	var xs = 35 * _xscale * cosx,
 		ys = 35 * _xscale * sinx,
 		xe = (1200 + _end_point) * cosx,
 		ye = (1200 + _end_point) * sinx;
 	
 	draw_line_width(x + xs + rx, y + ys + ry, x + xe + rx, y + ye + ry, _size + beam_siner);
-	
+	//Thinner lines (Closer)
 	var xa = 25 * _xscale * cosx,
 		ya = 25 * _xscale * sinx,
 		xb = 30 * _xscale * cosx,

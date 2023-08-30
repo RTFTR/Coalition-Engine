@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.8.4 (Eden)
+optimised draw_cube_width
+changed color lerping method of buttons and made them into structs (faster lmao)
+oBattleController is no longer decompilable (for now)
+
 v4.8.3 (Eden)
 bug fixes
 changed some functions

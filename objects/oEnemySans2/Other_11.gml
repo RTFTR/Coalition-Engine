@@ -26,16 +26,16 @@ TurnCreate(0, 3, 640, function() {
 	oBattleController.ui_override_alpha[5] += 1 / 60;
 }, 60, 2);
 TurnCreate(0, 4, 990, function() {
-	oBattleController.button_override_alpha[1] += 1 / 120;
+	oBattleController.Button.OverrideAlpha[1] += 1 / 120;
 }, 60, 2);
 TurnCreate(0, 5, 1200, function() {
-	oBattleController.button_override_alpha[2] += 1 / 120;
+	oBattleController.Button.OverrideAlpha[2] += 1 / 120;
 }, 60, 2);
 TurnCreate(0, 6, 1460, function() {
-	oBattleController.button_override_alpha[3] += 1 / 120;
+	oBattleController.Button.OverrideAlpha[3] += 1 / 120;
 }, 60, 2);
 TurnCreate(0, 7, 1650, function() {
-	oBattleController.button_override_alpha[0] += 1 / 120;
+	oBattleController.Button.OverrideAlpha[0] += 1 / 120;
 }, 60, 2);
 TurnCreate(0, 8, 1890, function() {
 	oBoard.image_alpha += 1 / 60;

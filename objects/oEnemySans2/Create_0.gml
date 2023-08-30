@@ -14,8 +14,8 @@ oSoul.moveable = false;
 BGM = audio_create_stream("Music/MusSans.ogg");
 t = -1;
 with oBattleController {
-	button_override_alpha=[0, 0, 0, 0];
-	button_alpha=[0, 0, 0, 0];
+	Button.OverrideAlpha=[0, 0, 0, 0];
+	Button.Alpha=[0, 0, 0, 0];
 	ui_override_alpha=[0, 0, 0, 0, 0, 0];
 }
 

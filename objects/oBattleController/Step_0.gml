@@ -1,5 +1,6 @@
 if !audio_group_is_loaded(audgrpbattle)
 	audio_group_load(audgrpbattle);
+Button.UpdateColor();
 var LangText = global.AllLanguageTexts[global.Language],
 	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
 	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
@@ -142,14 +143,15 @@ switch battle_state {
 	case BATTLE_STATE.MENU:
 		switch menu_state {
 			case MENU_STATE.BUTTON_SELECTION:
-				var _button_len = array_length(button_spr),
-					_button_pos = button_pos,
+				var _button_len = array_length(Button.Sprites),
+					_button_pos = Button.Position,
 					_button_slot = menu_button_choice;
 
 				if input_horizontal != 0 {
 					_button_slot = posmod(_button_slot + input_horizontal, _button_len);
 					menu_button_choice = _button_slot;
 					audio_play(snd_menu_switch);
+					Button.ResetTimer();
 				}
 			
 				with oSoul
@@ -332,7 +334,7 @@ switch battle_state {
 						last_choice = 2;
 						item_space = Item_Space();
 						// If no item left then item button commit gray
-						if item_space <= 0 button_color_target[2] = [[54, 54, 54], [54, 54, 54]];
+						if item_space <= 0 Button.ColorTarget[2] = [c_dkgray, c_dkgray];
 					}
 					else // Action-executing code
 					{

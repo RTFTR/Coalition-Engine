@@ -591,12 +591,12 @@ DrawDebugUI();
 
 #region Buttons 
 // Credits to Scarm for the base code
-var _button_spr =	button_spr,
-	_button_pos =	button_pos,
-	_button_alpha = button_alpha,
-	_button_scale = button_scale,
-	_button_color = button_color,
-	_button_angle = button_angle,
+var _button_spr =	Button.Sprites,
+	_button_pos =	Button.Position,
+	_button_alpha = Button.Alpha,
+	_button_scale = Button.Scale,
+	_button_color = Button.Color,
+	_button_angle = Button.Angle,
 	_state =		menu_state,
 	_menu =			menu_button_choice;
 	i = 0;
@@ -607,38 +607,32 @@ repeat(array_length(_button_spr)) // Button initialize
 	var select = (_menu == i) and _state >= 0;
 
 	// Draw the button by array order
-	if button_background_cover
+	if Button.BackgroundCover
 	{
 		shader_set(shdBlackMask); //Prevent background covers the buttons
 		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], c_white, .5 - _button_alpha[i] / 2);
 		shader_reset();
 	}
-	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], make_color_rgb(_button_color[i][0], _button_color[i][1], _button_color[i][2]), _button_alpha[i]);
+	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], _button_color[i], _button_alpha[i]);
 
 	// Animation - Color updating in real-time because yes
 	if (_state >= 0) {
 		if _menu == i // The chosen button
 		{
-			_button_scale[_menu] += (button_scale_target[1] - _button_scale[_menu]) / 6;
-			_button_alpha[_menu] += (button_alpha_target[1] - _button_alpha[_menu]) / 6;
-			for (var ii = 0; ii < 3; ++ii)
-				_button_color[_menu][ii] += (button_color_target[_menu][1][ii] - _button_color[_menu][ii]) / 6;
+			_button_scale[_menu] += (Button.ScaleTarget[1] - _button_scale[_menu]) / 6;
+			_button_alpha[_menu] += (Button.AlphaTarget[1] - _button_alpha[_menu]) / 6;
 		}
 		else // Other buttons if they aren't chosen
 		{
-			_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
-			_button_alpha[i] += (button_alpha_target[0] - _button_alpha[i]) / 6;
-			for (var ii = 0; ii < 3; ++ii)
-				_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
+			_button_scale[i] += (Button.ScaleTarget[0] - _button_scale[i]) / 6;
+			_button_alpha[i] += (Button.AlphaTarget[0] - _button_alpha[i]) / 6;
 		}
 	}
 	else // If the menu state is over
 	{
-		var final_alpha = min(button_alpha_target[1], button_override_alpha[i]);
-		_button_scale[i] += (button_scale_target[0] - _button_scale[i]) / 6;
+		var final_alpha = min(Button.AlphaTarget[1], Button.OverrideAlpha[i]);
+		_button_scale[i] += (Button.ScaleTarget[0] - _button_scale[i]) / 6;
 		_button_alpha[i] += (final_alpha - _button_alpha[i]) / 6;
-		for (var ii = 0; ii < 3; ++ii)
-			_button_color[i][ii] += ((button_color_target[i][0][ii]) - (_button_color[i][ii])) / 6;
 	}
 	++i;
 }

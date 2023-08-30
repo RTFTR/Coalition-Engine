@@ -156,6 +156,6 @@ function ButtonSprites(fname = "Normal", format = ".png")
 	}
 	with oBattleController
 	{
-		button_spr = buttons;
+		Button.Sprites = buttons;
 	}
 }

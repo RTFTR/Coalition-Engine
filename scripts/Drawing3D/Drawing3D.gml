@@ -103,9 +103,10 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 		cosX = cos(_point_h),
 		sinY = sin(_point_v),
 		cosY = cos(_point_v),
-		number_of_nodes = array_length(nodes);
-	for (var i = 0; i < number_of_nodes; ++i) {
-	
+		number_of_nodes = array_length(nodes),
+		i = 0;
+	repeat number_of_nodes
+	{
 		var node = nodes[i],
 			_x = node[0],
 			_y = node[1],
@@ -120,13 +121,15 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 	    node[2] = _z * cosY + _y * sinY;
 	
 		nodes[i] = node;
+		++i;
 	};
 
 	draw_set_colour(_colour);
 
 	var number_of_edges = array_length(edges);
-	for (var i = 0; i < number_of_edges; ++i) {
-	
+	i = 0;
+	repeat number_of_edges
+	{
 		var edge = edges[i],
 			p1 = nodes[edge[0]],
 			p2 = nodes[edge[1]];
@@ -134,6 +137,7 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 		
 		if _edge_circ
 			draw_circle(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_width/2,false);
-	};
+		++i;
+	}
 	
 }

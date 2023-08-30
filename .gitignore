@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+scripts/GMLive*
+extensions/GMLive/
+datafiles/GMLive
+objects/obj_gmlive*

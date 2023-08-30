@@ -108,19 +108,47 @@ kr_timer = 0;
 hp_previous = global.hp;
 #endregion
 #region Button Functions
-button_spr			= [sprButtonFight, sprButtonAct, sprButtonItem, sprButtonMercy];
-button_pos			= [[87, 453], [240, 453], [400, 453], [555, 453]];
-button_alpha		= array_create(4, 0.25);
-button_scale		= array_create(4, 1);
-button_color		= array_create(4, [242, 101, 34]); //rgb
-button_angle		= array_create(4, 0);
-button_alpha_target = [0.25, 1];
-button_scale_target = [1, 1.2];
-button_color_target = array_create(4, [[242, 101, 34], [255, 255, 0]]);
-button_override_alpha = array_create(4, 1);
-button_background_cover = false;
-button_color_lerp_scale = array_create(4, 0);
-button_color_lerp_timer = array_create(4, 30);
+Button = {};
+Button.Sprites			= [sprButtonFight, sprButtonAct, sprButtonItem, sprButtonMercy];
+Button.Position			= [[87, 453], [240, 453], [400, 453], [555, 453]];
+Button.Alpha		= array_create(4, 0.25);
+Button.OverrideAlpha = array_create(4, 1);
+Button.Scale		= array_create(4, 1);
+Button.DefaultColor = make_color_rgb(242, 101, 34);
+Button.Color		= array_create(4, Button.DefaultColor); //rgb
+Button.Angle		= array_create(4, 0);
+Button.AlphaTarget = [0.25, 1];
+Button.ScaleTarget = [1, 1.2];
+Button.ColorTarget = array_create(4, [Button.DefaultColor, c_yellow]);
+Button.BackgroundCover = false;
+Button.ColorLerpScale = array_create(4, 0);
+Button.ResetTimer = function() {
+	Button.ColorLerpTimer = array_create(4, 0);
+}
+Button.ResetTimer();
+Button.UpdateColor = function(duration = 30) {
+	static ChangeColor = function(i, duration)
+	{
+		Button.ColorLerpScale[i] = EaseOutQuad(Button.ColorLerpTimer[i], 0, 1, duration);
+		Button.Color[i] = merge_color(Button.ColorTarget[i][0], Button.ColorTarget[i][menu_state >= 0], Button.ColorLerpScale[i]);
+	}
+	var i = 0;
+	repeat 4
+	{
+		if i == menu_button_choice
+		{
+			if Button.ColorLerpTimer[i] < duration
+				Button.ColorLerpTimer[i]++;
+		}
+		else
+		{
+			if Button.ColorLerpTimer[i] > 0
+				Button.ColorLerpTimer[i]--;
+		}
+		ChangeColor(i, duration);
+		++i;
+	}
+}
 #endregion
 #region UI Functions
 debug = false;
