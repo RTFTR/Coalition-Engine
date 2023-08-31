@@ -2,7 +2,6 @@
 if quit_timer
 	draw_sprite_ext(sprQuitMesssge, quit_timer / 14, 4, 4, 2, 2, 0, c_white, quit_timer / 15);
 
-//RGBShake = 5;
 if RGBShake
 {
 	switch RGBShakeMethod

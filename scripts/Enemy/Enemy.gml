@@ -89,8 +89,8 @@ function Enemy_NameUpdate() {
 ///@param {Array} function	The event to happen when the ACT options are selected (Default none)
 function Enemy_SetActTexts(name, text, functions = array_create(array_length(name), function() {}))
 {
-	var i = 0;
-	repeat array_length(name)
+	var i = 0, n = array_length(name);
+	repeat n
 	{
 		enemy_act[i] = name[i];
 		enemy_act_text[i] = text[i];

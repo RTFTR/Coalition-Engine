@@ -54,8 +54,8 @@ function add_edge()
 if !variable_instance_exists(id, "shape") shape = SHAPES.CUBE;
 
 //Automatically adds the edges and nodes/vertexes of the bone based on the loaded 3d shapes
-var i = 0, n = array_length(global.Nodes[shape]);
-repeat array_length(global.Edges[shape])
+var i = 0, n = array_length(global.Nodes[shape]), k = array_length(global.Edges[shape]);
+repeat k
 {
 	script_execute_ext(add_edge, global.Edges[shape][i]);
 	if i < n script_execute_ext(add_vert, global.Nodes[shape][i]);

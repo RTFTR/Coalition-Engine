@@ -1,4 +1,4 @@
-///@desc Update 3D camera
+///desc Update 3D camera
 //why this exists lmao, camera angle is broken when enabled
 if camera_enable_z
 {

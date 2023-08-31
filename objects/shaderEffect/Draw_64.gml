@@ -1,7 +1,7 @@
 surface_set_target(surf)
 shader_set(effect_shader);
-var i = 0;
-repeat array_length(effect_param)
+var i = 0, n = array_length(effect_param);
+repeat n
 {
 	var shd_u = shader_get_uniform(effect_shader, effect_param[i][0])
 	shader_set_uniform_f_array(shd_u, effect_param[i][1]);

@@ -22,8 +22,8 @@ camera_set_view_pos(view_camera[0], target_x, target_y);
 #region Overworld room transition
 if !OverworldTransitioning
 {
-	var i = 0;
-	repeat array_length(RoomTransitionPositions[i])
+	var i = 0, n = array_length(RoomTransitionPositions[i]);
+	repeat n
 	{
 		if rectangle_in_rectangle(oOWPlayer.bbox_left, oOWPlayer.bbox_top, oOWPlayer.bbox_right, oOWPlayer.bbox_bottom, 
 			RoomTransitionPositions[OverworldSubRoom][i][0], RoomTransitionPositions[OverworldSubRoom][i][1],

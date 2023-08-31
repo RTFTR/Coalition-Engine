@@ -64,8 +64,8 @@ function is_val()
 */
 function array_multiply(arr, num)
 {
-	var i = 0;
-	repeat (array_length(arr))
+	var i = 0, n = array_length(arr);
+	repeat n
 		arr[i++] *= num;
 	return arr;
 }

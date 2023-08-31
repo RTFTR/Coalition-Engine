@@ -29,8 +29,8 @@ function Effect_SetParam(ID, name, val)
 		{
 			if effect_shader == ID
 			{
-				var i = 0;
-				repeat array_length(effect_param)
+				var i = 0, n = array_length(effect_param);
+				repeat n
 				{
 					if effect_param[i][0] == name
 					{
@@ -48,8 +48,8 @@ function Effect_SetParam(ID, name, val)
 	{
 		with ID
 		{
-			var i = 0;
-			repeat array_length(effect_param)
+			var i = 0, n = array_length(effect_param);
+			repeat n
 			{
 				if effect_param[i][0] == name
 				{

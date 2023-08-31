@@ -84,3 +84,6 @@ Naming =
 //Effects
 shader_enable_corner_id(true);
 GradientSurf = -1;
+
+global.sur_list = ds_list_create();
+CutScreenSurface = surface_create(640, 480);

@@ -120,7 +120,3 @@ function SubOptionAction(index)
 		
 	}
 }
-
-var t = CreateTextWriter(320, 240, "[c_white][fnt_dt_sans][scale,3][sprFriskCell][scale,1]blabla[snd_item_heal]\nlba");
-t[0].in(0.5, 0)
-t[0].sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")

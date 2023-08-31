@@ -85,8 +85,8 @@ function MidTurnDialog(text, events = [])
 {
 	dialog_at_mid_turn = true;
 	time++;
-	var i = 0;
-	repeat array_length(events)
+	var i = 0, n = array_length(events);
+	repeat n
 	{
 		scribble_typists_add_event(events[i][0], events[i][1]);
 		++i;

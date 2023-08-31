@@ -1,6 +1,6 @@
 //Fading methods
-var i = 0;
-repeat(array_length(Fade.Activate))
+var i = 0, n = array_length(Fade.Activate);
+repeat n
 {
 	if Fade.Activate[i, 0]
 	{

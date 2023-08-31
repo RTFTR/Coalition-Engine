@@ -45,8 +45,8 @@ function audio_create_stream_array()
 ///@param {Array<Asset.GMSound>} array	The array of streamed audio to destroy
 function audio_destroy_stream_array(arr)
 {
-	var i = 0;
-	repeat array_length(arr)
+	var i = 0, n = array_length(arr);
+	repeat n
 	{
 		audio_stream_destroy(arr[i]);
 		++i;

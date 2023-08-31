@@ -16,7 +16,8 @@ function CreateTextWriter(x, y, text, skip_enabled = false, event = [])
 	{
 		array_push(TextPosition, [x, y]);
 		array_push(TextWriterList, scribble(text));
-		repeat array_length(event)
+		var n = array_length(event);
+		repeat n
 		{
 			scribble_typists_add_event(event[i][0], event[i][1]);
 			++i;

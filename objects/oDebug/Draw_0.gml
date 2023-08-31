@@ -1,10 +1,12 @@
+draw_sprite(spr_tmp, 0, 0, 0)
+
 var Main = MainOption, Sub = SubOption;
 //Draw main option texts
 surface_set_target(Main.Surf);
 draw_set_font(fnt_dt_sans);
 draw_set_halign(fa_left);
-var i = 0;
-repeat array_length(Main.Options)
+var i = 0, n = array_length(Main.Options);
+repeat n
 {
 	draw_set_color(State == i + 1 ? c_yellow : c_white);
 	var BaseY = 40 + Main.DisplaceY + i * 70,
@@ -45,8 +47,8 @@ surface_free(Main.Surf);
 if State != DEBUG_STATE.MAIN
 {
 	surface_set_target(Sub.Surf);
-	var i = 0;
-	repeat array_length(Sub.Options)
+	var i = 0, n = array_length(Sub.Options);
+	repeat n
 	{
 		draw_set_color(c_white);
 		var BaseY = 40 + Sub.DisplaceY + i * 70,

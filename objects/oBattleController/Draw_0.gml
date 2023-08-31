@@ -133,8 +133,9 @@ if battle_state == BATTLE_STATE.MENU {
 	}
 	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
 	{
-		var i = 0, enemy_check_texts = "";
-		repeat array_length(enemy_act[target_option]) {
+		var i = 0, enemy_check_texts = "", n = array_length(enemy_act[target_option]);
+		repeat n
+		{
 			var assign_act_text = enemy_act[target_option, i];
 			if assign_act_text != ""
 				enemy_check_texts += "* " + assign_act_text;

@@ -57,12 +57,17 @@ function array_choose(array) {
 /// @param {array} array Array to sum numbers.
 /// @returns {real}
 function array_sum(array) {
-	var i = 0, isize = array_length(array), _sum = 0;
-	repeat(isize) {
-		_sum += array[i];
-		++i;
-	}
-	return _sum;
+	//var i = 0, isize = array_length(array), _sum = 0;
+	//repeat(isize) {
+	//	_sum += array[i];
+	//	++i;
+	//}
+	//return _sum;
+	var temp_arr = array,
+		t = array_reduce(temp_arr, function(previous, current) {
+                return previous + current;
+            });
+	return t;
 }
 
 /// @desc Returns true if the array is empty, false otherwise.

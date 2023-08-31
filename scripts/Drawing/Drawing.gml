@@ -276,3 +276,21 @@ function draw_invert_polygon(vertexes)
 	}
 	gpu_set_blendmode(bm_normal);
 }
+/**
+	(semi-internal) Splices the screen, similar to Edgetale run 3 final attack, returns the first value of the list
+	for animating the offset (you have to animate this and the one after it)
+	@param {real} line_start_x	The starting x position of the line
+	@param {real} line_start_y	The starting y position of the line
+	@param {real} line_end_x	The ending x position of the line
+	@param {real} line_end_y	The ending y position of the line
+	@param {real} offset		The displacement of the splice
+	@returns {real}
+*/
+function cut_screen(line_start_x, line_start_y, line_end_x, line_end_y, offset){
+	var true_line_start = [line_start_x / 640, line_start_y / 480],
+		true_line_end = [line_end_x / 640, line_end_y / 480];
+	//Add to list twice for the 2 halves of the splice
+	repeat 2
+		ds_list_add(global.sur_list, [surface_create(640, 480), offset, point_direction(line_start_x, line_start_y, line_end_x, line_end_y), true_line_start, true_line_end]);
+	return ds_list_size(global.sur_list) - 2;
+}

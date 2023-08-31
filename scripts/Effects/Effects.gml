@@ -123,3 +123,31 @@ function TrailEffect(Duration, Sprite = sprite_index, Subimg = image_index, X = 
 		duration = Duration;
 	}
 }
+
+/**
+	Splices the screen, similar to Edgetale run 3 final attack
+	@param {real} x				The x position of the center of the split
+	@param {real} y				The y position of the center of the split
+	@param {real} direction		The direction of the split
+	@param {real} induration	The duration of the split animation from 0 to full
+	@param {real} duration		The delay before animating it back to 0
+	@param {real} endduration	The duration of the split animation from full to 0
+	@param {real} distance		The distance of the split
+*/
+function SpliceScreen(x, y, dir, idur, dur, edur, dis) {
+	var _xs = x + 1000 * dcos(dir),
+		_ys = y - 1000 * dsin(dir),
+		_xe = x - 1000 * dcos(dir),
+		_ye = y + 1000 * dsin(dir);
+	with instance_create_depth(x, y, 0, oCutScreen, 
+	{
+		TEMPID : cut_screen(_xs, _ys, _xe, _ye, 0)
+	})
+	{
+		induration = idur;
+		duration = dur;
+		endduration = edur;
+		id.dir = dir;
+		displace = dis;
+	}
+}
