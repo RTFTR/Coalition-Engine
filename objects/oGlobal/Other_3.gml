@@ -13,3 +13,11 @@ part_type_destroy(global.TrailP);
 //UnloadFonts();
 
 time_source_destroy(all);
+
+sprite_delete(Border.Sprite);
+sprite_delete(Border.SpritePrevious);
+
+delete Song;
+delete Fade;
+delete Naming;
+delete Border;

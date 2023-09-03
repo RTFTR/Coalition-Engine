@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.8.6 (Eden)
+added border
+
 v4.8.5 (Eden)
 optimised more functions
 added screen splicing (like in the epic sword fighting game edgetale, but the method is better because zy code is lag simulator)

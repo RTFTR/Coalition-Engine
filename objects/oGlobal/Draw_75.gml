@@ -1,4 +1,4 @@
-//Fading methods
+#region Fading methods
 var i = 0, n = array_length(Fade.Activate);
 repeat n
 {
@@ -31,6 +31,7 @@ repeat n
 	}
 	i++;
 }
+#endregion
 
 //Draws above shaders
 if global.ShowFPS and !global.debug and room != rRestart  //Prevent debug UI overlap

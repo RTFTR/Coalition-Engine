@@ -126,8 +126,8 @@ Button.ResetTimer = function() {
 	Button.ColorLerpTimer = array_create(4, 0);
 }
 Button.ResetTimer();
-Button.UpdateColor = function(duration = 30) {
-	static ChangeColor = function(i, duration)
+Button.Update = function(duration = 30) {
+	static UpdateData = function(i, duration)
 	{
 		Button.ColorLerpScale[i] = EaseOutQuad(Button.ColorLerpTimer[i], 0, 1, duration);
 		Button.Color[i] = merge_color(Button.ColorTarget[i][0], Button.ColorTarget[i][menu_state >= 0], Button.ColorLerpScale[i]);
@@ -145,7 +145,7 @@ Button.UpdateColor = function(duration = 30) {
 			if Button.ColorLerpTimer[i] > 0
 				Button.ColorLerpTimer[i]--;
 		}
-		ChangeColor(i, duration);
+		UpdateData(i, duration);
 		++i;
 	}
 }

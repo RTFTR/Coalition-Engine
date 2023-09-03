@@ -372,6 +372,7 @@
     {"name":"Audio","order":2,"path":"scripts/Audio/Audio.yy",},
     {"name":"__input_transform_coordinate","order":24,"path":"scripts/__input_transform_coordinate/__input_transform_coordinate.yy",},
     {"name":"snd_encounter_soul_move","order":19,"path":"sounds/snd_encounter_soul_move/snd_encounter_soul_move.yy",},
+    {"name":"Borders","order":23,"path":"scripts/Borders/Borders.yy",},
     {"name":"Outline Documentation","order":2,"path":"notes/Outline Documentation/Outline Documentation.yy",},
     {"name":"VinylPersistentGet","order":1,"path":"scripts/VinylPersistentGet/VinylPersistentGet.yy",},
     {"name":"TGMX_Terms_of_Use","order":1,"path":"notes/TGMX_Terms_of_Use/TGMX_Terms_of_Use.yy",},

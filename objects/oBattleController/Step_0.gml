@@ -1,6 +1,6 @@
 if !audio_group_is_loaded(audgrpbattle)
 	audio_group_load(audgrpbattle);
-Button.UpdateColor();
+Button.Update();
 var LangText = global.AllLanguageTexts[global.Language],
 	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
 	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
