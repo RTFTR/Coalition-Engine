@@ -198,19 +198,9 @@ if STATE == 2 {
 			if moveable {
 				if !(global.timer % 5)
 					//TrailStep(25);
-					TrailEffect(25, , , , , , , , c_orange);
-				var input = [input_check("right"), input_check("up"),
-					input_check("left"), input_check("down")
-				];
+					TrailEffect(25,,,,,,,, c_orange);
 				//Movement
-					 if input[0] && input[1] dir = 45;
-				else if input[1] && input[2] dir = 135;
-				else if input[2] && input[3] dir = 225;
-				else if input[3] && input[0] dir = -45;
-				else if input[3] dir = 270;
-				else if input[2] dir = 180;
-				else if input[1] dir = 90;
-				else if input[0] dir = 0;
+				dir = input_direction(dir, "left", "right", "up", "down",, true);
 				x += lengthdir_x(move_spd, dir + image_angle + draw_angle);
 				y += lengthdir_y(move_spd, dir + image_angle + draw_angle);
 			}

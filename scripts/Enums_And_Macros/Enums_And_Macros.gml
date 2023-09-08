@@ -1,9 +1,9 @@
-#macro ENGINE_VERSION "Beta v4.8.6"
+#macro ENGINE_VERSION "Beta v4.8.7"
 #macro ALLOW_DEBUG  true
-#macro CHECK_HORIZONTAL global.diagonal_speed ? input_check("right") - input_check("left") :  input_x("left", "right", "up", "down")
-#macro CHECK_VERTICAL global.diagonal_speed ? input_check("down") - input_check("up") :  input_y("left", "right", "up", "down")
-#macro PRESS_HORIZONTAL input_check_pressed("right") - input_check_pressed("left")
-#macro PRESS_VERTICAL input_check_pressed("down") - input_check_pressed("up")
+#macro CHECK_HORIZONTAL global.diagonal_speed ? input_check_opposing("left", "right") :  input_x("left", "right", "up", "down")
+#macro CHECK_VERTICAL global.diagonal_speed ? input_check_opposing("up", "down") :  input_y("left", "right", "up", "down")
+#macro PRESS_HORIZONTAL input_check_opposing_pressed("left", "right")
+#macro PRESS_VERTICAL input_check_opposing_pressed("up", "down")
 #macro PRESS_CONFIRM input_check_pressed("confirm")
 #macro HOLD_CONFIRM input_check("confirm")
 #macro PRESS_CANCEL input_check_pressed("cancel")

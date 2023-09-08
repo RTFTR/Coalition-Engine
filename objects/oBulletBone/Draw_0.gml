@@ -19,8 +19,8 @@ var _xscale = image_xscale,
 
 Battle_Masking_Start(true);
 
-draw_sprite_ext(sprite_index,image_index,_x,_y,_xscale,_yscale,_angle,_color,_alpha);
-draw_sprite_ext(sprite_index,image_index + 1,_x,_y,_xscale,_yscale,_angle,_color_outline,_alpha);
+draw_sprite_ext(sprite_index, image_index, _x, _y, _xscale, _yscale, _angle, _color, _alpha);
+draw_sprite_ext(sprite_index, image_index + 1, _x, _y, _xscale, _yscale, _angle, _color_outline, _alpha);
 
 	
 Battle_Masking_End();

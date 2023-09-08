@@ -108,7 +108,7 @@ function end_battle() {
 			if global.hp == global.hp_max maxhp = true;
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
-				battle_end_text += "\n " + LangText[LANGUAGE_TEXTS.INC_LOVE];
+				battle_end_text += "\n  " + LangText[LANGUAGE_TEXTS.INC_LOVE];
 			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);

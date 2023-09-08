@@ -8,7 +8,7 @@ Enemy_SetHPStats(100, 50);
 Enemy_SetReward(100, 100);
 default_font = "fnt_sans";
 default_sound = snd_txtSans;
-is_dodge = false;
+is_dodge = true;
 end_turn_menu_text = [
 	"turn 2 text",
 	"turn 3 text",
@@ -60,9 +60,9 @@ dialog_size[3] = 80;
 dodge_to = choose(-150, 150);
 dodge_method = function()
 {
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y", damage_y, damage_y - 30);
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y>", damage_y - 30);
 	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 25, "x", x, x - dodge_to);
+	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 25, "x>", x - dodge_to);
 	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 35, 25, "x", x - dodge_to, x);
 }
 

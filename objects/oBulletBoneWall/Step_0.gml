@@ -1,15 +1,17 @@
-WarnTimer++;
-if !(WarnTimer % 5) and time_warn
+if warn_color_swap
 {
-	var change = (WarnTimer % 10) == 5
-	warn_color = change ? c_yellow : c_red;
-	warn_alpha_filled = change ? 0.25 : 0.5;
+	WarnTimer++;
+	if !(WarnTimer % 5) and time_warn
+	{
+		var change = (WarnTimer % 10) == 5
+		warn_color = change ? c_yellow : c_red;
+		warn_alpha_filled = change ? 0.25 : 0.5;
+	}
 }
 
 if state == 2
 {
-	var dir_ang_x = -dsin(dir);
-	var dir_ang_y = dcos(dir);
+	var dir_ang_x = -dsin(dir), dir_ang_y = dcos(dir);
 	if !timer and sound_create
 	{
 		audio_play(snd_bonewall);

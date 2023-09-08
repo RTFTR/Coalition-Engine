@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v4.8.7 (Eden)
+fixed bugs and changed some functions
+
 v4.8.6 (Eden)
 added border
 
