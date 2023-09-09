@@ -42,11 +42,11 @@ if Song.Activate
 	Song.Time++;
 	var Text = "Now Playing: " + Song.Name,
 		Length = string_width(Text),
-		Height = string_height(Text) * 1.3,
+		Height = string_height(Text),
 		dist = Song.Dist;
-	draw_rectangle_color(dist - 10, 10, dist - Length - 20, 15 + Height, c_teal, c_purple,
+	draw_rectangle_color(dist - 10, 10, dist - Length - 20, 30 + Height, c_teal, c_purple,
 						c_purple, c_teal, false);
-	draw_triangle_color(dist - 11, 10, dist + 20, (15 + Height + 10) / 2, dist - 11, 15 + Height,
+	draw_triangle_color(dist - 11, 10, dist + 20, (35 + Height) / 2, dist - 11, 30 + Height,
 						c_purple, c_purple, c_purple, false);
 	draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
 	if Song.Time < 60
