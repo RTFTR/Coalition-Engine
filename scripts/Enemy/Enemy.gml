@@ -1,3 +1,8 @@
+
+function Enemy_SetEncoutner(encounter = array_length(global.enemy_presets), left = noone, middle = noone, right = noone) {
+	global.enemy_presets[encounter] = [left, middle, right];
+}
+
 ///@desc Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
 function Enemy_Function_Load(encounter_number = global.battle_encounter) {
@@ -8,14 +13,7 @@ function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 	enemy_draw_hp_bar = [];
 	enemy_name_extra = ["", "", ""];
 	
-	var enemy_presets=
-	[
-		[noone, oEnemySansExample, noone],
-		//Following are tests
-		[noone, oEnemySans2, noone],
-		[noone, oRhythm, noone],
-		[noone, oEnemyTest, noone],
-	];
+	var enemy_presets= global.enemy_presets;
 	
 	enemy_instance = [];
 	for (var i = 0, enemies; i < 3; ++i)

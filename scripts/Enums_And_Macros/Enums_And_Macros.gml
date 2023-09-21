@@ -1,4 +1,4 @@
-#macro ENGINE_VERSION "Beta v4.8.7"
+#macro ENGINE_VERSION "Beta v4.8.8"
 #macro ALLOW_DEBUG  true
 #macro CHECK_HORIZONTAL global.diagonal_speed ? input_check_opposing("left", "right") :  input_x("left", "right", "up", "down")
 #macro CHECK_VERTICAL global.diagonal_speed ? input_check_opposing("up", "down") :  input_y("left", "right", "up", "down")

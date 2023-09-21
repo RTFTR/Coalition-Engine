@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v4.8.8 (Eden)
+changed encounter enemy template template
+will improve readability next update
+
 v4.8.7 (Eden)
 fixed bugs and changed some functions
 

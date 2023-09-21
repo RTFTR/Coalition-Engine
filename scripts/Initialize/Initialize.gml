@@ -134,12 +134,10 @@ function Initialize()
 	
 	global.TempData = ds_map_create();
 	
-	//Sets the current battle encounter ID
+	//Battle
 	global.battle_encounter = 0;
-	
-	//Sets the current Overworld dialog sprite (Currently unused)
-	global.text_face = 0;
-	global.text_emotion = 0;
+	global.enemy_presets = [];
+	Enemy_SetEncoutner(,,oEnemySansExample);
 	
 	//Particles
 	global.TrailS = part_system_create();
@@ -147,6 +145,7 @@ function Initialize()
 	part_type_life(global.TrailP, 30, 30);
 	part_type_alpha2(global.TrailP, 1, 0);
 	
+	//Culling
 	global.deactivatedInstances = ds_list_create();
 	global.trueInstanceCache = ds_list_create();
 	
