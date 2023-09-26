@@ -81,3 +81,4 @@ if global.timer == 1
 	surface_reset_target();
 	shader_enable_corner_id(false);
 }
+

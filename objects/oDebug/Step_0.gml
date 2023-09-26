@@ -1,8 +1,8 @@
-if global.timer == 30 CURAUD = audio_play(storm)
-if global.timer >= 30
-	AudioStickToTime(CURAUD, (global.timer - 30) / 60)
-if (global.timer >= 145 and global.timer <= 155)
-	SpliceScreen(random(640), random(480), random(360), 5, 365, 5, random_range(10, 30))
+//if global.timer == 30 CURAUD = audio_play(storm)
+//if global.timer >= 30
+//	AudioStickToTime(CURAUD, (global.timer - 30) / 60)
+//if (global.timer >= 145 and global.timer <= 155)
+//	SpliceScreen(random(640), random(480), random(360), 5, 365, 5, random_range(10, 30))
 
 var Main = MainOption, Sub = SubOption;
 //Surfaces

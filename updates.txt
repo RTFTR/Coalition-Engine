@@ -1,5 +1,10 @@
 Update Logs (This is the beta builds)
 
+v4.8.8.1 (Eden)
+added clean shapes by JujuAdams
+sorted some file into groups
+added color blending for effects (most likely useless to 99% of the people)
+
 v4.8.8 (Eden)
 changed encounter enemy template template
 will improve readability next update

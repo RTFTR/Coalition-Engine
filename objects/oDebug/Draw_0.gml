@@ -1,4 +1,4 @@
-draw_sprite(spr_tmp, 0, 0, 0)
+//draw_sprite(spr_tmp, 0, 0, 0)
 
 var Main = MainOption, Sub = SubOption;
 //Draw main option texts
