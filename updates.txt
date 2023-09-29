@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+
+v4.8.8.2 (Eden)
+optimised codes
+
 v4.8.8.1 (Eden)
 added clean shapes by JujuAdams
 sorted some file into groups

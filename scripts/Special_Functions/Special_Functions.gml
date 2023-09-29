@@ -18,9 +18,9 @@ function check_outside(){
 
 ///@desc Takes a screenshot and saves it with given filename + current time
 function Screenshot(filename = "") {
-	var date = string(current_year) + "y-" + string(current_month) + "m-" + string(current_day) + "d_" +
-		string(current_hour) + "h_" + string(current_minute) + "m_" + string(current_second) + "s"
-	screen_save("Screenshots/" + string(filename) + date + ".png")
+	var date = string("{0}y-{1}m-{2}d_{3}h_{4}m_{5}s", current_year, current_month, current_day,
+						current_hour, current_minute, current_second);
+	screen_save("Screenshots/" + string(filename) + date + ".png");
 }
 
 /**

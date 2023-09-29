@@ -15,8 +15,8 @@ function point_xy(p_x, p_y)
 {
 	var angle = image_angle;
 	
-	point_x = ((p_x - x) * dcos(-angle)) - ((p_y - y) * dsin(-angle)) + x;
-	point_y = ((p_y - y) * dcos(-angle)) + ((p_x - x) * dsin(-angle)) + y;
+	point_x = (p_x - x) * dcos(angle) - (p_y - y) * dsin(-angle) + x;
+	point_y = (p_y - y) * dcos(angle) + (p_x - x) * dsin(-angle) + y;
 }
 
 ///@desc Returns the lengthdir_x/y values in a Vector2 (stupidly useless)

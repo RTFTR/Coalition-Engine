@@ -27,8 +27,7 @@ function Camera_Shake(amount, decrease = 1)
 function Camera_Scale(sx, sy, duration = 0, ease = EaseLinear)
 {
 	with oGlobal {
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_scale_x", camera_scale_x, sx);
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_scale_y", camera_scale_y, sy);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, duration, "camera_scale_x", camera_scale_x, sx, "camera_scale_y", camera_scale_y, sy);
 	}
 }
 
@@ -43,8 +42,7 @@ function Camera_Scale(sx, sy, duration = 0, ease = EaseLinear)
 function Camera_SetPos(x, y, duration, delay = 0, ease = EaseLinear)
 {
 	with oGlobal {
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_x", camera_x, x);
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_y", camera_y, y);
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, delay, duration, "camera_x", camera_x, x, "camera_y", camera_y, y);
 	}
 }
 

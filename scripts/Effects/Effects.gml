@@ -47,18 +47,20 @@ function motion_blur(length, direction){
     }
 }
 
-///@desc Creates a motion blur of a sprite
-///@param {real} sprite				The sprite to blur
-///@param {real} subimg				The image index of the sprite
-///@param {real} x					The x position
-///@param {real} y					The y position
-///@param {real} xscale				The xscale of the sprite
-///@param {real} yscale				The yscale of the sprite
-///@param {real} angle				The angle fo the sprite
-///@param {Constant.color} blend	The image blend of the sprite
-///@param {real} alpha				The alpha of the sprite
-///@param {real} length	The			length of the blur
-///@param {real} direction			The direction of the blur
+/**
+	@desc Creates a motion blur of a sprite
+	@param {real} sprite			The sprite to blur
+	@param {real} subimg			The image index of the sprite
+	@param {real} x					The x position
+	@param {real} y					The y position
+	@param {real} xscale			The xscale of the sprite
+	@param {real} yscale			The yscale of the sprite
+	@param {real} angle				The angle fo the sprite
+	@param {Constant.color} blend	The image blend of the sprite
+	@param {real} alpha				The alpha of the sprite
+	@param {real} length			The	length of the blur
+	@param {real} direction			The direction of the blur
+*/
 function motion_blur_ext(sprite, subimg, xx, yy, xscale, yscale, angle, blend, alpha, length, direction) {
     if (length > 0) {
 		var step, dir, px, py, a;
