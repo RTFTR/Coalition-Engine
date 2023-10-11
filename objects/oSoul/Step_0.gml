@@ -34,19 +34,11 @@ if STATE == 2 {
 			board_x			= board.x,
 			board_y			= board.y,
 			board_angle		= posmod(board.image_angle, 360),
-			board_margin	= [board.up, board.down, board.left, board.right],
 			board_dir		= board_angle div 90,
-			
-			board_limit_template = [
-				board_y - board_margin[0] + y_offset,
-				board_y + board_margin[1] - y_offset,
-				board_x - board_margin[2] + x_offset,
-				board_x + board_margin[3] - x_offset
-			],
-			board_top_limit		= board_limit_template[0],
-			board_bottom_limit	= board_limit_template[1],
-			board_left_limit	= board_limit_template[2],
-			board_right_limit	= board_limit_template[3];
+			board_top_limit		= board_y - board.up + y_offset,
+			board_bottom_limit	= board_y + board.down - y_offset,
+			board_left_limit	= board_x - board.left + x_offset,
+			board_right_limit	= board_x + board.right - x_offset;
 	}
 
 	//Check if soul follows the movement of the board
@@ -96,7 +88,7 @@ if STATE == 2 {
 					_on_ceil = r_y <= board_top_limit + 0.1;
 				}
 
-				platform_check = [[0, 0], [y_offset + 1, y_offset]];
+				platform_check[1] = [y_offset + 1, y_offset];
 
 				jump_input = input_check("up");
 				move_input = h_spd * move_spd;
@@ -107,7 +99,7 @@ if STATE == 2 {
 					_on_ceil = r_y >= board_bottom_limit - 0.1;
 				}
 
-				platform_check = [[0, 0], [y_offset - 1, -y_offset]];
+				platform_check[1] = [y_offset - 1, -y_offset];
 				
 
 				jump_input = input_check("down");
@@ -119,7 +111,7 @@ if STATE == 2 {
 					_on_ceil = r_x <= board_left_limit + 0.1;
 				}
 
-				platform_check = [[x_offset - 1, -x_offset], [0, 0]];
+				platform_check[0] = [x_offset - 1, -x_offset];
 
 				jump_input = input_check("left");
 				move_input = v_spd * -move_spd;
@@ -130,7 +122,7 @@ if STATE == 2 {
 					_on_ceil = r_x >= board_right_limit - 0.1;
 				}
 
-				platform_check = [[x_offset + 1, x_offset], [0, 0]];
+				platform_check[0] = [x_offset + 1, x_offset];
 
 				jump_input = input_check("right");
 				move_input = v_spd * move_spd;
@@ -142,14 +134,16 @@ if STATE == 2 {
 			}
 		
 			//Platform checking
-			var RespecitvePlatform = instance_position(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform);
+			var RelativePositionX = x + platform_check[0, 0],
+				RelativePositionY = y + platform_check[1, 0],
+				RespecitvePlatform = instance_position(RelativePositionX, RelativePositionY, oPlatform);
 
-			if position_meeting(x + platform_check[0, 0], y + platform_check[1, 0], oPlatform) and _fall_spd >= 0 {
+			if position_meeting(RelativePositionX, RelativePositionY, oPlatform) and _fall_spd >= 0 {
 				_on_platform = true;
 				while position_meeting(x + platform_check[0, 1], y + platform_check[1, 1], oPlatform) {
 					with RespecitvePlatform {
-						other.x += lengthdir_x(0.1, image_angle + 90);
-						other.y += lengthdir_y(0.1, image_angle + 90);
+						other.x += dsin(image_angle) / 10;
+						other.y -= dcos(image_angle) / 10;
 					}
 				}
 			}
@@ -176,8 +170,8 @@ if STATE == 2 {
 			else if !jump_input and _fall_spd < -0.5
 				_fall_spd = -0.5;
 
-			move_x = lengthdir_x(move_input, _angle) - lengthdir_y(_fall_spd, _angle);
-			move_y = lengthdir_x(move_input, _angle + 90) - lengthdir_y(_fall_spd, _angle + 90);
+			move_x = move_input * dcos(_angle) + _fall_spd * dsin(_angle);
+			move_y = move_input * dsin(_angle) + _fall_spd * dcos(_angle);
 
 			on_ground = _on_ground;
 			on_ceil = _on_ceil;
@@ -201,8 +195,9 @@ if STATE == 2 {
 					TrailEffect(25,,,,,,,, c_orange);
 				//Movement
 				dir = input_direction(dir, "left", "right", "up", "down",, true);
-				x += lengthdir_x(move_spd, dir + image_angle + draw_angle);
-				y += lengthdir_y(move_spd, dir + image_angle + draw_angle);
+				var FinalAngle = dir + image_angle + draw_angle;
+				x += move_spd * dcos(FinalAngle);
+				y -= move_spd * dsin(FinalAngle);
 			}
 		break
 		}

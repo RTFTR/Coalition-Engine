@@ -38,6 +38,7 @@ function Initialize()
 	global.player_inv_boost = 0;
 	
 	//Battle stats
+	global.BattleData = new Battle();
 	global.kr = 0;
 	global.kr_activation = false;
 	global.damage = 1;

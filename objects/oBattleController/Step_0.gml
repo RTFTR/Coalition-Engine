@@ -63,8 +63,7 @@ function begin_turn() {
 		{
 			with oEnemyParent
 			{
-				TurnData.IsHeal = true;
-				TurnData.HealNum = irandom(array_length(TurnData.HealAttacks) - 1);
+				
 			}
 		}
 		else
@@ -74,7 +73,6 @@ function begin_turn() {
 			menu_state = 0;
 			var end_turn_text = battle_turn - 1;
 			end_turn_text = min(0, battle_turn);
-			Battle_SetMenuDialog(oEnemyParent.end_turn_menu_text[end_turn_text]);
 		}
 		last_choice = 0;
 	}

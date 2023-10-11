@@ -50,12 +50,4 @@ frame_y = _frame_y;
 frame_w = _frame_w;
 frame_h = _frame_h;
 
-Vertex =
-[
-	frame_x[0] + 5, frame_y[0] + 5,
-	frame_x[3], frame_y[3] + 5,
-	frame_x[2] + bg_w + 5, frame_y[2] + bg_h + 5,
-	frame_x[1] + 5, frame_y[1],
-	frame_x[0] + 5, frame_y[0] + 5,
-];
 

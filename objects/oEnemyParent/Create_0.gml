@@ -15,7 +15,6 @@ Exp_Give = 0;
 Gold_Give = 0;
 state = 0;
 begin_at_turn = false;
-end_turn_menu_text = [];
 //Optional veriables for sprite drawing
 enemy_sprites = [];
 enemy_sprite_index = [];
@@ -56,13 +55,6 @@ dialog_at_mid_turn = false;
 default_font = "";
 default_sound = snd_txtDefault;
 
-function Battle_EnemyDialog(turn, text)
-{
-	if !is_array(text) dialog_text[turn] = text;
-	else dialog_text = text;
-	dialog_init(dialog_text[oBattleController.battle_turn]);
-}
-
 function dialog_init(text = "")
 {
 	scribble_typists_add_event("skippable", textsetskippable);
@@ -78,7 +70,7 @@ __dialog_text_typist = scribble_typist()
 	.sound_per_char(default_sound, 1, 1, " ^!.?,:/\\|*")
 
 
-///@desc Generates a dialog mid turn
+///Generates a dialog mid turn
 ///@param {string} text		The text to draw
 ///@param {Array} events	The typist events ([event name, function])
 function MidTurnDialog(text, events = [])
@@ -122,60 +114,46 @@ is_spared = false;
 spare_function = -1;
 
 //Turn
-///@desc Sets the turn time of all turns
-///@param {Array<Real>} times	The array of the times
-function Battle_SetTurnTime()
-{
-	turn_time = argument0;
-}
-
-///@desc Sets the board size of all turns
-///@param {Array<Array<Real>>} size		The array of the sizes (Up, Down, Left, Right)
-function Battle_SetTurnBoardSize()
-{
-	board_size = argument0;
-}
-
-
-turn_time = [300];
-
-board_size = [
-	[70, 70, 70, 70],
-];
-
-TurnData = 
-{
-	//The attacks are stored in functions
-	Functions : [],
-	//The delay of the attacks to execute
-	AttackDelay : [],
-	//Total times of the attack to repeat itself
-	AttackRepeat : [],
-	//Amount of times the attack has repeated itself
-	AttackRepeatCount : [],
-	//The interval between each repeating attack
-	AttackInterval : [],
-	//Whether all attacks are loaded
-	AttacksLoaded : false,
-	//Healing attacks (in functions)
-	HealAttacks : [-1],
-	//Duration of healing attacks
-	HealTime : [100],
-	//Which healing attack
-	HealNum : 0,
-	//Is the attack a healing attack
-	IsHeal : false,
-	//Condition that causes the attacks to loop (Default false to progress normally)
-	AttackLoopCondition : function() { return false;},
-	//The number of the turn to loop (i.e. loop turn 1, 6, 9 would be [1, 6, 9])
-	AttackLoopTurn : [-1],
-	//Check if the condition is checked already
-	LoopChecked : false,
-	//Store the current turn number during loop
-	TempTurn : -1,
-}
-
 start = 1;
 time = -1;
+target_turn = 0;
 
 base_bone_col = c_white;
+
+AttackFunctions = [];
+PreAttackFunctions = [];
+PostAttackFunctions = [];
+
+/**
+	New way on creating attacks
+	@param {real}		turn	The turn to assign the attack to
+	@param {function}	attack	The attacks to store as a function
+*/
+function SetAttack(turn, attack) {
+	AttackFunctions[turn] = attack;
+}
+
+/**
+	Determine which turn is it currently based on a funciton that you can change for each enemy
+*/
+DetermineTurn = function() {
+	//Note that this line must be present at the end of the function or else it will throw an error
+	return global.BattleData.Turn();
+};
+
+/**
+	Sets a function that executes before the attack starts
+	@param {real}		turn		The turn of the function
+	@param {function}	function	The function to execute
+*/
+function PreAttackFunction(turn, func) {
+	PreAttackFunctions[turn] = func;
+}
+/**
+	Sets a function that executes after the attack ends
+	@param {real}		turn		The turn of the function
+	@param {function}	function	The function to execute
+*/
+function PostAttackFunction(turn, func) {
+	PostAttackFunctions[turn] = func;
+}

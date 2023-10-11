@@ -1,20 +1,15 @@
 ///@desc Turns, very trash, working on it
 function end_turn()
 {
-	//Reset menu text
-	var turn = oBattleController.battle_turn - 1;
-	if array_length(end_turn_menu_text) >= (turn + 1) and turn > -1
-		Battle_SetMenuDialog(end_turn_menu_text[turn]);
-	else {
-		with oBattleController
-		{
-			menu_text_typist.reset();
-			__text_writer.page(0);
-			Battle_SetMenuDialog(default_menu_text);
-		}
-	}
+	var turn = global.BattleData.Turn();
+	if array_length(PostAttackFunctions) > turn
+		PostAttackFunctions[turn]();
 	with oBattleController
 	{
+		//Set menu dialog
+		menu_text_typist.reset();
+		__text_writer.page(0);
+		global.BattleData.SetMenuDialog(default_menu_text);
 		//Reset menu state
 		battle_state = 0;
 		menu_state = 0;
@@ -41,10 +36,7 @@ function end_turn()
 		}
 	}
 	//Reset box
-	Set_BoardSize();
-	oBoard.image_angle %= 360;
-	Set_BoardAngle();
-	Set_BoardPos();
+	ResetBoard();
 	//Reset soul
 	with oSoul
 		draw_angle = (mode == SOUL_MODE.YELLOW ? 180 : 0);
@@ -69,96 +61,17 @@ function end_turn()
 	dialog_init(dialog_text[turn + 1]);
 	//Code to prevent crash
 	array_push(dialog_text, "");
-	TurnData.IsHeal = false;
-	//Debugging
-	TurnData.AttacksLoaded = false;
-	event_user(1);
-	if TurnData.TempTurn != -1
-		oBattleController.battle_turn = TurnData.TempTurn + 1;
-	TurnData.TempTurn = -1;
-	TurnData.LoopChecked = false;
 }
 
 if state == 2 and !__died and enemy_in_battle {
 	//Timer
 	if start time++;
-	var _turn = oBattleController.battle_turn - 1;
-	if !TurnData.LoopChecked && TurnData.AttackLoopCondition()
-	{
-		TurnData.LoopChecked = true;
-		TurnData.TempTurn = _turn;
-		oBattleController.battle_turn = array_choose(TurnData.AttackLoopTurn) + 1;
-		_turn = oBattleController.battle_turn - 1;
-	}
-	if _turn <= -1 {
-		end_turn();
-		exit;
-	}
-	//If the attack is not a healing attack
-	if !TurnData.IsHeal
-	{
-		//If the turn is not valid, end turn
-		if _turn < array_length(turn_time)
-		{
-			//If it's valid, and the timer reaches the limit, turn ends
-			if time == turn_time[_turn] end_turn();
-		}
-		else end_turn();
-		//Initalizing turn
-		if time == 0
-			if array_height_2d(board_size) >= _turn
-			{
-				//Sets the board size to the value that has been set in Create event
-				Set_BoardSize(board_size[_turn, 0], board_size[_turn, 1], board_size[_turn, 2],
-					board_size[_turn, 3]);
-				//Load the attacks if they aren't loaded yet
-				if !TurnData.AttacksLoaded event_user(1);
-			}
-		//If the turn is valid
-		if array_length(TurnData.Functions) > _turn
-		{
-			var i = 0;
-			//Check through all stored attack (functions)
-			repeat(array_length(TurnData.Functions[_turn]))
-			{
-				//If the attack doesn't repeat
-				if TurnData.AttackInterval[_turn, i] == 1
-				{
-					//If the timer reaches the assigned time for the attack to appear, launch attack
-					if time == TurnData.AttackDelay[_turn, i]
-						TurnData.Functions[_turn, i]();
-				}
-				else
-				{
-					//If the attack repeats
-					if TurnData.AttackRepeat[_turn, i]
-					{
-						//If timer reaches the assigned time and the assigned interval within the
-						//assigned repeat count
-						if time == TurnData.AttackDelay[_turn, i] + 
-									TurnData.AttackInterval[_turn, i] * TurnData.AttackRepeatCount[_turn, i]
-						{
-							//Launch the attack, add 1 to the repeated counter, minus 1 to the
-							//repeats left counter
-							TurnData.Functions[_turn, i]();
-							TurnData.AttackRepeatCount[_turn, i]++;
-							TurnData.AttackRepeat[_turn, i]--;
-						}
-					}
-				}
-				i++;
-			}
-		}
-		else end_turn();
-	}
+	if array_length(AttackFunctions) > global.BattleData.Turn()
+		AttackFunctions[DetermineTurn()]();
 	else
 	{
-		//If the attack is a healing attack, launch the attack (timer and attacks are stored in the function)
-		if TurnData.HealAttacks[TurnData.HealNum] != -1
-			TurnData.HealAttacks[TurnData.HealNum]();
-		//If timer reaches the limit, turn ends
-		if time == TurnData.HealTime[TurnData.HealNum]
-			end_turn();
+		oBattleController.battle_turn--;
+		end_turn();
 	}
 }
 

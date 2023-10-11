@@ -82,16 +82,19 @@ Naming =
 };
 
 Border = {};
-Border.Enabled = false;
-Border.Sprite = -1;
-Border.SpritePrevious = -1;
-Border.Alpha = 1;
-Border.AlphaPrevious = 0;
-//Whether the border is the game itself
-Border.AutoCapture = false;
-//Whether the border is blurred, if so how much
-Border.Blur = 0;
-Border.__BlurShaderSize = shader_get_uniform(shdGaussianBlur, "size");
+with Border
+{
+	Enabled = false;
+	Sprite = -1;
+	SpritePrevious = -1;
+	Alpha = 1;
+	AlphaPrevious = 0;
+	//Whether the border is the game itself
+	AutoCapture = false;
+	//Whether the border is blurred, if so how much
+	Blur = 0;
+	__BlurShaderSize = shader_get_uniform(shdGaussianBlur, "size");
+}
 
 //Effects
 shader_enable_corner_id(true);

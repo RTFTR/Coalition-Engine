@@ -3,6 +3,7 @@
 _turn = oBattleController.battle_turn - 1;
 time = time;
 
+//D
 ///@desc Creates the attack of the turn
 ///@param {real} Turn			The Turn number to add the attack to
 ///@param {real} Attack			The Attack number of the turn
@@ -12,10 +13,11 @@ time = time;
 ///@param {real} Interval		The Interval bewteen the repeats (Acts as the "xx" in      ^) 
 function TurnCreate(turn, attack, delay, content, repeat_times = 1, interval = 1)
 {
+	exit;
 	TurnData.AttackDelay[turn, attack] = delay;
 	TurnData.AttackRepeat[turn, attack] = round(repeat_times);
 	TurnData.AttackRepeatCount[turn, attack] = 0;
 	TurnData.AttackInterval[turn, attack] = round(interval);
 	TurnData.Functions[turn, attack] = content;
 }
-TurnData.AttacksLoaded = true;
+

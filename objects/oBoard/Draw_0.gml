@@ -8,7 +8,7 @@ var _frame_x = frame_x,
 	_frame_w = frame_w,
 	_frame_h = frame_h;
 
-if SpecialMode == ""
+if !VertexMode
 {
 	surface_set_target(surface);
 	draw_clear_alpha(c_white, 0);
@@ -30,22 +30,15 @@ if SpecialMode == ""
 		++i;
 	}
 }
-else if SpecialMode == "Circle"
+else
 {
-	//Masking issues yay
-	surface_set_target(surface);
-	gpu_set_colorwriteenable(false, false, false, true);
-	gpu_set_blendenable(false);
-	draw_set_alpha(0);
-	draw_clear(c_black);
-	draw_set_alpha(1);
-	draw_circle(x, y, CircleRaidus + thickness_frame * 1.5, false);
-	gpu_set_blendenable(true);
-	gpu_set_colorwriteenable(true, true, true, true);
-	surface_reset_target();
-	draw_set_circle_precision(64);
-	var inner = CircleRaidus + thickness_frame * 1.5
-	draw_circle_width(x, y, inner, inner + thickness_frame, 20);
+	//masking tbd
+	var i = 0, n = array_length(Vertex);
+	repeat n - 1
+	{
+		draw_line_width_color(Vertex[i][0], Vertex[i][1], Vertex[i + 1][0], Vertex[i + 1][1], 5, image_blend, image_blend);
+		++i;
+	}
 }
 
 image_blend = _color;

@@ -287,7 +287,6 @@ if state == 2 {
 	draw_set_halign(fa_right);
 	draw_set_color(c_white);
 	if global.debug
-		if array_length(turn_time) > _turn
-			draw_text(640, 10, "Time: " + string(time) + " / " + string(turn_time[_turn]));
+		draw_text(640, 10, "Time: " + string(time));
 	draw_set_halign(fa_left);
 }

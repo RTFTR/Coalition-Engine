@@ -1,5 +1,12 @@
 Update Logs (This is the beta builds)
 
+v5.0 (Eden)
+optimised codes
+updated battle logic so it is more user friendly and less bugs will occur due to the unreadibility of code making the dev (aka im so dumb i cant read my own stupid codes) unable to fix
+function of polygon board has started making
+
+!IMPORTANT!
+from this point forth, TurnCreate (and variables associated), some names of Battle related functions, are removed / renamed into another function
 
 v4.8.8.2 (Eden)
 optimised codes

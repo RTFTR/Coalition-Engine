@@ -69,3 +69,13 @@ function array_multiply(arr, num)
 		arr[i++] *= num;
 	return arr;
 }
+
+/**
+	Check whether the valuye contains the bit
+	@param {real} Value	The value to check from
+	@param {real} Bit	The bit to check
+*/
+function is_bit(val, bit)
+{
+	return (val & bit) != 0;
+}

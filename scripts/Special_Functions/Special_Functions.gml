@@ -43,7 +43,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 			switch current
 			{
 				case "oEnemyParent":
-					n = array_length(turn_time);
+					n = array_length(AttackFunctions);
 				break
 				case "oBattleController":
 					n = array_length(global.item);
@@ -58,7 +58,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 						file_text_readln(file);
 						DialogText = file_text_read_string(file);
 						file_text_readln(file);
-						Battle_EnemyDialog(TurnNumber, DialogText);
+						global.BattleData.EnemyDialog(self, TurnNumber, DialogText);
 					break
 				}
 				i++;
@@ -227,6 +227,26 @@ function tips()
 function mouse_in_rectangle(x1, y1, x2, y2) {
 	return point_in_rectangle(mouse_x, mouse_y, x1, y1, x2, y2);
 }
+
+#region Point Lists
+/**
+	Checks whether the list of points form a rectangle
+	@param {array} a
+	@param {array} b
+	@param {array} c
+	@param {array} d
+*/
+function is_rectangle(a, b, c, d)
+{
+	//Slope of lines (Not using arrays because creating an array per-frame is cringe)
+	var Slope1 = (b[1] - a[1]) / (b[0] - a[0]),
+		Slope2 = (c[1] - b[1]) / (c[0] - b[0]),
+		Slope3 = (d[1] - c[1]) / (d[0] - c[0]),
+		Slope4 = (a[1] - d[1]) / (a[0] - d[0]);
+    //Using the fact that when (slope of line A * slope of line B) = -1
+	return ((Slope1 * Slope2 == -1) && (Slope2 * Slope3 == -1) && (Slope3 * Slope4 == -1) && (Slope4 * Slope1 == -1));
+}
+#endregion
 
 #region From Alice
 /// @function file_read_all_text(filename)

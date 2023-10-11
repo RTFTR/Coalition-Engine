@@ -7,11 +7,9 @@ TurnCreate(0, 0, 30, function() {
 	Bullet_BoneWall(DIR.DOWN, 100, 50, 20);
 	Make_Platform(200, 330, 2, 0, 40);
 });
-
 TurnCreate(0, 1, 75, function() {
 	Battle_SoulMode(SOUL_MODE.RED);
 });
-
 TurnCreate(0, 2, 120, function() {
 	for (var i = 45; i <= 315; i += 90)
 		Blaster_Circle([320, 320], [600, 150], [i, i], [i + 180, i + 180], [2, 2], [30, 30, 20])

@@ -36,28 +36,29 @@ if fader_alpha > 0
 }
 
 //Song Name
-if Song.Activate
+with Song
 {
-	if (room == room_gameover && Song.Time < 180) Song.Time = 180;
-	Song.Time++;
-	var Text = "Now Playing: " + Song.Name,
-		Length = string_width(Text),
-		Height = string_height(Text),
-		dist = Song.Dist;
-	draw_rectangle_color(dist - 10, 10, dist - Length - 20, 30 + Height, c_teal, c_purple,
-						c_purple, c_teal, false);
-	draw_triangle_color(dist - 11, 10, dist + 20, (35 + Height) / 2, dist - 11, 30 + Height,
-						c_purple, c_purple, c_purple, false);
-	draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
-	if Song.Time < 60
-		Song.Dist = lerp(dist, Length, 0.21);
-	if Song.Time > 180
-		Song.Dist = lerp(dist, -20, 0.21);
-	if Song.Time > 240
+	if Activate
 	{
-		Song.Activate = false;
-		Song.Time = 0;
-		Song.Name = "";
+		if (room == room_gameover && Time < 180) Time = 180;
+		Time++;
+		var Text = "Now Playing: " + Name,
+			Length = string_width(Text),
+			Height = string_height(Text),
+			dist = Dist;
+		draw_rectangle_color(dist - 10, 10, dist - Length - 20, 30 + Height, c_teal, c_purple,
+							c_purple, c_teal, false);
+		draw_triangle_color(dist - 11, 10, dist + 20, (35 + Height) / 2, dist - 11, 30 + Height,
+							c_purple, c_purple, c_purple, false);
+		draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
+		if Time < 60 Dist = lerp(dist, Length, 0.21);
+		if Time > 180 Dist = lerp(dist, -20, 0.21);
+		if Time > 240
+		{
+			Activate = false;
+			Time = 0;
+			Name = "";
+		}
 	}
 }
 

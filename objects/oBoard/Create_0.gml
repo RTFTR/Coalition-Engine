@@ -29,8 +29,31 @@ rotate = 0;
 //Board frame color
 image_blend = c_white;
 
-SpecialMode = "Circle";
-SpecialMode = "";
-CircleRaidus = 70;
+//Polygon board
+VertexMode = false;
+Vertex = array_create_2d(1, 1);
 
-Vertex = [0, 0];
+function ConvertToVertex() {
+	if VertexMode exit;
+	for (var i = 0; i < 4; ++i) {
+		Vertex[i] = [frame_x[i], frame_y[i]];
+	}
+	VertexMode = true;
+}
+function ConvertToBox(X = x, Y = y, Left = left, Right = right, Up = up, Down = down, angle = image_angle) {
+	if !VertexMode exit;
+	if array_length(Vertex) == 4
+	{
+		if is_rectangle(Vertex[0], Vertex[1], Vertex[2], Vertex[3])
+		{
+			x = X;
+			y = Y;
+			left = Left;
+			right = Right;
+			up = Up;
+			down = Down;
+			image_angle = angle;
+		}
+	}
+	VertexMode = false;
+}

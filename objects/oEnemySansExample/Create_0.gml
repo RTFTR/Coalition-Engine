@@ -9,10 +9,6 @@ Enemy_SetReward(100, 100);
 default_font = "fnt_sans";
 default_sound = snd_txtSans;
 is_dodge = true;
-end_turn_menu_text = [
-	"turn 2 text",
-	"turn 3 text",
-];
 enemy_sprites = [
 	spr_sans_legs,
 	spr_sans_body,
@@ -68,49 +64,23 @@ dodge_method = function()
 
 surf = -1;
 //Effect_Shader(shdBlueReduce, ["reduceAmount", [0.25]]);
-Battle_SetTurnTime(
-[
-	600,
-	300,
-	600,
-	300,
-	700,
-	900,
-	600,
-	600,
-	900,
-	600,
-	600,
-	600,
-]
-);
-
-Battle_SetTurnBoardSize(
-[
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[70, 70, 70, 70],
-	[42, 42, 42, 42],
-]);
 
 var text;
 for(var i = 0; i < 12; i++)
 {
 	text = LoadTextFromFile("SansTest2.txt", 1, "@" + string(i));
-	Battle_EnemyDialog(i, text);
+	global.BattleData.EnemyDialog(self, i, text);
 }
 
-//TurnData.AttackLoopCondition = function()
-//{
-//	return is_val(oBattleController.battle_turn, 2, 3)
-//}
-//TurnData.AttackLoopTurn = [0];
+SetAttack(0, function() {
+	global.BattleData.EnemyDialog(self, global.BattleData.Turn() + 1, "override")
+	if time == 60 end_turn();
+});
+
+SetAttack(1, function() {
+	if time == 60 global.BattleData.SetBoardSize(8, 8, 8, 8);
+	if time == 120 end_turn();
+});
+
+PreAttackFunction(0, function() { show_message("hi") } );
+PostAttackFunction(0, function() { show_message("hi") } );
