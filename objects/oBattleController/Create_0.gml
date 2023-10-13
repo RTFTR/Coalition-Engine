@@ -116,7 +116,7 @@ menu_text_typist = scribble_typist()
 	.in(0.5, 0)
 	.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
 
-global.BattleData.SetMenuDialog(menu_text);
+BattleData.SetMenuDialog(menu_text);
 
 #endregion
 #region KR Functions
@@ -234,8 +234,8 @@ Effect =
 function dialog_start() {
 	with oEnemyParent
 	{
-		if array_length(PreAttackFunctions) > global.BattleData.Turn()
-			PreAttackFunctions[global.BattleData.Turn()]();
+		if array_length(PreAttackFunctions) > BattleData.Turn()
+			PreAttackFunctions[BattleData.Turn()]();
 		state = 1;
 	}
 	battle_state = 1;

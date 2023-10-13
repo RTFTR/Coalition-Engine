@@ -29,8 +29,8 @@ function BorderSetSprite(spr, trans_time = 0)
 		Sprite = spr;
 		if trans_time != 0
 		{
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, trans_time, "Alpha", 0, 1);
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, trans_time, "AlphaPrevious", 1, 0);
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, trans_time, "Alpha", 0, 1,
+				"AlphaPrevious", 1, 0);
 		}
 	}
 }

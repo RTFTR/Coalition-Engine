@@ -63,9 +63,9 @@ dialog_y_from_top = 20;
 dialog_size[2] += 15;
 dialog_size[3] += 85;
 
-Enemy_SetHPStats(100, 100, 0);
 damage = 20;
-Enemy_SetDefense(28);
+EnemyData.SetHPStats(self, 100, 100, 0);
+EnemyData.SetDefense(self, 28);
 is_dodge = false;
 wiggle = false;
 enemy_is_spareable = false;
@@ -79,7 +79,7 @@ Battle_SetTurnBoardSize(
 [
 	[75, 75, 75, 75],
 ]);
-Enemy_SetReward(irandom_range(10, 20) ,irandom_range(3, 7))
+EnemyData.SetReward(self, irandom_range(10, 20) ,irandom_range(3, 7))
 
 TurnData.HealAttacks[0] = 
 function()

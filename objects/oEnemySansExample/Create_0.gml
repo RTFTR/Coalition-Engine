@@ -1,11 +1,12 @@
 event_inherited();
-Enemy_SetName("Sans");
-Enemy_SetActTexts(
-	["Check", "sans 1", "sans2", "sans3", "sans4"],
-	["funny skeleton man[delay,1000] 1 ATK 1 DEF", "sans 1 text", "sans2twxt", "sans3text", "sans4text"]
-	);
-Enemy_SetHPStats(100, 50);
-Enemy_SetReward(100, 100);
+EnemyData.SetName(self, "Sans");
+EnemyData.SetAct(self, 0, "Check", "funny skeleton man[delay,1000] 1 ATK 1 DEF");
+EnemyData.SetAct(self, 1, "sans 1", "sans 1 text");
+EnemyData.SetAct(self, 2, "sans2", "sans2twxt");
+EnemyData.SetAct(self, 3, "sans3", "sans3text");
+EnemyData.SetAct(self, 4, "sans4", "sans4text");
+EnemyData.SetHPStats(self, 100, 50);
+EnemyData.SetReward(self, 100, 100);
 default_font = "fnt_sans";
 default_sound = snd_txtSans;
 is_dodge = true;
@@ -69,16 +70,16 @@ var text;
 for(var i = 0; i < 12; i++)
 {
 	text = LoadTextFromFile("SansTest2.txt", 1, "@" + string(i));
-	global.BattleData.EnemyDialog(self, i, text);
+	BattleData.EnemyDialog(self, i, text);
 }
 
 SetAttack(0, function() {
-	global.BattleData.EnemyDialog(self, global.BattleData.Turn() + 1, "override")
+	BattleData.EnemyDialog(self, BattleData.Turn() + 1, "override")
 	if time == 60 end_turn();
 });
 
 SetAttack(1, function() {
-	if time == 60 global.BattleData.SetBoardSize(8, 8, 8, 8);
+	if time == 60 BattleData.SetBoardSize(8, 8, 8, 8);
 	if time == 120 end_turn();
 });
 

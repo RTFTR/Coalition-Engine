@@ -138,7 +138,7 @@ function SetAttack(turn, attack) {
 */
 DetermineTurn = function() {
 	//Note that this line must be present at the end of the function or else it will throw an error
-	return global.BattleData.Turn();
+	return BattleData.Turn();
 };
 
 /**

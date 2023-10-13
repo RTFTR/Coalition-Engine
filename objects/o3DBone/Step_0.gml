@@ -31,4 +31,4 @@ repeat n
 	i++;
 }
 
-if global.BattleData.State() == 0 instance_destroy();
+if BattleData.State() == 0 instance_destroy();

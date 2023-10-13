@@ -1,5 +1,9 @@
 Update Logs (This is the beta builds)
 
+v5.0.1 (Eden)
+converted enemy related functions into constructor format
+converting blaster scripts
+
 v5.0 (Eden)
 optimised codes
 updated battle logic so it is more user friendly and less bugs will occur due to the unreadibility of code making the dev (aka im so dumb i cant read my own stupid codes) unable to fix

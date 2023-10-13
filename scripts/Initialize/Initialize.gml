@@ -26,32 +26,8 @@ function Initialize()
 	global.ReplayMode = "Record";
 	global.RecordReplay = false;
 	
-	//BPM of the song (Rhythm usage)
-	global.SongBPM = 0;
-	
 	//Sets whether the current text is skippable (Engine usage)
 	global.TextSkipEnabled = true;
-	
-	//Player stats
-	global.player_attack_boost = 0;
-	global.player_def_boost = 0;
-	global.player_inv_boost = 0;
-	
-	//Battle stats
-	global.BattleData = new Battle();
-	global.kr = 0;
-	global.kr_activation = false;
-	global.damage = 1;
-	global.krdamage = 1;
-	global.bar_count = 1;
-	global.last_dmg_time = 0;
-	global.spd = 2; // Speed
-	global.inv = 2; // Invincibility frames
-	global.diagonal_speed = false;	//Whether moving digonally will move faster than moving horizontally or vertically
-	
-	//Grazing
-	global.EnableGrazing = false;
-	global.TP = 0;
 	
 	//Items
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
@@ -61,8 +37,6 @@ function Initialize()
 	//Spare
 	global.SpareTextColor = (!irandom(100) ? "[c_fuchsia]" : "[c_yellow]");
 	
-	//Whether the current fight is a boss fight or not (Engine usage)
-	global.BossFight = false;
 	
 	//Save file (Free to edit)
 	global.SaveFile = ds_map_create();
@@ -139,6 +113,28 @@ function Initialize()
 	global.battle_encounter = 0;
 	global.enemy_presets = [];
 	Enemy_SetEncoutner(,,oEnemySansExample);
+	//Whether the current fight is a boss fight or not (Engine usage)
+	global.BossFight = false;
+	globalvar BattleData, EnemyData;
+	BattleData = new Battle();
+	EnemyData = new Enemy();
+	global.kr = 0;
+	global.kr_activation = false;
+	global.damage = 1;
+	global.krdamage = 1;
+	global.bar_count = 1;
+	global.last_dmg_time = 0;
+	global.spd = 2; // Speed
+	global.inv = 2; // Invincibility frames
+	//Player stats
+	global.player_attack_boost = 0;
+	global.player_def_boost = 0;
+	global.player_inv_boost = 0;
+	//Whether moving digonally will move faster than moving horizontally or vertically
+	global.diagonal_speed = false;
+	//Grazing (Unfinished)
+	global.EnableGrazing = false;
+	global.TP = 0;
 	
 	//Particles
 	global.TrailS = part_system_create();
@@ -156,4 +152,7 @@ function Initialize()
 	
 	//Extras
 	Load3DNodesAndEdges();
+	
+	//BPM of the song (Rhythm usage)
+	global.SongBPM = 0;
 }

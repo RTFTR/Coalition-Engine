@@ -58,7 +58,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 						file_text_readln(file);
 						DialogText = file_text_read_string(file);
 						file_text_readln(file);
-						global.BattleData.EnemyDialog(self, TurnNumber, DialogText);
+						BattleData.EnemyDialog(self, TurnNumber, DialogText);
 					break
 				}
 				i++;
@@ -244,7 +244,13 @@ function is_rectangle(a, b, c, d)
 		Slope3 = (d[1] - c[1]) / (d[0] - c[0]),
 		Slope4 = (a[1] - d[1]) / (a[0] - d[0]);
     //Using the fact that when (slope of line A * slope of line B) = -1
-	return ((Slope1 * Slope2 == -1) && (Slope2 * Slope3 == -1) && (Slope3 * Slope4 == -1) && (Slope4 * Slope1 == -1));
+	return (
+		//Case where the coordinates of the points are in order
+		(Slope1 * Slope2 == -1) && (Slope2 * Slope3 == -1) && (Slope3 * Slope4 == -1) && (Slope4 * Slope1 == -1) ||
+		//Case where it is not in order
+		(Slope1 * Slope3 == -1) && (Slope3 * Slope2 == -1) && (Slope2 * Slope4 == -1) && (Slope4 * Slope1 == -1)
+		//idk are there more cases
+	);
 }
 #endregion
 

@@ -1,7 +1,7 @@
 ///@desc Turns, very trash, working on it
 function end_turn()
 {
-	var turn = global.BattleData.Turn();
+	var turn = BattleData.Turn();
 	if array_length(PostAttackFunctions) > turn
 		PostAttackFunctions[turn]();
 	with oBattleController
@@ -9,7 +9,7 @@ function end_turn()
 		//Set menu dialog
 		menu_text_typist.reset();
 		__text_writer.page(0);
-		global.BattleData.SetMenuDialog(default_menu_text);
+		BattleData.SetMenuDialog(default_menu_text);
 		//Reset menu state
 		battle_state = 0;
 		menu_state = 0;
@@ -66,7 +66,7 @@ function end_turn()
 if state == 2 and !__died and enemy_in_battle {
 	//Timer
 	if start time++;
-	if array_length(AttackFunctions) > global.BattleData.Turn()
+	if array_length(AttackFunctions) > BattleData.Turn()
 		AttackFunctions[DetermineTurn()]();
 	else
 	{

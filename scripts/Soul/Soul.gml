@@ -41,7 +41,10 @@ function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear
 }
 
 ///@desc Return whether is soul moving or not
-function IsSoulMoving() {
-	return (floor(oSoul.x) != floor(oSoul.xprevious) or floor(oSoul.y) != floor(oSoul.yprevious));
+///@param {bool} mode	Whether the check is position based or input based
+function IsSoulMoving(input_based = false) {
+	return (input_based ?
+	(CHECK_HORIZONTAL != 0 || CHECK_VERTICAL != 0) :
+	floor(oSoul.x) != floor(oSoul.xprevious) or floor(oSoul.y) != floor(oSoul.yprevious));
 }
 

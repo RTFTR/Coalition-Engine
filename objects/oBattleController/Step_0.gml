@@ -44,7 +44,7 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amoun
 	}
 	damage = max(round(damage), 1);
 	with target
-		Enemy_SetDamage(damage);
+		EnemyData.SetDamage(id, damage);
 }
 
 
