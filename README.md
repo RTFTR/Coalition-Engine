@@ -28,9 +28,11 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 > Long-Term Support : Specified for GameMaker LTS users! This branch will barely get updates. Its purposes are to maintain stability.
 
-You are on the Canary branch, This branch will have very unstable, reliable builds. Yeah, most likely.
+You are on the Canary branch, This branch will have very unstable, unreliable builds. Yeah, most likely.
 
 If you're lucky, you may get at least an useful build.
+
+But the builds here will have the most updated features.
 
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
