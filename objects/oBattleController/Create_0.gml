@@ -1,3 +1,12 @@
+if DEBUG
+{
+	repeat 2
+		SpliceScreen(320, 240, random(360), irandom_range(20, 40), irandom_range(20, 40), irandom_range(20, 40), 130);
+	var lang = choose(0, 1)
+	SetLanguage(lang);
+}
+
+
 texturegroup_load("texbattle");
 Fader_Fade(1, 0, 20);
 menu_state = 0;
@@ -5,8 +14,9 @@ battle_state = 0;
 battle_turn = 0;
 menu_button_choice = 0;
 menu_choice = array_create(4, 0); // Fight - Act - Item - Mercy
-activate_turn = [1, 0, 0, 1];
-activate_heal = [0, 0, 0, 0];
+activate_turn = [1, 1, 0, 1];
+action_trigger_turn = array_create(6, 0);
+action_trigger_turn[2] = 1;
 begin_at_turn = false;
 last_choice = 0;
 
@@ -185,6 +195,7 @@ board_cover_hp_bar = false;
 board_cover_button = false;
 board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
+item_scroll_type = ITEM_SCROLL.DEFAULT;
 item_scroll_alpha = array_create(3, 0.5);
 
 item_lerp_y = array_create(8, 0);
@@ -239,5 +250,5 @@ function dialog_start() {
 		state = 1;
 	}
 	battle_state = 1;
-	Battle_SetSoulPos(320, 320, 0);
+	SetSoulPos(320, 320, 0);
 }

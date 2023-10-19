@@ -1,8 +1,11 @@
 Update Logs (This is the beta builds)
 
-v5.0.1 (Eden)
+v5.1 (Eden)
 converted enemy related functions into constructor format
 converting blaster scripts
+updated multi-language support
+fixed battle logic related to act
+converted some features relating to surfaces
 
 v5.0 (Eden)
 optimised codes

@@ -33,8 +33,8 @@ if encounter_state
 			encounter_draw[1] = 0;
 			encounter_draw[2] = 1;
 			audio_play(snd_encounter_soul_move);
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_x", encounter_soul_x, 48);
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_y", encounter_soul_y, 454);
+			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 30, "encounter_soul_x", encounter_soul_x, 48,
+			"encounter_soul_y", encounter_soul_y, 454);
 		}
 		if encounter_time == 50
 		{

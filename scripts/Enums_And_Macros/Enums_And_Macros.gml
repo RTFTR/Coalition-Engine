@@ -1,13 +1,27 @@
-#macro ENGINE_VERSION "Beta v5.0.1"
+#region Engine
+//Here are the macros for the engine
+#macro ENGINE_VERSION "Beta v5.1"
 #macro ALLOW_DEBUG  true
-#macro CHECK_HORIZONTAL global.diagonal_speed ? input_check_opposing("left", "right") : input_x("left", "right", "up", "down")
+#macro DEBUG true
+#endregion
+#region Input
+//Here are the macros for handy input code
+#macro CHECK_HORIZONTAL (global.diagonal_speed ? input_check_opposing("left", "right") : input_x("left", "right", "up", "down"))
 #macro CHECK_VERTICAL (global.diagonal_speed ? input_check_opposing("up", "down") : input_y("left", "right", "up", "down"))
 #macro PRESS_HORIZONTAL input_check_opposing_pressed("left", "right")
 #macro PRESS_VERTICAL input_check_opposing_pressed("up", "down")
 #macro PRESS_CONFIRM input_check_pressed("confirm")
 #macro HOLD_CONFIRM input_check("confirm")
 #macro PRESS_CANCEL input_check_pressed("cancel")
+#endregion
+#region Handy Macros
+//Here are the macros for simplifing code, for instance the ins_dest can act as a instance_destroy
+//If you type in ins_dest (object)
 #macro ins_dest for(;;{instance_destroy(a); break}) var a =
+#macro elif else if
+#macro defer for (;; {
+#macro after ; break; })
+#endregion
 
 enum FONTS {
 	GAMEOVER,

@@ -34,7 +34,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 ///@param {real} duration	The duration of the Anim (Default 0, which is instant movement)
 ///@param {function} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
 ///@param {real} delay		The delay of executing the Anim (Default 0)
-function Battle_SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
+function SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
 	with oSoul
 		TweenEasyMove(x, y, target_x, target_y, delay, duration, Easing);

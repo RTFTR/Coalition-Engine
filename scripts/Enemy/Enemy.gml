@@ -1,7 +1,3 @@
-function Enemy_SetEncoutner(encounter = array_length(global.enemy_presets), left = noone, middle = noone, right = noone) {
-	global.enemy_presets[encounter] = [left, middle, right];
-}
-
 ///@desc Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
 function Enemy_Function_Load(encounter_number = global.battle_encounter) {
@@ -55,6 +51,16 @@ function Enemy_NameUpdate() {}
 function Enemy() constructor
 {
 	/**
+		Sets the enemies in the said encounter
+		@param {real}	Encounter		The encounter to set from (Default max)
+		@param {Asset.GMObject} Left	The enemy on the left (Default none)
+		@param {Asset.GMObject} Middle	The enemy on the middle (Default none)
+		@param {Asset.GMObject} Right	The enemy on the right (Default none)
+	*/
+	static SetEncoutner = function(encounter = array_length(global.enemy_presets), left = noone, middle = noone, right = noone) {
+		global.enemy_presets[encounter] = [left, middle, right];
+	}
+	/**
 		Sets the name of the enemy
 		@param {Asset.GMObject}	enemy	The enemy to set the name of
 		@param {string}	text			The name to set to
@@ -70,14 +76,16 @@ function Enemy() constructor
 		@param {string} name			The name of the act
 		@param {string} text			The text to display if selected
 		@param {function} function		The function to execute if selected (Optional)
+		@param {bool} trigger			Whether the action will trigger the turn
 	*/
-	static SetAct = function(enemy, act, name, text, func = -1)
+	static SetAct = function(enemy, act, name, text, func = -1, trigger = oBattleController.activate_turn[1])
 	{
 		with enemy
 		{
 			enemy_act[act] = name;
 			enemy_act_text[act] = text;
 			if func != -1 enemy_act_function[act] = func;
+			oBattleController.action_trigger_turn[act] = trigger;
 		}
 	}
 	/**

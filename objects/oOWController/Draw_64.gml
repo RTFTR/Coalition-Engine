@@ -3,75 +3,7 @@ var ItemCount = Item_Count(),
 	input_horizontal = PRESS_HORIZONTAL,
 	input_cancel = PRESS_CANCEL,
 	input_confirm = PRESS_CONFIRM;
-// Check if a Overworld Dialog is occuring
-if dialog_exists
-{
-	//Dialog Box drawing
-	oOWPlayer.moveable = false;
-	var dialog_box_x = 30,
-		dialog_box_y = (dialog_is_down ? 320 : 10),
-		dialog_width = 580,
-		dialog_height = 150,
-		dialog_box_frame = 5;
-	draw_set_color(c_white);
-	draw_rectangle(dialog_box_x, dialog_box_y, dialog_box_x + dialog_width,
-					dialog_box_y + dialog_height, false);
-	draw_set_color(c_black);
-	draw_rectangle(dialog_box_x + dialog_box_frame, dialog_box_y + dialog_box_frame,
-					dialog_box_x + dialog_width - dialog_box_frame,
-					dialog_box_y + dialog_height - dialog_box_frame, false);
-	
-	//Dialog Text drawing
-	var dis = 0;
-	if dialog_sprite != -1
-	{
-		dis = 95;
-		var spr_w = sprite_get_width(dialog_sprite),
-			spr_h = sprite_get_height(dialog_sprite),
-			sprite_dis_x = sprite_get_xoffset(dialog_sprite) - spr_w / 2,
-			sprite_dis_y = sprite_get_yoffset(dialog_sprite) - spr_h / 2;
-		draw_sprite_ext(dialog_sprite, dialog_sprite_index, dialog_box_x + 60 + sprite_dis_x, dialog_box_y + 80 + sprite_dis_y, 80 /spr_w, 80 / spr_h, 0, c_white, 1);
-	}
-	__text_writer.starting_format(dialog_font, c_white)
-	__text_writer.draw(dialog_box_x + 25 + dis, dialog_box_y + 20, dialog_typist)
-	
-	//Check if the dialog is currently an option and draw if question is asked and buffer time has expired
-	if dialog_option and dialog_typist.get_state() == 1
-	{
-		if option_buffer > 0 option_buffer--;
-		if !option_buffer
-		{
-			option_text.draw(dialog_box_x + 45, dialog_box_y + 110, option_typist)
-			if input_horizontal != 0
-				option = posmod(option + input_horizontal, option_amount);
-			draw_sprite_ext(sprSoul, 0, dialog_box_x + option_length[option], dialog_box_y + 110, 1, 1, 90, c_red, 1);
-		}
-	}
-		
-	//Dialog skipping
-	if input_cancel and global.TextSkipEnabled
-	{
-		__text_writer.page(__text_writer.get_page_count() - 1);
-		dialog_typist.skip_to_pause();
-	}
-	if dialog_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
-		__text_writer.page(__text_writer.get_page() + 1)
-	if dialog_typist.get_state() == 1
-	{
-		if input_confirm
-		{
-			dialog_exists = false;
-			is_saving = Saving;
-			Choice = 0;
-			oOWPlayer.moveable = true;
-			if dialog_option
-			{
-				//Executes the event of the option
-				option_event[option]();
-			}
-		}
-	}
-}
+
 
 // Save UI
 if is_saving
@@ -150,7 +82,7 @@ if is_saving
 	}
 }
 
-#region // Menu Overworld
+	#region // Menu Overworld
 	var CamPos = [camera_get_view_x(view_camera[0]),  camera_get_view_y(view_camera[0])],
 		// Check if the menu should display more on top or more on bottom, depending on player's position
 		menu_at_top = oOWPlayer.y < CamPos[1] + camera_get_view_height(view_camera[0]) / 2 + 10;
@@ -162,7 +94,7 @@ if is_saving
 		ui_box_y = menu_at_top ? 45 : 328,
 		ui_width = 130,
 		ui_height = 98,
-		ui_box_frame = 5
+		ui_box_frame = 5;
 
 	// Box Drawing
 	draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
@@ -194,14 +126,14 @@ if is_saving
 	#region // The "ITEM - STAT - CELL" box with their respective elements
 
 	// Position and side elements for the box
-	var	ui_box_x = menu_ui_x + 6,
-		ui_box_y = 174,
-		ui_width = 130,
-		ui_height = 136,
-		ui_box_frame = 6;
+	ui_box_x = menu_ui_x + 6;
+	ui_box_y = 174;
+	ui_width = 130;
+	ui_height = 136;
+	ui_box_frame = 6;
 	
 	// Box Drawing
-				draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
+	draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
 
 	// Menu Label
 	var menu_label = ["ITEM","STAT","CELL"],
@@ -342,7 +274,7 @@ if is_saving
 			{
 				if global.Box[Box_ID, i]
 				{
-					Box_Info_Load();
+					BoxData.InfoLoad();
 					draw_set_color(c_white);
 					draw_text(380, 70 + i * 35, box_name[i]);
 				}
@@ -364,6 +296,76 @@ if is_saving
 
 	#endregion
 #endregion
+
+// Check if a Overworld Dialog is occuring
+if dialog_exists
+{
+	//Dialog Box drawing
+	oOWPlayer.moveable = false;
+	var dialog_box_x = 30,
+		dialog_box_y = (dialog_is_down ? 320 : 10),
+		dialog_width = 580,
+		dialog_height = 150,
+		dialog_box_frame = 5;
+	draw_set_color(c_white);
+	draw_rectangle(dialog_box_x, dialog_box_y, dialog_box_x + dialog_width,
+					dialog_box_y + dialog_height, false);
+	draw_set_color(c_black);
+	draw_rectangle(dialog_box_x + dialog_box_frame, dialog_box_y + dialog_box_frame,
+					dialog_box_x + dialog_width - dialog_box_frame,
+					dialog_box_y + dialog_height - dialog_box_frame, false);
+	
+	//Dialog Text drawing
+	var dis = 0;
+	if dialog_sprite != -1
+	{
+		dis = 95;
+		var spr_w = sprite_get_width(dialog_sprite),
+			spr_h = sprite_get_height(dialog_sprite),
+			sprite_dis_x = sprite_get_xoffset(dialog_sprite) - spr_w / 2,
+			sprite_dis_y = sprite_get_yoffset(dialog_sprite) - spr_h / 2;
+		draw_sprite_ext(dialog_sprite, dialog_sprite_index, dialog_box_x + 60 + sprite_dis_x, dialog_box_y + 80 + sprite_dis_y, 80 /spr_w, 80 / spr_h, 0, c_white, 1);
+	}
+	__text_writer.starting_format(dialog_font, c_white)
+	__text_writer.draw(dialog_box_x + 25 + dis, dialog_box_y + 20, dialog_typist)
+	
+	//Check if the dialog is currently an option and draw if question is asked and buffer time has expired
+	if dialog_option and dialog_typist.get_state() == 1
+	{
+		if option_buffer > 0 option_buffer--;
+		if !option_buffer
+		{
+			option_text.draw(dialog_box_x + 45, dialog_box_y + 110, option_typist)
+			if input_horizontal != 0
+				option = posmod(option + input_horizontal, option_amount);
+			draw_sprite_ext(sprSoul, 0, dialog_box_x + option_length[option], dialog_box_y + 110, 1, 1, 90, c_red, 1);
+		}
+	}
+		
+	//Dialog skipping
+	if input_cancel and global.TextSkipEnabled
+	{
+		__text_writer.page(__text_writer.get_page_count() - 1);
+		dialog_typist.skip_to_pause();
+	}
+	if dialog_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
+		__text_writer.page(__text_writer.get_page() + 1)
+	if dialog_typist.get_state() == 1
+	{
+		if input_confirm
+		{
+			dialog_exists = false;
+			is_saving = Saving;
+			Choice = 0;
+			oOWPlayer.moveable = true;
+			if dialog_option
+			{
+				//Executes the event of the option
+				option_event[option]();
+			}
+		}
+	}
+}
 
 #region // Debugger
 DrawDebugUI();

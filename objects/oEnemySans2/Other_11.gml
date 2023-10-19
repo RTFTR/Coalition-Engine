@@ -313,7 +313,7 @@ TurnCreate(0, 58, 6320, function() {
 	Set_BoardSize(70, 70, 70, 70, 0);
 	Battle_SoulMode(SOUL_MODE.RED);
 	audio_stop_sound(snd_ding);
-	Battle_SetSoulPos(320, 320, 0);
+	SetSoulPos(320, 320, 0);
 });
 TurnCreate(0, 59, 6740, function() {
 	enemy_sprite_index[2] = 9;
@@ -381,7 +381,7 @@ TurnCreate(0, 68, 9740, function() {
 TurnCreate(0, 69, 9740, function() {
 	Set_BoardPos(320, 320, 40, EaseLinear);
 	Set_BoardSize(50, 50, 50, 50, 40, EaseLinear);
-	Battle_SetSoulPos(320, 320, 40);
+	SetSoulPos(320, 320, 40);
 	oSoul.moveable = 0;
 	oGlobal.camera_target = oSoul;
 	TweenFire(oGlobal, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 120, "camera_scale_x", 1, 5);
@@ -494,7 +494,7 @@ TurnCreate(0, 90, 10730, function() {
 	Fader_Fade(0, 1, 0);
 	instance_destroy(oBulletParents);
 	Battle_SoulMode(SOUL_MODE.RED);
-	Battle_SetSoulPos(320, 320, 0);
+	SetSoulPos(320, 320, 0);
 	Set_BoardSize(70, 70, 70, 70, 0);
 });
 TurnCreate(0, 91, 10740, function() {
@@ -537,7 +537,7 @@ TurnCreate(0, 94, 10960, function() {
 	Fader_Fade(0, 1, 0);
 	instance_destroy(oBulletParents);
 	Battle_SoulMode(SOUL_MODE.RED);
-	Battle_SetSoulPos(320, 320, 0);
+	SetSoulPos(320, 320, 0);
 	Set_BoardSize(70, 70, 70, 70, 0);
 });
 TurnCreate(0, 95, 10970, function() {
@@ -758,7 +758,7 @@ TurnCreate(0,120,13740,function(){
 	instance_destroy(horrifi);
 	instance_destroy(oBulletParents);
 	Set_BoardSize(70,70,70,70,0);
-	Battle_SetSoulPos(320,320,0);
+	SetSoulPos(320,320,0);
 	oSoul.moveable=0;
 });
 TurnCreate(0,121,14620,function(){
@@ -821,7 +821,7 @@ TurnCreate(0, 132, 16760, function() {
 	hspeed = -12;
 	Battle_SoulMode(SOUL_MODE.RED);
 	Set_BoardSize(50, 50, 320, 320, 0);
-	Battle_SetSoulPos(120,320,0);
+	SetSoulPos(120,320,0);
 	with oSoul
 	{
 		draw_angle += 90;
@@ -875,7 +875,7 @@ TurnCreate(0, 137, 17350, function() {
 	}
 	instance_destroy(oBulletParents);
 	Set_BoardSize(70,70,70,70,0);
-	Battle_SetSoulPos(320,320,0);
+	SetSoulPos(320,320,0);
 	Fader_Fade(1,0,1);
 	audio_play(snd_noise);
 	dir = random(360)

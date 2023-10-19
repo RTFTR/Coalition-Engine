@@ -131,9 +131,9 @@ function TrailEffect(Duration, Sprite = sprite_index, Subimg = image_index, X = 
 	@param {real} x				The x position of the center of the split
 	@param {real} y				The y position of the center of the split
 	@param {real} direction		The direction of the split
-	@param {real} induration	The duration of the split animation from 0 to full
+	@param {real} in_duration	The duration of the split animation from 0 to full
 	@param {real} duration		The delay before animating it back to 0
-	@param {real} endduration	The duration of the split animation from full to 0
+	@param {real} end_duration	The duration of the split animation from full to 0
 	@param {real} distance		The distance of the split
 */
 function SpliceScreen(x, y, dir, idur, dur, edur, dis) {

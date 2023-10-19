@@ -42,15 +42,3 @@ camera_set_view_pos(cam, camToX + cam_shake_x, camToY + cam_shake_y);
 camera_set_view_size(cam, cam_width, cam_height);
 camera_set_view_angle(cam, cam_angle);
 camera_previous_target = cam_target;
-
-
-//Cut screen
-if !surface_exists(CutScreenSurface) CutScreenSurface = surface_create(640, 480);
-
-var i = 0, n = ds_list_size(global.sur_list) - 1;
-repeat n
-{
-	if !surface_exists(global.sur_list[| i][0])
-		global.sur_list[| i][0] = surface_create(640, 480);
-	++i;
-}

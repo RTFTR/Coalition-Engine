@@ -48,9 +48,9 @@ effect_param =
 	["", 1],
 ];
 
-RGBShake = 5;
+RGBShake = 30;
 RGBDecrease = 1;
-RGBSurf = -1;
+RGBSurf = new Canvas(640, 480);
 RGBShakeMethod = 0;
 
 Song = 
@@ -96,9 +96,9 @@ with Border
 	__BlurShaderSize = shader_get_uniform(shdGaussianBlur, "size");
 }
 
-//Effects
+#region Effects
 shader_enable_corner_id(true);
-GradientSurf = -1;
-
+GradientSurf = new Canvas(640, 480);
 global.sur_list = ds_list_create();
-CutScreenSurface = surface_create(640, 480);
+CutScreenSurface = new Canvas(640, 480);
+#endregion

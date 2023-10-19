@@ -110,7 +110,7 @@ function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, 
 	displace = move(time * rate) * intensity;
 	height += displace;
 	gpu_set_blendmode(bm_add);
-	draw_surface_ext(oGlobal.GradientSurf, x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
+	oGlobal.GradientSurf.DrawExt(x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
 	gpu_set_blendmode(bm_normal);
 }
 ///@desc Sets the noise sprite to use for a noise fade
@@ -254,7 +254,7 @@ function cut_screen(line_start_x, line_start_y, line_end_x, line_end_y, offset) 
 		true_line_end = [line_end_x / 640, line_end_y / 480];
 	//Add to list twice for the 2 halves of the splice
 	repeat 2
-	ds_list_add(global.sur_list, [surface_create(640, 480), offset, point_direction(line_start_x, line_start_y, line_end_x, line_end_y), true_line_start, true_line_end]);
+		ds_list_add(global.sur_list, [new Canvas(640, 480), offset, point_direction(line_start_x, line_start_y, line_end_x, line_end_y), true_line_start, true_line_end]);
 	return ds_list_size(global.sur_list) - 2;
 }
 

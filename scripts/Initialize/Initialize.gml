@@ -112,12 +112,13 @@ function Initialize()
 	//Battle
 	global.battle_encounter = 0;
 	global.enemy_presets = [];
-	Enemy_SetEncoutner(,,oEnemySansExample);
 	//Whether the current fight is a boss fight or not (Engine usage)
 	global.BossFight = false;
-	globalvar BattleData, EnemyData;
+	globalvar BattleData, EnemyData, BoxData;
 	BattleData = new Battle();
 	EnemyData = new Enemy();
+	BoxData = new __Box();
+	EnemyData.SetEncoutner(,,oEnemySansExample);
 	global.kr = 0;
 	global.kr_activation = false;
 	global.damage = 1;
@@ -146,9 +147,16 @@ function Initialize()
 	global.deactivatedInstances = ds_list_create();
 	global.trueInstanceCache = ds_list_create();
 	
-	//Load languages
-	global.Language = LANGUAGE.ENGLISH;
-	LoadLanguageTexts();
+	//Load languages (Load only once)
+	global.Language = LANGUAGE.ENGLISH
+	static LangLoaded = false;
+	if !LangLoaded
+	{
+		lexicon_index_definitions("Locale/definitions.json"); 
+		//lexicon_language_set(lexicon_get_os_locale()); //Autoset
+		lexicon_index_fallback_language_set("English")
+		LangLoaded = true;
+	}
 	
 	//Extras
 	Load3DNodesAndEdges();

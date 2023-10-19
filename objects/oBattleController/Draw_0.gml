@@ -2,9 +2,8 @@ var input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL,
-	LangText = global.AllLanguageTexts[global.Language],
-	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
-	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
+	DefaultFontNB = lexicon_text("Font"),
+	DefaultFont = "[" + DefaultFontNB + "]";
 // Text Functions
 if battle_state == BATTLE_STATE.MENU {
 	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
@@ -43,7 +42,7 @@ if battle_state == BATTLE_STATE.MENU {
 			{
 				var spare_col = "[c_white]";
 				if enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
-					draw_text_scribble(96, 272 + (32 * i) - decrease_y, spare_col + DefaultFont + "* " + _enemy_name);
+					draw_text_scribble(96, 272 + (32 * i) - decrease_y, string("{0}{1}* {2}", spare_col, DefaultFont, _enemy_name));
 				var xwrite = 450;
 				if menu_state == MENU_STATE.FIGHT and enemy_draw_hp_bar[i] == 1 {
 					decrease_y -= 32;
@@ -80,7 +79,7 @@ if battle_state == BATTLE_STATE.MENU {
 			}
 			// Heal text and Page
 			draw_text_scribble(128, 341, DefaultFont + "[c_lime](+" + string(item_heal[coord]) + ")");
-			draw_text_scribble(384, 341, DefaultFont + LangText[LANGUAGE_TEXTS.PAGE0] + string(c_div + 1) + LangText[LANGUAGE_TEXTS.PAGE1]);
+			draw_text_scribble(384, 341, DefaultFont + lexicon_text("Battle.ItemPage", string(c_div + 1)));
 			break
 			
 			case ITEM_SCROLL.VERTICAL:
@@ -129,7 +128,7 @@ if battle_state == BATTLE_STATE.MENU {
 					spare_col = global.SpareTextColor;
 			i++;
 		}
-		draw_text_scribble(96, 272, spare_col + DefaultFont + LangText[LANGUAGE_TEXTS.SPARE] + (allow_run ? "[c_white]\n" + LangText[LANGUAGE_TEXTS.FLEE] : ""));
+		draw_text_scribble(96, 272, spare_col + DefaultFont + lexicon_text("Battle.Spare") + (allow_run ? "[c_white]\n" + lexicon_text("Battle.Flee") : ""));
 	}
 	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
 	{

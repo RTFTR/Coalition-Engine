@@ -10,4 +10,4 @@ if timer >= induration + duration
 	global.sur_list[| TEMPID][1] = EaseOutQuad(timer - induration - duration, displace, -displace, endduration);
 	global.sur_list[| TEMPID + 1][1] = EaseOutQuad(timer - induration - duration, displace, -displace, endduration);
 }
-if timer >= induration + duration + endduration ins_dest self;
+if timer >= induration + duration + endduration ins_dest id;

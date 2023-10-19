@@ -7,6 +7,7 @@ EnemyData.SetAct(self, 3, "sans3", "sans3text");
 EnemyData.SetAct(self, 4, "sans4", "sans4text");
 EnemyData.SetHPStats(self, 100, 50);
 EnemyData.SetReward(self, 100, 100);
+enemy_is_spareable = true;
 default_font = "fnt_sans";
 default_sound = snd_txtSans;
 is_dodge = true;

@@ -7,10 +7,9 @@
 ///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
 function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = oBoard)
 {
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up);
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "down", board.down,down);
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "left", board.left, left);
-	TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "right", board.right, right);
+	with board
+		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, time, "up", self.up, up, 
+			"down", self.down, down, "left", self.left,  "right", self.right, right);
 }
 
 ///@desc Sets the angle of the board with Anim (optional)

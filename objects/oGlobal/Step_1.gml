@@ -44,12 +44,9 @@ if room == rRestart
 	if restart_timer == restart_ender game_restart();
 }
 
-//Effect surfaces
-if !surface_exists(GradientSurf) GradientSurf = surface_create(640, 480);
-
 if RGBShake > 0
 {
 	RGBShake -= RGBDecrease;
-	if !surface_exists(RGBSurf) RGBSurf = surface_create(640, 480);
+	if RGBShake <= 0 RGBSurf.Free();
 }
-else if surface_exists(RGBSurf) surface_free(RGBSurf);
+else if !RGBSurf.IsAvailable() RGBSurf = new Canvas(640, 480);

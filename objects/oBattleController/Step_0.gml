@@ -1,9 +1,8 @@
 if !audio_group_is_loaded(audgrpbattle)
 	audio_group_load(audgrpbattle);
 Button.Update();
-var LangText = global.AllLanguageTexts[global.Language],
-	DefaultFont = LangText[LANGUAGE_TEXTS.FONT],
-	DefaultFontNB = LangText[LANGUAGE_TEXTS.FONT_NO_BRACKET];
+var DefaultFontNB = lexicon_text("Font"),
+	DefaultFont = "[" + DefaultFontNB + "]";
 #region Local Functions
 function scr_enemy_choice()
 {
@@ -49,31 +48,36 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amoun
 
 
 function begin_turn() {
-	if activate_turn[last_choice]
+	if (last_choice != 1 ? activate_turn[last_choice] : (activate_turn[1] && action_trigger_turn[menu_choice[1]] != 0))
 	{
-		battle_state = 2;
-		oEnemyParent.state = 2;
-		oSoul.image_angle = 0;
-		Battle_SetSoulPos(320, 320, 0);
-	}
-	else
-	{
-		menu_choice = array_create(4, 0);
-		if activate_heal[last_choice]
+		if last_choice == 1
 		{
+			battle_state = BATTLE_STATE.DIALOG;
+			oEnemyParent.state = 1;
+			last_choice = 0;
+			battle_turn++;
 			with oEnemyParent
 			{
-				
+				if array_length(PreAttackFunctions) > BattleData.Turn()
+					PreAttackFunctions[BattleData.Turn()]();
 			}
 		}
 		else
 		{
-			menu_text_typist.reset();
-			battle_state = 0;
-			menu_state = 0;
-			var end_turn_text = battle_turn - 1;
-			end_turn_text = min(0, battle_turn);
+			battle_state = BATTLE_STATE.IN_TURN;
+			oEnemyParent.state = 2;
 		}
+		oSoul.image_angle = 0;
+		SetSoulPos(320, 320, 0);
+	}
+	else
+	{
+		menu_choice = array_create(4, 0);
+		menu_text_typist.reset();
+		battle_state = 0;
+		menu_state = 0;
+		var end_turn_text = battle_turn - 1;
+		end_turn_text = min(0, battle_turn);
 		last_choice = 0;
 	}
 }
@@ -98,15 +102,13 @@ function begin_spare(activate_the_turn) {
 function end_battle() {
 	battle_state = 3;
 	if !global.BossFight {
-		var LangText = global.AllLanguageTexts[global.Language];
-		battle_end_text = LangText[LANGUAGE_TEXTS.WIN1] + "[delay,333]\n* " + LangText[LANGUAGE_TEXTS.WIN2] + string(Result.Exp) + LangText[LANGUAGE_TEXTS.WIN3] + string(Result.Gold) + LangText[LANGUAGE_TEXTS.WIN4];
+		battle_end_text = lexicon_text("Battle.Win", string(Result.Exp), string(Result.Gold));
 		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
-			var maxhp = false;
 			global.data.lv++;
-			if global.hp == global.hp_max maxhp = true;
+			var maxhp = (global.hp == global.hp_max);
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
 			if maxhp global.hp = global.hp_max
-				battle_end_text += "\n  " + LangText[LANGUAGE_TEXTS.INC_LOVE];
+				battle_end_text += lexicon_text("Battle.LoveInc");
 			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);
@@ -234,7 +236,7 @@ switch battle_state {
 							len++;
 				}
 				if len > 1 {
-					if menu_state == 6 {
+					if menu_state == MENU_STATE.ACT_SELECT {
 						if input_horizontal != 0 {
 							choice = posmod(choice + input_horizontal, len);
 							menu_choice[1] = choice;

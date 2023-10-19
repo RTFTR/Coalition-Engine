@@ -1,7 +1,7 @@
 #macro __VINYL_VERSION  "5.4.3"
 #macro __VINYL_DATE     "2023-05-25"
 
-#macro __VINYL_DATA_BUNDLE_FILENAME  "./Addons/vinyl.dat"
+#macro __VINYL_DATA_BUNDLE_FILENAME  "./vinyl.dat"
 #macro __VINYL_CONFIG_NOTE_NAME      "__VinylConfig"
 
 #macro __VINYL_USE_GAIN_CURVE  true

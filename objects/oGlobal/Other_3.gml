@@ -1,5 +1,6 @@
 /// @description Uninitialization
-surface_free(GradientSurf);
+CutScreenSurface.Free();
+GradientSurf.Free();
 instance_destroy(oBulletParents);
 global.Settings[? "Volume"] = global.Volume;
 Save_Settings();

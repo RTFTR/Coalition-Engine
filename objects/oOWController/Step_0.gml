@@ -66,13 +66,15 @@ if instance_exists(oOWPlayer)
 
 menu_ui_x = lerp(menu_ui_x, menu ? 32 : -640, 0.16);
 
-for (var i = 1; i <= 3; ++i)
+var is_iteming = false;
+if (menu_state == MENU_MODE.ITEM) or (menu_state == MENU_MODE.ITEM_INTERACTING)
 {
-	var item_state = (menu_state == MENU_MODE.ITEM) or (menu_state == MENU_MODE.ITEM_INTERACTING);
-	
-	if item_state
-		menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, 0.16);
-	else if menu_state == i
+	is_iteming = true;
+	menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, 0.16);
+}
+for (var i = is_iteming ? 2 : 1; i < 4; ++i)
+{
+	if menu_state == i
 		menu_ui_y[menu_state] = lerp(menu_ui_y[menu_state], 52, 0.16);
 	else
 		menu_ui_y[i] = lerp(menu_ui_y[i], -480, 0.16);
@@ -88,8 +90,8 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 	// Input check, horizontal and vertical using vector method
 	var input_horizontal = PRESS_HORIZONTAL,
 		input_vertical =   PRESS_VERTICAL,
-		input_confirm =    input_check_pressed("confirm"),
-		input_cancel =     input_check_pressed("cancel"),
+		input_confirm =    PRESS_CONFIRM,
+		input_cancel =     PRESS_CANCEL,
 		input_menu =       input_check_pressed("menu");
 	
 	// Switching between ITEM - STAT - CELL and confirm input
@@ -107,7 +109,7 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 		}
 		if input_confirm
 		{
-			menu_state = menu_choice[0] + 1;
+			menu_state = menu_choice[MENU_MODE.IDLE] + 1;
 			audio_play(snd_menu_confirm);
 			
 			if menu_state == MENU_MODE.ITEM and global.item[0] == 0
@@ -168,22 +170,19 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 			}
 			if input_confirm
 			{
-				if input_confirm
+				menu_state = MENU_MODE.ITEM_DONE;
+				healing_text = "";
+				if menu_choice[MENU_MODE.ITEM_INTERACTING] == 0 // USE
+					Item_Use(global.item[menu_choice[MENU_MODE.ITEM]]);
+				if menu_choice[MENU_MODE.ITEM_INTERACTING] == 2 // DROP
 				{
-					menu_state = MENU_MODE.ITEM_DONE;
-					healing_text = "";
-					if menu_choice[MENU_MODE.ITEM_INTERACTING] == 0 // USE
-						Item_Use(global.item[menu_choice[MENU_MODE.ITEM]]);
-					if menu_choice[MENU_MODE.ITEM_INTERACTING] == 2 // DROP
-					{
-						Item_Remove(menu_choice[MENU_MODE.ITEM]);
-						audio_play(snd_menu_confirm);
-					}
-					
-					var item_use_text = [healing_text, item_desc[menu_choice[MENU_MODE.ITEM]], item_throw_txt[menu_choice[MENU_MODE.ITEM]]];
-					OW_Dialog(item_use_text[menu_choice[MENU_MODE.ITEM_INTERACTING]], "fnt_dt_mono", snd_txtTyper, !menu_at_top);
-					Item_Info_Load();
+					Item_Remove(menu_choice[MENU_MODE.ITEM]);
+					audio_play(snd_menu_confirm);
 				}
+					
+				var item_use_text = [healing_text, item_desc[menu_choice[MENU_MODE.ITEM]], item_throw_txt[menu_choice[MENU_MODE.ITEM]]];
+				OW_Dialog(item_use_text[menu_choice[MENU_MODE.ITEM_INTERACTING]], "fnt_dt_mono", snd_txtTyper, !menu_at_top);
+				Item_Info_Load();
 			}
 			if input_cancel
 			{
@@ -279,14 +278,14 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 			{
 				if box_state == BOX_STATE.INVENTORY && box_choice[0] < Item_Count()
 				{
-					global.Box[Box_ID, Box_GetFirstEmptySlot(Box_ID)] = global.item[box_choice[0]];
+					global.Box[Box_ID, BoxData.GetFirstEmptySlot(Box_ID)] = global.item[box_choice[0]];
 					Item_Remove(box_choice[0]);
 				}
-				if box_state == BOX_STATE.BOX && box_choice[1] < 10 && global.Box[Box_ID, box_choice[1]] != 0 && Item_Count() < 8
+				if box_state == BOX_STATE.BOX && box_choice[1] < 10 && global.Box[Box_ID, box_choice[1]] > 0 && Item_Count() < 8
 				{
 					Item_Add(global.Box[Box_ID, box_choice[1]]);
 					global.Box[Box_ID, box_choice[1]] = 0;
-					Box_Shift(Box_ID);
+					BoxData.Shift(Box_ID);
 				}
 			}
 			if input_cancel // When the box is no longer real
