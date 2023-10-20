@@ -15,9 +15,10 @@ function RemoveEnemy()
 }
 #endregion
 // Check if other enemies are dying
-for (var i = 0, n = instance_number(oEnemyParent), enemy_find; i < n; ++i) {
-	enemy_find[i] = instance_find(oEnemyParent, i);
-	if enemy_find[i].__is_dying
+var i = 0, n = instance_number(oEnemyParent);
+repeat n
+{
+	if instance_find(oEnemyParent, i++).__is_dying
 		state = 0.6;
 }
 var _turn = oBattleController.battle_turn - 1;
@@ -63,7 +64,13 @@ if (state == 1 or (state == 2 and dialog_at_mid_turn)) and !__died and !is_spare
 {
 	if dialog_at_mid_turn time--;
 	if _turn < 0 _turn = 0;
-	if dialog_text[_turn] == ""
+	var i = 0, n = instance_number(oEnemyParent), k = 0;
+	repeat n
+	{
+		if instance_find(oEnemyParent, i++).dialog_text[_turn] == ""
+			k++;
+	}
+	if k == n
 	{
 		oBattleController.begin_turn();
 		exit;
@@ -180,7 +187,7 @@ if !__died and !is_spared
 					}
 					draw_damage = true;
 					TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 40, "_enemy_hp", _enemy_hp, enemy_hp);
-					TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y", damage_y, damage_y - 30);
+					TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y>", damage_y - 30);
 					TweenFire(id, EaseInQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
 				}
 				attack_time++;

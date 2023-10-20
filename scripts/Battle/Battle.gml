@@ -1,51 +1,17 @@
-///@desc Sets the size of the board with Anim (optional)
-///@param {real} up			The Disatance Upwards (Default 65)
-///@param {real} down		The Disatance Downards (Default 65)
-///@param {real} left		The Disatance Leftwards (Default 283)
-///@param {real} right		The Disatance Rightwards (Default 283)
-///@param {real} time		The duration of the Anim (0 = instant, Default 30)
-///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-function Set_BoardSize(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = oBoard)
-{
-	with board
-		TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, time, "up", self.up, up, 
-			"down", self.down, down, "left", self.left,  "right", self.right, right);
-}
-
-///@desc Sets the angle of the board with Anim (optional)
-///@param {real} angle		The target angle (Default 0)
-///@param {real} time		The duration of the Anim (0 = instant, Default 30)
-///@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-function Set_BoardAngle(angle = 0, time = 30, ease = EaseOutQuad, board = oBoard)
-{
-	with board
-		TweenEasyRotate(image_angle, angle, 0, time, ease);
-}
-
-///@desc Sets the x and y position of the board
-///@param {real} x	The x position
-///@param {real} y	The y position
-///@param {real} time	The time taken for the anim
-///@param {function} ease	The easing
-function Set_BoardPos(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = oBoard)
-{
-	with board
-		TweenEasyMove(x, y, xx, yy, 0, time, ease)
-}
 ///Resets the board state to default
 ///@param {bool} angle_div	Whether the angle of the board be fixed between -90 < x < 90 or not
 function ResetBoard(anglediv = true) {
-	Set_BoardSize();
+	BattleData.SetBoardSize();
 	if anglediv oBoard.image_angle %= 90;
-	Set_BoardAngle();
-	Set_BoardPos();
+	BattleData.SetBoardAngle();
+	BattleData.SetBoardPos();
 }
 
 function Set_GreenBox()
 {
-	Set_BoardAngle();
-	Set_BoardSize(42, 42, 42, 42, 20);
-	Set_BoardPos(320, 240, 20);
+	BattleData.SetBoardAngle();
+	BattleData.SetBoardSize(42, 42, 42, 42, 20);
+	BattleData.SetBoardPos(320, 240, 20);
 }
 
 ///@desc Deals damage to the soul
@@ -142,6 +108,30 @@ function Battle() constructor
 	{
 		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up,
 				"down", board.down, down, "left", board.left, left, "right", board.right, right);
+	}
+	/**
+		Sets the angle of the board with Anim (optional)
+		@param {real} angle		The target angle (Default 0)
+		@param {real} time		The duration of the Anim (0 = instant, Default 30)
+		@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
+	*/
+	static SetBoardAngle = function(angle = 0, time = 30, ease = EaseOutQuad, board = oBattleController.MainBoard)
+	{
+		with board
+			TweenEasyRotate(image_angle, angle, 0, time, ease);
+	}
+
+	/**
+		Sets the x and y position of the board
+		@param {real} x	The x position
+		@param {real} y	The y position
+		@param {real} time	The time taken for the anim
+		@param {function} ease	The easing
+	*/
+	static SetBoardPos = function(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = oBattleController.MainBoard)
+	{
+		with board
+			TweenEasyMove(x, y, xx, yy, 0, time, ease)
 	}
 	/**
 		This sets the dialog of the enemy

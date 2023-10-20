@@ -6,14 +6,9 @@ var input_horizontal = PRESS_HORIZONTAL,
 	DefaultFont = "[" + DefaultFontNB + "]";
 // Text Functions
 if battle_state == BATTLE_STATE.MENU {
-	for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
-		if enemy[i] == noone {
-			ncontains_enemy++;
-			no_enemy_pos[array_length(no_enemy_pos) - 1] = i;
-		}
-		else continue;
-	}
-	var target_option = menu_choice[0] + (menu_choice[0] >= no_enemy_pos[0] ? ncontains_enemy : 0);
+	check_contain_enemy();
+	var target_option = menu_choice[0];
+	if menu_choice[0] >= no_enemy_pos[0] target_option += ncontains_enemy;
 
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
 		__text_writer.starting_format(DefaultFontNB, c_white)
@@ -192,6 +187,7 @@ if battle_state == BATTLE_STATE.MENU {
 							Target.WaitTime = 60;
 
 							var strike_target_x = 160 * (target_option + 1);
+							show_message(target_option);
 							enemy[target_option].is_being_attacked = true;
 							Calculate_MenuDamage(_aim_distance, target_option);
 							instance_create_depth(strike_target_x, 160, -10, oStrike);

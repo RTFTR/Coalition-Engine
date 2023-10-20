@@ -1,12 +1,3 @@
-if DEBUG
-{
-	repeat 2
-		SpliceScreen(320, 240, random(360), irandom_range(20, 40), irandom_range(20, 40), irandom_range(20, 40), 130);
-	var lang = choose(0, 1)
-	SetLanguage(lang);
-}
-
-
 texturegroup_load("texbattle");
 Fader_Fade(1, 0, 20);
 menu_state = 0;
@@ -241,7 +232,127 @@ Effect =
 	SeaTeaTurns : 4,
 };
 #endregion
+#region Internal Functions
+/**
+	(Internal) Calculates the damage inflicting to the enemy
+*/
+function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amount = 0)
+{
+	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
+		target = enemy[enemy_under_attack],
+		enemy_def = target.enemy_defense;
+	if target.enemy_is_spareable enemy_def *= -30; //Check if enemy is spareable -> reduce the DEF
+	damage -= enemy_def;	//Reduce the damage by the defense of the enemy
+	damage *= 2;			//Multiply the damage for the critical attack
+	if distance_to_center > 15
+		damage *= (1 - distance_to_center / 273);	//Reduce the damage for the non-critical attack
+	damage *= random_range(0.9, 1.1); //Sets damage to be random of the actual damage (idk what im saying)
+	//For multibar attack
+	if crit_amount > 0
+	{
+		var average_damage = damage / global.bar_count, i = 0;
+		damage = 0;
+		repeat global.bar_count
+		{
+			var multiplier = ((i++) < crit_amount) ? 2 : 1; //If the bar is a critical attack, multiply by 2
+			damage += average_damage * multiplier;
+		}
+	}
+	damage = max(round(damage), 1);	//Sets the minimal damage to be 1
+	with target
+		EnemyData.SetDamage(id, damage);
+}
+/**
+	(Internal) Begins the turn
+*/
+function begin_turn() {
+	//If the choice is not an act, check whether it triggers the turn
+	if (last_choice != 1 ? activate_turn[last_choice] :
+	//If it is an act, check whether the act chosen activates the turn
+	(activate_turn[1] && action_trigger_turn[menu_choice[1]] != 0))
+	{
+		if last_choice == 1
+		{
+			battle_state = BATTLE_STATE.DIALOG;
+			oEnemyParent.state = 1;
+			last_choice = 0;
+			battle_turn++;
+			with oEnemyParent
+			{
+				if array_length(PreAttackFunctions) > BattleData.Turn()
+					PreAttackFunctions[BattleData.Turn()]();
+			}
+		}
+		else
+		{
+			battle_state = BATTLE_STATE.IN_TURN;
+			oEnemyParent.state = 2;
+		}
+		oSoul.image_angle = 0;
+		SetSoulPos(320, 320, 0);
+	}
+	else //Reset to menu
+	{
+		menu_choice = array_create(4, 0);
+		menu_text_typist.reset();
+		battle_state = 0;
+		menu_state = 0;
+		var end_turn_text = battle_turn - 1;
+		end_turn_text = min(0, battle_turn);
+		last_choice = 0;
+	}
+}
+/**
+	Call gameover event
+*/
+function gameover() {
+	global.soul_x = oSoul.x;
+	global.soul_y = oSoul.y;
+	audio_stop_all();
+	room_goto(room_gameover);
+	// Insert file saving and events if needed
+}
 
+/**
+	(Internal) Begins the spare event
+*/
+function begin_spare(activate_the_turn) {
+	oEnemyParent.is_being_spared = true;
+	oEnemyParent.spare_end_begin_turn = activate_the_turn;
+	if !activate_the_turn {
+		menu_state = -1;
+		battle_state = -1;
+	}
+}
+
+/**
+	(Internal) Ends the battle
+*/
+function end_battle() {
+	battle_state = 3;
+	if !global.BossFight {
+		battle_end_text = lexicon_text("Battle.Win", string(Result.Exp), string(Result.Gold));
+		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
+			global.data.lv++;
+			var maxhp = (global.hp == global.hp_max);
+			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
+			if maxhp global.hp = global.hp_max
+				battle_end_text += lexicon_text("Battle.LoveInc");
+			audio_play(snd_level_up);
+		}
+		battle_end_text_writer = scribble("* " + battle_end_text);
+		if battle_end_text_writer.get_page() != 0
+			battle_end_text_writer.page(0);
+		battle_end_text_typist = scribble_typist()
+			.in(0.5, 0)
+			.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
+	} else {
+		Fader_Fade(0, 1, 40, 0, c_black);
+	}
+}
+/**
+	(Internal) Starts the dialog event
+*/
 function dialog_start() {
 	with oEnemyParent
 	{
@@ -252,3 +363,16 @@ function dialog_start() {
 	battle_state = 1;
 	SetSoulPos(320, 320, 0);
 }
+no_enemy_pos = [];
+ncontains_enemy = 0;
+function check_contain_enemy() {
+	ncontains_enemy = 0;
+	for (var i = 0; i < 2; i++) {
+		if enemy[i] == noone {
+			ncontains_enemy++;
+			array_push(no_enemy_pos, i);
+		}
+		else continue;
+	}
+}
+#endregion

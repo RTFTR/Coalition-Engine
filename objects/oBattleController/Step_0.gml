@@ -1,141 +1,14 @@
-if !audio_group_is_loaded(audgrpbattle)
-	audio_group_load(audgrpbattle);
+if !audio_group_is_loaded(audgrpbattle) audio_group_load(audgrpbattle);
 Button.Update();
 var DefaultFontNB = lexicon_text("Font"),
-	DefaultFont = "[" + DefaultFontNB + "]";
-#region Local Functions
-function scr_enemy_choice()
-{
-	for (var i = 0, n = 0; i < 2; ++i)
-		if instance_exists(enemy[i]) n++;
-	return n;
-}
-
-
-function scr_enemy_num()
-{
-	for (var i = 0, n = 0; i < 2; i++)
-		if enemy[i] != noone
-			n++;
-	return n;
-}
-
-function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amount = 0)
-{
-	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
-		target = enemy[enemy_under_attack],
-		enemy_def = target.enemy_defense;
-	if target.enemy_is_spareable enemy_def *= -30; //Check if enemy is spareable -> reduce the DEF
-	damage -= enemy_def;
-	damage *= 2;
-	if distance_to_center > 15
-		damage *= (1 - distance_to_center / 273);
-	damage *= random_range(0.9, 1.1); //Sets damage to be random of the actual damage (idk what im saying)
-	//For multibar attack
-	if crit_amount > 0
-	{
-		var average_damage = damage / global.bar_count;
-		damage = 0;
-		for (var i = 0; i < global.bar_count; ++i) {
-			var multiplier = i < crit_amount ? 2 : 1;
-			damage += average_damage * multiplier;
-		}
-	}
-	damage = max(round(damage), 1);
-	with target
-		EnemyData.SetDamage(id, damage);
-}
-
-
-function begin_turn() {
-	if (last_choice != 1 ? activate_turn[last_choice] : (activate_turn[1] && action_trigger_turn[menu_choice[1]] != 0))
-	{
-		if last_choice == 1
-		{
-			battle_state = BATTLE_STATE.DIALOG;
-			oEnemyParent.state = 1;
-			last_choice = 0;
-			battle_turn++;
-			with oEnemyParent
-			{
-				if array_length(PreAttackFunctions) > BattleData.Turn()
-					PreAttackFunctions[BattleData.Turn()]();
-			}
-		}
-		else
-		{
-			battle_state = BATTLE_STATE.IN_TURN;
-			oEnemyParent.state = 2;
-		}
-		oSoul.image_angle = 0;
-		SetSoulPos(320, 320, 0);
-	}
-	else
-	{
-		menu_choice = array_create(4, 0);
-		menu_text_typist.reset();
-		battle_state = 0;
-		menu_state = 0;
-		var end_turn_text = battle_turn - 1;
-		end_turn_text = min(0, battle_turn);
-		last_choice = 0;
-	}
-}
-
-function gameover() {
-	global.soul_x = oSoul.x;
-	global.soul_y = oSoul.y;
-	audio_stop_all();
-	room_goto(room_gameover);
-	// Insert file saving and events if needed
-}
-
-function begin_spare(activate_the_turn) {
-	oEnemyParent.is_being_spared = true;
-	oEnemyParent.spare_end_begin_turn = activate_the_turn;
-	if !activate_the_turn {
-		menu_state = -1;
-		battle_state = -1;
-	}
-}
-
-function end_battle() {
-	battle_state = 3;
-	if !global.BossFight {
-		battle_end_text = lexicon_text("Battle.Win", string(Result.Exp), string(Result.Gold));
-		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
-			global.data.lv++;
-			var maxhp = (global.hp == global.hp_max);
-			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
-			if maxhp global.hp = global.hp_max
-				battle_end_text += lexicon_text("Battle.LoveInc");
-			audio_play(snd_level_up);
-		}
-		battle_end_text_writer = scribble("* " + battle_end_text);
-		if battle_end_text_writer.get_page() != 0
-			battle_end_text_writer.page(0);
-		battle_end_text_typist = scribble_typist()
-			.in(0.5, 0)
-			.sound_per_char(snd_txtTyper, 1, 1, " ^!.?,:/\\|*")
-	}
-	else {
-		Fader_Fade(0, 1, 40, 0, c_black);
-	}
-}
-#endregion
+	DefaultFont = "[" + DefaultFontNB + "]";	
 var input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL;
 
 //Check for empty slots of enemy
-for (var i = 0, ncontains_enemy = 0, no_enemy_pos = [2]; i < 2; i++) {
-	if enemy[i] == noone {
-		ncontains_enemy++;
-		no_enemy_pos[array_length(no_enemy_pos) - 1] = i;
-	}
-	else continue;
-}
+check_contain_enemy();
 var target_option = menu_choice[0];
 if menu_choice[0] >= no_enemy_pos[0] target_option += ncontains_enemy;
 
@@ -180,7 +53,7 @@ switch battle_state {
 				var coord = menu_choice[0],
 					len = 1,
 					FightOrAct = is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT);
-				if FightOrAct len = no_enemy_pos[0];
+				if FightOrAct len = 3 - no_enemy_pos[0];
 				else {
 					coord = menu_choice[3];
 					len = 1 + allow_run;

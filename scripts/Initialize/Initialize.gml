@@ -118,7 +118,7 @@ function Initialize()
 	BattleData = new Battle();
 	EnemyData = new Enemy();
 	BoxData = new __Box();
-	EnemyData.SetEncoutner(,,oEnemySansExample);
+	EnemyData.SetEncoutner(,,oEnemySansExample,oEnemySansExample);
 	global.kr = 0;
 	global.kr_activation = false;
 	global.damage = 1;
@@ -157,6 +157,7 @@ function Initialize()
 		lexicon_index_fallback_language_set("English")
 		LangLoaded = true;
 	}
+	SetLanguage(0);
 	
 	//Extras
 	Load3DNodesAndEdges();

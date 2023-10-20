@@ -1,32 +1,34 @@
 ///@desc Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
 function Enemy_Function_Load(encounter_number = global.battle_encounter) {
-	enemy = [];
+	enemy = array_create(3, noone);
 	enemy_name = [];
 	enemy_hp = [];
 	enemy_hp_max = [];
 	enemy_draw_hp_bar = [];
 	enemy_name_extra = ["", "", ""];
 	
-	var enemy_presets= global.enemy_presets;
+	var enemy_presets = global.enemy_presets;
 	
 	enemy_instance = [];
 	for (var i = 0, enemies; i < 3; ++i)
 	{
 		enemies[i] = enemy_presets[encounter_number, i];
-		enemy[i] = enemies[i];
 		if enemies[i] != noone
 		{
 			array_push(enemy_instance, instance_create_depth(160 * (i + 1), 250, 1, enemies[i]));
+			enemy[i] = array_last(enemy_instance);
 			enemy_name[i] =			enemies[i].enemy_name;
 			enemy_hp[i] =			enemies[i].enemy_hp;
 			enemy_hp_max[i] =		enemies[i].enemy_hp_max;
 			enemy_draw_hp_bar[i] =	enemies[i].enemy_draw_hp_bar;
-			for(var ii = 0, kk = array_length(enemies[i].enemy_act); ii < kk; ++ii)
+			var ii = 0;
+			repeat array_length(enemies[i].enemy_act) - 1
 			{
 				enemy_act[i, ii] =			enemies[i].enemy_act[ii];
 				enemy_act_text[i, ii] =		enemies[i].enemy_act_text[ii];
 				enemy_act_function[i, ii] = enemies[i].enemy_act_function[ii];
+				++ii;
 			}
 			global.BossFight = enemies[i].is_boss;
 			if enemies[i].begin_at_turn {

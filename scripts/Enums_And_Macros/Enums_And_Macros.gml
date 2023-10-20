@@ -1,8 +1,8 @@
 #region Engine
 //Here are the macros for the engine
-#macro ENGINE_VERSION "Beta v5.1"
+#macro ENGINE_VERSION "Beta v5.1.1"
 #macro ALLOW_DEBUG  true
-#macro DEBUG true
+#macro DEBUG (ALLOW_DEBUG ? true : false)
 #endregion
 #region Input
 //Here are the macros for handy input code
@@ -21,6 +21,7 @@
 #macro elif else if
 #macro defer for (;; {
 #macro after ; break; })
+#macro c_dkgreen make_color_rgb(0, 255, 0)
 #endregion
 
 enum FONTS {
@@ -178,4 +179,3 @@ enum FADE
 	LINES = 2
 }
 
-#macro c_dkgreen make_color_rgb(0, 255, 0)
