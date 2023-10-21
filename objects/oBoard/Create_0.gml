@@ -1,3 +1,5 @@
+//Adds the board to the global board list
+array_push(BattleBoardList, id);
 image_alpha = 1;
 surface = noone;
 
@@ -29,7 +31,7 @@ rotate = 0;
 //Board frame color
 image_blend = c_white;
 
-//Polygon board
+//Polygon board (WIP)
 VertexMode = false;
 Vertex = array_create_2d(1, 1);
 

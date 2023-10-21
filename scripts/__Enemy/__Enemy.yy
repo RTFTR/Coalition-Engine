@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Battle",
+  "name": "__Enemy",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

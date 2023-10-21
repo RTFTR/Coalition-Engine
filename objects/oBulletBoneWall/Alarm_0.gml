@@ -1,7 +1,7 @@
 //@desc True creation
 active = true;
 state = 1;
-var board = oBoard,
+var board = target_board,
 	board_x = board.x,
 	board_y = board.y,
 	board_u = board_y - board.up,

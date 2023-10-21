@@ -53,7 +53,7 @@ function DrawDebugUI()
 	}
 	
 	//If is in overworld
-	else if instance_exists(oOWController)
+	elif instance_exists(oOWController)
 	{
 		gpu_set_blendmode(bm_add);
 		var mx = window_mouse_get_x(),

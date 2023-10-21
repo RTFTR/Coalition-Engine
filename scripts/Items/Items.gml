@@ -107,11 +107,11 @@ function Item_Use(item){
 			heal_text = "You drank the sea tea.";
 			global.spd *= 2;
 			audio_play(snd_spdup);
-			with oBattleController
-				{
-					Effect.SeaTea = true;
-					Effect.SeaTeaTurns = 4;
-				}
+			with oBattleController.Effect
+			{
+				SeaTea = true;
+				SeaTeaTurns = 4;
+			}
 		break;
 	}
 	

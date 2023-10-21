@@ -1,6 +1,6 @@
 #region Engine
 //Here are the macros for the engine
-#macro ENGINE_VERSION "Beta v5.1.1"
+#macro ENGINE_VERSION "Beta v5.1.2"
 #macro ALLOW_DEBUG  true
 #macro DEBUG (ALLOW_DEBUG ? true : false)
 #endregion

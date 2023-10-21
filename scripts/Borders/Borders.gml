@@ -1,7 +1,9 @@
-///Toggles border on and off, you can choose to have a smooth window size transition
-///@param {bool} enable	Whether the border is enabled or not
-///@param {function} Easing	The easing of the window size change (TweenGMX)
-///@param {real} duration	The duration of the easing
+/**
+	Toggles border on and off, you can choose to have a smooth window size transition
+	@param {bool} enable	Whether the border is enabled or not
+	@param {function} Easing	The easing of the window size change (TweenGMX)
+	@param {real} duration	The duration of the easing
+*/
 function BorderSetEnable(enable, func = EaseLinear, dur = 0)
 {
 	oGlobal.Border.Enabled = enable;

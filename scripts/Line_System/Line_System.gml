@@ -67,17 +67,20 @@ function LineSystem_Load()
 //@desc Cleans up the Line SYstem
 function LineSystem_CleanUp()
 {
-	ds_list_destroy(global.Line.LinePoints);
-	ds_list_destroy(global.Line.LineWidth);
-	ds_list_destroy(global.Line.LineSpeed);
-	ds_list_destroy(global.Line.LineDirection);
-	ds_list_destroy(global.Line.LineAlpha);
-	ds_list_destroy(global.Line.LineAlphaFade);
-	ds_list_destroy(global.Line.LineColor);
-	ds_list_destroy(global.Line.LineProperties);
-	ds_list_destroy(global.Line.LineFadeProperties);
-	ds_list_destroy(global.Line.LineDuration);
-	ds_list_destroy(global.Line.LineLayer);
+	with global.Line
+	{
+		ds_list_destroy(LinePoints);
+		ds_list_destroy(LineWidth);
+		ds_list_destroy(LineSpeed);
+		ds_list_destroy(LineDirection);
+		ds_list_destroy(LineAlpha);
+		ds_list_destroy(LineAlphaFade);
+		ds_list_destroy(LineColor);
+		ds_list_destroy(LineProperties);
+		ds_list_destroy(LineFadeProperties);
+		ds_list_destroy(LineDuration);
+		ds_list_destroy(LineLayer);
+	}
 	delete global.Line;
 	Timer = -1;
 	FadingLines = 0;

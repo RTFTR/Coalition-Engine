@@ -1,3 +1,5 @@
+//Adds the soul to the global soul list
+array_push(BattleSoulList, id);
 if instance_exists(oBoard)
 	depth = oBoard.depth - oBattleController.depth - 1;
 image_speed = 0;

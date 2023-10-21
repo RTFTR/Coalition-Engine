@@ -1,283 +1,294 @@
-///@desc Creates a bone as a bullet
-///@param {real} x			The x position of the bone
-///@param {real} y			The y position of the bone
-///@param {real} length		The length of the bone (In pixels)
-///@param {real} hspeed		The hspeed of the bone
-///@param {real} vspeed		The vspeed of the bone
-///@param {real} type		The color of the bone (Macros supported, Default White)
-///@param {real} out		Whether the bone appears outside the board (Default 0)
-///@param {real} mode		The direction of the board the bone sticks onto (Default 0)
-///@param {real} angle		The angle of the bone (Default 90)
-///@param {real} rotate		The rotation of the bone (Default 0)
-///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-///@param {Constant.Color} Base_Color	The color of the bone
-function Bullet_Bone(X,Y,LENGTH,HSPEED,VSPEED,TYPE = 0,OUT = 0,MODE = 0,ANGLE = 90,ROTATE = 0,DESTROYABLE = true,DURATION = -1,base_col = oEnemyParent.base_bone_col){
-	var DEPTH = -10
+/**
+	Creates a bone as a bullet
+	@param {real} x			The x position of the bone
+	@param {real} y			The y position of the bone
+	@param {real} length	The length of the bone (In pixels)
+	@param {real} hspeed	The hspeed of the bone
+	@param {real} vspeed	The vspeed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} mode		The direction of the board the bone sticks onto (Default 0)
+	@param {real} angle		The angle of the bone (Default 90)
+	@param {real} rotate	The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+	@param {Constant.Color} Base_Color	The color of the bone
+*/
+function Bullet_Bone(x, y, length, hspd, vspd, type = 0, out = 0, mode = 0, angle = 90, rotate = 0, destroyable = true, duration = -1, base_col = oEnemyParent.base_bone_col){
+	var DEPTH = -10;
 	if instance_exists(oBoard)
 	{
-		DEPTH = oBoard.depth
-		
-		if OUT DEPTH -= 1
+		DEPTH = oBoard.depth;
+		if out DEPTH--;
 	}
 	
-	var bone = instance_create_depth(X,Y,DEPTH,oBulletBone,
+	var bone = instance_create_depth(x, y, DEPTH, oBulletBone,
 	{
-		hspeed : HSPEED,
-		vspeed : VSPEED,
+		hspeed : hspd,
+		vspeed : vspd,
 	});
 	with bone
 	{
-		image_angle = ANGLE;
+		target_board = BattleBoardList[TargetBoard];
+		image_angle = angle;
 		
-		length = LENGTH;
-		rotate = ROTATE;
-		type = TYPE;
-		duration = DURATION;
-		mode = MODE;
+		id.length = length;
+		id.rotate = rotate;
+		id.type = type;
+		id.duration = duration;
+		id.mode = mode;
 		
-		destroyable = DESTROYABLE;
+		id.destroyable = destroyable;
 		base_color = base_col;
 	}
 	return bone;
 }
 
 
-///@desc Creates a bone at the Top of the board
-///@param {real} x			The x position of the bone
-///@param {real} length		The length of the bone (In pixels)
-///@param {real} hspeed		The hspeed of the bone
-///@param {real} type		The color of the bone (Macros supported, Default White)
-///@param {real} out		Whether the bone appears outside the board (Default 0)
-///@param {real} rotate		The rotation of the bone (Default 0)
-///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneTop(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1)
+/**
+	Creates a bone at the Top of the board
+	@param {real} x			The x position of the bone
+	@param {real} length	The length of the bone (In pixels)
+	@param {real} hspeed	The hspeed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate	The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneTop(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	var Y = (oBoard.y - oBoard.up) + (LENGTH / 2),
-		bone = Bullet_Bone(X,Y,LENGTH,HSPEED,0,TYPE,OUT,0,90,ROTATE,DESTROYABLE,DURATION);
-	return bone;
+	return Bullet_Bone(x, Board.GetUpPos() + length / 2, length, hspd, 0, type, out, 0, 90, rotate, destroyable, duration);
 }
 
-///@desc Creates a bone at the Bottom of the board
-///@param {real} x			The x position of the bone
-///@param {real} length		The length of the bone (In pixels)
-///@param {real} hspeed		The hspeed of the bone
-///@param {real} type		The color of the bone (Macros supported, Default White)
-///@param {real} out		Whether the bone appears outside the board (Default 0)
-///@param {real} rotate		The rotation of the bone (Default 0)
-///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneBottom(X,LENGTH,HSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var Y = (oBoard.y + oBoard.down) - (LENGTH / 2),
-		bone = Bullet_Bone(X,Y,LENGTH,HSPEED,0,TYPE,OUT,0,90,ROTATE,DESTROYABLE,DURATION);
-	return bone;
+/**
+	Creates a bone at the Bottom of the board
+	@param {real} x			The x position of the bone
+	@param {real} length		The length of the bone (In pixels)
+	@param {real} hspeed		The hspeed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate		The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneBottom(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1){
+	return Bullet_Bone(x, Board.GetDownPos() - length / 2, length, hspd, 0, type, out, 0, 90, rotate, destroyable, duration);
 }
 
-///@desc Creates a bone at the Left of the board
-///@param {real} y			The y position of the bone
-///@param {real} length		The length of the bone (In pixels)
-///@param {real} vspeed		The vspeed of the bone
-///@param {real} type		The color of the bone (Macros supported, Default White)
-///@param {real} out		Whether the bone appears outside the board (Default 0)
-///@param {real} rotate		The rotation of the bone (Default 0)
-///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneLeft(Y,LENGTH,VSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var X = (oBoard.x - oBoard.left) + (LENGTH / 2),
-		bone = Bullet_Bone(X,Y,LENGTH,0,VSPEED,TYPE,OUT,0,0,ROTATE,DESTROYABLE,DURATION);
-	return bone;
-}
-
-///@desc Creates a bone at the Right of the board
-///@param {real} y			The y position of the bone
-///@param {real} length		The length of the bone (In pixels)
-///@param {real} vspeed		The vspeed of the bone
-///@param {real} type		The color of the bone (Macros supported, Default White)
-///@param {real} out		Whether the bone appears outside the board (Default 0)
-///@param {real} rotate		The rotation of the bone (Default 0)
-///@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneRight(Y,LENGTH,VSPEED,TYPE = 0,OUT = 0,ROTATE = 0,DESTROYABLE = true,DURATION = -1){
-	var X = (oBoard.x + oBoard.right) - (LENGTH / 2),
-		bone = Bullet_Bone(X,Y,LENGTH,0,VSPEED,TYPE,OUT,0,0,ROTATE,DESTROYABLE,DURATION);
-	return bone;
-}
-
-///@desc Makes a Vertical Bone that is the length of the board
-function Bullet_BoneFullV(X, SPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+/**
+	Creates a bone at the Left of the board
+	@param {real} y			The y position of the bone
+	@param {real} length		The length of the bone (In pixels)
+	@param {real} vspeed		The vspeed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate		The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneLeft(y, length, vspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	return Bullet_BoneBottom(X, oBoard.up + oBoard.down, SPEED, TYPE, OUT, ROTATE, DESTROYABLE, DURATION);
+	return Bullet_Bone(Board.GetLeftPos() + length / 2, y, length, 0, vspd, type, out, 0, 0, rotate, destroyable, duration);
 }
 
-///@desc Makes a Horizontal Bone that is the length of the board
-function Bullet_BoneFullH(Y, SPEED, TYPE = 0, OUT = 0, ROTATE = 0, DESTROYABLE = true, DURATION = -1)
+/**
+	Creates a bone at the Right of the board
+	@param {real} y			The y position of the bone
+	@param {real} length		The length of the bone (In pixels)
+	@param {real} vspeed		The vspeed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate		The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneRight(y, length, vspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	return Bullet_BoneLeft(Y, oBoard.left + oBoard.right, SPEED, TYPE, OUT, ROTATE, DESTROYABLE, DURATION);
+	return Bullet_Bone(Board.GetRightPos() - length / 2, y, length, 0, vspd, type, out, 0, 0, rotate, destroyable, duration);
 }
 
-//@desc Creates Two Horizontal bones that Makes A Gap In Between Them
-///@param {real} x			The x position of the bones
-///@param {real} y			The y position of the bones
-///@param {real} vspeed		The vspeed of the bones
-///@param {real} gap		The size of the gap (In pixels)
-///@param {real} color		The color of the bones (Marcos supported, Default White)
-///@param {real} out		Whether the bones are outisde the board (Default 0)
-///@param {real} destroy	Whether the bones destroy themselves when offscreen (Default 0)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneGapH(X,Y,VSPEED,X_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURATION = -1)
+/**
+	Makes a Vertical Bone that is the length of the board
+	@param {real} x			The x position of the bone
+	@param {real} speed		The speed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate	The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneFullV(x, spd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	var board = oBoard,
-		board_y = board.y,
-		board_margin = new Vector2(board.left, board.right),
-		GAP = X_GAP / 2,
-		LENGTH_L = X - board_y + board_margin.x - GAP,
-		LENGTH_R = board_y + board_margin.y - GAP - X;
-	
-	Bullet_BoneLeft(Y,LENGTH_L,VSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
-	Bullet_BoneRight(Y,LENGTH_R,VSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
+	return Bullet_BoneBottom(x, Board.GetHeight(), spd, type, out, rotate, destroyable, duration);
 }
 
-//@desc Creates Two Vertical bones that Makes A Gap In Between Them
-///@param {real} x			The x position of the bones
-///@param {real} y			The y position of the bones
-///@param {real} hspeed		The hspeed of the bones
-///@param {real} gap		The size of the gap (In pixels)
-///@param {real} color		The color of the bones (Marcos supported, Default White)
-///@param {real} out		Whether the bones are outisde the board (Default 0)
-///@param {real} destroy	Whether the bones destroy themselves when offscreen (Default 0)
-///@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-function Bullet_BoneGapV(X,Y,HSPEED,Y_GAP,TYPE = 0, OUT = 0,DESTROYABLE = 0,DURATION = -1)
+/**
+	Makes a Horizontal Bone that is the length of the board
+	@param {real} y			The y position of the bone
+	@param {real} speed		The speed of the bone
+	@param {real} type		The color of the bone (Macros supported, Default White)
+	@param {real} out		Whether the bone appears outside the board (Default 0)
+	@param {real} rotate	The rotation of the bone (Default 0)
+	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneFullH(y, spd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	var board = oBoard,
-		board_y = board.y,
-		board_margin = new Vector2(board.up, board.down),
-		GAP = Y_GAP / 2,
-		LENGTH_T = Y - board_y + board_margin.x - GAP,
-		LENGTH_B = board_y + board_margin.y - GAP - Y;
-
-	bone_top = Bullet_BoneTop(X,LENGTH_T,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
-	bone_bottom = Bullet_BoneBottom(X,LENGTH_B,HSPEED,TYPE,OUT,0,DESTROYABLE,DURATION);
+	return Bullet_BoneLeft(y, Board.GetWidth(), spd, type, out, rotate, destroyable, duration);
 }
 
+/**
+	Creates Two Horizontal bones that Makes A Gap In Between Them
+	@param {real} x			The x position of the gap of the bones
+	@param {real} y			The y position of the bones
+	@param {real} vspeed	The vspeed of the bones
+	@param {real} gap		The size of the gap (In pixels)
+	@param {real} color		The color of the bones (Marcos supported, Default White)
+	@param {real} out		Whether the bones are outisde the board (Default 0)
+	@param {real} destroy	Whether the bones destroy themselves when offscreen (Default 0)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneGapH(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
+{
+	Bullet_BoneLeft(y, x - Board.GetLeftPos() - gap / 2, vspd, type, out, 0, destroyable, duration);
+	Bullet_BoneRight(y, Board.GetRightPos()- gap / 2 - x, vspd, type, out, 0, destroyable, duration);
+}
 
-/// @desc  Creates a bone wall on a chosen side of the board
-/// @param {real} direction		The direction of the bone wall (Macros supported, i.e. DIR.UP)
-/// @param {real} height		The height of the bone wall (In pixels)
-/// @param {real} delay			The Warning duration
-/// @param {real} duration		The duration that the bone wall exists
-/// @param {real} color			The color of the bones (Default White)
-/// @param {real} move			The speed the bone wall moves In and Out of the board (Default 5)
-/// @param {bool} warn_sound	Whether the warning sound plays (Default True)
-/// @param {bool} create_sound	Whether the create sound plays (Default True)
-function Bullet_BoneWall(DIRECTION,HEIGHT,DELAY,HOLD,TYPE = 0,MOVE = 5,WARN_SOUND = true, CRE_SOUND = true){
-	var DEPTH = -10
-	if instance_exists(oBoard) 
-		DEPTH = oBoard.depth + 1
-	DIRECTION = posmod(DIRECTION,360);
-	var wall = instance_create_depth(0,0,DEPTH,oBulletBoneWall)
+/**
+	Creates Two Vertical bones that Makes A Gap In Between Them
+	@param {real} x			The x position of the bones
+	@param {real} y			The y position of the gap of the bones
+	@param {real} vspeed	The vspeed of the bones
+	@param {real} gap		The size of the gap (In pixels)
+	@param {real} color		The color of the bones (Marcos supported, Default White)
+	@param {real} out		Whether the bones are outisde the board (Default 0)
+	@param {real} destroy	Whether the bones destroy themselves when offscreen (Default 0)
+	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
+*/
+function Bullet_BoneGapV(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
+{
+	Bullet_BoneTop(x, y - Board.GetUpPos() - gap / 2, vspd, type, out, 0, destroyable, duration);
+	Bullet_BoneBottom(x, Board.GetDownPos()- gap / 2 - y, vspd, type, out, 0, destroyable, duration);
+}
+
+/**
+	Creates a bone wall on a chosen side of the board
+	@param {real} direction		The direction of the bone wall (Macros supported, i.e. DIR.UP)
+	@param {real} height		The height of the bone wall (In pixels)
+	@param {real} delay			The Warning duration
+	@param {real} duration		The duration that the bone wall exists
+	@param {real} color			The color of the bones (Default White)
+	@param {real} move			The speed the bone wall moves In and Out of the board (Default 5)
+	@param {bool} warn_sound	Whether the warning sound plays (Default True)
+	@param {bool} create_sound	Whether the create sound plays (Default True)
+*/
+function Bullet_BoneWall(dir, height, delay, duration, type = 0, move = 5, warn_sound = true, cre_sound = true){
+	var DEPTH = -10;
+	if instance_exists(oBoard)  DEPTH = oBoard.depth + 1;
+	dir = posmod(dir, 360);
+	var wall = instance_create_depth(0, 0, DEPTH, oBulletBoneWall);
 	with wall
 	{
-		dir = DIRECTION;
-		height = HEIGHT;
-		time_warn = DELAY;
-		time_stay = HOLD;
-		time_move = MOVE;
-		type = TYPE;
-		sound_warn = WARN_SOUND;
-		sound_create = CRE_SOUND;
+		target_board = BattleBoardList[TargetBoard];
+		id.dir = dir;
+		id.height = height;
+		time_warn = delay;
+		time_stay = duration;
+		time_move = move;
+		id.type = type;
+		sound_warn = warn_sound;
+		sound_create = cre_sound;
 	}
-	
 	return wall;
 }
 
-/// @desc Creates a Vertical Bone Wave
-/// @param {real} y			The y position of the first bone
-/// @param {real} length	The length of the first bone
-/// @param {real} hspeed	The hspeed of the bones
-/// @param {real} space		The space between bones
-/// @param {real} amount	The amount of bones
-/// @param {real} gap		The size of the bone gap
-/// @param {real} udf		Sine wave multiplier
-/// @param {real} uds		Sine wave intensity
-/// @param {real} type		Color of the bones (Default White)
-/// @param {real} out		Whether the bones are outside the board (Default 0)
-function Bullet_BoneWaveH(Y,X_GAP,HSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
+/**
+	Creates a Vertical Bone Wave
+	@param {real} y			The y position of the first bone
+	@param {real} length	The length of the first bone
+	@param {real} hspeed	The hspeed of the bones
+	@param {real} space		The space between bones
+	@param {real} amount	The amount of bones
+	@param {real} gap		The size of the bone gap
+	@param {real} udf		Sine wave multiplier
+	@param {real} uds		Sine wave intensity
+	@param {real} type		Color of the bones (Default White)
+	@param {real} out		Whether the bones are outside the board (Default 0)
+*/
+function Bullet_BoneWaveH(yy, length, hspd, space, amount, gap, udf, uds, type = 0, out = 0)
 {
-	var board = oBoard,
-		board_x = board.x,
-		board_margin = [board.left, board.right],
-		SIN = 0,
-		LENGTH = (X_GAP - (board_x - board_margin[0]) - 14);
-	
-	for (var i = 0; i < AMOUNT; ++i)
+	var SIN = 0, LENGTH = (length - Board.GetLeftPos() - 14), i = 0;
+	for (; i < amount; ++i)
 	{
-		SIN += (UDS * 0.3);
-		LENGTH += ((cos(SIN) * UDF) * 4);
-		Y += (((SPACE * HSPEED) * sign(-HSPEED)) / 4);
+		SIN += uds * 0.3;
+		LENGTH += cos(SIN) * udf * 4;
+		yy += space * hspd * sign(-hspd) / 4;
 		
-		var GAP_R = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP),
-			DURATION = (((640 + (SPACE * i)) / abs(HSPEED)) * 2);
-		Bullet_BoneLeft(Y,LENGTH,HSPEED,TYPE,OUT,0,false,DURATION);
-		Bullet_BoneRight(Y,GAP_R,HSPEED,TYPE,OUT,0,false,DURATION);
+		var DURATION = (((640 + (space * i)) / abs(hspd)) * 2);
+		Bullet_BoneLeft(yy, LENGTH, hspd, type, out, 0, false, DURATION);
+		Bullet_BoneRight(yy, Board.GetWidth() - LENGTH - gap, hspd, type, out, 0, false, DURATION);
 	}
 }
 
-/// @desc Creates a Horizontal Bone Wave
-/// @param {real} x			The x position of the first bone
-/// @param {real} length	The length of the first bone
-/// @param {real} vspeed	The vspeed of the bones
-/// @param {real} space		The space between bones
-/// @param {real} amount	The amount of bones
-/// @param {real} gap		The size of the bone gap
-/// @param {real} udf		Sine wave multiplier
-/// @param {real} uds		Sine wave intensity
-/// @param {real} type		Color of the bones (Default White)
-/// @param {real} out		Whether the bones are outside the board (Default 0)
-function Bullet_BoneWaveV(X,Y_GAP,VSPEED,SPACE,AMOUNT,GAP,UDF,UDS,TYPE = 0,OUT = 0)
+/**
+	Creates a Horizontal Bone Wave
+	@param {real} x			The x position of the first bone
+	@param {real} length	The length of the first bone
+	@param {real} hspeed	The hspeed of the bones
+	@param {real} space		The space between bones
+	@param {real} amount	The amount of bones
+	@param {real} gap		The size of the bone gap
+	@param {real} udf		Sine wave multiplier
+	@param {real} uds		Sine wave intensity
+	@param {real} type		Color of the bones (Default White)
+	@param {real} out		Whether the bones are outside the board (Default 0)
+*/
+function Bullet_BoneWaveV(xx, length, vspd, space, amount, gap, udf, uds, type = 0, out = 0)
 {
-	var board = oBoard,
-		board_y = board.y,
-		board_margin = [board.up, board.down],
-		SIN = 0,
-		LENGTH = (Y_GAP - (board_y - board_margin[0]) - 14);
-	
-	for (var i = 0; i < AMOUNT; ++i)
+	var SIN = 0, LENGTH = (length - Board.GetUpPos() - 14), i = 0;
+	for (; i < amount; ++i)
 	{
-		SIN += (UDS * 0.3);
-		LENGTH += ((cos(SIN) * UDF) * 4);
-		X += (((SPACE * VSPEED) * sign(-VSPEED)) / 4);
+		SIN += uds * 0.3;
+		LENGTH += cos(SIN) * udf * 4;
+		xx += space * vspd * sign(-vspd) / 4;
 		
-		var GAP_B = (((board_margin[0] + board_margin[1]) - LENGTH) - GAP),
-			DURATION = (((480 + (SPACE * i)) / abs(VSPEED)) * 2);
-		
-		Bullet_BoneTop(X,LENGTH,VSPEED,TYPE,OUT,0,false,DURATION);
-		Bullet_BoneBottom(X,GAP_B,VSPEED,TYPE,OUT,0,false,DURATION);
+		var DURATION = (((480 + (space * i)) / abs(vspd)) * 2);
+		Bullet_BoneTop(xx, LENGTH, vspd, type, out, 0, false, DURATION);
+		Bullet_BoneBottom(xx, Board.GetHeight() - LENGTH - gap, vspd, type, out, 0, false, DURATION);
 	}
 }
 
-///@desc Creates a Bone Cube
-///@param {Array} Position			The x and y position of the cube
-///@param {Array} Angles			The xyz angles of the cube
-///@param {Array} Rotate_Speeds		The angle rotations of the cube
-///@param {real} Scales				The xyzscale of the cube
-///@param {real} Anim_Time			The time of the scaling animation (Default 0 - Instant)
-///@param {function} Easing			The easing of the scaling animation (Default EaseLinear)
-function Battle_BoneCube(pos, ans, rots, scale, anim_time = 0, ease = EaseLinear)
+/**
+	Creates a Bone Cube
+	@param {real} x					The x position of the cube
+	@param {real} y					The x position of the cube
+	@param {real} Angle_X			The x angle of the cube
+	@param {real} Angle_Y			The y angle of the cube
+	@param {real} Angle_Z			The z angle of the cube
+	@param {real} Rotate_X			The x angle rotation of the cube
+	@param {real} Rotate_Y			The y angle rotation of the cube
+	@param {real} Rotate_Z			The z angle rotation of the cube
+	@param {real} Scale_X			The x scale of the cube
+	@param {real} Scale_Y			The y scale of the cube
+	@param {real} Scale_Z			The z scale of the cube
+	@param {real} Anim_Time			The time of the scaling animation (Default 0 - Instant)
+	@param {function} Easing		The easing of the scaling animation (Default EaseLinear)
+*/
+function Battle_BoneCube(x, y, angle_x, angle_y, angle_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, anim_time = 0, ease = EaseLinear)
 {
-	var inst = instance_create_depth(pos[0], pos[1], -2, o3DBone)
+	var inst = instance_create_depth(x, y, -2, o3DBone);
 	with inst
 	{
-		angles = ans;
-		angleAdd = rots;
-		scalex = scale[0];
-		scaley = scale[1];
-		scalez = scale[2];
+		angles = [angle_x, angle_y, angle_z];
+		angleAdd = [rot_x, rot_y, rot_z];
+		scalex = scale_x;
+		scaley = scale_y;
+		scalez = scale_z;
 		if anim_time
 		{
-			TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, anim_time, "scalex", 0, scale[0]);
-			TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, anim_time, "scaley", 0, scale[1]);
-			TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, anim_time, "scalez", 0, scale[2]);
+			TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, anim_time, "scalex", 0, scale_x
+			, "scaley", 0, scale_y, "scalez", 0, scale_z);
 		}
 	}
 	return inst;

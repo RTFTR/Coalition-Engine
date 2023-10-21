@@ -1,23 +1,23 @@
 ///Resets the board state to default
 ///@param {bool} angle_div	Whether the angle of the board be fixed between -90 < x < 90 or not
 function ResetBoard(anglediv = true) {
-	BattleData.SetBoardSize();
+	Board.SetSize();
 	if anglediv oBoard.image_angle %= 90;
-	BattleData.SetBoardAngle();
-	BattleData.SetBoardPos();
+	Board.SetAngle();
+	Board.SetPos();
 }
 
 function Set_GreenBox()
 {
-	BattleData.SetBoardAngle();
-	BattleData.SetBoardSize(42, 42, 42, 42, 20);
-	BattleData.SetBoardPos(320, 240, 20);
+	Board.SetAngle();
+	Board.SetSize(42, 42, 42, 42, 20);
+	Board.SetPos(320, 240, 20);
 }
 
 ///@desc Deals damage to the soul
 ///@param {real} dmg	The Damage to Yellow HP (Default 1)
 ///@param {real} kr		The Damage to Purple KR (Default 1)
-function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
+function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
 {
 	if !global.inv and can_hurt
 	{
@@ -30,18 +30,24 @@ function Soul_Hurt(dmg = global.damage,kr = global.krdamage)
 	}
 }
 
-function Slam(direction, move = 20, hurt = false)
+/**
+	Slams the soul to the respective direction and other extra functions
+	@param {real} direction		Which direction the soul will fall in
+	@param {real} fall			The speed of the fall (Optional)
+	@param {bool} hurt			Whether the slam damages the player (Optional)
+*/
+function Slam(Direction, move = 20, hurt = false)
 {
-	direction = posmod(direction,360);
+	Direction = posmod(Direction,360);
 	oEnemyParent.Slamming = true;
-	oEnemyParent.SlamDirection = direction;
+	oEnemyParent.SlamDirection = Direction;
 	Battle_SoulMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
-	with oSoul
+	with BattleSoulList[TargetSoul]
 	{
-		dir = direction;
-		image_angle = (direction + 90) % 360
+		dir = Direction;
+		image_angle = (Direction + 90) % 360
 		fall_spd = move;
 		slam = 1;
 	}
@@ -57,9 +63,8 @@ function Battle_Masking_Start(spr = false, board = oBoard) {
 		var u_mask = shader_get_sampler_index(shader, "u_mask");
 	
 		texture_set_stage(u_mask, surface_get_texture(board.surface));
-		var u_rect = shader_get_uniform(shader, "u_rect");
-		
-		var window_width = 640,
+		var u_rect = shader_get_uniform(shader, "u_rect"),
+			window_width = 640,
 			window_height = 480;
 		shader_set_uniform_f(u_rect, 0, 0, window_width, window_height);
 	}
@@ -70,7 +75,7 @@ function Battle_Masking_End(board = oBoard){
 	if instance_exists(board) shader_reset();
 }
 
-function Battle() constructor
+function __Battle() constructor
 {
 	///@desc Gets/Sets the turn of the battle
 	///@param {real} turn The turn to set it to
@@ -84,7 +89,7 @@ function Battle() constructor
 	static State = function(state = infinity) {
 		if state != infinity
 			oBattleController.battle_state = state;
-		else return instance_exists(oBattleController) ? oBattleController.battle_state : -1;
+		else return oBattleController.battle_state;
 	}
 	///@desc Sets the menu dialog of the battle
 	///@param {string} text The Menu text
@@ -95,43 +100,17 @@ function Battle() constructor
 			if __text_writer.get_page() != 0 __text_writer.page(0);
 		}
 	}
-	/**
-		Sets the size of the board with Anim (optional)
-		@param {real} up			The Disatance Upwards (Default 65)
-		@param {real} down		The Disatance Downards (Default 65)
-		@param {real} left		The Disatance Leftwards (Default 283)
-		@param {real} right		The Disatance Rightwards (Default 283)
-		@param {real} time		The duration of the Anim (0 = instant, Default 30)
-		@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-	*/
-	static SetBoardSize = function(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = oBoard)
+	///Sets the target board globally
+	///@param {real} target	The ID of the target board
+	static SetBoardTarget = function(target)
 	{
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up,
-				"down", board.down, down, "left", board.left, left, "right", board.right, right);
+		TargetBoard = target;
 	}
-	/**
-		Sets the angle of the board with Anim (optional)
-		@param {real} angle		The target angle (Default 0)
-		@param {real} time		The duration of the Anim (0 = instant, Default 30)
-		@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-	*/
-	static SetBoardAngle = function(angle = 0, time = 30, ease = EaseOutQuad, board = oBattleController.MainBoard)
+	///Sets the target soul globally
+	///@param {real} target	The ID of the target soul
+	static SetSoulTarget = function(target)
 	{
-		with board
-			TweenEasyRotate(image_angle, angle, 0, time, ease);
-	}
-
-	/**
-		Sets the x and y position of the board
-		@param {real} x	The x position
-		@param {real} y	The y position
-		@param {real} time	The time taken for the anim
-		@param {function} ease	The easing
-	*/
-	static SetBoardPos = function(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = oBattleController.MainBoard)
-	{
-		with board
-			TweenEasyMove(x, y, xx, yy, 0, time, ease)
+		TargetSoul = target;
 	}
 	/**
 		This sets the dialog of the enemy

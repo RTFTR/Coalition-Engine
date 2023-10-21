@@ -48,8 +48,7 @@ function audio_destroy_stream_array(arr)
 	var i = 0, n = array_length(arr);
 	repeat n
 	{
-		audio_stream_destroy(arr[i]);
-		++i;
+		audio_stream_destroy(arr[i++]);
 	}
 	arr = -1;
 }

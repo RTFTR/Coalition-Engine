@@ -1,4 +1,4 @@
-var board = oBoard;
+var board = target_board;
 if timer timer--;
 DurationTimer++;
 
@@ -11,21 +11,22 @@ if angle_to_direction
 
 image_angle += rotate;
 
-if !lenable
+if !Len.activate
 {
+	var half_len = length / 2;
 	switch mode
 	{
 		case 1:
-			y = board.y - board.up + (length / 2);
+			y = board.y - board.up + half_len;
 		break
 		case 2:
-			y = board.y + board.down - (length / 2);
+			y = board.y + board.down - half_len;
 		break
 		case 3:
-			x = board.x - board.left + (length / 2);
+			x = board.x - board.left + half_len;
 		break
 		case 4:
-			x = board.x + board.right - (length / 2);
+			x = board.x + board.right - half_len;
 		break
 	}
 }

@@ -1,9 +1,7 @@
 var _color = image_blend,
 	_angle = image_angle,
-	_alpha = image_alpha;
-
-
-var _frame_x = frame_x,
+	_alpha = image_alpha,
+	_frame_x = frame_x,
 	_frame_y = frame_y,
 	_frame_w = frame_w,
 	_frame_h = frame_h;

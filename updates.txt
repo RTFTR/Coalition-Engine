@@ -1,5 +1,8 @@
 Update Logs (This is the beta builds)
 
+v5.1.2 (Eden)
+cleaned a lot of codes
+
 v5.1.1 (Eden)
 fixed bug where battle breaks with multiple enemies of the same type
 

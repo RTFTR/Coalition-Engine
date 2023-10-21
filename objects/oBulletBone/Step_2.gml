@@ -13,3 +13,5 @@ or vspeed > 0 and bbox_top + 16 > view_y + view_h
 
 if destroy and destroyable
 	instance_destroy();
+
+check_outside()

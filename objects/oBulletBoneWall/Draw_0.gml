@@ -15,7 +15,7 @@ if active
 	if type == 2 color = c_orange;
 	color_outline = color;
 	
-	var board = oBoard,
+	var board = target_board,
 		board_x = board.x,
 		board_y = board.y,
 		board_u = board_y - board.up,
@@ -103,7 +103,7 @@ if active
 				draw_sprite_ext(sprite, index, i, ((pos[0] + pos[1]) / 2), (_height + 12) / 14, 1, _angle, color, _alpha);
 				draw_sprite_ext(sprite, index + 1, i, ((pos[0] + pos[1]) / 2), (_height + 12) / 14, 1, _angle, color_outline, _alpha);
 			}
-			if collision_rectangle(board_l, pos[0] + 2, board_r, pos[1] - 2, oSoul, false, true)
+			if collision_rectangle(board_l, pos[0] + 2, board_r, pos[1] - 2, BattleSoulList[TargetBoard], false, true)
 			{
 				var collision = true;
 				if type != 0 and type != 3

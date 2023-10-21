@@ -4,7 +4,7 @@ if type == 2 _color = c_orange;
 var _x = x,
 	_y = y;
 
-var _angle = image_angle + axis_angle + len_angle_extra,
+var _angle = image_angle + Axis.angle + Len.angle_extra,
 	_alpha = image_alpha,
 	_length = length / 14,
 	LengthX = length / 2 * dcos(_angle),

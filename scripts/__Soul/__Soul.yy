@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Enemy",
+  "name": "__Soul",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

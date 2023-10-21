@@ -3,7 +3,7 @@
 ///@param {bool} effect	Whether to create the soul effect or not (Default True)
 function Battle_SoulMode(soul_mode, effect = true)
 {
-	with oSoul
+	with BattleSoulList[TargetSoul]
 	{
 		dir = DIR.DOWN;
 		draw_angle = 0;
@@ -28,23 +28,26 @@ function Battle_SoulMode(soul_mode, effect = true)
 	}
 }
 
-///@desc Sets the position of the soul, can choose to animate the position
-///@param {real} target_x	The target X position
-///@param {real} target_y	The target Y position
-///@param {real} duration	The duration of the Anim (Default 0, which is instant movement)
-///@param {function} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
-///@param {real} delay		The delay of executing the Anim (Default 0)
+/**
+	Sets the position of the soul, can choose to animate the position
+	@param {real} target_x	The target X position
+	@param {real} target_y	The target Y position
+	@param {real} duration	The duration of the Anim (Default 0, which is instant movement)
+	@param {function} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
+	@param {real} delay		The delay of executing the Anim (Default 0)
+*/
 function SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
 {
-	with oSoul
+	with BattleSoulList[TargetSoul]
 		TweenEasyMove(x, y, target_x, target_y, delay, duration, Easing);
 }
 
 ///@desc Return whether is soul moving or not
 ///@param {bool} mode	Whether the check is position based or input based
 function IsSoulMoving(input_based = false) {
+	var target_soul = BattleSoulList[TargetSoul];
 	return (input_based ?
 	(CHECK_HORIZONTAL != 0 || CHECK_VERTICAL != 0) :
-	floor(oSoul.x) != floor(oSoul.xprevious) or floor(oSoul.y) != floor(oSoul.yprevious));
+	floor(target_soul.x) != floor(target_soul.xprevious) or floor(target_soul.y) != floor(target_soul.yprevious));
 }
 

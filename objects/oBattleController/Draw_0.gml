@@ -187,7 +187,6 @@ if battle_state == BATTLE_STATE.MENU {
 							Target.WaitTime = 60;
 
 							var strike_target_x = 160 * (target_option + 1);
-							show_message(target_option);
 							enemy[target_option].is_being_attacked = true;
 							Calculate_MenuDamage(_aim_distance, target_option);
 							instance_create_depth(strike_target_x, 160, -10, oStrike);

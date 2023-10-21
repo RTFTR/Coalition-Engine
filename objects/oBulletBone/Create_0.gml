@@ -10,11 +10,9 @@ mode = 0;
 type = 0;
 base_color = c_white;
 len_load();
-dir = 0;
-
-timer = 0;
-
 axis_load();
+dir = 0;
+timer = 0;
 
 retract_on_end = false;
 angle_to_direction = false;

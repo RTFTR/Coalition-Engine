@@ -114,11 +114,12 @@ function Initialize()
 	global.enemy_presets = [];
 	//Whether the current fight is a boss fight or not (Engine usage)
 	global.BossFight = false;
-	globalvar BattleData, EnemyData, BoxData;
-	BattleData = new Battle();
+	globalvar BattleData, EnemyData, BoxData, Board;
+	BattleData = new __Battle();
 	EnemyData = new Enemy();
 	BoxData = new __Box();
-	EnemyData.SetEncoutner(,,oEnemySansExample,oEnemySansExample);
+	Board = new __Board();
+	EnemyData.SetEncoutner(,,oEnemySansExample);
 	global.kr = 0;
 	global.kr_activation = false;
 	global.damage = 1;

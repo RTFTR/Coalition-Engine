@@ -75,14 +75,12 @@ for(var i = 0; i < 12; i++)
 }
 
 SetAttack(0, function() {
+	if time == 1 Bullet_BoneGapH(320, 120, 7, 20);
 	BattleData.EnemyDialog(self, BattleData.Turn() + 1, "override")
-	if time == 60 end_turn();
+	if time == 160 end_turn();
 });
 
 SetAttack(1, function() {
-	if time == 60 BattleData.SetBoardSize(8, 8, 8, 8);
+	if time == 60 Board.SetSize(8, 8, 8, 8);
 	if time == 120 end_turn();
 });
-
-PreAttackFunction(0, function() { show_message("hi") } );
-PostAttackFunction(0, function() { show_message("hi") } );
