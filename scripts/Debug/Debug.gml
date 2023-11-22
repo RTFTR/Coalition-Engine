@@ -1,5 +1,5 @@
 ///@desc Shows the hitbox of the object (by it's sprite collision box)
-///@param {Constant.Color} Color	The color of the collision box
+///@param {color} Color	The color of the collision box
 function show_hitbox(col = c_white)
 {
 	if global.show_hitbox

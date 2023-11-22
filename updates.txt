@@ -1,5 +1,13 @@
 Update Logs (This is the beta builds)
 
+v5.2 (Eden + TK)
+converted save point into a seperate object for better user placing
+optimised overworld controller and cleaned its logic
+added comments on codes for better understanding (only in the codes you need to know)
+removed unused codes
+fixed bugs
+optimised codes (too many)
+
 v5.1.2 (Eden)
 cleaned a lot of codes
 

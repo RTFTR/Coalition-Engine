@@ -1,6 +1,6 @@
 #region Engine
 //Here are the macros for the engine
-#macro ENGINE_VERSION "Beta v5.1.2"
+#macro ENGINE_VERSION "Beta v5.2"
 #macro ALLOW_DEBUG  true
 #macro DEBUG (ALLOW_DEBUG ? true : false)
 #endregion
@@ -13,6 +13,8 @@
 #macro PRESS_CONFIRM input_check_pressed("confirm")
 #macro HOLD_CONFIRM input_check("confirm")
 #macro PRESS_CANCEL input_check_pressed("cancel")
+#macro HOLD_CANCEL input_check("cancel")
+#macro PRESS_MENU input_check_pressed("menu")
 #endregion
 #region Handy Macros
 //Here are the macros for simplifing code, for instance the ins_dest can act as a instance_destroy
@@ -22,6 +24,8 @@
 #macro defer for (;; {
 #macro after ; break; })
 #macro c_dkgreen make_color_rgb(0, 255, 0)
+#macro this self
+#macro is ==
 #endregion
 
 enum FONTS {
@@ -36,6 +40,7 @@ enum FONTS {
 	UI,
 	CHINESE,
 }
+
 function LoadFonts() {
 	global.__CoalitionFonts = [
 		font_add("Fonts/8-BIT WONDER.TTF", 36, false, false, 32, 128),
@@ -81,24 +86,6 @@ function UnloadFonts() {
 		++i;
 	}
 }
-
-//Input
-enum INPUT
-{
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	CONFIRM,
-	CANCEL,
-	MENU
-};
-enum INPUT_TYPE
-{
-	CHECK,
-	PRESS,
-	RELEASE,
-};
 
 //Soul
 enum SOUL_MODE

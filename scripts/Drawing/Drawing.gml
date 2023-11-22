@@ -5,7 +5,7 @@
 	@param {real} x2 The x coordinate of the bottom right coordinate of the rectangle
 	@param {real} y2 The y coordinate of the bottom right coordinate of the rectangle
 	@param {real} width	The width of the outline of the rectangle (Default 1)
-	@param {Constant.Color} color The color of the rectangle (Default white)
+	@param {color} color The color of the rectangle (Default white)
 	@param {bool} full	Whether the rectangle is a semi-round angled rectangle or a full right-angled rectangle (Default former)
 */
 function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full = false) {
@@ -25,9 +25,9 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full =
 	@param {real} x2							The x coordinate of the bottom right coordinate of the rectangle
 	@param {real} y2							The y coordinate of the bottom right coordinate of the rectangle
 	@param {real} width							The width of the outline of the rectangle (Default 1)
-	@param {Constant.Color} outline_color		The color of the outline of the rectangle (Default white)
+	@param {color} outline_color		The color of the outline of the rectangle (Default white)
 	@param {real} outline_alpha					The alpha of the outline (Default 1)
-	@param {Constant.Color} background_color	The color of the background of the rectangle (Default black)
+	@param {color} background_color	The color of the background of the rectangle (Default black)
 	@param {real} background_alpha				The alpha of the background (Default 1)
 	@param {bool} full							Whether the rectangle is a semi-round angled rectangle
 												or a full right-angled rectangle (Default former)
@@ -92,13 +92,13 @@ function draw_circular_bar(x, y, value, max, colour, radius, transparency, width
 	}
 }
 /**
-	@desc Draws a gradient effect using shader (not gpu intensive) (transparent -> given color)
+	@desc Draws a gradient effect using shader (you need to manuall add bm_add to apply for the gradient effect, QuickGPU can help)
 	@param {real} x X position of the bottom left corner
 	@param {real} y Y position of the bottom right corner
 	@param {real} width The width of the gradient
 	@param {real} height The default height of the gradient
 	@param {real} angle The angle of the gradient
-	@param {Constant.Color} color The color of the gradient
+	@param {color} color The color of the gradient
 	@param {function} move The funciton to use to move the gradient (Default dsin)
 	@param {real} intensity The intensity of the gradient (How many pixels will it move +/-)
 	@param {real} rate The rate of the movement (Multiplies to the function declared in 'move')
@@ -109,9 +109,7 @@ function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, 
 	time++;
 	displace = move(time * rate) * intensity;
 	height += displace;
-	gpu_set_blendmode(bm_add);
 	oGlobal.GradientSurf.DrawExt(x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
-	gpu_set_blendmode(bm_normal);
 }
 ///@desc Sets the noise sprite to use for a noise fade
 function SpriteNoiseSet(sprite = sprNoiseRect) constructor {
@@ -161,7 +159,7 @@ function draw_noise_fade_sprite(sprite, subimg, x, y, time, duration, noise_spri
 	@param {real} xscale				The xscale of the sprite to draw
 	@param {real} yscale				The yscale of the sprite to draw
 	@param {real} rot					The rotation of the sprite to draw
-	@param {Constant.Color} col			The color of the sprite to draw
+	@param {color} col			The color of the sprite to draw
 	@param {real} time					The time of the noise fade (The value of this needs to change constantly)
 	@param {real} duration				The total duration of the fade in
 	@param {Asset.sprite} noise_sprite	The noise sprite to use (It has to be a sprite of a noise)
@@ -231,8 +229,9 @@ function draw_invert_cricle(x, y, radius) {
 function draw_invert_polygon(vertexes) {
 	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
 	var i = 1,
-		n = array_length(vertexes) - 1;
-	repeat n - 1 {
+		n = array_length(vertexes) - 2;
+	repeat n
+	{
 		draw_triangle(vertexes[0][0], vertexes[0][1], vertexes[i][0], vertexes[i][1],
 			vertexes[i + 1][0], vertexes[i + 1][1], false);
 		++i;
@@ -249,12 +248,13 @@ function draw_invert_polygon(vertexes) {
 	@param {real} offset		The displacement of the splice
 	@returns {real}
 */
-function cut_screen(line_start_x, line_start_y, line_end_x, line_end_y, offset) {
+function __cut_screen(line_start_x, line_start_y, line_end_x, line_end_y, offset) {
 	var true_line_start = [line_start_x / 640, line_start_y / 480],
-		true_line_end = [line_end_x / 640, line_end_y / 480];
+		true_line_end = [line_end_x / 640, line_end_y / 480],
+		dir = point_direction(line_start_x, line_start_y, line_end_x, line_end_y);
 	//Add to list twice for the 2 halves of the splice
 	repeat 2
-		ds_list_add(global.sur_list, [new Canvas(640, 480), offset, point_direction(line_start_x, line_start_y, line_end_x, line_end_y), true_line_start, true_line_end]);
+		ds_list_add(global.sur_list, [new Canvas(640, 480), offset, dir, true_line_start, true_line_end]);
 	return ds_list_size(global.sur_list) - 2;
 }
 
@@ -302,7 +302,7 @@ function draw_sprite_tiled_area(sprite, subimg, xx, yy, x1, y1, x2, y2) {
 	@param {real} y2				The y coordinate of the bottom right corner of the rectangle
 	@param {real} xscale			The xscale of the sprite
 	@param {real} yscale			The yscale of the sprite
-	@param {Constant.Color} color	The color of the sprite
+	@param {color} color	The color of the sprite
 	@param {real} alpha				The alpha of the sprite
 */
 function draw_sprite_tiled_area_ext(sprite, subimg, xx, yy, x1, y1, x2, y2, xscale, yscale, color, alpha) {

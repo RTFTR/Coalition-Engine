@@ -1,4 +1,4 @@
-///@desc Loads the Info of the Items
+///Loads the Info of the Items
 function Item_Info_Load(){
 	var i = 0;
 	repeat(Item_Count())
@@ -13,7 +13,7 @@ function Item_Info_Load(){
 	}
 }
 
-///@desc Gets the Infos of the Item
+///Gets the Infos of the Item
 ///@param {real} Item The Item to get the info
 function Item_Info(item){
 	name = "";
@@ -73,7 +73,7 @@ function Item_Info(item){
 	if global.item_uses_left[item] > 1 name += " x" + string(global.item_uses_left[item])
 }
 
-///@desc Use the item
+///Use the item
 ///@param {real} item The item to use
 function Item_Use(item){
 	var heal_text = "";
@@ -107,21 +107,20 @@ function Item_Use(item){
 			heal_text = "You drank the sea tea.";
 			global.spd *= 2;
 			audio_play(snd_spdup);
-			with oBattleController.Effect
-			{
-				SeaTea = true;
-				SeaTeaTurns = 4;
-			}
+			if instance_exists(oBattleController)
+				with oBattleController.Effect
+				{
+					SeaTea = true;
+					SeaTeaTurns = 4;
+				}
 		break;
 	}
 	
-	if global.item_uses_left[item] > 0
-		global.item_uses_left[item]--;
+	if global.item_uses_left[item] > 0 global.item_uses_left[item]--;
 	Item_Info(item);
 	audio_play(snd_item_heal);
 	
-	if global.item_heal_override_kr
-		if global.hp + heal >= global.hp_max global.kr = 0;
+	if global.item_heal_override_kr and global.hp + heal >= global.hp_max global.kr = 0;
 	
 	global.hp = min(global.hp + heal, global.hp_max);
 	var hp_text = "[delay, 333]\n* You recovered " + string(heal) + " HP!";
@@ -132,8 +131,7 @@ function Item_Use(item){
 	if instance_exists(oBattleController)
 	{
 		var stat_text = "";
-		if stats != ""
-			stat_text = "[delay, 333]\n* " + stats;
+		if stats != "" stat_text = "[delay, 333]\n* " + stats;
 		if !global.item_uses_left[item] Item_Shift(menu_choice[2], 0);
 	
 		default_menu_text = menu_text;
@@ -156,7 +154,7 @@ function Item_Use(item){
 	}
 }
 
-///@desc Shifts the Item position and resize the global item array
+///Shifts the Item position and resize the global item array
 function Item_Shift(item, coord){
 	var i = item, n = Item_Count();
 	global.item[n] = coord;
@@ -168,38 +166,35 @@ function Item_Shift(item, coord){
 	array_resize(global.item, n - 1);
 }
 
-///@desc Number of valid items
+///Number of valid items
 ///@return {real}
 function Item_Space(){
 	var i = 0, space = 0;
-	repeat Item_Count()
-		if global.item[i++] != 0
-			space++;
+	repeat Item_Count() if global.item[i++] != 0 space++;
 	return space;
 }
 
-///@desc Adds an item on the selected position
+///Adds an item on the selected position
 ///@param {real} Item		The item to add (Use the Item ID from Item_Info)
 ///@param {real} Position	The item position to add (Default last)
 function Item_Add(item, pos = Item_Count()) {
 	global.item[pos] = item;
 }
 
-///@desc Removes an item on the selected position
+///Removes an item on the selected position
 ///@param {real} Position	The item position to remove
 function Item_Remove(item) {
 	Item_Shift(item, 0);
 }
 
-///@desc Gets the number of items
+///Gets the number of items
 ///@return {real}
 function Item_Count() {
 	return array_length(global.item);
 }
 
-///@desc Converts item Slot to item ID
+///Converts item Slot to item ID
 ///@param {real} slot The slot of the item in the global item array
-///@return {real}
 function Item_SlotToId(item) {
 	return global.item[item];
 }

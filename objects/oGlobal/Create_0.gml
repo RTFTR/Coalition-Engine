@@ -48,38 +48,42 @@ effect_param =
 	["", 1],
 ];
 
-RGBShake = 30;
+RGBShake = 0;
 RGBDecrease = 1;
 RGBSurf = new Canvas(640, 480);
 RGBShakeMethod = 0;
 
-Song = 
+Song =  {};
+with Song
 {
-	Activate : false,
-	Name : "",
-	Dist : -20,
-	Time : 0,
+	Activate = false;
+	Name = "";
+	Dist = -20;
+	Time = 0;
 };
 
-Fade =
+Fade = {};
+with Fade
 {
-	Method : FADE.DEFAULT,
-	Activate : [
+	Method = FADE.DEFAULT;
+	Activate =
+	[
 		[false, 0, 0],
 		[false, 0, 0],
 		[false, 0, 0, 32],
-	],
-	Timer : 0
+	];
+	Timer = 0;
 };
 FadeTime = 0;
 
-Naming =
+Naming = {};
+with Naming
 {
-	Enabled : true,
-	Allowed : true,
-	Named : false,
-	State : 1
-};
+	Enabled = true;
+	Allowed = true;
+	Named = false;
+	State = 1
+}
 
 Border = {};
 with Border
@@ -100,5 +104,8 @@ with Border
 shader_enable_corner_id(true);
 GradientSurf = new Canvas(640, 480);
 global.sur_list = ds_list_create();
-CutScreenSurface = new Canvas(640, 480);
+CutScreenSurface = undefined;
+CutLineStart = shader_get_uniform(shdCutScreen, "u_lineStart");
+CutLineEnd = shader_get_uniform(shdCutScreen, "u_lineEnd");
+CutSide = shader_get_uniform(shdCutScreen, "u_side");
 #endregion

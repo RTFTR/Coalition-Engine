@@ -33,12 +33,21 @@ image_blend = c_white;
 
 //Polygon board (WIP)
 VertexMode = false;
-Vertex = array_create_2d(1, 1);
+Vertex = [];
 
 function ConvertToVertex() {
 	if VertexMode exit;
+	Vertex = [];
+	var PointList =
+	[
+		[x - left - thickness_frame, y - up - thickness_frame],
+		[x - left - thickness_frame, y + down],
+		[x + right, y + down],
+		[x + right, y - up - thickness_frame]
+	], displace = thickness_frame * dcos(image_angle) / 2;
 	for (var i = 0; i < 4; ++i) {
-		Vertex[i] = [frame_x[i], frame_y[i]];
+		var arr = point_xy_array(PointList[i][0], PointList[i][1]);
+		array_push(Vertex, arr[0] + displace, arr[1] + displace);
 	}
 	VertexMode = true;
 }
@@ -58,4 +67,17 @@ function ConvertToBox(X = x, Y = y, Left = left, Right = right, Up = up, Down = 
 		}
 	}
 	VertexMode = false;
+}
+/**
+	Inserts a point into the polygon board
+	The first point is 0, then 1, then 2 etc.
+	You must insert the points in anti-clockwise order or else visual bugs may occur.
+	Returns the index of the vertex array
+	@param {real} Number	The number of the point (Not index of the vertex array)
+	@param {real} x			The x position of the point
+	@param {real} y			The y position of the point
+*/
+function InsertPolygonPoint(no, x, y) {
+	array_insert(Vertex, no * 2, x, y);
+	return no * 2;
 }

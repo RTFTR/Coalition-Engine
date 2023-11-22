@@ -1,17 +1,20 @@
-///@desc Creates a dialog box in the Overworld
-///@param {string} text			The text in the box
-///@param {string} font			The font of the text (Default is dt_mono)
-///@param {asset.GMSound}  char_sound	The sound of the text (Default snd_txt_typer)
-///@param {real}   top_bottom	Decide whether the box is up or down (Default up)
-///@param {Asset.GMSprite} sprite	The sprite of the talking character
-///@param {real} index				The index of the sprite
-function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bottom = 0, sprite = sprPixel, index = 0)
+/**
+	Creates a dialog box in the Overworld
+	@param {string} text				The text in the box
+	@param {string} font				The font of the text (Default is dt_mono)
+	@param {asset.GMSound}  char_sound	The sound of the text (Default snd_txt_typer)
+	@param {real} top_bottom			Decide whether the box is up or down (Default up)
+	@param {Asset.GMSprite} sprite		The sprite of the talking character
+	@param {real} index					The index of the sprite
+*/
+//feather ignore all
+function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bottom = 0, sprite = -1, index = 0)
 {
 	var dis = 0;
-	
 	with oOWController
 	{
-		if sprite != sprPixel
+		//Sets the character talking sprite if is given
+		if sprite != -1
 		{
 			dis = 40;
 			dialog_sprite = sprite;
@@ -41,14 +44,16 @@ function Option()
 	oOWController.dialog_option = true;
 }
 
-///@desc Sets the name of the options
-///@param {string} question				The question in the box
-///@param {array} text					The text in the box (array of strings)
-///@param {array} event					The event after selecting said option (array of functions)
-///@param {string} font					The font of the text (Default is dt_mono)
-///@param {asset.GMSound}  char_sound	The sound of the text (Default snd_txt_typer)
-///@param {real}   top_bottom			Decide whether the box is up or down (Default up)
-///@param {bool} is_vertical			Whether the options are verical or not
+/**
+	Sets the name of the options
+	@param {string} question			The question in the box
+	@param {array} text					The text in the box (array of strings)
+	@param {array} event				The event after selecting said option (array of functions)
+	@param {string} font				The font of the text (Default is dt_mono)
+	@param {asset.GMSound}  char_sound	The sound of the text (Default snd_txt_typer)
+	@param {real}   top_bottom			Decide whether the box is up or down (Default up)
+	@param {bool} is_vertical			Whether the options are verical or not
+*/
 function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bottom = 0, ver = false)
 {
 	with oOWController
@@ -88,6 +93,7 @@ function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono",
 	}
 }
 
+#region Tile Collision
 /**
 	@description Checks whether an object position is colliding with a tile (Rectangle collision)
 	@param {real} x The object x
@@ -147,3 +153,4 @@ function tile_meeting_precise(_x, _y, _layer) {
 
 	return false;
 }
+#endregion

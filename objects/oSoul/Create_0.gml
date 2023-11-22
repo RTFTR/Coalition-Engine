@@ -1,5 +1,6 @@
 //Adds the soul to the global soul list
 array_push(BattleSoulList, id);
+SoulListID = array_length(BattleSoulList) - 1;
 if instance_exists(oBoard)
 	depth = oBoard.depth - oBattleController.depth - 1;
 image_speed = 0;
@@ -12,8 +13,8 @@ dir = DIR.DOWN;
 follow_board = false;
 global.inv = 0;
 global.assign_inv = 60;		// Sets the inv time for soul
-global.deadable = true;
-
+global.deadable = true;		//Sets whether the soul can die
+//Set soul effect
 EffectS = part_system_create();
 part_system_depth(EffectS, depth);
 EffectT = part_type_create();
@@ -29,30 +30,34 @@ move_y = 0;
 
 ///@param {bool} Horizontal	Enable horzontal movement (Default true)
 ///@param {bool} Vertical	Enable vertical movement (Default true)
-function BasicMovement(hor = true, ver = true, fast = false) {
+function BasicMovement(hor = true, ver = true) {
 	if !IsGrazer
 	{
 		var h_spd = CHECK_HORIZONTAL,
 			v_spd = CHECK_VERTICAL,
-			move_spd = global.spd / (input_check("cancel") + 1),
+			move_spd = global.spd / (HOLD_CANCEL + 1),
 			_angle = image_angle;
 		move_x = h_spd * move_spd;
 		move_y = v_spd * move_spd;
-
-		if moveable {
+		
+		if moveable
+		{
 			if instance_exists(oBoardCover)
 			{
 				move_and_collide(lengthdir_x(move_x, _angle), lengthdir_y(move_y, _angle - 90), oBoardCover, move_spd * 10);
 			}
 			else
 			{
-				if hor
-					x += lengthdir_x(move_x, _angle);
-				if ver
-					y += lengthdir_y(move_y, _angle - 90);
+				//if !oBoard.VertexMode
+				{
+					var fin_dir = dcos(_angle);
+					if hor
+						x += move_x * fin_dir;
+					if ver
+						y += move_y * fin_dir;
+				}
 			}
 		}
-		image_angle = _angle;
 	}
 }
 
@@ -95,16 +100,17 @@ part_type_alpha2(ShieldParticleType, 1, 0);
 part_type_sprite(ShieldParticleType, sprPixel, 0, 0, 0);
 
 //Purple soul variables
-Purple =
+Purple = {};
+with Purple
 {
-	Mode : 0,
-	VLineAmount : 3,
-	CurrentVLine : 1,
-	HLineAmount : 3,
-	CurrentHLine : 1,
-	ForceAlpha : 0,
-	XTarget : 320,
-	YTarget : 320,
+	Mode = 0;
+	VLineAmount = 3;
+	CurrentVLine = 1;
+	HLineAmount = 3;
+	CurrentHLine = 1;
+	ForceAlpha = 0;
+	XTarget = 320;
+	YTarget = 320;
 }
 
 //Grazing

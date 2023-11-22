@@ -16,17 +16,7 @@ void main()
 	float side = sign(cross_product);
 	
 	//discard if incorrect position
-	if(u_side == 1.0){
-		if(side > 0.0){
-			discard;
-		}
-	}
-	
-	if(u_side == -1.0){
-		if(side < 0.0){
-			discard;
-		}
-	}
+	if (sign(side) == u_side) discard;
 
     gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord);
 }

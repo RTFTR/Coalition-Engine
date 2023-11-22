@@ -1,9 +1,8 @@
 var ItemCount = Item_Count(),
-	CellCount = Cell_Count(),
+	CellCount = CellData.Count(),
 	input_horizontal = PRESS_HORIZONTAL,
 	input_cancel = PRESS_CANCEL,
 	input_confirm = PRESS_CONFIRM;
-
 
 // Save UI
 if is_saving
@@ -83,9 +82,8 @@ if is_saving
 }
 
 	#region // Menu Overworld
-	var CamPos = [camera_get_view_x(view_camera[0]),  camera_get_view_y(view_camera[0])],
-		// Check if the menu should display more on top or more on bottom, depending on player's position
-		menu_at_top = oOWPlayer.y < CamPos[1] + camera_get_view_height(view_camera[0]) / 2 + 10;
+	// Check if the menu should display more on top or more on bottom, depending on player's position
+	var menu_at_top = oOWPlayer.y < camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2 + 10;
 	
 	#region // The "Name - LV - HP - G" box
 
@@ -136,21 +134,13 @@ if is_saving
 	draw_rectangle_width_background(ui_box_x, ui_box_y, ui_box_x + ui_width - 1, ui_box_y + ui_height - 1, ui_box_frame,,,,, true);
 
 	// Menu Label
-	var menu_label = ["ITEM","STAT","CELL"],
-		menu_color =
-			[
-				[c_dkgray, c_white],
-				[c_white, c_white],
-				[c_black, c_white],
-			],
-		exist_check = [ItemCount, 1, CellCount];
-	
-		draw_set_font(fnt_dt_sans);
-		for(var i = 0; i < 3; ++i)
-		{
-			draw_set_color(menu_color[i, bool(exist_check[i])]); // Check if the menu exists or not to proceed color
-			draw_text(ui_box_x + 46, ui_box_y + 15 + i * 36, menu_label[i]);
-		}
+	var exist_check = [ItemCount, 1, CellCount];
+	draw_set_font(fnt_dt_sans);
+	for(var i = 0; i < 3; ++i)
+	{
+		draw_set_color(menu_color[i, bool(exist_check[i])]); // Check if the menu exists or not to proceed color
+		draw_text(ui_box_x + 46, ui_box_y + 15 + i * 36, menu_label[i]);
+	}
 
 
 	#region // Drawing the box for each state
@@ -172,9 +162,12 @@ if is_saving
 				// Item text drawing
 				draw_set_font(fnt_dt_sans);
 				draw_set_color(c_white);
-
-				for (var i = 0, n = ItemCount; i < n; ++i)
+				var i = 0, n = ItemCount;
+				repeat n
+				{
 					draw_text(232, ui_box_y + 23 + i * 32, item_name[i]);
+					++i;
+				}
 
 				// Item function
 				var gap = [0, 96, 114],
@@ -225,7 +218,7 @@ if is_saving
 				draw_set_font(fnt_dt_sans);
 				draw_set_color(c_white);
 				for (var i = 1, n = CellCount; i <= n; ++i)
-					draw_text(232, ui_box_y - 9 + i * 32, Cell_GetName(i));
+					draw_text(232, ui_box_y - 9 + i * 32, CellData.GetName(i));
 			}
 		#endregion
 

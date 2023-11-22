@@ -261,18 +261,16 @@ switch battle_state {
 	break
 	case BATTLE_STATE.DIALOG:
 		menu_text_typist.reset();
-		if !menu_text_typist.get_paused()
-			menu_text_typist.pause();
+		if !menu_text_typist.get_paused() menu_text_typist.pause();
 	break
 	case BATTLE_STATE.IN_TURN:
 		menu_text_typist.reset();
-		if !menu_text_typist.get_paused()
-			menu_text_typist.pause();
+		if !menu_text_typist.get_paused() menu_text_typist.pause();
 		oSoul.visible = true;
 	break
 }
 if Target.buffer > -1 Target.buffer--;
-if Target.WaitTime Target.WaitTime--
+if Target.WaitTime > 0 Target.WaitTime--;
 if Target.WaitTime == 0 {
 	Target.state = 3;
 	oSoul.visible = true;
@@ -281,12 +279,13 @@ if Target.WaitTime == 0 {
 
 //Debug
 if global.debug {
+	var game_speed = game_get_speed(gamespeed_fps);
 	if keyboard_check(vk_rshift) {
-		if room_speed > 5 {
-			room_speed += 5 * input_horizontal;
+		if game_speed() > 5 {
+			game_set_speed(game_speed + 5 * input_horizontal, gamespeed_fps);
 		}
-	if keyboard_check(ord("R")) room_speed = 60;
-	if keyboard_check(ord("F")) room_speed = 600;
+	if keyboard_check(ord("R")) game_set_speed(60, gamespeed_fps);
+	if keyboard_check(ord("F")) game_set_speed(600, gamespeed_fps);
 	}
 	if battle_state == 0 and keyboard_check(vk_control) {
 		battle_turn += input_horizontal;

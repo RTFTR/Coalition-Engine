@@ -1,3 +1,4 @@
+///@desc Unloads everything
 delete Result;
 delete Effect;
 delete Target;

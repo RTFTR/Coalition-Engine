@@ -80,18 +80,21 @@ function Load3DNodesAndEdges()
 	@param {real} size				The size of the cube
 	@param {real} horizontal_angle	The Horizontal Angle of the cube
 	@param {real} vertical_angle	The Vertical Angle of the cube
-	@param {Constant.Color} color	The Color of the cube
+	@param {color} color	The Color of the cube
 	@param {real} width				The Width of the outline of the cube
 	@param {bool} circle_on_edge	Whether the corners of the cube are round
 */
-function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _width, _edge_circ = true) {
+function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _width, _edge_circ = true)
+{
 	
 	//No you cant preset them in global.Nodes because it will live update and making it go crazy
-	var nodes = [
+	var nodes =
+		[
 			[-1, -1, -1], [-1, -1, 1], [-1, 1, -1], [-1, 1, 1],
 			[1, -1, -1], [1, -1, 1], [1, 1, -1], [1, 1, 1]
 		],
-		edges = [
+		edges =
+		[
 			[0, 1], [1, 3], [3, 2], [2, 0], [4, 5], [5, 7], [7, 6],
 			[6, 4], [0, 4], [1, 5], [2, 6], [3, 7]
 		];
@@ -99,10 +102,8 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 	_point_h *= pi;
 	_point_v *= pi;
 
-	var sinX = sin(_point_h),
-		cosX = cos(_point_h),
-		sinY = sin(_point_v),
-		cosY = cos(_point_v),
+	var sinX = sin(_point_h), cosX = cos(_point_h),
+		sinY = sin(_point_v), cosY = cos(_point_v),
 		number_of_nodes = array_length(nodes),
 		i = 0;
 	repeat number_of_nodes
@@ -123,7 +124,8 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 		nodes[i] = node;
 		++i;
 	};
-
+	
+	var prev_col = draw_get_color();
 	draw_set_colour(_colour);
 
 	var number_of_edges = array_length(edges);
@@ -132,12 +134,15 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 	{
 		var edge = edges[i],
 			p1 = nodes[edge[0]],
-			p2 = nodes[edge[1]];
-		draw_line_width(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_draw_x+(p2[0]*_size),_draw_y+(p2[1]*_size),_width);
+			p2 = nodes[edge[1]],
+			x_start = _draw_x + p1[0] * _size,
+			y_start = _draw_y + p1[1] * _size,
+			x_end = _draw_x + p2[0] * _size,
+			y_end = _draw_y + p2[1] * _size;
+		draw_line_width(x_start, y_start, x_end, y_end, _width);
 		
-		if _edge_circ
-			draw_circle(_draw_x+(p1[0]*_size),_draw_y+(p1[1]*_size),_width/2,false);
+		if _edge_circ draw_circle(x_start, y_start, _width / 2, false);
 		++i;
 	}
-	
+	draw_set_color(prev_col);
 }

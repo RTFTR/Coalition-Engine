@@ -1,3 +1,4 @@
+//Loads texture group
 texturegroup_load("texbattle");
 Fader_Fade(1, 0, 20);
 menu_state = 0;
@@ -16,26 +17,28 @@ global.hp = global.hp_max;
 max_kr = 40;
 
 #region Fight Aiming Functions
-Target = 
+Target = {};
+with Target
 {
-	Count			: global.bar_count,
-	state			: 0,
-	side			: [choose(1, -1)],
-	time			: 0,
-	xscale			: 1,
-	yscale			: 1,
-	frame			: 0,
-	alpha			: 1,
-	buffer			: 0,
-	retract_method	: choose(0, 1),
-	WaitTime		: -1,
+	Count			= global.bar_count;
+	state			= 0;
+	side			= [choose(1, -1)];
+	time			= 0;
+	xscale			= 1;
+	yscale			= 1;
+	frame			= 0;
+	alpha			= 1;
+	buffer			= 0;
+	retract_method	= choose(0, 1);
+	WaitTime		= -1;
 }
-Aim =
+Aim = {};
+with Aim
 {
-	scale	: 1,
-	angle	: 0,
-	color	: c_white,
-	retract : choose(-1, 1),
+	scale	= 1;
+	angle	= 0;
+	color	= c_white;
+	retract = choose(-1, 1);
 }
 function ResetFightAim()
 {
@@ -80,7 +83,6 @@ function ResetFightAim()
 			Time[i] = 0;
 			Faded[i] = 0;
 		}
-		
 		interval += irandom_range(60, 120);
 	}
 	if Target.Count > 1
@@ -188,9 +190,8 @@ board_full_cover = false;
 item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_type = ITEM_SCROLL.DEFAULT;
 item_scroll_alpha = array_create(3, 0.5);
-
-item_lerp_y = array_create(8, 0);
 item_lerp_x = array_create(8, 0);
+item_lerp_y = array_create(8, 0);
 item_space = Item_Space();
 
 for (var i = 0; i < 8; ++i)
@@ -208,7 +209,8 @@ item_desc_alpha = 0;
 #endregion
 #region Flee
 allow_run = true;
-FleeText = [
+FleeText =
+[
 	"I have better things to do.",
 	"flee text 2"
 ]
@@ -219,18 +221,20 @@ FleeState = 0;
 dialog_is_end = 0;
 #endregion
 #region Results
-Result =
+Result = {};
+with Result
 {
-	Exp : 0,
-	Gold : 0,
+	Exp = 0;
+	Gold = 0;
 }
 #endregion
 #region Effects in battle
-Effect = 
+Effect = {};
+with Effect
 {
-	SeaTea : false,
-	SeaTeaTurns : 4,
-};
+	SeaTea = false;
+	SeaTeaTurns = 4;
+}
 #endregion
 #region Internal Functions
 /**
@@ -241,12 +245,17 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amoun
 	var damage = global.player_base_atk + global.player_attack + global.player_attack_boost,
 		target = enemy[enemy_under_attack],
 		enemy_def = target.enemy_defense;
-	if target.enemy_is_spareable enemy_def *= -30; //Check if enemy is spareable -> reduce the DEF
-	damage -= enemy_def;	//Reduce the damage by the defense of the enemy
-	damage *= 2;			//Multiply the damage for the critical attack
+	//Check if enemy is spareable -> reduce the DEF
+	if target.enemy_is_spareable enemy_def *= -30;
+	//Reduce the damage by the defense of the enemy
+	damage -= enemy_def;
+	//Multiply the damage for the critical attack
+	damage *= 2;
 	if distance_to_center > 15
-		damage *= (1 - distance_to_center / 273);	//Reduce the damage for the non-critical attack
-	damage *= random_range(0.9, 1.1); //Sets damage to be random of the actual damage (idk what im saying)
+		//Reduce the damage for the non-critical attack
+		damage *= (1 - distance_to_center / 273);
+	//Sets damage to be random of the actual damage (idk what im saying)
+	damage *= random_range(0.9, 1.1);
 	//For multibar attack
 	if crit_amount > 0
 	{
@@ -254,11 +263,13 @@ function Calculate_MenuDamage(distance_to_center, enemy_under_attack, crit_amoun
 		damage = 0;
 		repeat global.bar_count
 		{
-			var multiplier = ((i++) < crit_amount) ? 2 : 1; //If the bar is a critical attack, multiply by 2
+			//If the bar is a critical attack, multiply by 2
+			var multiplier = ((i++) < crit_amount) ? 2 : 1;
 			damage += average_damage * multiplier;
 		}
 	}
-	damage = max(round(damage), 1);	//Sets the minimal damage to be 1
+	//Sets the minimal damage to be 1
+	damage = max(round(damage), 1);
 	with target
 		EnemyData.SetDamage(id, damage);
 }

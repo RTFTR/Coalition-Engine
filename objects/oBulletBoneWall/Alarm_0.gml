@@ -1,4 +1,4 @@
-//@desc True creation
+///@desc True creation
 active = true;
 state = 1;
 var board = target_board,
@@ -8,6 +8,7 @@ var board = target_board,
 	board_d = board_y + board.down,
 	board_l = board_x - board.left,
 	board_r = board_x + board.right;
+//Initalize position
 if dir == DIR.UP or dir == DIR.DOWN
 {
 	x = board_x;

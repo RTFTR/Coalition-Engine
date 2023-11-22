@@ -1,5 +1,5 @@
+//Load texture
 texturegroup_load("texoverworld");
-
 Fader_Fade(1, 0, 15);
 
 //Lock the camera inside the 'room', which is a sprite so there is no lock
@@ -49,6 +49,13 @@ menu_ui_y = array_create(4, -480);
 
 menu_soul_pos = [-606, 211];
 menu_soul_alpha = 1;
+menu_label = ["ITEM","STAT","CELL"];
+menu_color =
+[
+	[c_dkgray, c_white],
+	[c_white, c_white],
+	[c_black, c_white],
+];
 #endregion
 
 #region // Box properties
@@ -63,6 +70,7 @@ box_choice = [0, 0];
 Box_ID = 0;
 #endregion
 
+ForceNotDisplayUI = false;
 Saving = false;
 is_saving = false;
 Saved = 0;

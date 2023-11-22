@@ -90,37 +90,48 @@ function __Board() constructor {
 		@param {real} left		The Disatance Leftwards (Default 283)
 		@param {real} right		The Disatance Rightwards (Default 283)
 		@param {real} time		The duration of the Anim (0 = instant, Default 30)
-		@param {function} ease	The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
+		@param {function,string} ease	The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
 		@param {real} target	The target board to se the size to
 	*/
-	static SetSize = function(up = 65, down = 65, left = 283, right = 283, time = 30, ease = EaseOutQuad, board = BattleBoardList[TargetBoard])
+	static SetSize = function(up = 65, down = 65, left = 283, right = 283, time = 30, ease = "oQuad", board = undefined)
 	{
-		TweenFire(board, ease, TWEEN_MODE_ONCE, false, 0, time, "up", board.up, up,
-				"down", board.down, down, "left", board.left, left, "right", board.right, right);
+		board ??= BattleBoardList[TargetBoard];
+		TweenFire(board, ease, 0, false, 0, time, "up>", up, "down>", down, "left>", left, "right>", right);
 	}
 	/**
 		Sets the angle of the board with Anim (optional)
-		@param {real} angle		The target angle (Default 0)
-		@param {real} time		The duration of the Anim (0 = instant, Default 30)
-		@param {function} ease		The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
-		@param {real} target	The target board to se the size to
+		@param {real} angle				The target angle (Default 0)
+		@param {real} time				The duration of the Anim (0 = instant, Default 30)
+		@param {function,string} ease	The Tween Ease of the Anim, use TweenGMS Easing (i.e. EaseLinear, Default EaseOutQuad)
+		@param {Asset.GMObject} target	The target board to se the size to
 	*/
-	static SetAngle = function(angle = 0, time = 30, ease = EaseOutQuad, board = BattleBoardList[TargetBoard])
+	static SetAngle = function(angle = 0, time = 30, ease = "oQuad", board = undefined)
 	{
+		board ??= BattleBoardList[TargetBoard];
 		with board
 			TweenEasyRotate(image_angle, angle, 0, time, ease);
 	}
 	/**
 		Sets the x and y position of the board
-		@param {real} x	The x position
-		@param {real} y	The y position
-		@param {real} time	The time taken for the anim
-		@param {function} ease	The easing
-		@param {real} target	The target board to se the size to
+		@param {real} x					The x position
+		@param {real} y					The y position
+		@param {real} time				The time taken for the anim
+		@param {function,string} ease	The easing
+		@param {Asset.GMObject} target	The target board to se the size to
 	*/
-	static SetPos = function(xx = 320, yy = 320, time = 30, ease = EaseOutQuad, board = BattleBoardList[TargetBoard])
+	static SetPos = function(xx = 320, yy = 320, time = 30, ease = "oQuad", board = undefined)
 	{
+		board ??= BattleBoardList[TargetBoard];
 		with board
 			TweenEasyMove(Board.GetX(), Board.GetY(), xx, yy, 0, time, ease);
+	}
+	/**
+		Gets the ID of the board in the global board list
+		@param {Asset.GMObject}	board	THe board to get the ID of
+	*/
+	static GetID = function(board)
+	{
+		var i = 0, n = array_length(BattleBoardList);
+		repeat n if BattleBoardList[i] != board.id i++; else return i;
 	}
 }

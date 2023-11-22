@@ -58,10 +58,10 @@ dialog_size[3] = 80;
 dodge_to = choose(-150, 150);
 dodge_method = function()
 {
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 20, "damage_y>", damage_y - 30);
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 20, 20, "damage_y", damage_y - 30, damage_y);
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 0, 25, "x>", x - dodge_to);
-	TweenFire(id, EaseOutQuad, TWEEN_MODE_ONCE, false, 35, 25, "x", x - dodge_to, x);
+	TweenFire(id, "oQuad", 0, false, 0, 20, "damage_y>", damage_y - 30);
+	TweenFire(id, "oQuad", 0, false, 20, 20, "damage_y", damage_y - 30, damage_y);
+	TweenFire(id, "oQuad", 0, false, 0, 25, "x>", x - dodge_to);
+	TweenFire(id, "oQuad", 0, false, 35, 25, "x", x - dodge_to, x);
 }
 
 surf = -1;
@@ -75,12 +75,39 @@ for(var i = 0; i < 12; i++)
 }
 
 SetAttack(0, function() {
-	if time == 1 Bullet_BoneGapH(320, 120, 7, 20);
+	if time == 1
+	{
+		with oBoard
+		{
+			//TweenEasyRotate(0, 45, 0, 30, "o")
+			//ConvertToVertex();
+			//var index = InsertPolygonPoint(4, 320, 255);
+			//TweenFire(id, "oSine", 0, 0, 0, 60, TPArray(Vertex, index + 1), 255, 100);
+		}
+	}
 	BattleData.EnemyDialog(self, BattleData.Turn() + 1, "override")
-	if time == 160 end_turn();
+	//if time == 160 end_turn();
 });
 
 SetAttack(1, function() {
 	if time == 60 Board.SetSize(8, 8, 8, 8);
 	if time == 120 end_turn();
+});
+
+AddGPU(id, ev_draw, bm_max, function() {
+	draw_gradient_ext(0, 480, 640, 240, 0, c_red);
+});
+AddGPU(id, ev_draw, bm_max, function() {
+	draw_gradient_ext(640, 480, 480, 160, 90, c_aqua);
+});
+AddGPU(id, ev_draw, bm_max, function() {
+	draw_gradient_ext(640, 0, 640, 240, 180, c_yellow);
+});
+var tmp =
+AddGPU(id, ev_draw, bm_max, function() {
+	draw_gradient_ext(0, 0, 480, 160, -90, c_white);
+});
+GPURemove(tmp);
+AddGPUExt(id, ev_draw, bm_inv_dest_color, bm_zero, function() {
+	draw_circle(mouse_x, mouse_y, 50, false);
 });

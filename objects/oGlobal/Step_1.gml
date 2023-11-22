@@ -1,7 +1,5 @@
 /// @description Global
 
-//input_tick(); // Input handler, do not delete! (Unless you are 2022.5+)
-
 if keyboard_check(vk_escape)
 {
 	quit_timer++;
@@ -36,6 +34,7 @@ if ALLOW_DEBUG
 	if keyboard_check(vk_alt)
 		if keyboard_check_pressed(ord("S"))
 			Screenshot(room_get_name(room));
+	if keyboard_check_pressed(vk_f5) room_restart();
 }
 
 if room == rRestart

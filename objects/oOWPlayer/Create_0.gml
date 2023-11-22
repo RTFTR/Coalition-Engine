@@ -2,6 +2,8 @@ if !instance_exists(oOWController) instance_create_depth(0, 0, 0, oOWController)
 //oGlobal.camera_target = id;
 Camera_Scale(2, 2);
 moveable = true;
+//You only need Up - Down - Left, because the Right is just an invert of Left, unless
+//you have specific sprites for right side, then you should leave the 4th slot empty
 dir_sprite = [sprFriskUp,  sprFriskDown, sprFriskLeft];
 last_sprite = -1
 last_dir = 1;

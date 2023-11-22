@@ -1,22 +1,44 @@
-///@desc Fades the screen
-///@param {real}  start				The beginning alpha of the fader (0 = screen visible, 1 = screen not visible)
-///@param {real}  target			The ending alpha of the fader (0 = screen visible, 1 = screen not visible)
-///@param {real}  duration			The time the fader fades from start to end
-///@param {real}  delay				The delay for the fader to fade (Default 0)
-///@param {Constant.Color} color	The color of the fader (Default c_black)
-function Fader_Fade(start, target, duration, delay = 0, color = c_black)
+/**
+	Fades the screen
+	@param {real}  start			The beginning alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  target			The ending alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  duration			The time the fader fades from start to end
+	@param {real}  delay			The delay for the fader to fade (Default 0)
+	@param {color} color	The color of the fader (Default current color)
+*/
+function Fader_Fade(start = oGlobal.fader_alpha, target, duration, delay = 0, color = oGlobal.fader_color)
 {
 	oGlobal.fader_color = color;
-	TweenFire(oGlobal, EaseLinear, TWEEN_MODE_ONCE, false, delay, duration, "fader_alpha", start, target);
+	TweenFire(oGlobal, "", 0, false, delay, duration, "fader_alpha", start, target);
+}
+/**
+	Fades the screen and fades back out to destined alpha
+	@param {real}  start			The beginning alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  target			The ending alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  final			The final alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  in_duration		The time the fader fades from start to end
+	@param {real}  duration			The time the fader holds the target alpha
+	@param {real}  out_duration		The time the fader fades from end to final
+	@param {real}  delay			The delay for the fader to fade (Default 0)
+	@param {color} color	The color of the fader (Default current color)
+*/
+function Fader_Fade_InOut(start = oGlobal.fader_alpha, target, final, in_dur, duration, out_dur, delay = 0, color = oGlobal.fader_color)
+{
+	with oGlobal
+	{
+		fader_color = color;
+		TweenFire(self, "", 0, false, delay, in_dur, "fader_alpha", start, target);
+		TweenFire(self, "", 0, false, delay + in_dur + duration, out_dur, "fader_alpha>", final);
+	}
 }
 
 function Fade_Out(mode = FADE.CIRCLE, duration = 30, delay = 60)
 {
-	with oGlobal
+	with oGlobal.Fade
 	{
-		Fade.Activate[mode, 0] = true;
-		Fade.Activate[mode, 1] = duration;
-		Fade.Activate[mode, 2] = delay;
+		Activate[mode, 0] = true;
+		Activate[mode, 1] = duration;
+		Activate[mode, 2] = delay;
 	}
 }
 
@@ -56,7 +78,7 @@ function motion_blur(length, direction){
 	@param {real} xscale			The xscale of the sprite
 	@param {real} yscale			The yscale of the sprite
 	@param {real} angle				The angle fo the sprite
-	@param {Constant.color} blend	The image blend of the sprite
+	@param {color} blend	The image blend of the sprite
 	@param {real} alpha				The alpha of the sprite
 	@param {real} length			The	length of the blur
 	@param {real} direction			The direction of the blur
@@ -135,15 +157,16 @@ function TrailEffect(Duration, Sprite = sprite_index, Subimg = image_index, X = 
 	@param {real} duration		The delay before animating it back to 0
 	@param {real} end_duration	The duration of the split animation from full to 0
 	@param {real} distance		The distance of the split
+	@param Easing			The easing method of the splice (TweenGMX Format)
 */
-function SpliceScreen(x, y, dir, idur, dur, edur, dis) {
+function SpliceScreen(x, y, dir, idur, dur, edur, dis, ease = "oQuad") {
 	var _xs = x + 1000 * dcos(dir),
 		_ys = y - 1000 * dsin(dir),
 		_xe = x - 1000 * dcos(dir),
 		_ye = y + 1000 * dsin(dir);
 	with instance_create_depth(x, y, 0, oCutScreen, 
 	{
-		TEMPID : cut_screen(_xs, _ys, _xe, _ye, 0)
+		TEMPID : __cut_screen(_xs, _ys, _xe, _ye, 0)
 	})
 	{
 		induration = idur;
@@ -151,5 +174,6 @@ function SpliceScreen(x, y, dir, idur, dur, edur, dis) {
 		endduration = edur;
 		id.dir = dir;
 		displace = dis;
+		func = ease;
 	}
 }

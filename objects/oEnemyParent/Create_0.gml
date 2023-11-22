@@ -57,9 +57,15 @@ default_sound = snd_txtDefault;
 
 function dialog_init(text = "")
 {
-	scribble_typists_add_event("skippable", textsetskippable);
-	scribble_typists_add_event("SpriteSet", setsprite);
-	scribble_typists_add_event("flash", flash);
+	//This prevents the debug window to be flooded by scribble warning messages
+	static LoadedFunctions = false;
+	if !LoadedFunctions
+	{
+		scribble_typists_add_event("skippable", textsetskippable);
+		scribble_typists_add_event("SpriteSet", setsprite);
+		scribble_typists_add_event("flash", flash);
+		LoadedFunctions = true;
+	}
 	__text_writer = scribble(text)
 		.wrap(dialog_size[2] + dialog_size[3] - 15, dialog_size[0] + dialog_size[1] - 15)
 	if __text_writer.get_page() != 0 __text_writer.page(0);
@@ -72,7 +78,7 @@ __dialog_text_typist = scribble_typist()
 
 ///Generates a dialog mid turn
 ///@param {string} text		The text to draw
-///@param {Array} events	The typist events ([event name, function])
+///@param {Array<Array>} events	The typist events ([event name, function])
 function MidTurnDialog(text, events = [])
 {
 	dialog_at_mid_turn = true;

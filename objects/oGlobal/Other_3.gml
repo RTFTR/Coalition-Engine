@@ -1,6 +1,7 @@
 /// @description Uninitialization
-CutScreenSurface.Free();
-GradientSurf.Free();
+if CutScreenSurface != undefined && CutScreenSurface.IsAvailable() CutScreenSurface.Free();
+if GradientSurf.IsAvailable() GradientSurf.Free();
+if RGBSurf.IsAvailable() RGBSurf.Free();
 instance_destroy(oBulletParents);
 global.Settings[? "Volume"] = global.Volume;
 Save_Settings();
@@ -22,3 +23,4 @@ delete Song;
 delete Fade;
 delete Naming;
 delete Border;
+delete global.data;

@@ -12,7 +12,7 @@
 	@param {real} rotate	The rotation of the bone (Default 0)
 	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
-	@param {Constant.Color} Base_Color	The color of the bone
+	@param {color} Base_Color	The color of the bone
 */
 function Bullet_Bone(x, y, length, hspd, vspd, type = 0, out = 0, mode = 0, angle = 90, rotate = 0, destroyable = true, duration = -1, base_col = oEnemyParent.base_bone_col){
 	var DEPTH = -10;
@@ -58,7 +58,7 @@ function Bullet_Bone(x, y, length, hspd, vspd, type = 0, out = 0, mode = 0, angl
 */
 function Bullet_BoneTop(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	return Bullet_Bone(x, Board.GetUpPos() + length / 2, length, hspd, 0, type, out, 0, 90, rotate, destroyable, duration);
+	return Bullet_Bone(x, Board.GetUpPos() + length / 2, length, hspd, 0, type, out,, 90, rotate, destroyable, duration);
 }
 
 /**
@@ -73,7 +73,7 @@ function Bullet_BoneTop(x, length, hspd, type = 0, out = 0, rotate = 0, destroya
 	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 */
 function Bullet_BoneBottom(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1){
-	return Bullet_Bone(x, Board.GetDownPos() - length / 2, length, hspd, 0, type, out, 0, 90, rotate, destroyable, duration);
+	return Bullet_Bone(x, Board.GetDownPos() - length / 2, length, hspd, 0, type, out,, 90, rotate, destroyable, duration);
 }
 
 /**
@@ -89,7 +89,7 @@ function Bullet_BoneBottom(x, length, hspd, type = 0, out = 0, rotate = 0, destr
 */
 function Bullet_BoneLeft(y, length, vspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	return Bullet_Bone(Board.GetLeftPos() + length / 2, y, length, 0, vspd, type, out, 0, 0, rotate, destroyable, duration);
+	return Bullet_Bone(Board.GetLeftPos() + length / 2, y, length, 0, vspd, type, out,, 0, rotate, destroyable, duration);
 }
 
 /**
@@ -105,7 +105,7 @@ function Bullet_BoneLeft(y, length, vspd, type = 0, out = 0, rotate = 0, destroy
 */
 function Bullet_BoneRight(y, length, vspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1)
 {
-	return Bullet_Bone(Board.GetRightPos() - length / 2, y, length, 0, vspd, type, out, 0, 0, rotate, destroyable, duration);
+	return Bullet_Bone(Board.GetRightPos() - length / 2, y, length, 0, vspd, type, out,, 0, rotate, destroyable, duration);
 }
 
 /**
@@ -151,25 +151,25 @@ function Bullet_BoneFullH(y, spd, type = 0, out = 0, rotate = 0, destroyable = t
 */
 function Bullet_BoneGapH(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
 {
-	Bullet_BoneLeft(y, x - Board.GetLeftPos() - gap / 2, vspd, type, out, 0, destroyable, duration);
-	Bullet_BoneRight(y, Board.GetRightPos()- gap / 2 - x, vspd, type, out, 0, destroyable, duration);
+	Bullet_BoneLeft(y, x - Board.GetLeftPos() - gap / 2, vspd, type, out,, destroyable, duration);
+	Bullet_BoneRight(y, Board.GetRightPos()- gap / 2 - x, vspd, type, out,, destroyable, duration);
 }
 
 /**
 	Creates Two Vertical bones that Makes A Gap In Between Them
 	@param {real} x			The x position of the bones
 	@param {real} y			The y position of the gap of the bones
-	@param {real} vspeed	The vspeed of the bones
+	@param {real} hspeed	The hspeed of the bones
 	@param {real} gap		The size of the gap (In pixels)
 	@param {real} color		The color of the bones (Marcos supported, Default White)
 	@param {real} out		Whether the bones are outisde the board (Default 0)
 	@param {real} destroy	Whether the bones destroy themselves when offscreen (Default 0)
 	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 */
-function Bullet_BoneGapV(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
+function Bullet_BoneGapV(x, y, hspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
 {
-	Bullet_BoneTop(x, y - Board.GetUpPos() - gap / 2, vspd, type, out, 0, destroyable, duration);
-	Bullet_BoneBottom(x, Board.GetDownPos()- gap / 2 - y, vspd, type, out, 0, destroyable, duration);
+	Bullet_BoneTop(x, y - Board.GetUpPos() - gap / 2, hspd, type, out,, destroyable, duration);
+	Bullet_BoneBottom(x, Board.GetDownPos()- gap / 2 - y, hspd, type, out,, destroyable, duration);
 }
 
 /**
@@ -225,7 +225,7 @@ function Bullet_BoneWaveH(yy, length, hspd, space, amount, gap, udf, uds, type =
 		LENGTH += cos(SIN) * udf * 4;
 		yy += space * hspd * sign(-hspd) / 4;
 		
-		var DURATION = (((640 + (space * i)) / abs(hspd)) * 2);
+		var DURATION = ((640 + space * i) / abs(hspd)) * 2;
 		Bullet_BoneLeft(yy, LENGTH, hspd, type, out, 0, false, DURATION);
 		Bullet_BoneRight(yy, Board.GetWidth() - LENGTH - gap, hspd, type, out, 0, false, DURATION);
 	}
@@ -253,7 +253,7 @@ function Bullet_BoneWaveV(xx, length, vspd, space, amount, gap, udf, uds, type =
 		LENGTH += cos(SIN) * udf * 4;
 		xx += space * vspd * sign(-vspd) / 4;
 		
-		var DURATION = (((480 + (space * i)) / abs(vspd)) * 2);
+		var DURATION = ((480 + space * i) / abs(vspd)) * 2;
 		Bullet_BoneTop(xx, LENGTH, vspd, type, out, 0, false, DURATION);
 		Bullet_BoneBottom(xx, Board.GetHeight() - LENGTH - gap, vspd, type, out, 0, false, DURATION);
 	}
@@ -273,9 +273,9 @@ function Bullet_BoneWaveV(xx, length, vspd, space, amount, gap, udf, uds, type =
 	@param {real} Scale_Y			The y scale of the cube
 	@param {real} Scale_Z			The z scale of the cube
 	@param {real} Anim_Time			The time of the scaling animation (Default 0 - Instant)
-	@param {function} Easing		The easing of the scaling animation (Default EaseLinear)
+	@param {function,string} Easing	The easing of the scaling animation (Default EaseLinear)
 */
-function Battle_BoneCube(x, y, angle_x, angle_y, angle_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, anim_time = 0, ease = EaseLinear)
+function Battle_BoneCube(x, y, angle_x, angle_y, angle_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, anim_time = 0, ease = "")
 {
 	var inst = instance_create_depth(x, y, -2, o3DBone);
 	with inst
@@ -287,7 +287,7 @@ function Battle_BoneCube(x, y, angle_x, angle_y, angle_z, rot_x, rot_y, rot_z, s
 		scalez = scale_z;
 		if anim_time
 		{
-			TweenFire(id, ease, TWEEN_MODE_ONCE, false, 0, anim_time, "scalex", 0, scale_x
+			TweenFire(id, ease, 0, false, 0, anim_time, "scalex", 0, scale_x
 			, "scaley", 0, scale_y, "scalez", 0, scale_z);
 		}
 	}

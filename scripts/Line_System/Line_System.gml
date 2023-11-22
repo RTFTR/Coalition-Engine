@@ -191,7 +191,7 @@ function LineSystem_FillEmptySlots()
 ///@param {real} x2	The x position of the end of the line
 ///@param {real} y2 The y position of the end of the line
 ///@param {real} width	The width of the line
-///@param {Constant.Color} color The color of the line (Default c_white)
+///@param {color} color The color of the line (Default c_white)
 ///@param {real} speed	The speed of the line
 ///@param {real} direction The direction of the line (Don't confuse it with angle)
 function CreateNormalLine(x1, y1, x2, y2, width, color = c_white, spd = 0, dir = 0)

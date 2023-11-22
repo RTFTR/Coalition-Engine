@@ -1,4 +1,6 @@
+//Rotation
 image_angle += rotate;
+//Board surface check
 if !surface_exists(surface) surface = surface_create(640, 480);
 
 // Frames

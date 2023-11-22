@@ -8,6 +8,6 @@ repeat n
 	++i;
 }
 draw_surface(application_surface, 0, 0);
-surface_reset_target();
 shader_reset();
+surface_reset_target();
 draw_surface(surf, 0, 0);

@@ -25,6 +25,7 @@ destroy = 0;
 
 beam_scale = 0;
 beam_alpha = 1;
+//Currently unused
 beam_color = [c_fuchsia, c_white];
 e = 0;
 

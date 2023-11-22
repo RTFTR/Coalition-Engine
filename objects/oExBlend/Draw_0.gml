@@ -1,8 +1,8 @@
 if (keyboard_check_pressed(vk_left)) {
-    self.mode = (self.mode + array_length(self.mode_names) - 1) % array_length(self.mode_names);
+    mode = (mode + array_length(mode_names) - 1) % array_length(mode_names);
 }
 if (keyboard_check_pressed(vk_right)) {
-    self.mode = (self.mode + 1) % array_length(self.mode_names);
+    mode = (mode + 1) % array_length(mode_names);
 }
 
 draw_clear(c_black);

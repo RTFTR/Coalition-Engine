@@ -1,3 +1,4 @@
+///@desc Auto destroy when out of view
 var cam = view_camera[0],
 	view_x = camera_get_view_x(cam),
 	view_y = camera_get_view_y(cam),

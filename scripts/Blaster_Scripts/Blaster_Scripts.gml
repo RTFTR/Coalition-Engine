@@ -1,6 +1,6 @@
 //feather ignore all
 /**
-	@desc Creates a Blaster with given parameters
+	Creates a Blaster with given parameters
 	@param {real} x				The x position of the blaster when created
 	@param {real} y				The y position of the blaster when created
 	@param {real} target_x		The target x position of the blaster
@@ -31,7 +31,7 @@ function CreateBlaster(x, y, t_x, t_y, i_angle = t_angle + choose(180, -180), t_
 		
 		time_move = move;
 		time_pause = pause;
-		timer_blast = dur;
+		time_blast = dur;
 		type = col;
 		blurring = blur;
 		charge_sound = c_sound;

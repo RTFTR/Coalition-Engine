@@ -1,5 +1,3 @@
-//draw_sprite(spr_tmp, 0, 0, 0)
-
 var Main = MainOption, Sub = SubOption;
 //Draw main option texts
 surface_set_target(Main.Surf);
@@ -13,7 +11,7 @@ repeat n
 		BottomY = BaseY + string_height(Main.Options[i]) + 5,
 		BaseX = 30 + Main.DisplaceX,
 		RightX = BaseX + 200;
-	if point_in_rectangle(mouse_x, mouse_y, BaseX, BaseY - 5, RightX, BottomY)
+	if mouse_in_rectangle(BaseX, BaseY - 5, RightX, BottomY)
 	{
 		if State == DEBUG_STATE.MAIN
 		{

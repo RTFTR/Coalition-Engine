@@ -1,8 +1,3 @@
-//if global.timer == 30 CURAUD = audio_play(storm)
-//if global.timer >= 30
-//	AudioStickToTime(CURAUD, (global.timer - 30) / 60)
-//if (global.timer >= 145 and global.timer <= 155)
-//	SpliceScreen(random(640), random(480), random(360), 5, 365, 5, random_range(10, 30))
 
 var Main = MainOption, Sub = SubOption;
 //Surfaces
@@ -27,7 +22,7 @@ else
 Main.DisplaceX = lerp(Main.DisplaceX, Main.DisplaceXTarget, 0.16);
 Main.DisplaceY = lerp(Main.DisplaceY, Main.DisplaceYTarget, 0.16);
 
-if point_in_rectangle(mouse_x, mouse_y, 20, 20, 240, 460)
+if mouse_in_rectangle(20, 20, 240, 460)
 {
 	var displace = mouse_wheel_up() - mouse_wheel_down();
 	Main.DisplaceYTarget += displace * 20;
@@ -55,7 +50,7 @@ if State != DEBUG_STATE.MAIN
 	
 	var BaseX = 270 + Sub.DisplaceX,
 		RightX = BaseX + 200;
-	if point_in_rectangle(mouse_x, mouse_y, BaseX, 20, RightX, 460)
+	if mouse_in_rectangle(BaseX, 20, RightX, 460)
 	{
 		var displace = mouse_wheel_up() - mouse_wheel_down();
 		displace *= 60;

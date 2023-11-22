@@ -65,7 +65,7 @@ if mode = SOUL_MODE.GREEN
 		gpu_set_blendmode(bm_normal);
 	}
 }
-
+//Purple soul line drawing
 if mode == SOUL_MODE.PURPLE and STATE == 2
 {
 	var TopLine =		oBoard.y - oBoard.up + 15,

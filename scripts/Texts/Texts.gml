@@ -26,6 +26,5 @@ function CreateTextWriter(x, y, text, skip_enabled = false, event = [])
 		array_push(TextTypistList, typist);
 		array_push(TextSkipEnabled, skip_enabled);
 	}
-	return [oTextController.TextTypistList[array_length(oTextController.TextTypistList) - 1],
-			oTextController.TextWriterList[array_length(oTextController.TextWriterList) - 1]];
+	return [typist, oTextController.TextWriterList[array_length(oTextController.TextWriterList) - 1]];
 }

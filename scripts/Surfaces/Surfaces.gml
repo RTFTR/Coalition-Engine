@@ -1,7 +1,17 @@
-///Draws a surface normally (top-left origin), but rotates around the center origin
+/**
+	Draws a surface normally (top-left origin), but rotates around the center origin
+	@param {surface} surface	The surface to draw
+	@param {real} x				The top-left X position of the surface
+	@param {real} y				The top-left Y position of the surface
+	@param {real} x_scale		The x scale of the surface
+	@param {real} y_scale		The y scale of the surface
+	@param {real} rotation		The angle of the surface to draw
+	@param {Color} color		The color of the surface to draw
+	@param {real} alpha			Tje alpha of the surface to draw
+*/
 function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _alpha) {
-	var _halfW = surface_get_width(_surf) * 0.5 * _xscale,
-		_halfH = surface_get_height(_surf) * 0.5 * _yscale,
+	var _halfW = surface_get_width(_surf) / 2 * _xscale,
+		_halfH = surface_get_height(_surf) / 2 * _yscale,
 		_rotX = -_halfW * dcos(_rot) - _halfH * dsin(_rot),
 		_rotY = -_halfW * -dsin(_rot) - _halfH * dcos(_rot),
 		//If you want to *always* draw from center origin, remove `_half`s below
@@ -9,8 +19,17 @@ function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _
 		_surfY = _y + _halfH + _rotY;
 	draw_surface_ext(_surf, _surfX, _surfY, _xscale, _yscale, _rot, _col, _alpha);
 }
-
-function draw_surface_tiled_area(surface, subimg, xx, yy, x1, y1, x2, y2) {
+/**
+	Draws a surface that fills the entire area like tiles
+	@param {surface} surface		The surface to draw
+	@param {real} x					The x position of the surface
+	@param {real} y					The y position of the surface
+	@param {real} x1				The x coordinate of the top left corner of the rectangle
+	@param {real} y1				The y coordinate of the top left corner of the rectangle
+	@param {real} x2				The x coordinate of the bottom right corner of the rectangle
+	@param {real} y2				The y coordinate of the bottom right corner of the rectangle
+*/
+function draw_surface_tiled_area(surface, xx, yy, x1, y1, x2, y2) {
 	var left, top, width, height, X, Y,
 		sw = surface_get_width(surface),
 		sh = surface_get_height(surface),

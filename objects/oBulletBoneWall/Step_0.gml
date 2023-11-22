@@ -1,3 +1,4 @@
+//Changes warning box color
 if warn_color_swap
 {
 	WarnTimer++;
@@ -12,11 +13,12 @@ if warn_color_swap
 if state == 2
 {
 	var dir_ang_x = -dsin(dir), dir_ang_y = dcos(dir);
+	//Plays the sound
 	if !timer and sound_create
 	{
 		audio_play(snd_bonewall);
 	}
-	else
+	else	//Moves the bonewall to destined length
 	{
 		if timer < time_move
 		{

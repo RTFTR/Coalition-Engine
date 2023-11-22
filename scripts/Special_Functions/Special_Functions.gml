@@ -1,5 +1,4 @@
-///@desc Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
-///@return {bool}
+///Checks whether the instance is outside the camera DETERMINED BY IT'S HITBOX
 function check_outside(){
 	var cam = view_camera[0],
 		view_x = camera_get_view_x(cam),
@@ -7,30 +6,26 @@ function check_outside(){
 		view_w = camera_get_view_width(cam),
 		view_h = camera_get_view_height(cam);
 	
-	return !rectangle_in_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, view_x, view_y, view_x + view_w, view_y + view_h) 
-	and (
-			(x < -sprite_width) or 
-			(x > (room_width + sprite_width)) or
-			(y > (room_height + sprite_height)) or
-			(y < (-sprite_height))
-		)
+	return !rectangle_in_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom,
+									view_x, view_y, view_x + view_w, view_y + view_h) 
+	and ((x < -sprite_width) or (x > room_width + sprite_width) or
+			(y > room_height + sprite_height) or(y < -sprite_height));
 }
 
-///@desc Takes a screenshot and saves it with given filename + current time
+///Takes a screenshot and saves it with given filename + current time
 function Screenshot(filename = "") {
 	var date = string("{0}y-{1}m-{2}d_{3}h_{4}m_{5}s", current_year, current_month, current_day,
 						current_hour, current_minute, current_second);
-	screen_save("Screenshots/" + string(filename) + date + ".png");
+	screen_save(string("Screenshots/{0}{1}.png", filename, date));
 }
 
 /**
 	@param {string} FileName	The file name of the txt file, must include .txt at the end
 	@param {real} Read_Method The method of reading the text files, default 0
 	@param {string} Tag	The tag of the string to get
-	@desc Loads the text from an external text file, there are 2 reading methods for now:
+	Loads the text from an external text file, there are 2 reading methods for now:
 		  0 is by using numbers to indicate the turn number (during battle)
 		  1 is by using tags to let the script read which text to load
-	@return {string}
 */
 function LoadTextFromFile(filename, read_method = 0, tag = "")
 {
@@ -49,7 +44,7 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 					n = array_length(global.item);
 				break
 			}
-			repeat(n)
+			repeat n
 			{
 				switch current
 				{
@@ -85,9 +80,8 @@ function LoadTextFromFile(filename, read_method = 0, tag = "")
 	file_text_close(file);
 }
 
-///@desc Converts the values to respective keys
+///Converts the values to respective keys
 ///@param {real} Value The to convert
-///@return {string}
 function ConvertRealToKey(val)
 {
 	//This is so cringe, it converts vk_* (real) to string by a massive switch statement
@@ -177,7 +171,7 @@ function ConvertRealToKey(val)
 				return "Right";
 		}
 	}
-	var Alphabet =
+	static Alphabet =
 	["A", "B", "C", "D", "E", "F", "G", "H", "I",
 	"J", "K", "L", "M", "N", "O", "P", "Q", "R",
 	"S", "T" ,"U", "V", "W", "X", "Y", "Z", "1",
@@ -192,6 +186,7 @@ function ConvertRealToKey(val)
 
 function tips()
 {
+	//funny texts
 	var tips = [
 					"Reasons for engine: There are none",
 					"O-oooooooooo AAAAE-A-A-I-A-U-",
@@ -217,7 +212,7 @@ function tips()
 }
 
 /**
-	@desc Checks whether the mouse is inside a rectangle
+	Checks whether the mouse is inside a rectangle
 	@param {real} x1	The x coordinate of the top left coordinate of the rectangle
 	@param {real} y1	The y coordinate of the top left coordinate of the rectangle
 	@param {real} x2	The x coordinate of the bottom right coordinate of the rectangle
@@ -281,7 +276,7 @@ function file_write_all_text(_filename, _content) {
 }
 
 /// @func string_split_lines(str)
-/// @desc Splits the string by newline characters/sequences (CRLF, CR, LF).
+/// Splits the string by newline characters/sequences (CRLF, CR, LF).
 /// @arg {String} str			   The string to split.
 /// @arg {Bool} remove_empty		Determines whether the final result should filter out empty strings or not.
 /// @arg {Real} max_splits		  The maximum number of splits to make.
@@ -319,149 +314,62 @@ function json_save(_filename, _value) {
 	var _json_content = json_stringify(_value);
 	file_write_all_text(_filename, _json_content);
 }
-#endregion
-
-#region The part where things go insane (Codes are modified from Vinyl by JujuAdams)
-function DistanceToEdge(_px, _py, _x0, _y0, _x1, _y1)
-{
-    var _dx = _x1 - _x0;
-    var _dy = _y1 - _y0;
-    var _lengthSqr = _dx * _dx + _dy * _dy;
-        
-    //Edge case where the line has length 0
-    if (_lengthSqr <= 0) return point_distance(_px, _py, _x0, _y0);
-        
-    var _t = clamp((_dx * (_px - _x0) + (_py - _y0) * _dy) / _lengthSqr, 0, 1);
-    return point_distance(_px, _py, _x0 + _t * _dx, _y0 + _t * _dy);
-}
-
-function ClosestPointOnEdge(_px, _py, _x0, _y0, _x1, _y1)
-{
-    static _result = {
-        x: undefined,
-        y: undefined,
-    }
-	
-    var _dx = _x1 - _x0;
-    var _dy = _y1 - _y0;
-    var _lengthSqr = _dx * _dx + _dy * _dy;
-        
-    //Edge case where the line has length 0
-    if (_lengthSqr <= 0)
-    {
-        _result.x = _x0;
-        _result.y = _y0;
-    }
-    else
-    {
-        var _t = clamp((_dx * (_px - _x0) + (_py - _y0) * _dy) / _lengthSqr, 0, 1);
-        _result.x = _x0 + _t * _dx;
-        _result.y = _y0 + _t * _dy;
-    }
-        
-    return [_result.x, _result.y];
-}
-
-function InsidePolygon(px, py, polygon)
-{
-    var inside = false;
-    var n, i = 0, polyX, polyY, x1, y1, x2, y2;
-    n = array_length(polygon) div 2;
-    repeat n
-    {
-        polyX[i] = polygon[2 * i];
-        polyY[i] = polygon[2 * i + 1];
-		++i;
-    }
-    polyX[n] = polyX[0];
-    polyY[n] = polyY[0];
-	i = 0;
-    repeat n
-    {
-        x1 = polyX[i];
-        y1 = polyY[i];
-        x2 = polyX[i + 1];
-        y2 = polyY[i + 1];
- 
-        if ((y2 > py) != (y1 > py)) 
-        {
-            inside ^= (px < (x1-x2) * (py-y2) / (y1-y2) + x2);
-        }       
-		++i;
-    }
-    return inside;
-}
-
-function SnapToNearestEdge(_px, _py, _pointArray)
-{
-        var _x0 = undefined;
-        var _y0 = undefined;
-        var _x1 = _pointArray[0];
-        var _y1 = _pointArray[1];
-        
-        var _minDist = infinity;
-        var _minI    = undefined;
-        
-        //Find the closest line to the point
-        var _i = 0;
-        repeat((array_length(_pointArray) div 2) - 1)
-        {
-            _x0 = _x1;
-            _y0 = _y1;
-            _x1 = _pointArray[_i + 2];
-            _y1 = _pointArray[_i + 3];
-             
-            var _distance = DistanceToEdge(_px, _py, _x0, _y0, _x1, _y1);
-            if (_distance < _minDist)
-            {
-                _minDist = _distance;
-                _minI    = _i;
-            }
-            
-            _i += 2;
+/// @func asset_get_name(asset)
+/// @desc Retrieves a name of the given asset, or returns undefined if the passed value isn't an asset handle.
+/// @arg {Asset} asset
+/// @returns {String}
+function asset_get_name(_asset) {
+    static names_cache = {};
+    
+    // a helper to get asset name of the known type
+    static resolve_name = function(_asset, _type) {
+        switch (_type) {
+            case asset_object:
+                return object_get_name(_asset);
+            case asset_sprite:
+                return sprite_get_name(_asset);
+            case asset_sound:
+                return audio_get_name(_asset);
+            case asset_room:
+                return room_get_name(_asset);
+            case asset_tiles:
+                return tileset_get_name(_asset);
+            case asset_path:
+                return path_get_name(_asset);
+            case asset_script:
+                return script_get_name(_asset);
+            case asset_font:
+                return font_get_name(_asset);
+            case asset_timeline:
+                return timeline_get_name(_asset);
+            case asset_shader:
+                return shader_get_name(_asset);
+            case asset_animationcurve:
+                return animcurve_get(_asset).name;
+            case asset_sequence:
+                return sequence_get(_asset).name;
+            case asset_particlesystem:
+                return particle_get_info(_asset).name;
+            default:
+                throw string("Could not resolve name for asset '{0}', despite it not being of asset_unknown type.", _asset);
         }
-        
-        if (_minI != undefined)
-        {
-            //Get the point on the line closest to the listener
-            var _point = ClosestPointOnEdge(_px, _py, _pointArray[_minI], _pointArray[_minI+1], _pointArray[_minI+2], _pointArray[_minI+3]);
-			var _angle = point_direction(_pointArray[_minI], _pointArray[_minI + 1], _pointArray[_minI + 2], _pointArray[_minI + 3]);
-			_point[2] = _angle;
-			
-			var _dX = _point[0] - oSoul.x;
-	        var _dY = _point[1] - oSoul.y;
-        
-	        var _length = sqrt(_dX*_dX + _dY*_dY);
-	        if (_length > 8)
-	        {
-	            var _factor = 8/_length;
-	            _point[0] = _factor*_dX + oSoul.x;
-	            _point[1] = _factor*_dY + oSoul.y;
-	        }
-	        else
-	        {
-	            _point[0] = _point[0];
-	            _point[1] = _point[1];
-	        }
-			
-			return _point;
-		}
-}
-/**
-	* Clamps the soul inside the board (testing)
-*/
-function BoardClampSoul()
-{
-	for (var i = -8; i < 8; ++i) {
-		for (var ii = -8; ii < 8; ++ii) {
-			if !InsidePolygon(oSoul.x + i, oSoul.y + ii, oBoard.Vertex)
-			{
-				var _ = SnapToNearestEdge(oSoul.x + i, oSoul.y + ii, oBoard.Vertex);
-				oSoul.x = _[0] - i;
-				oSoul.y = _[1] - ii;
-				exit
-			}
-		}
-	}
+    }
+    
+    // the main function
+    if (!is_handle(_asset))
+        return undefined;
+    
+    var _key = string(_asset);
+    var _cached_value = names_cache[$ _key];
+    if (is_string(_cached_value))
+        return _cached_value;
+    
+    var _type = asset_get_type(_asset);
+    if (_type == asset_unknown)
+        return undefined;
+    
+    var _result = resolve_name(_asset, _type);
+    names_cache[$ _key] = _result;
+    return _result;
 }
 #endregion

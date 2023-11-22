@@ -32,6 +32,7 @@ function Initialize()
 	//Items
 	global.item_heal_override_kr = true; //Does kr reduce when max heal or not
 	global.item_uses_left = array_create(ITEM_COUNT + 1, 1);
+	//Demonstration on how to change item usage count
 	global.item_uses_left[ITEM.PIE] = 2;
 	
 	//Spare
@@ -40,15 +41,15 @@ function Initialize()
 	
 	//Save file (Free to edit)
 	global.SaveFile = ds_map_create();
-	global.SaveFile[? "Name"] =			"Chara";
-	global.SaveFile[? "LV"] =			20;
-	global.SaveFile[? "HP"] =			99;
-	global.SaveFile[? "Max HP"] =		99;
-	global.SaveFile[? "Gold"] =			0;
-	global.SaveFile[? "EXP"] =			0;
-	global.SaveFile[? "Wep"] =			"Stick";
-	global.SaveFile[? "Arm"] =			"Bandage";
-	global.SaveFile[? "Kills"] =		0;
+	global.SaveFile[? "Name"] =		"Chara";
+	global.SaveFile[? "LV"] =		20;
+	global.SaveFile[? "HP"] =		99;
+	global.SaveFile[? "Max HP"] =	99;
+	global.SaveFile[? "Gold"] =		0;
+	global.SaveFile[? "EXP"] =		0;
+	global.SaveFile[? "Wep"] =		"Stick";
+	global.SaveFile[? "Arm"] =		"Bandage";
+	global.SaveFile[? "Kills"] =	0;
 	var Item_Preset = [ITEM.PIE, ITEM.INOODLES, ITEM.STEAK, ITEM.SNOWP, ITEM.SNOWP,
 						ITEM.LHERO, ITEM.LHERO, ITEM.SEATEA],
 		Cell_Preset = [1, 2, 0, 0, 0, 0, 0, 0],
@@ -61,9 +62,9 @@ function Initialize()
 	for (var i = 0; i < 8; i++) {
 		if i < 3
 			for (var ii = 0; ii < 8; ii++)
-				global.SaveFile[? "Box " + string(i) + "_" + string(ii)];
-		global.SaveFile[? ("Cell " + string(i))] = Cell_Preset[i];
-		global.SaveFile[? ("Item " + string(i))] = Item_Preset[i];
+				global.SaveFile[? string("Box {0}_{1}", i, ii)];
+		global.SaveFile[? (string("Cell {0}", i))] = Cell_Preset[i];
+		global.SaveFile[? (string("Item {0}", i))] = Item_Preset[i];
 	}
 	
 	//Save file Save/Loading
@@ -75,15 +76,16 @@ function Initialize()
 	
 	global.hp =			global.SaveFile[? "HP"];
 	global.hp_max =		global.SaveFile[? "Max HP"];
-	global.data =
+	global.data = {};
+	with global.data
 	{
-		name :			global.SaveFile[? "Name"],
-		lv :			global.SaveFile[? "LV"],
-		Gold :			global.SaveFile[? "Gold"],
-		Exp :			global.SaveFile[? "EXP"],
-		AttackItem :	global.SaveFile[? "Wep"],
-		DefenseItem :	global.SaveFile[? "Arm"],
-		Kills :			global.SaveFile[? "Kills"],
+		name =			global.SaveFile[? "Name"];
+		lv =			global.SaveFile[? "LV"];
+		Gold =			global.SaveFile[? "Gold"];
+		Exp =			global.SaveFile[? "EXP"];
+		AttackItem =	global.SaveFile[? "Wep"];
+		DefenseItem =	global.SaveFile[? "Arm"];
+		Kills =			global.SaveFile[? "Kills"];
 	}
 	ConvertItemNameToStat();
 	Player_GetBaseStats();
@@ -114,11 +116,13 @@ function Initialize()
 	global.enemy_presets = [];
 	//Whether the current fight is a boss fight or not (Engine usage)
 	global.BossFight = false;
-	globalvar BattleData, EnemyData, BoxData, Board;
+	globalvar BattleData, EnemyData, BoxData, CellData, Board;
 	BattleData = new __Battle();
 	EnemyData = new Enemy();
 	BoxData = new __Box();
+	CellData = new Cell();
 	Board = new __Board();
+	//Example on how to set up an ecounter
 	EnemyData.SetEncoutner(,,oEnemySansExample);
 	global.kr = 0;
 	global.kr_activation = false;
@@ -149,7 +153,7 @@ function Initialize()
 	global.trueInstanceCache = ds_list_create();
 	
 	//Load languages (Load only once)
-	global.Language = LANGUAGE.ENGLISH
+	global.Language = LANGUAGE.ENGLISH;
 	static LangLoaded = false;
 	if !LangLoaded
 	{

@@ -6,6 +6,7 @@ var _color = image_blend,
 	_frame_w = frame_w,
 	_frame_h = frame_h;
 
+//If the board is normal
 if !VertexMode
 {
 	surface_set_target(surface);
@@ -31,12 +32,12 @@ if !VertexMode
 else
 {
 	//masking tbd
-	var i = 0, n = array_length(Vertex);
-	repeat n - 1
-	{
-		draw_line_width_color(Vertex[i][0], Vertex[i][1], Vertex[i + 1][0], Vertex[i + 1][1], 5, image_blend, image_blend);
-		++i;
-	}
+	CleanPolyline(Vertex)
+		.Join("miter")
+		.Cap("closed", "closed")
+		.Thickness(thickness_frame + 1)
+		.Blend(image_blend, image_alpha)
+		.Draw()
 }
 
 image_blend = _color;

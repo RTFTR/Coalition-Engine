@@ -11,24 +11,30 @@ State = 0;
 
 //List of main options
 MainOption = {};
-MainOption.Options =
-[
-	"Rooms",
-	"Sounds",
-	"Sprites",
-];
-MainOption.Surf = -1;
-MainOption.DisplaceX = 0;
-MainOption.DisplaceY = 0;
-MainOption.DisplaceXTarget = 0;
-MainOption.DisplaceYTarget = 0;
-MainOption.Choice = -1;
-MainOption.Lerp = 0;
-var MainOptionMaxHeight = 440;
-MainOption.TotalHeight = 70 * array_length(MainOption.Options);
-MainOption.MaxY = -max(0, MainOption.TotalHeight - MainOptionMaxHeight);
+with MainOption
+{
+	Options =
+	[
+		"Rooms",
+		"Sounds",
+		"Sprites",
+	];
+	Surf = -1;
+	DisplaceX = 0;
+	DisplaceY = 0;
+	DisplaceXTarget = 0;
+	DisplaceYTarget = 0;
+	Choice = -1;
+	Lerp = 0;
+	var MainOptionMaxHeight = 440;
+	TotalHeight = 70 * array_length(Options);
+	MaxY = -max(0, TotalHeight - MainOptionMaxHeight);
+}
 SubOption = {};
-SubOption.Surf = -1;
+with SubOption
+{
+	Surf = -1;
+}
 
 //Load rooms
 RoomList = [room_get_name(room_first)];
@@ -76,20 +82,23 @@ function LoadSubOptions(listnum)
 		];
 	
 	//Sub-options
-	SubOption.Options = Lists[listnum];
-	SubOption.DisplaceX = 0;
-	SubOption.DisplaceY = 0;
-	SubOption.DisplaceXTarget = 0;
-	SubOption.DisplaceYTarget = 0;
-	SubOption.Choice = -1;
-	SubOption.Lerp = 0;
-	var SubOptionMaxHeight = 440;
-	SubOption.TotalHeight = 70 * array_length(SubOption.Options);
-	SubOption.MaxY = -max(0, SubOption.TotalHeight - SubOptionMaxHeight);
-	SubOption.DrawSprite = -1;
-	SubOption.Stream = -1;
-	SubOption.Audio = -1;
-	SubOption.AudioLength = -1;
+	with SubOption
+	{
+		Options = Lists[listnum];
+		DisplaceX = 0;
+		DisplaceY = 0;
+		DisplaceXTarget = 0;
+		DisplaceYTarget = 0;
+		Choice = -1;
+		Lerp = 0;
+		var SubOptionMaxHeight = 440;
+		TotalHeight = 70 * array_length(Options);
+		MaxY = -max(0, TotalHeight - SubOptionMaxHeight);
+		DrawSprite = -1;
+		Stream = -1;
+		self.Audio = -1;
+		AudioLength = -1;
+	}
 }
 
 function SubOptionAction(index)
@@ -100,17 +109,20 @@ function SubOptionAction(index)
 			room_goto(asset_get_index(RoomList[index]));
 		break
 		case DEBUG_STATE.SOUNDS:
-			audio_stop_all();
-			if string_ends_with(AudioList[index], ".ogg")
+			with SubOption
 			{
-				SubOption.Stream = audio_create_stream("Music/" + string(AudioList[index]));
-				SubOption.Audio = audio_play(SubOption.Stream);
+				audio_stop_all();
+				if string_ends_with(other.AudioList[index], ".ogg")
+				{
+					Stream = audio_create_stream("Music/" + string(other.AudioList[index]));
+					self.Audio = audio_play(Stream);
+				}
+				else self.Audio = audio_play(asset_get_index(other.AudioList[index]));
+				AudioLength = audio_sound_length(self.Audio);
+				AudioLengthMin = string(AudioLength div 60);
+				AudioLengthSec = string(round(AudioLength mod 60));
+				if AudioLengthSec < 10 AudioLengthSec = "0" + AudioLengthSec;
 			}
-			else SubOption.Audio =  audio_play(asset_get_index(AudioList[index]));
-			SubOption.AudioLength = audio_sound_length(SubOption.Audio);
-			SubOption.AudioLengthMin = string(SubOption.AudioLength div 60);
-			SubOption.AudioLengthSec = string(round(SubOption.AudioLength mod 60));
-			if SubOption.AudioLengthSec < 10 SubOption.AudioLengthSec = "0" + SubOption.AudioLengthSec;
 		break
 		case DEBUG_STATE.SPRITES:
 			MainOption.DisplaceXTarget = -260;

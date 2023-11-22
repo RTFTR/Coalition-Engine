@@ -9,13 +9,13 @@ if state = 0
 		_target_angle = target_angle,
 		
 		_timer = timer_move;
-	
+	//Play charge sound
 	if charge_sound
 	{
 		audio_play(snd_gb_charge, true, false, 1, 1.2);
 		charge_sound = false;
 	}
-	
+	//Move blaster to destined location
 	if _timer <= time_move
 	{
 		_x += (_target_x - _x) * (5 / time_move);
@@ -34,6 +34,7 @@ if state = 0
 	}
 	if _timer = time_move or !time_move
 	{
+		//Wait for shoot
 		state = 1;
 		_timer = 0;
 		_x = _target_x;
@@ -63,9 +64,8 @@ if state = 3
 if state == 4
 {		
 	var _angle = image_angle,
-		
 		_yscale = image_yscale;
-	
+	//Auto index
 	if image_index = image_number - 1 image_index--;
 	
 	image_index += 0.5;
@@ -105,14 +105,17 @@ if state == 4
 	
 	_blast_timer++;
 	_exit_timer++;
+	//Set speed after firing
 	_end_point += speed;
 	if _exit_timer >= time_stay and _exit_timer < time_stay + 10 speed += 0.5;
 	else if (_exit_timer >= time_stay + 10 and !check_outside()) speed *= 1.1;
 	
+	//Blaster scale
 	if _blast_timer < 10 _size += ((30 * _yscale) / 8);
 	
 	if _blast_timer >= 10 + time_blast
 	{
+		//Beam settings
 		_size *= sqrt(0.8);
 		_alpha -= 0.05;
 		

@@ -4,8 +4,6 @@ var input_confirm = oOWController.menu_state == INTERACT_STATE.IDLE and PRESS_CO
 switch sprite_index
 {
 	case sprOWSave:
-		depth = oOWPlayer.depth + 9;
-		image_speed = .15;
 	break
 	case sprPixel:
 		if collide and !Collided

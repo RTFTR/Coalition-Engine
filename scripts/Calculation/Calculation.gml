@@ -19,6 +19,15 @@ function point_xy(p_x, p_y)
 	point_y = (p_y - y) * dcos(angle) + (p_x - x) * dsin(-angle) + y;
 }
 
+///@desc Calculating the legnthdir_xy position of the points
+function point_xy_array(p_x, p_y)
+{
+	var angle = image_angle;
+	
+	return [(p_x - x) * dcos(angle) - (p_y - y) * dsin(-angle) + x,
+	(p_y - y) * dcos(angle) + (p_x - x) * dsin(-angle) + y];
+}
+
 ///@desc Returns the lengthdir_x/y values in a Vector2 (stupidly useless)
 ///@return {struct}
 function lengthdir_xy(length, dir) constructor

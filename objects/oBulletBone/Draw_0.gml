@@ -1,24 +1,29 @@
-var _color = base_color;
-if type == 1 _color = c_aqua;
-if type == 2 _color = c_orange;
+//Bone coloring
+var _color;
+switch type
+{
+	case 0: _color = base_color;	break;
+	case 1: _color = c_aqua;		break;
+	case 2: _color = c_orange;		break;
+}
 var _x = x,
-	_y = y;
-
-var _angle = image_angle + Axis.angle + Len.angle_extra,
+	_y = y,
+	//Add angle from normal angle and special calculations
+	_angle = image_angle + Axis.angle + Len.angle_extra,
 	_alpha = image_alpha,
 	_length = length / 14,
 	LengthX = length / 2 * dcos(_angle),
 	LengthY = length / 2 * -dsin(_angle);
 
 image_xscale = _length;
-image_yscale = 1;
 
-var _xscale = image_xscale,
-	_yscale = image_yscale,
+var _xscale = _length,
+	_yscale = 1,
 	_color_outline = _color;
 
+//Mask the bone inside the board
 Battle_Masking_Start(true);
-
+//Using image_index in case you are using several indexes for several types of bones
 draw_sprite_ext(sprite_index, image_index, _x, _y, _xscale, _yscale, _angle, _color, _alpha);
 draw_sprite_ext(sprite_index, image_index + 1, _x, _y, _xscale, _yscale, _angle, _color_outline, _alpha);
 
@@ -33,8 +38,7 @@ if global.show_hitbox
 }
 
 //Collision
-if collision_line(x + LengthX, y + LengthY, x - LengthX,y - LengthY, oSoul, 0, 0)
-and image_alpha >= 1
+if collision_line(x + LengthX, y + LengthY, x - LengthX,y - LengthY, oSoul, 0, 0) and image_alpha >= 1
 {
 	var collision = true;
 	if type != 0 and type != 3

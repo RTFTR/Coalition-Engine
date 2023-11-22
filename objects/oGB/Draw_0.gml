@@ -1,8 +1,11 @@
-var color = image_blend,
-	_type = type;
-if type = 1 color = c_aqua;
-if type = 2 color = c_orange;
-if type = 3 color = c_red;
+var color, _type = type;
+switch _type
+{
+	case 0: color = image_blend;	break;
+	case 1: color = c_aqua;			break;
+	case 2: color = c_orange;		break;
+	case 3: color = c_red;			break;
+}
 Battle_Masking_Start(true);
 
 if state = 4
@@ -20,7 +23,7 @@ if state = 4
 	var _blast_timer = timer_blast,
 		_exit_timer = timer_exit,
 		_size = beam_scale;
-	
+	//Sine the beam
 	var beam_siner = sin(_blast_timer / pi) * _size / 4;
 	
 	var rx = 0,

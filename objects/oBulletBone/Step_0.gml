@@ -5,12 +5,15 @@ DurationTimer++;
 len_step();
 axis_step();
 
+//Sets minimal length due to nine-slices drawing
 length = max(14, length);
+//Automatiacally sets the angle of the bone as the direction if needed
 if angle_to_direction
 	image_angle = direction;
-
+//Rotation
 image_angle += rotate;
 
+//Auto sticking to board edges if the bone is not in lening
 if !Len.activate
 {
 	var half_len = length / 2;
@@ -30,7 +33,7 @@ if !Len.activate
 		break
 	}
 }
-
+//Auto destroy when turn ends or duration is met
 if (at_turn_end and length < 11) or (duration != -1 and DurationTimer >= duration)
 	instance_destroy();
 

@@ -4,10 +4,10 @@
     "text": {
         "Font": "fnt_dt_mono",
         "Battle": {
-            "ItemPage": "PAGE %s",
+            "ItemPage": "PAGE {0}",
             "Spare": "* Spare",
             "Flee": "* Flee",
-            "Win": "You WON![delay,333]\n* You earned %s XP and %s gold.",
+            "Win": "You WON![delay,333]\n* You earned {0} XP and {1} gold.",
             "LoveInc": "\n[delay,333]* Your LOVE increased!"
         }
     }

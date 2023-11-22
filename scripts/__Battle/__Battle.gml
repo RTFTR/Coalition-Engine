@@ -7,6 +7,7 @@ function ResetBoard(anglediv = true) {
 	Board.SetPos();
 }
 
+///Sets the box angle, size and position to the default settings for green soul
 function Set_GreenBox()
 {
 	Board.SetAngle();
@@ -14,7 +15,7 @@ function Set_GreenBox()
 	Board.SetPos(320, 240, 20);
 }
 
-///@desc Deals damage to the soul
+///Deals damage to the soul
 ///@param {real} dmg	The Damage to Yellow HP (Default 1)
 ///@param {real} kr		The Damage to Purple KR (Default 1)
 function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
@@ -25,29 +26,35 @@ function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
 		global.inv = global.assign_inv + global.player_inv_boost;
 		global.hp -= dmg;
 		if global.hp > 1 global.kr += kr;
-			
 		if hit_destroy instance_destroy();
 	}
 }
 
 /**
 	Slams the soul to the respective direction and other extra functions
-	@param {real} direction		Which direction the soul will fall in
-	@param {real} fall			The speed of the fall (Optional)
-	@param {bool} hurt			Whether the slam damages the player (Optional)
+	@param {real} direction			Which direction the soul will fall in
+	@param {real} fall				The speed of the fall (Optional)
+	@param {bool} hurt				Whether the slam damages the player (Optional)
+	@param {Asset.GMObject} target	The target enemy to set the slam to (For sprite anim) (Default all)
 */
-function Slam(Direction, move = 20, hurt = false)
+function Slam(Direction, move = 20, hurt = false, target_enemy = oEnemyParent)
 {
 	Direction = posmod(Direction,360);
-	oEnemyParent.Slamming = true;
-	oEnemyParent.SlamDirection = Direction;
+	with target_enemy
+	{
+		if SlammingEnabled
+		{
+			Slamming = true;
+			SlamDirection = Direction;
+		}
+	}
 	Battle_SoulMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
 	with BattleSoulList[TargetSoul]
 	{
 		dir = Direction;
-		image_angle = (Direction + 90) % 360
+		image_angle = posmod(Direction + 90, 360);
 		fall_spd = move;
 		slam = 1;
 	}
@@ -64,8 +71,7 @@ function Battle_Masking_Start(spr = false, board = oBoard) {
 	
 		texture_set_stage(u_mask, surface_get_texture(board.surface));
 		var u_rect = shader_get_uniform(shader, "u_rect"),
-			window_width = 640,
-			window_height = 480;
+			window_width = 640, window_height = 480;
 		shader_set_uniform_f(u_rect, 0, 0, window_width, window_height);
 	}
 }
@@ -77,21 +83,21 @@ function Battle_Masking_End(board = oBoard){
 
 function __Battle() constructor
 {
-	///@desc Gets/Sets the turn of the battle
+	///Gets/Sets the turn of the battle
 	///@param {real} turn The turn to set it to
 	static Turn = function(turn = infinity) {
 		if turn != infinity
 			oBattleController.battle_turn = turn + 1;
 		else return oBattleController.battle_turn - 1;
 	}
-	///@desc Gets/Sets the State of the battle
+	///Gets/Sets the State of the battle
 	///@param {real} state	The state to set it to
 	static State = function(state = infinity) {
 		if state != infinity
 			oBattleController.battle_state = state;
 		else return oBattleController.battle_state;
 	}
-	///@desc Sets the menu dialog of the battle
+	///Sets the menu dialog of the battle
 	///@param {string} text The Menu text
 	static SetMenuDialog = function(text) {
 		with oBattleController
@@ -128,7 +134,7 @@ function __Battle() constructor
 	}
 }
 
-///@desc Sets the sprite of the buttons with external images
+///Sets the sprite of the buttons with external images
 ///@param {string} FileName	Folder name of the sprites (Default Normal)
 ///@param {string} Format	Format of the sprites (Default .png)
 function ButtonSprites(fname = "Normal", format = ".png")

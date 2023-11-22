@@ -1,3 +1,10 @@
+/*
+	Note that the current save system is a tempoary function towards the public
+	and will be a subject to change because nobody wants their game to have a
+	save file that can be easily hacked right?
+*/
+
+
 ///@desc Deletes the current data of the game
 function Delete_Datas()
 {

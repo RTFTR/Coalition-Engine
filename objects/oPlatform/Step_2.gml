@@ -1,3 +1,4 @@
+///@desc Auto destroy
 if destroyable
 {
 	var destroy = false
