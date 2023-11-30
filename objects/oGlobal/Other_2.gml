@@ -8,7 +8,7 @@ window_set_caption("Undertale");
 
 window_center();
 
-room_speed = 60;
+game_set_speed(60, gamespeed_fps);
 
 //room_goto(rIntro);
 //room_goto(room_battle);

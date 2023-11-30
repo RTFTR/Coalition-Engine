@@ -1,80 +1,112 @@
 //All shader related functions goes here
+room_instance_add(room_first, 0, 0, oShaderController);
 /**
-	Creates the effect with the shader given
-	@param {Asset.GMShader} Shader	The shader to use
-	@param {array} Parameter_Values	The name (in string) and value of the uniform parameter ([name, [values]])
-	@param {real} duration The duration of the shader
+	Adds a shader effect, returning the shader ID stored in the controller for
+	declaring params and removing the effect
+	@param {Asset.GMShader}	shader		The shader to add
+	@param {bool} surf					Whether the shader will be applied on a
+										new application_surface or not (Default false)
 */
-function Effect_Shader(shd, uniforms, duration = -1)
+function AddShaderEffect(shader, surf = false)
 {
-	var eff = instance_create_depth(0, 0, -100000, shaderEffect);
-	with eff
-	{
-		duration = duration;
-		effect_shader = shd;
-		array_push(effect_param, uniforms);
-	}
-	return eff;
+	return oShaderController.Main.Add(shader, surf);
 }
-
-///@desc Sets the uniform vars of the given shader, if drawn using Effect_Shader()
-///@param {any} Shader	The name of the shader to apply to or a specific shader effect instance
-///@param {array} Param_values	The name (in string) and values of the uniform variable ([name, [value]])
-function Effect_SetParam(ID, name, val)
+/**
+	Sets the uniform_f values of a shader created using AddShaderEffect()
+	@param {real} ID			The ID of the shader (From AddShaderEffect())
+	@param {string} name		The name of the uniform to set the value of
+	@param {real,array} value	The value or array to set the uniform to
+*/
+function ShaderSetUniform(ID, name, value)
 {
-	var ID_type = asset_get_type(string(ID));
-	if ID_type == asset_shader
+	oShaderController.Main.SetUniform(ID, name, value);
+}
+/**
+	Removes a shader effect added from AddShaderEffect()
+	@param {real} ID	The ID of the shader (From AddShaderEffect())
+*/
+function RemoveShaderEffect(ID)
+{
+	oShaderController.Main.Remove(ID);
+}
+function __Shader() constructor
+{
+	///Initalizes the shader variables
+	static Init = function()
 	{
-		with shaderEffect
+		with oShaderController
 		{
-			if effect_shader == ID
-			{
-				var i = 0, n = array_length(effect_param);
-				repeat n
-				{
-					if effect_param[i][0] == name
-					{
-						effect_param[i][1] = val;
-						return
-					}
-					else i += 2;
-				}
-				//If not set before
-				array_push(effect_param, [name, val]);
-			}
+			//[shader, shader...]
+			ShaderList = [];
+			//[$ param name] = value
+			ShaderParams = [{}];
+			//Whether the shader will be applied on a new application_surface or not (Default false)
+			ShaderApplyToSurface = [];
+			SurfaceList = [];
 		}
 	}
-	else if ID_type == asset_object
+	///Cleans the shader struct of shader parameters
+	static Clean = function()
 	{
-		with ID
+		with oShaderController
 		{
-			var i = 0, n = array_length(effect_param);
+			var i = 0, n = array_length(ShaderParams);
 			repeat n
 			{
-				if effect_param[i][0] == name
-				{
-					effect_param[i][1] = val;
-					return
-				}
-				else i += 2;
+				if array_length(SurfaceList) > 0 && surface_exists(SurfaceList[i]) surface_free(SurfaceList[i]);
+				delete ShaderParams[i++];
 			}
-			//If not set before
-			array_push(effect_param, [name, val]);
 		}
+	}
+	/**
+		Adds a shader effect, returning the shader ID stored in the controller for
+		declaring params and removing the effect
+		@param {Asset.GMShader}	shader		The shader to add
+		@param {bool} surf					Whether the shader will be applied on a
+											new application_surface or not (Default false)
+	*/
+	static Add = function(shader, surf = false)
+	{
+		with oShaderController
+		{
+			array_push(ShaderList, shader);
+			array_push(SurfaceList, surf ? surface_create(640, 480) : -1);
+			array_push(ShaderApplyToSurface, surf);
+			return array_length(ShaderList) - 1;
+		}
+	}
+	/**
+		Sets the uniform_f values of a shader created using .Add()
+		@param {real} ID			The ID of the shader (From .Add())
+		@param {string} name		The name of the uniform to set the value of
+		@param {real,array} value	The value or array to set the uniform to
+	*/
+	static SetUniform = function(ID, name, value)
+	{
+		oShaderController.ShaderParams[ID][$ name] = value;
+	}
+	/**
+		Removes a shader effect added from .Add()
+		@param {real} ID	The ID of the shader (From .Add())
+	*/
+	static Remove = function(ID)
+	{
+		delete oShaderController.ShaderParams[ID];
+		array_delete(oShaderController.ShaderList, ID, 1);
 	}
 }
 
 ///@desc Blurs the screen
 ///@param {real} duration	The duration to blur
-///@param {real} amount		The amount to blur
+///@param {real} amount		The amount to blur 
 function Blur_Screen(duration, amount)
 {
 	var shader_blur = instance_create_depth(0, 0, -1000, blur_shader);
 	with shader_blur
 	{
-		id.duration = duration;            //sets duration
-		var_blur_amount = amount;       //sets blur amount
-		TweenFire(id, EaseOutSine, TWEEN_MODE_ONCE, false, 0, duration, "var_blur_amount", amount, 0);
+		id.duration = duration;		//sets duration
+		var_blur_amount = amount;	//sets blur amount
+		TweenFire(id, "o", 0, false, 0, duration, "var_blur_amount>", 0);
 	}
 	return shader_blur;
 }

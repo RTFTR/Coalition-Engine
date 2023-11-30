@@ -2,7 +2,7 @@ function Initialize()
 {
 	show_debug_message("Coalition Engine: This is version " + ENGINE_VERSION);
 	//Set to true when releasing your game
-	gml_release_mode(true);
+	gml_release_mode(false);
 	randomize();
 	
 	//Soul position (Gameover usage)
@@ -87,12 +87,10 @@ function Initialize()
 		DefenseItem =	global.SaveFile[? "Arm"];
 		Kills =			global.SaveFile[? "Kills"];
 	}
-	ConvertItemNameToStat();
-	Player_GetBaseStats();
 	
 	for (var i = 0; i < 10; i++) {
 		for (var ii = 0; ii < 3; ii++)
-			global.Box[ii, i] = global.SaveFile[? "Box " + string(i) + "_" + string(ii)];
+			global.Box[ii, i] = global.SaveFile[? string("Box {0}_{1}", i, ii)];
 		if i < 8
 		{
 			global.item[i] = global.SaveFile[? ("Item " + string(i))];
@@ -116,12 +114,16 @@ function Initialize()
 	global.enemy_presets = [];
 	//Whether the current fight is a boss fight or not (Engine usage)
 	global.BossFight = false;
-	globalvar BattleData, EnemyData, BoxData, CellData, Board;
+	globalvar BattleData, EnemyData, BoxData, CellData, Board, Camera, Player;
 	BattleData = new __Battle();
 	EnemyData = new Enemy();
 	BoxData = new __Box();
 	CellData = new Cell();
 	Board = new __Board();
+	Camera = new __Camera(); Camera.Init();
+	Player = new __Player();
+	ConvertItemNameToStat();
+	Player.GetBaseStats();
 	//Example on how to set up an ecounter
 	EnemyData.SetEncoutner(,,oEnemySansExample);
 	global.kr = 0;
@@ -166,6 +168,7 @@ function Initialize()
 	
 	//Extras
 	Load3DNodesAndEdges();
+	global.DefaultGPUState = gpu_get_state();
 	
 	//BPM of the song (Rhythm usage)
 	global.SongBPM = 0;

@@ -2,8 +2,8 @@
 function Encounter_Begin(exclaim = true, move = true)
 {
 	//Gets the relative position of the palyer
-	encounter_soul_x = 	(x - camera_get_view_x(view_camera[0])) * oGlobal.camera_scale_x;
-	encounter_soul_y = 	(y - camera_get_view_y(view_camera[0]) - sprite_height / 2) * oGlobal.camera_scale_y;
+	encounter_soul_x = 	(x - camera_get_view_x(view_camera[0])) * oGlobal.MainCamera.Scale[0];
+	encounter_soul_y = 	(y - camera_get_view_y(view_camera[0]) - sprite_height / 2) * oGlobal.MainCamera.Scale[1];
 	encounter_state = 3 - move - exclaim;
 	if encounter_state == 1 audio_play(snd_warning);
 }

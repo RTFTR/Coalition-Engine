@@ -5,13 +5,13 @@
 */
 
 
-///@desc Deletes the current data of the game
+///Deletes the current data of the game
 function Delete_Datas()
 {
 	file_delete("Data.dat");
 }
 
-///@desc Saves tempoary data
+///Saves tempoary data
 ///@param {string} name The name of the slot to be saved
 ///@param value The value of the slot to be saved
 function SetTempData(name, value)
@@ -19,7 +19,7 @@ function SetTempData(name, value)
 	global.TempData[? name] = value;
 }
 
-///@desc Get tempoary data
+///Get tempoary data
 ///@param {string} name The name of the slot to be aquired
 ///@param value The value of the slot to be aquired
 function GetTempData(name)
@@ -27,7 +27,7 @@ function GetTempData(name)
 	return global.TempData[? name];
 }
 
-///@desc Save the current settings of the game
+///Save the current settings of the game
 function Save_Settings()
 {
 	show_debug_message("Settings Saved");
@@ -38,7 +38,7 @@ function Save_Settings()
 	ini_close();
 }
 
-///@desc Load the current settings of the game
+///Load the current settings of the game
 function Load_Settings()
 {
 	show_debug_message("Settings Loaded");
@@ -49,7 +49,7 @@ function Load_Settings()
 	ini_close();
 }
 
-///@desc Deletes the current settings of the game
+///Deletes the current settings of the game
 function Delete_Settings()
 {
 	file_delete("Settings.ini");

@@ -1,7 +1,7 @@
 //Soft reset camera
-Camera_RotateTo(0, 0, 0);
-Camera_Scale(1, 1, 0);
-oGlobal.camera_target = noone;
+Camera.RotateTo(0, 0, 0);
+Camera.Scale(1, 1, 0);
+oGlobal.MainCamera.target = noone;
 depth = 50;
 //Set position
 x = global.soul_x;

@@ -1,5 +1,11 @@
 Update Logs (This is the beta builds)
 
+v5.2.1 (Eden)
+added more comments on codes for better understanding
+converted camera functions into static functions
+new shader drawing method
+optimised some array related codes
+
 v5.2 (Eden + TK)
 converted save point into a seperate object for better user placing
 optimised overworld controller and cleaned its logic
@@ -568,5 +574,4 @@ Added color/retraction to aiming, fixed item text became menu text, added enemy 
 v3.2 (Eden)
 Polished Menu Dialog System, Turn System and gameover
 
-v3.1 (Eden)
-Made Structure of Turn System, Bullet System
+v3

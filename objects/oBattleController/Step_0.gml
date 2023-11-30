@@ -1,3 +1,6 @@
+#region Errors
+if array_length(Button.Sprites) != array_length(Button.Position) / 2 show_error(string("Coalition Engine: Amount of buttons sprites contradict with number of positions. There are {0} sprites but only {1} valid positions", array_length(Button.Sprites), floor(array_length(Button.Position) / 2)), true)
+#endregion
 if !audio_group_is_loaded(audgrpbattle) audio_group_load(audgrpbattle);
 Button.Update();
 var DefaultFontNB = lexicon_text("Font"),
@@ -26,18 +29,18 @@ switch battle_state {
 					audio_play(snd_menu_switch);
 					Button.ResetTimer();
 				}
-			
+				//Soul lerping
 				with oSoul
 				{
 					visible = true;
-					x += ((_button_pos[_button_slot][0] - 47) - x) / 3;
-					y += ((_button_pos[_button_slot][1] + 1) - y) / 3;
+					x += ((_button_pos[_button_slot * 2] - 47) - x) / 3;
+					y += ((_button_pos[_button_slot * 2 + 1] + 1) - y) / 3;
 				}
-
+				//If input is detected, change state to button state
 				if input_confirm {
 					audio_play(snd_menu_confirm);
 					menu_state = _button_slot + 1;
-
+					//If target state is item and there are none left, return
 					if menu_state == MENU_STATE.ITEM and item_space == 0 {
 						menu_state = MENU_STATE.BUTTON_SELECTION;
 						
@@ -50,15 +53,14 @@ switch battle_state {
 			case MENU_STATE.FIGHT:
 			case MENU_STATE.ACT:
 			case MENU_STATE.MERCY:
-				var coord = menu_choice[0],
-					len = 1,
+				var coord = menu_choice[0], len = 1,
 					FightOrAct = is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT);
 				if FightOrAct len = 3 - no_enemy_pos[0];
 				else {
 					coord = menu_choice[3];
 					len = 1 + allow_run;
 				}
-
+				//Change selection
 				if len > 1 {
 					if input_vertical != 0 {
 						coord = posmod(coord + input_vertical, len);
@@ -66,11 +68,12 @@ switch battle_state {
 						audio_play(snd_menu_switch);
 					}
 				}
-			
+				//Return state
 				if input_cancel {
 					menu_choice[0] = 0;
 					menu_state = MENU_STATE.BUTTON_SELECTION;
 				}
+				//Confirm state
 				if input_confirm {
 					audio_play(snd_menu_confirm);
 					if menu_state == MENU_STATE.FIGHT {
@@ -82,21 +85,20 @@ switch battle_state {
 						if instance_exists(oBulletParents) oBulletParents.can_hurt = 0;
 					}
 					if menu_state == MENU_STATE.ACT menu_state = MENU_STATE.ACT_SELECT; // Act Selection
-					if menu_state == MENU_STATE.MERCY {
+					if menu_state == MENU_STATE.MERCY
 						menu_state = MENU_STATE.MERCY_END + coord; // Spare or Flee
-					}
 				}
-
+				//Soul lerping
 				oSoul.x += (72 - oSoul.x) / 3;
 				oSoul.y += (288 + floor(coord) * 32 - oSoul.y) / 3;
 			break
 			case MENU_STATE.ITEM:
 			case MENU_STATE.ACT_SELECT:
-				var choice = menu_choice[6 / menu_state],
-					len = 0;
+				var choice = menu_choice[6 / menu_state], len = 0;
 				if menu_state == 3 {
-					var i = 0;
-					repeat(array_length(global.item))
+					//Get valid item amount
+					var i = 0, n = array_length(global.item);
+					repeat n
 					{
 						if global.item[i] != 0 len++;
 						i++;
@@ -104,10 +106,11 @@ switch battle_state {
 				}
 				else
 				{
+					//Get valid act options
 					for (var i = 0, n = min(6, array_length(enemy_act[target_option])); i < n; i++)
-						if enemy_act[target_option, i] != ""
-							len++;
+						if enemy_act[target_option, i] != "" len++;
 				}
+				//Change selection
 				if len > 1 {
 					if menu_state == MENU_STATE.ACT_SELECT {
 						if input_horizontal != 0 {
@@ -156,7 +159,7 @@ switch battle_state {
 
 					}
 				}
-
+				//Soul lerping
 				if menu_state == MENU_STATE.ITEM {
 					switch item_scroll_type {
 						case ITEM_SCROLL.DEFAULT:
@@ -190,11 +193,11 @@ switch battle_state {
 
 					}
 				} else {
-					item_desc_alpha = lerp(item_desc_alpha, 0, 1/3);
+					item_desc_alpha = lerp(item_desc_alpha, 0, 1 / 3);
 					oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
 					oSoul.y += ((288 + ((floor(choice / 2)) * 32)) - oSoul.y) / 3;
 				}
-
+				//Confirm state
 				if input_confirm {
 					oSoul.visible = false;
 					audio_play(snd_menu_confirm);
@@ -220,6 +223,7 @@ switch battle_state {
 						last_choice = 1;
 					}
 				}
+				//Return to menu
 				if input_cancel {
 					choice = 0;
 					if menu_state == MENU_STATE.ITEM {
@@ -233,6 +237,7 @@ switch battle_state {
 				}
 			break
 			case MENU_STATE.MERCY_END:
+				//Activate turn if needed
 				begin_spare(activate_turn[3]);
 			break
 			case MENU_STATE.FLEE:
@@ -249,48 +254,46 @@ switch battle_state {
 				}
 			break
 		}
+		//Soul angle lerping
 		var target_soul_angle = 0;
-		if (menu_state == MENU_STATE.FIGHT or
-			menu_state == MENU_STATE.ACT or
+		if (menu_state == MENU_STATE.FIGHT or menu_state == MENU_STATE.ACT or
 			(menu_state == MENU_STATE.ITEM and item_scroll_type != ITEM_SCROLL.CIRCLE
 								and item_scroll_type != ITEM_SCROLL.HORIZONTAL) or
-			menu_state == MENU_STATE.MERCY or
-			menu_state == MENU_STATE.ACT_SELECT)
+			menu_state == MENU_STATE.MERCY or menu_state == MENU_STATE.ACT_SELECT)
 			target_soul_angle = 90;
 		oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
 	break
+	//Reset menu text typer
 	case BATTLE_STATE.DIALOG:
 		menu_text_typist.reset();
 		if !menu_text_typist.get_paused() menu_text_typist.pause();
-	break
 	case BATTLE_STATE.IN_TURN:
-		menu_text_typist.reset();
-		if !menu_text_typist.get_paused() menu_text_typist.pause();
 		oSoul.visible = true;
 	break
 }
-if Target.buffer > -1 Target.buffer--;
-if Target.WaitTime > 0 Target.WaitTime--;
-if Target.WaitTime == 0 {
-	Target.state = 3;
-	oSoul.visible = true;
-	Target.WaitTime = -1;
+with Target
+{
+	if buffer > -1 buffer--;
+	if WaitTime > 0 WaitTime--;
+	if WaitTime == 0 {
+		state = 3;
+		oSoul.visible = true;
+		WaitTime = -1;
+	}
 }
 
 //Debug
 if global.debug {
 	var game_speed = game_get_speed(gamespeed_fps);
 	if keyboard_check(vk_rshift) {
-		if game_speed() > 5 {
+		if game_speed > 5 {
 			game_set_speed(game_speed + 5 * input_horizontal, gamespeed_fps);
 		}
 	if keyboard_check(ord("R")) game_set_speed(60, gamespeed_fps);
 	if keyboard_check(ord("F")) game_set_speed(600, gamespeed_fps);
 	}
-	if battle_state == 0 and keyboard_check(vk_control) {
-		battle_turn += input_horizontal;
-		battle_turn = max(0, battle_turn);
-	}
+	if battle_state == 0 and keyboard_check(vk_control)
+		battle_turn = max(0, battle_turn + input_horizontal);
 	if global.hp <= 1 {
 		global.hp = global.hp_max;
 		audio_play(snd_item_heal);

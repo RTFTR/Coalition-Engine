@@ -1,6 +1,5 @@
 //Modified Siki's bone cube codes
-for(var  i = 0; i < 3; ++i)
-	angles[i] += angleAdd[i];
+for(var  i = 0; i < 3; ++i) angles[i] += angleAdd[i];
 update_vert();
 var i = 0, out_cnt = 0, n = array_length(edge_list);
 repeat n

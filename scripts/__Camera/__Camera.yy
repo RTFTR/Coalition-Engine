@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "Player",
+  "name": "__Camera",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Coalition Engine/Scripts.yy",
+    "name": "Special Scripts",
+    "path": "folders/Coalition Engine/Scripts/Special Scripts.yy",
   },
 }

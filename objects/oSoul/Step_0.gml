@@ -157,7 +157,7 @@ if STATE == 2 {
 			if _on_ground or _on_platform or (_fall_spd < 0 and _on_ceil) {
 				if slam {
 					slam = false;
-					Camera_Shake(global.slam_power / 2);
+					Camera.Shake(global.slam_power / 2);
 					if global.slam_damage {
 						global.hp = global.hp > 1 ? global.hp-- : 1;
 					}
@@ -341,8 +341,8 @@ if STATE == 2 {
 	
 		//Check if the soul is allowed to go outside the screen
 		if !allow_outside {
-			x = clamp(x, oGlobal.camera_x + x_offset, oGlobal.camera_x + 640 - x_offset);
-			y = clamp(y, oGlobal.camera_y + y_offset, oGlobal.camera_y + 480 - y_offset);
+			x = clamp(x, oGlobal.MainCamera.x + x_offset, oGlobal.MainCamera.x + 640 - x_offset);
+			y = clamp(y, oGlobal.MainCamera.y + y_offset, oGlobal.MainCamera.y + 480 - y_offset);
 		}
 	}
 	

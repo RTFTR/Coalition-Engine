@@ -9,4 +9,4 @@ instance_create_depth(48, 454, -1, oSoul);
 Enemy_Function_Load();
 if ALLOW_DEBUG
 	global.debug = false;
-oGlobal.camera_target = noone;
+oGlobal.MainCamera.target = noone;

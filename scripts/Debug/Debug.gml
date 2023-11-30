@@ -1,4 +1,4 @@
-///@desc Shows the hitbox of the object (by it's sprite collision box)
+///Shows the hitbox of the object (by it's sprite collision box)
 ///@param {color} Color	The color of the collision box
 function show_hitbox(col = c_white)
 {
@@ -13,7 +13,7 @@ function show_hitbox(col = c_white)
 }
 
 ///Feather ignore all
-///@desc Draws the debug UI with respect to the room you are in (by checking the controller isntance)
+///Draws the debug UI with respect to the room you are in (by checking the controller isntance)
 function DrawDebugUI()
 {
 	static draw_debug_color_text = function(x, y, text)
@@ -34,13 +34,8 @@ function DrawDebugUI()
 		gpu_set_blendmode(bm_add);
 		if !global.CompatibilityMode
 		{
-			var ca = global.timer,
-				dis = dcos(global.timer * 3) * 20,
-				color = [
-					c_red,
-					c_lime,
-					c_blue
-				];
+			var ca = global.timer, dis = dcos(global.timer * 3) * 20;
+			static color = [c_red, c_lime, c_blue];
 			for (var i = 0; i < 3; ++i)
 				draw_text_ext_transformed_color(ui_x - 245 - dsin(ca - i * 120) * dis, ui_y + dcos(ca - i * 120) * dis, "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
 		}
@@ -56,13 +51,11 @@ function DrawDebugUI()
 	elif instance_exists(oOWController)
 	{
 		gpu_set_blendmode(bm_add);
-		var mx = window_mouse_get_x(),
-			my = window_mouse_get_y();
+		var mx = window_mouse_get_x(), my = window_mouse_get_y();
 		draw_debug_color_text(5, 5, string("Char Position : {0}, {1}", oOWPlayer.x, oOWPlayer.y));
 		draw_debug_color_text(5, 25, string("Mouse Position : {0}, {1}", mx, my));
 		draw_debug_color_text(5, 45, string("Camera Position : {0}, {1}", camera_get_view_x(view_camera[0]), camera_get_view_y(view_camera[1])));
-		var inst = instance_position(mouse_x, mouse_y, all),
-			inst_name = "";
+		var inst = instance_position(mouse_x, mouse_y, all), inst_name = "";
 
 		//Naming
 		if inst != noone

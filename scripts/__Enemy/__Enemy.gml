@@ -1,4 +1,4 @@
-///@desc Loads the datas of an encounter that you have stored in this script
+///Loads the datas of an encounter that you have stored in this script
 ///@param {real} encounter_number Loads the data of the argument
 function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 	enemy = array_create(3, noone);
@@ -44,12 +44,9 @@ function Enemy_Function_Load(encounter_number = global.battle_encounter) {
 			enemy_act[i] = [""];
 		}
 	}
-	Enemy_NameUpdate();
 }
 
-function Enemy_NameUpdate() {}
-
-
+///Enemy data
 function Enemy() constructor
 {
 	/**

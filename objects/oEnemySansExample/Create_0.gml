@@ -65,7 +65,8 @@ dodge_method = function()
 }
 
 surf = -1;
-//Effect_Shader(shdBlueReduce, ["reduceAmount", [0.25]]);
+
+//ShaderSetUniform(AddShaderEffect(shdBlueReduce), "reduceAmount", 0.4);
 
 var text;
 for(var i = 0; i < 12; i++)
@@ -94,20 +95,24 @@ SetAttack(1, function() {
 	if time == 120 end_turn();
 });
 
-AddGPU(id, ev_draw, bm_max, function() {
-	draw_gradient_ext(0, 480, 640, 240, 0, c_red);
-});
-AddGPU(id, ev_draw, bm_max, function() {
-	draw_gradient_ext(640, 480, 480, 160, 90, c_aqua);
-});
-AddGPU(id, ev_draw, bm_max, function() {
-	draw_gradient_ext(640, 0, 640, 240, 180, c_yellow);
-});
-var tmp =
-AddGPU(id, ev_draw, bm_max, function() {
-	draw_gradient_ext(0, 0, 480, 160, -90, c_white);
-});
-GPURemove(tmp);
-AddGPUExt(id, ev_draw, bm_inv_dest_color, bm_zero, function() {
-	draw_circle(mouse_x, mouse_y, 50, false);
-});
+//AddGPU(id, ev_draw_normal, bm_max, function() {
+//	draw_gradient_ext(0, 480, 640, 240, 0, c_red);
+//});
+//AddGPU(id, ev_draw_normal, bm_max, function() {
+//	draw_gradient_ext(640, 480, 480, 160, 90, c_aqua);
+//});
+//var tmp =
+//AddGPU(id, ev_draw_normal, bm_max, function() {
+//	draw_gradient_ext(0, 0, 480, 160, -90, c_white);
+//});
+//AddGPU(id, ev_draw_normal, bm_max, function() {
+//	draw_gradient_ext(640, 0, 640, 240, 180, c_yellow);
+//});
+//GPURemove(tmp);
+////AddGPUExt(id, ev_draw_normal, bm_inv_dest_color, bm_zero, function() {
+////	draw_circle(mouse_x, mouse_y, 50, false);
+////});
+//draw_set_circle_precision(64);
+//AddGPU(id, ev_draw_normal, bm_add, function() {
+//	draw_circle_color(mouse_x, mouse_y, 120, c_purple, c_black, false);
+//});

@@ -1,7 +1,7 @@
 ///@desc Sets the Mode of the Soul (Macros are given, i.e. SOUL_MODE.RED)
 ///@param {real} mode	The mode of the soul to set to
 ///@param {bool} effect	Whether to create the soul effect or not (Default True)
-function Battle_SoulMode(soul_mode, effect = true)
+function SoulSetMode(soul_mode, effect = true)
 {
 	with BattleSoulList[TargetSoul]
 	{
@@ -22,7 +22,7 @@ function Battle_SoulMode(soul_mode, effect = true)
 			case SOUL_MODE.PURPLE:		Blend = c_purple;	break
 			case SOUL_MODE.CYAN:		Blend = c_aqua;		break
 		}
-		TweenEasyBlend(curBle, Blend, 0, 15, EaseLinear);
+		TweenEasyBlend(curBle, Blend, 0, 15, "");
 		mode = soul_mode;
 		alarm[0] = effect;
 	}
@@ -30,13 +30,13 @@ function Battle_SoulMode(soul_mode, effect = true)
 
 /**
 	Sets the position of the soul, can choose to animate the position
-	@param {real} target_x	The target X position
-	@param {real} target_y	The target Y position
-	@param {real} duration	The duration of the Anim (Default 0, which is instant movement)
-	@param {function} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
-	@param {real} delay		The delay of executing the Anim (Default 0)
+	@param {real} target_x			The target X position
+	@param {real} target_y			The target Y position
+	@param {real} duration			The duration of the Anim (Default 0, which is instant movement)
+	@param {function,string} Easing	The Tween Ease of the Animation (Use TweenGMS structs, i.e. EaseOutQuad, Default EaseLinear)
+	@param {real} delay				The delay of executing the Anim (Default 0)
 */
-function SetSoulPos(target_x, target_y, duration = 0, Easing = EaseLinear, delay = 0)
+function SetSoulPos(target_x, target_y, duration = 0, Easing = "", delay = 0)
 {
 	with BattleSoulList[TargetSoul]
 		TweenEasyMove(x, y, target_x, target_y, delay, duration, Easing);

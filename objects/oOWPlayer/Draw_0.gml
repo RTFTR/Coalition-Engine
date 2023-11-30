@@ -15,7 +15,7 @@ var input_horizontal = CHECK_HORIZONTAL,
 //	{
 //		Move_Noise();
 //		draw_menu = !draw_menu; menu_choice[0] = 0;
-//		soul_target[1] = (y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * oGlobal.camera_scale_y;
+//		soul_target[1] = (y - camera_get_view_y(view_camera[0]) - sprite_get_height(sprite_index)/2) * oGlobal.MainCamera.Scale[1];
 //		menu_state = 0;
 //	}
 

@@ -1,1 +1,1 @@
-GPU.Execute(ev_gui_end);
+GPU.Execute();

@@ -8,7 +8,7 @@ TurnCreate(0, 0, 30, function() {
 	Make_Platform(200, 330, 2, 0, 40);
 });
 TurnCreate(0, 1, 75, function() {
-	Battle_SoulMode(SOUL_MODE.RED);
+	SoulSetMode(SOUL_MODE.RED);
 });
 TurnCreate(0, 2, 120, function() {
 	for (var i = 45; i <= 315; i += 90)
@@ -26,7 +26,7 @@ TurnCreate(0, 4, 220, function() {
 #region Turn 1 Orange Soul
 TurnCreate(1, 0, 30, function() {
 	{
-		Battle_SoulMode(SOUL_MODE.ORANGE);
+		SoulSetMode(SOUL_MODE.ORANGE);
 		TweenFire(oGlobal, EaseOutQuart, TWEEN_MODE_ONCE, false, 0, 300, "camera_angle", 0, 360)
 	}
 });
@@ -60,7 +60,7 @@ TurnCreate(2, 1, 40, function() {
 }, 15, 40)
 #endregion
 #region Turn 3 Axis bone
-TurnCreate(3, 0, 1, function() {Battle_SoulMode(SOUL_MODE.RED)});
+TurnCreate(3, 0, 1, function() {SoulSetMode(SOUL_MODE.RED)});
 TurnCreate(3, 1, 30, function() {
 	Set_BoardAngle(360,290);
 	for(var i = 0; i < 50; i++)
@@ -93,7 +93,7 @@ TurnCreate(4, 4, 100, function() {
 #endregion
 #region Turn 5 Corridor Axis
 TurnCreate(5, 0, 30, function() {
-	Battle_SoulMode(SOUL_MODE.RED);
+	SoulSetMode(SOUL_MODE.RED);
 	Set_BoardSize(70, 70, 450, 450, 90, EaseLinear);
 });
 TurnCreate(5, 1, 120, function() {
@@ -113,7 +113,7 @@ TurnCreate(5, 1, 120, function() {
 #endregion
 #region Turn 6 Board Cover
 TurnCreate(6, 0, 30, function() {
-	Battle_SoulMode(SOUL_MODE.YELLOW)
+	SoulSetMode(SOUL_MODE.YELLOW)
 	with instance_create_depth(360,320,0,oBoardCover) {
 		up = irandom_range(10,20);
 		down = irandom_range(10,20);
@@ -140,12 +140,12 @@ TurnCreate(6, 2, 599, function() {
 #endregion
 #region Turn 7 Purple Soul
 TurnCreate(7, 0, 1, function() {
-	Battle_SoulMode(SOUL_MODE.PURPLE);
+	SoulSetMode(SOUL_MODE.PURPLE);
 });
 #endregion
 #region Turn 8 Test
 TurnCreate(8, 0, 1, function() {
-	Battle_SoulMode(SOUL_MODE.BLUE);
+	SoulSetMode(SOUL_MODE.BLUE);
 });
 TurnCreate(8, 1, 75, function() {
 	var a = Bullet_Bone(320, 410, 0, 0, 0, 0),

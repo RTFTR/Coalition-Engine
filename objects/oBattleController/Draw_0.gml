@@ -11,15 +11,16 @@ if battle_state == BATTLE_STATE.MENU {
 	if menu_choice[0] >= no_enemy_pos[0] target_option += ncontains_enemy;
 
 	if menu_state == MENU_STATE.BUTTON_SELECTION or menu_state == -1 {
+		//Initalize menu text typer
 		__text_writer.starting_format(DefaultFontNB, c_white)
 		__text_writer.draw(52, 272, menu_text_typist)
-
-
+		//Set the skip function of the menu text typer
 		if input_cancel and global.TextSkipEnabled
 		{
 			__text_writer.page(__text_writer.get_page_count() - 1);
 			menu_text_typist.skip();
 		}
+		//Proceed page
 		if menu_text_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
 			__text_writer.page(__text_writer.get_page() + 1)
 		if menu_state == -1 and menu_text_typist.get_state() == 1 {
@@ -29,21 +30,22 @@ if battle_state == BATTLE_STATE.MENU {
 
 	if is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT) // Fight - Act
 	{
-		var decrease_y = 0, i = 0;
-		repeat(array_length(enemy_name)) // Draw enemy hp bar in Fight state
+		var decrease_y = 0, i = 0, n = array_length(enemy_name);
+		repeat n // Draw enemy hp bar in Fight state
 		{
 			var _enemy_name = string(enemy_name[i]) + enemy_name_extra[i];
 			if instance_exists(enemy[i]) // Check if the enemy slot is valid before name drawing
 			{
+				//If the enemy can be spared, set the name to the global spare color
 				var spare_col = "[c_white]";
 				if enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
-					draw_text_scribble(96, 272 + (32 * i) - decrease_y, string("{0}{1}* {2}", spare_col, DefaultFont, _enemy_name));
+				draw_text_scribble(96, 272 + (32 * i) - decrease_y, string("{0}{1}* {2}", spare_col, DefaultFont, _enemy_name));
+				//Draw HP bar
 				var xwrite = 450;
 				if menu_state == MENU_STATE.FIGHT and enemy_draw_hp_bar[i] == 1 {
 					decrease_y -= 32;
 					draw_set_color(c_red);
-					var lineheight = 32,
-						y_start = 247,
+					var lineheight = 32, y_start = 247,
 						remaining_hp_width = xwrite + ((enemy_hp[i] / enemy_hp_max[i]) * 100);
 					//Background
 					draw_rectangle(remaining_hp_width, y_start + (i * lineheight) - decrease_y, xwrite + 100, y_start + (i * lineheight) + 17 - decrease_y, false);
@@ -60,20 +62,19 @@ if battle_state == BATTLE_STATE.MENU {
 	if menu_state == MENU_STATE.ITEM // Item list
 	{
 		Item_Info_Load();
-		var coord = menu_choice[2],
-			c_div = floor(coord / 4),
-			itm_ln = item_space,
-			_coord = c_div * 4;
+		var coord = menu_choice[2], c_div = floor(coord / 4),
+			itm_ln = item_space, _coord = c_div * 4;
 		switch item_scroll_type
 		{
 			case ITEM_SCROLL.DEFAULT:
+			//Item name text
 			for (var i = 0, n = min(4, itm_ln - _coord); i < n; ++i) {
 				var xx = (64 + ((i % 2) * 256)) + 32,
 					yy = 272 + (floor(i / 2) * 32);
-				draw_text_scribble(xx, yy, DefaultFont + "* " + item_name[i + _coord]);
+				draw_text_scribble(xx, yy, string("{0}* {1}", DefaultFont, item_name[i + _coord]));
 			}
 			// Heal text and Page
-			draw_text_scribble(128, 341, DefaultFont + "[c_lime](+" + string(item_heal[coord]) + ")");
+			draw_text_scribble(128, 341, string("{0}[c_lime](+{1})", DefaultFont, item_heal[coord]));
 			draw_text_scribble(384, 341, DefaultFont + lexicon_text("Battle.ItemPage", string(c_div + 1)));
 			break
 			
@@ -114,15 +115,15 @@ if battle_state == BATTLE_STATE.MENU {
 		}
 	}
 	if menu_state == MENU_STATE.MERCY {
-		// Sets the color of Spare
+		//Sets the color of Spare
 		i = 0;
-		var spare_col = "[c_white]";
-		repeat(array_length(enemy)) {
-			if enemy[i] != noone
-				if enemy[i].enemy_is_spareable
-					spare_col = global.SpareTextColor;
-			i++;
+		var spare_col = "[c_white]", n = array_length(enemy);
+		repeat n
+		{
+			if enemy[i] != noone and enemy[i].enemy_is_spareable spare_col = global.SpareTextColor;
+			++i;
 		}
+		//Draw spare text, flee if needed
 		draw_text_scribble(96, 272, spare_col + DefaultFont + lexicon_text("Battle.Spare") + (allow_run ? "[c_white]\n" + lexicon_text("Battle.Flee") : ""));
 	}
 	if menu_state == MENU_STATE.ACT_SELECT // Draw Act Texts
@@ -131,10 +132,10 @@ if battle_state == BATTLE_STATE.MENU {
 		repeat n
 		{
 			var assign_act_text = enemy_act[target_option, i];
-			if assign_act_text != ""
-				enemy_check_texts += "* " + assign_act_text;
+			if assign_act_text != "" enemy_check_texts += "* " + assign_act_text;
 			if (i % 2) enemy_check_texts += "\n";
 			else
+				//Add spacing for the act options
 				repeat(14 - string_length(enemy_act[target_option, i]))
 					enemy_check_texts += " ";
 			++i;
@@ -166,26 +167,29 @@ if battle_state == BATTLE_STATE.MENU {
 				if _target_state < 3 {
 					if _target_state == 1 {
 						_target_time += 6.4;
+						//Dynamic bar color blend
 						var _aim_distance = abs(320 - _aim_target_x);
 						_aim_color = make_color_rgb(255, 255, clamp(_aim_distance, 0, 255));
-						
+						//Reset menu state if there are no input pressed
 						if _target_time >= 575 {
 							menu_state = 0;
 							_target_state = 3;
 							battle_state = 0;
 						}
-						else if input_confirm and Target.buffer < 0 {
+						//If an input is pressed
+						elif input_confirm and Target.buffer < 0 {
 							battle_turn++;
 							Target.buffer = 3;
 							_target_state = 2;
 							if _aim_distance < 15
 							{
+								//Blurs screen if it is a critical attack
 								if !global.CompatibilityMode
 									Blur_Screen(45, 25 - _aim_distance);
 							}
-						
+							
 							Target.WaitTime = 60;
-
+							//Set the respective enemy as being attacked
 							var strike_target_x = 160 * (target_option + 1);
 							enemy[target_option].is_being_attacked = true;
 							Calculate_MenuDamage(_aim_distance, target_option);
@@ -196,15 +200,14 @@ if battle_state == BATTLE_STATE.MENU {
 					else _target_frame += 0.2;
 				}
 				else {
+					//Retraction
 					_target_alpha -= 0.04;
 					if _target_retract_method == 0 _target_xscale -= 0.03;
-					if _target_retract_method == 0 _target_xscale -= 0.03;
 					else _target_yscale -= 0.03;
-
 					if _aim_scale > 0 _aim_scale -= 0.075;
 					else _aim_scale = 0;
 					_aim_angle += _aim_retract * 3;
-
+					//Begin enemy dialog when the target is retracted
 					if _target_xscale < 0.08 or _target_yscale < 0.08 {
 						_target_state = 0;
 						dialog_start();
@@ -593,10 +596,10 @@ var _button_spr =	Button.Sprites,
 	_button_color = Button.Color,
 	_button_angle = Button.Angle,
 	_state =		menu_state,
-	_menu =			menu_button_choice;
-	i = 0;
+	_menu =			menu_button_choice,
+	i = 0, n = array_length(_button_spr);
 
-repeat(array_length(_button_spr)) // Button initialize
+repeat n // Button initialize
 {
 	// Check if the button is chosen
 	var select = (_menu == i) and _state >= 0;
@@ -605,10 +608,10 @@ repeat(array_length(_button_spr)) // Button initialize
 	if Button.BackgroundCover
 	{
 		shader_set(shdBlackMask); //Prevent background covers the buttons
-		draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], c_white, .5 - _button_alpha[i] / 2);
+		draw_sprite_ext(_button_spr[i], select, _button_pos[i * 2], _button_pos[i * 2 + 1], _button_scale[i], _button_scale[i], _button_angle[i], c_white, .5 - _button_alpha[i] / 2);
 		shader_reset();
 	}
-	draw_sprite_ext(_button_spr[i], select, _button_pos[i][0], _button_pos[i][1], _button_scale[i], _button_scale[i], _button_angle[i], _button_color[i], _button_alpha[i]);
+	draw_sprite_ext(_button_spr[i], select, _button_pos[i * 2], _button_pos[i * 2 + 1], _button_scale[i], _button_scale[i], _button_angle[i], _button_color[i], _button_alpha[i]);
 
 	// Animation - Color updating in real-time because yes
 	if (_state >= 0) {
@@ -631,6 +634,7 @@ repeat(array_length(_button_spr)) // Button initialize
 	}
 	++i;
 }
+//Draws a rectangle to cover the button in the board if needed
 if board_cover_button {
 	Battle_Masking_Start(true);
 	var board = oBoard;
@@ -647,25 +651,19 @@ if board_cover_button {
 		name_x =			ui_x - 245,
 		name_y =			ui_y,
 		name =				global.data.name,
-		default_col =		c_white,//make_color_rgb(27, 25, 26),
+		default_col =		c_white,
 		name_col =			c_white,
 		lv_col =			c_white,
-		lv_counter_col =	c_white,//make_color_rgb(27, 25, 26),
-		hp_max_col =		c_red,//merge_color(c_red, c_maroon, 0.5),
+		lv_counter_col =	c_white,
+		hp_max_col =		c_red,
 		hp_col =			c_yellow,
 		kr_col =			c_fuchsia,
-		krr_col =			c_white,//make_color_rgb(27, 25, 26),
-		hp_pre_col =		c_lime,//merge_color(c_lime, c_white, 0.25),
+		krr_col =			c_white,
+		hp_pre_col =		c_lime,
 		bar_multiplier =	1.2, //Default multiplier from UNDERTALE
 		hp_text =			"HP",
 		kr_text =			"KR",
 		_alpha =			ui_alpha;
-		
-		//name_col =		make_color_rgb(27, 25, 26);
-		//lv_col =			make_color_rgb(27, 25, 26);
-		//hp_max_col =		make_color_rgb(100, 100, 100);
-		//hp_col =			make_color_rgb(47, 47, 47);
-		//kr_col =			make_color_rgb(27, 25, 26);
 
 	// Linear health updating / higher refill_speed = faster refill / max refill_speed is 1
 	hp += (global.hp - hp) * refill_speed;
@@ -765,7 +763,7 @@ if board_cover_button {
 draw_set_color(c_white);
 draw_set_alpha(1);
 #endregion
-
+//Draws a rectangle to cover the hp bar in the board if needed
 if board_cover_hp_bar {
 	Battle_Masking_Start(true);
 	var board = oBoard;

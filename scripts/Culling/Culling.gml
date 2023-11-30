@@ -3,7 +3,7 @@
 	so the player can't see them load/unload, but still maintaining performance
 */
 
-///@desc Culls every isntance of the given object if it's outside the view
+///Culls every isntance of the given object if it's outside the view
 ///@param {Asset.GMObject} object
 function CullObject(object) {
 	with object {
@@ -31,7 +31,7 @@ function CullObject(object) {
 	}
 }
 
-///@desc Checks for all currently culled instances to see if they are now in view
+///Checks for all currently culled instances to see if they are now in view
 function ProcessCulls() {
 	var i = 0;
 	repeat ds_list_size(global.deactivatedInstances) {

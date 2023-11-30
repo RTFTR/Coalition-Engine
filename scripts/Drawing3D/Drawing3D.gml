@@ -86,7 +86,6 @@ function Load3DNodesAndEdges()
 */
 function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _width, _edge_circ = true)
 {
-	
 	//No you cant preset them in global.Nodes because it will live update and making it go crazy
 	var nodes =
 		[

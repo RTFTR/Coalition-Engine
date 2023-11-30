@@ -1,6 +1,6 @@
 /**
-	@desc Creates a text writer to you don't have to spam scribble_typist() and scribble()
-			and returns them in an array of [0] - typist, [1] - scribble
+	Creates a text writer to you don't have to spam scribble_typist() and scribble()
+	and returns them in an array of [0] - typist, [1] - scribble
 	@param {real} x The x position of the typer
 	@param {real} y The y position of the typer
 	@param {string} text	The text to draw (You can add scribble formats of [])

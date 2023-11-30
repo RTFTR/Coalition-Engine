@@ -1,5 +1,5 @@
 ///@desc Encounter begin drawing
-var _camScaleX = oGlobal.camera_scale_x, _camScaleY = oGlobal.camera_scale_y;
+var _camScaleX = oGlobal.MainCamera.Scale[0], _camScaleY = oGlobal.MainCamera.Scale[1];
 if encounter_draw[0] draw_clear(c_black);
 if encounter_draw[1] draw_sprite_ext(sprite_index, image_index,
 					(x - camera_get_view_x(view_camera[0])) * _camScaleX,

@@ -79,7 +79,7 @@ if state == 4
 	{
 		if _yscale > 1
 		{
-			Camera_Shake(5 * _yscale);
+			Camera.Shake(5 * _yscale);
 			if blurring	Blur_Screen(time_blast, _yscale);
 		}
 		if global.RGBBlaster

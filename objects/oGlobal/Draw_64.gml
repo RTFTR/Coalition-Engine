@@ -8,9 +8,7 @@ if RGBShake
 	{
 		//Extra surface drawing (has shadow)
 		case 0:
-			RGBSurf.Start();
-			draw_surface(application_surface, 0, 0);
-			RGBSurf.Finish();
+			RGBSurf = CanvasGetAppSurf(true);
 			draw_clear(c_black);
 			gpu_set_blendmode(bm_add);
 			RGBSurf.DrawExt(random_range(-RGBShake, RGBShake), random_range(-RGBShake, RGBShake), 1, 1, 0, c_red, 1);
@@ -42,10 +40,7 @@ with Song
 	{
 		if (room == room_gameover && Time < 180) Time = 180;
 		Time++;
-		var Text = "Now Playing: " + Name,
-			Length = string_width(Text),
-			Height = string_height(Text),
-			dist = Dist;
+		var Text = "Now Playing: " + Name, Length = string_width(Text), Height = string_height(Text), dist = Dist;
 		draw_rectangle_color(dist - 10, 10, dist - Length - 20, 30 + Height, c_teal, c_purple,
 							c_purple, c_teal, false);
 		draw_triangle_color(dist - 11, 10, dist + 20, (35 + Height) / 2, dist - 11, 30 + Height,

@@ -1,5 +1,5 @@
 //Data
-Camera_Scale(1, 1);
+Camera.Scale(1, 1);
 enemy_name = "";
 enemy_act = array_create(5, "");
 enemy_act_text = array_create(5, "");

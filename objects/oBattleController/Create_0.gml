@@ -131,20 +131,21 @@ Button = {};
 with Button
 {
 	Sprites			= [sprButtonFight, sprButtonAct, sprButtonItem, sprButtonMercy];
-	Position		= [[87, 453], [240, 453], [400, 453], [555, 453]];
-	Alpha			= array_create(4, 0.25);
-	OverrideAlpha	= array_create(4, 1);
-	Scale			= array_create(4, 1);
+	Position		= [87, 453, 240, 453, 400, 453, 555, 453];
+	var DefaultButtonAmount = array_length(Sprites);
+	Alpha			= array_create(DefaultButtonAmount, 0.25);
+	OverrideAlpha	= array_create(DefaultButtonAmount, 1);
+	Scale			= array_create(DefaultButtonAmount, 1);
 	DefaultColor	= make_color_rgb(242, 101, 34);
-	Color			= array_create(4, DefaultColor); //rgb
-	Angle			= array_create(4, 0);
+	Color			= array_create(DefaultButtonAmount, DefaultColor); //rgb
+	Angle			= array_create(DefaultButtonAmount, 0);
 	AlphaTarget		= [0.25, 1];
 	ScaleTarget		= [1, 1.2];
-	ColorTarget		= array_create(4, [DefaultColor, c_yellow]);
+	ColorTarget		= array_create(DefaultButtonAmount, [DefaultColor, c_yellow]);
 	BackgroundCover = false;
-	ColorLerpScale	= array_create(4, 0);
+	ColorLerpScale	= array_create(DefaultButtonAmount, 0);
 	ResetTimer		= function() {
-		ColorLerpTimer = array_create(4, 0);
+		ColorLerpTimer = array_create(array_length(oBattleController.Button.Sprites), 0);
 	}
 	ResetTimer();
 }
@@ -171,9 +172,12 @@ Button.Update = function(duration = 30) {
 }
 #endregion
 #region UI Functions
-debug = false;
-debug_alpha = 0;
-ca = 0;
+if DEBUG
+{
+	debug = false;
+	debug_alpha = 0;
+	ca = 0;
+}
 ui_x = 275;
 ui_y = 400;
 ui_alpha = 1;
@@ -343,7 +347,7 @@ function end_battle() {
 	battle_state = 3;
 	if !global.BossFight {
 		battle_end_text = lexicon_text("Battle.Win", string(Result.Exp), string(Result.Gold));
-		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player_GetExpNext() {
+		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player.GetExpNext() {
 			global.data.lv++;
 			var maxhp = (global.hp == global.hp_max);
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);

@@ -39,7 +39,7 @@ function Soul_Hurt(dmg = global.damage, kr = global.krdamage)
 */
 function Slam(Direction, move = 20, hurt = false, target_enemy = oEnemyParent)
 {
-	Direction = posmod(Direction,360);
+	Direction = posmod(Direction, 360);
 	with target_enemy
 	{
 		if SlammingEnabled
@@ -48,7 +48,7 @@ function Slam(Direction, move = 20, hurt = false, target_enemy = oEnemyParent)
 			SlamDirection = Direction;
 		}
 	}
-	Battle_SoulMode(SOUL_MODE.BLUE);
+	SoulSetMode(SOUL_MODE.BLUE);
 	global.slam_power = move;
 	global.slam_damage = hurt;
 	with BattleSoulList[TargetSoul]
@@ -60,15 +60,17 @@ function Slam(Direction, move = 20, hurt = false, target_enemy = oEnemyParent)
 	}
 }
 
-function Battle_Masking_Start(spr = false, board = oBoard) {
-	if oGlobal.camera_enable_z exit;
+///Begins the drawing of board masking
+///@param {bool} sprite					Whether a sprite used for masking
+///@param {Asset.GMObject,Array} board	Which board to mask in
+function Battle_Masking_Start(spr = false, board = undefined) {
+	board ??= BattleBoardList[TargetBoard];
+	if oGlobal.MainCamera.enable_z exit;
 	if instance_exists(board) and depth >= board.depth
 	{
 		var shader = spr ? shdClipMaskSpr : shdClipMask;
-	
 		shader_set(shader);
 		var u_mask = shader_get_sampler_index(shader, "u_mask");
-	
 		texture_set_stage(u_mask, surface_get_texture(board.surface));
 		var u_rect = shader_get_uniform(shader, "u_rect"),
 			window_width = 640, window_height = 480;
@@ -76,11 +78,15 @@ function Battle_Masking_Start(spr = false, board = oBoard) {
 	}
 }
 
-function Battle_Masking_End(board = oBoard){
-	if oGlobal.camera_enable_z exit;
+///Ends the masked drawing
+///@param {Asset.GMObject,Array} board	Which board that was used to mask in
+function Battle_Masking_End(board = undefined){
+	board ??= BattleBoardList[TargetBoard];
+	if oGlobal.MainCamera.enable_z exit;
 	if instance_exists(board) shader_reset();
 }
 
+///Battle data
 function __Battle() constructor
 {
 	///Gets/Sets the turn of the battle

@@ -1,16 +1,15 @@
 /**
-	@desc Draws a rectagle with given width and color
-	@param {real} x1 The x coordinate of the top left coordinate of the rectangle
-	@param {real} y1 The y coordinate of the top left coordinate of the rectangle
-	@param {real} x2 The x coordinate of the bottom right coordinate of the rectangle
-	@param {real} y2 The y coordinate of the bottom right coordinate of the rectangle
-	@param {real} width	The width of the outline of the rectangle (Default 1)
-	@param {color} color The color of the rectangle (Default white)
-	@param {bool} full	Whether the rectangle is a semi-round angled rectangle or a full right-angled rectangle (Default former)
+	Draws a rectagle with given width and color
+	@param {real} x1		The x coordinate of the top left coordinate of the rectangle
+	@param {real} y1		The y coordinate of the top left coordinate of the rectangle
+	@param {real} x2		The x coordinate of the bottom right coordinate of the rectangle
+	@param {real} y2		The y coordinate of the bottom right coordinate of the rectangle
+	@param {real} width		The width of the outline of the rectangle (Default 1)
+	@param {color} color	The color of the rectangle (Default white)
+	@param {bool} full		Whether the rectangle is a semi-round angled rectangle or a full right-angled rectangle (Default former)
 */
 function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full = false) {
-	var dis = real(full) * width / 2,
-		prev_col = draw_get_color();
+	var dis = real(full) * width / 2, prev_col = draw_get_color();
 	draw_set_color(color);
 	draw_line_width(x1 - dis, y1, x2 + dis, y1, width);
 	draw_line_width(x1 - dis, y2, x2 + dis, y2, width);
@@ -19,23 +18,22 @@ function draw_rectangle_width(x1, y1, x2, y2, width = 1, color = c_white, full =
 	draw_set_color(prev_col);
 }
 /**
-	@desc Draws a rectangle with a outline color and background color
+	Draws a rectangle with a outline color and background color
 	@param {real} x1							The x coordinate of the top left coordinate of the rectangle
 	@param {real} y1							The y coordinate of the top left coordinate of the rectangle
 	@param {real} x2							The x coordinate of the bottom right coordinate of the rectangle
 	@param {real} y2							The y coordinate of the bottom right coordinate of the rectangle
 	@param {real} width							The width of the outline of the rectangle (Default 1)
-	@param {color} outline_color		The color of the outline of the rectangle (Default white)
+	@param {color} outline_color				The color of the outline of the rectangle (Default white)
 	@param {real} outline_alpha					The alpha of the outline (Default 1)
-	@param {color} background_color	The color of the background of the rectangle (Default black)
+	@param {color} background_color				The color of the background of the rectangle (Default black)
 	@param {real} background_alpha				The alpha of the background (Default 1)
 	@param {bool} full							Whether the rectangle is a semi-round angled rectangle
 												or a full right-angled rectangle (Default former)
 */
 function draw_rectangle_width_background(x1, y1, x2, y2, width = 1, ocolor = c_white, oalpha = 1, bcolor = c_black, balpha = 1, full = false) {
 	if !full && oalpha != 1 && balpha != 1 {
-		var al = draw_get_alpha(),
-			col = draw_get_color();
+		var al = draw_get_alpha(), col = draw_get_color();
 		draw_set_alpha(balpha);
 		draw_set_color(bcolor);
 		draw_rectangle(x1, y1, x2, y2, false);
@@ -92,16 +90,16 @@ function draw_circular_bar(x, y, value, max, colour, radius, transparency, width
 	}
 }
 /**
-	@desc Draws a gradient effect using shader (you need to manuall add bm_add to apply for the gradient effect, QuickGPU can help)
-	@param {real} x X position of the bottom left corner
-	@param {real} y Y position of the bottom right corner
-	@param {real} width The width of the gradient
-	@param {real} height The default height of the gradient
-	@param {real} angle The angle of the gradient
-	@param {color} color The color of the gradient
-	@param {function} move The funciton to use to move the gradient (Default dsin)
+	Draws a gradient effect using shader (you need to manually add bm_add to apply for the gradient effect, QuickGPU can help)
+	@param {real} x			X position of the bottom left corner
+	@param {real} y			Y position of the bottom right corner
+	@param {real} width		The width of the gradient
+	@param {real} height	The default height of the gradient
+	@param {real} angle		The angle of the gradient
+	@param {color} color	The color of the gradient
+	@param {function} move	The funciton to use to move the gradient (Default dsin)
 	@param {real} intensity The intensity of the gradient (How many pixels will it move +/-)
-	@param {real} rate The rate of the movement (Multiplies to the function declared in 'move')
+	@param {real} rate		The rate of the movement (Multiplies to the function declared in 'move')
 */
 function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, color = c_white, move = dsin, intensity = 20, rate = 1) {
 	static displace = 0;
@@ -111,14 +109,14 @@ function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, 
 	height += displace;
 	oGlobal.GradientSurf.DrawExt(x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
 }
-///@desc Sets the noise sprite to use for a noise fade
+///Sets the noise sprite to use for a noise fade
 function SpriteNoiseSet(sprite = sprNoiseRect) constructor {
 	NoiseSprite = sprite;
 	NoiseTexture = sprite_get_texture(sprite, 0);
 	Noiseuvs = texture_get_uvs(NoiseTexture);
 }
 /**
-	@desc Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite if the duration is reached)
+	Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite if the duration is reached)
 	@param {Asset.sprite} sprite		The sprite to draw
 	@param {real} subimg				The subimg of the sprite
 	@param {real} x						The x position of the sprite to draw
@@ -151,7 +149,7 @@ function draw_noise_fade_sprite(sprite, subimg, x, y, time, duration, noise_spri
 	else draw_sprite(sprite, subimg, x, y);
 }
 /**
-	@desc Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite_ext if the duration is reached)
+	Draws a sprite with a noise fade in (Will automatically convert to normal draw_sprite_ext if the duration is reached)
 	@param {Asset.sprite} sprite		The sprite to draw
 	@param {real} subimg				The subimg of the sprite
 	@param {real} x						The x position of the sprite to draw
@@ -159,7 +157,7 @@ function draw_noise_fade_sprite(sprite, subimg, x, y, time, duration, noise_spri
 	@param {real} xscale				The xscale of the sprite to draw
 	@param {real} yscale				The yscale of the sprite to draw
 	@param {real} rot					The rotation of the sprite to draw
-	@param {color} col			The color of the sprite to draw
+	@param {color} col					The color of the sprite to draw
 	@param {real} time					The time of the noise fade (The value of this needs to change constantly)
 	@param {real} duration				The total duration of the fade in
 	@param {Asset.sprite} noise_sprite	The noise sprite to use (It has to be a sprite of a noise)
@@ -186,7 +184,7 @@ function draw_noise_fade_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, c
 	else draw_sprite_ext(sprite, subimg, x, y, xscale, yscale, rot, col, 1);
 }
 /**
-	@desc Draws an rectangle with the colors inverted inside of it
+	Draws an rectangle with the colors inverted inside of it
 	@param {real} x1	The top left x position of the rectangle
 	@param {real} y1	The top left y position of the rectangle
 	@param {real} x2	The bottom right x position of the rectangle
@@ -198,7 +196,7 @@ function draw_invert_rect(x1, y1, x2, y2) {
 	gpu_set_blendmode(bm_normal);
 }
 /**
-	@desc Draws an triangle with the colors inverted inside of it
+	Draws an triangle with the colors inverted inside of it
 	@param {real} x1	The x coordinate of the triangle's first corner
 	@param {real} y1	The y coordinate of the triangle's first corner
 	@param {real} x2	The x coordinate of the triangle's secpnd corner
@@ -212,7 +210,7 @@ function draw_invert_triangle(x1, y1, x2, y2, x3, y3) {
 	gpu_set_blendmode(bm_normal);
 }
 /**
-	@desc Draws an circle with the colors inverted inside of it
+	Draws an circle with the colors inverted inside of it
 	@param {real} x		 The top left x position of the circle
 	@param {real} y		 The top left y position of the circle
 	@param {real} radius The radius of the circle
@@ -223,13 +221,12 @@ function draw_invert_cricle(x, y, radius) {
 	gpu_set_blendmode(bm_normal);
 }
 /**
-	@desc Draws an polygon with the colors inverted inside of it, make sure the points are in a clockwise/anticlockwise order or else there will be visual bugs (no auto sort for now)
+	Draws an polygon with the colors inverted inside of it, make sure the points are in a clockwise/anticlockwise order or else there will be visual bugs (no auto sort for now)
 	@param {Array<Array<Real>>} Vertexes	The vertexes of the polygon in the form of [[x1, y1], [x2, y2]...]
 */
 function draw_invert_polygon(vertexes) {
 	gpu_set_blendmode_ext(bm_inv_dest_color, bm_zero);
-	var i = 1,
-		n = array_length(vertexes) - 2;
+	var i = 1, n = array_length(vertexes) - 2;
 	repeat n
 	{
 		draw_triangle(vertexes[0][0], vertexes[0][1], vertexes[i][0], vertexes[i][1],
@@ -246,7 +243,6 @@ function draw_invert_polygon(vertexes) {
 	@param {real} line_end_x	The ending x position of the line
 	@param {real} line_end_y	The ending y position of the line
 	@param {real} offset		The displacement of the splice
-	@returns {real}
 */
 function __cut_screen(line_start_x, line_start_y, line_end_x, line_end_y, offset) {
 	var true_line_start = [line_start_x / 640, line_start_y / 480],
@@ -302,7 +298,7 @@ function draw_sprite_tiled_area(sprite, subimg, xx, yy, x1, y1, x2, y2) {
 	@param {real} y2				The y coordinate of the bottom right corner of the rectangle
 	@param {real} xscale			The xscale of the sprite
 	@param {real} yscale			The yscale of the sprite
-	@param {color} color	The color of the sprite
+	@param {color} color			The color of the sprite
 	@param {real} alpha				The alpha of the sprite
 */
 function draw_sprite_tiled_area_ext(sprite, subimg, xx, yy, x1, y1, x2, y2, xscale, yscale, color, alpha) {
@@ -324,4 +320,9 @@ function draw_sprite_tiled_area_ext(sprite, subimg, xx, yy, x1, y1, x2, y2, xsca
 		}
 		j = jj;
 	}
+}
+
+///Resets the GPU state to default
+function reset_gpu_state() {
+	gpu_set_state(global.DefaultGPUState);
 }

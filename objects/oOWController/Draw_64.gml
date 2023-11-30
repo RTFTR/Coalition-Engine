@@ -198,7 +198,7 @@ if is_saving
 				draw_text(216, ui_box_y + 183, "AT " + string(global.player_base_atk) + " (" + string(global.player_attack) + ")");
 				draw_text(216, ui_box_y + 215, "DF " + string(global.player_base_def) + " (" + string(global.player_def) + ")");
 				draw_text(384, ui_box_y + 183, "EXP: " + string(global.data.Exp));
-				draw_text(384, ui_box_y + 215, "NEXT: " + string(Player_GetExpNext()));
+				draw_text(384, ui_box_y + 215, "NEXT: " + string(Player.GetExpNext()));
 				draw_text(216, ui_box_y + 273, "WEAPON: " + string(global.data.AttackItem));
 				draw_text(216, ui_box_y + 305, "ARMOR: " + string(global.data.DefenseItem));
 				draw_text(216, ui_box_y + 347, "GOLD: " + gold);

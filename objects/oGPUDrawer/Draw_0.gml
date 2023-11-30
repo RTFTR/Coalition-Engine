@@ -1,1 +1,1 @@
-GPU.Execute(ev_draw);
+GPU.Execute();

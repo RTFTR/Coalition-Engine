@@ -37,7 +37,7 @@ function OW_Dialog(text, font = "fnt_dt_mono", char_sound = snd_txtTyper, top_bo
 	}
 }
 
-///@desc Start an option
+///Start an option
 function Option()
 {
 	oOWController.dialog_exists = true;
@@ -95,7 +95,7 @@ function Dialog_BeginOption(question, option_texts, event, font = "fnt_dt_mono",
 
 #region Tile Collision
 /**
-	@description Checks whether an object position is colliding with a tile (Rectangle collision)
+	Checks whether an object position is colliding with a tile (Rectangle collision)
 	@param {real} x The object x
 	@param {real} y The object y
 	@param {string} layer The tile layer name
@@ -120,7 +120,7 @@ function tile_meeting(_x, _y, _layer) {
 }
 
 /**
-	@description Checks whether an object position is colliding with a tile (Precise collision)
+	Checks whether an object position is colliding with a tile (Precise collision)
 	@param {real} x The object x
 	@param {real} y The object y
 	@param {string} layer The tile layer name

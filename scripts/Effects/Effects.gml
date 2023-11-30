@@ -1,10 +1,10 @@
 /**
 	Fades the screen
-	@param {real}  start			The beginning alpha of the fader (0 = screen visible, 1 = screen not visible)
-	@param {real}  target			The ending alpha of the fader (0 = screen visible, 1 = screen not visible)
-	@param {real}  duration			The time the fader fades from start to end
-	@param {real}  delay			The delay for the fader to fade (Default 0)
-	@param {color} color	The color of the fader (Default current color)
+	@param {real}  start		The beginning alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  target		The ending alpha of the fader (0 = screen visible, 1 = screen not visible)
+	@param {real}  duration		The time the fader fades from start to end
+	@param {real}  delay		The delay for the fader to fade (Default 0)
+	@param {color} color		The color of the fader (Default current color)
 */
 function Fader_Fade(start = oGlobal.fader_alpha, target, duration, delay = 0, color = oGlobal.fader_color)
 {
@@ -32,25 +32,23 @@ function Fader_Fade_InOut(start = oGlobal.fader_alpha, target, final, in_dur, du
 	}
 }
 
+//Fades the screen using custom methods (probably for cutscenes in the overworld)
 function Fade_Out(mode = FADE.CIRCLE, duration = 30, delay = 60)
 {
 	with oGlobal.Fade
 	{
-		Activate[mode, 0] = true;
-		Activate[mode, 1] = duration;
-		Activate[mode, 2] = delay;
+		Activate[mode][0] = true;
+		Activate[mode][1] = duration;
+		Activate[mode][2] = delay;
 	}
 }
 
-///@desc Creates a motion blur of a sprite
+///Creates a motion blur of a sprite
 ///@param {real} length	The length of the blur
 ///@param {real} direction	The direction of the blur
 function motion_blur(length, direction){
     if (length > 0) {
-		var step, dir, px, py, a;
-        step = 3;
-        px = dcos(direction);
-        py = -dsin(direction);
+		var step = 3, dir, px = dcos(direction), py = -dsin(direction), a;
  
         a = image_alpha / (length / step);
         if (a >= 1) {
@@ -70,25 +68,22 @@ function motion_blur(length, direction){
 }
 
 /**
-	@desc Creates a motion blur of a sprite
-	@param {real} sprite			The sprite to blur
-	@param {real} subimg			The image index of the sprite
-	@param {real} x					The x position
-	@param {real} y					The y position
-	@param {real} xscale			The xscale of the sprite
-	@param {real} yscale			The yscale of the sprite
-	@param {real} angle				The angle fo the sprite
+	Creates a motion blur of a sprite
+	@param {real} sprite	The sprite to blur
+	@param {real} subimg	The image index of the sprite
+	@param {real} x			The x position
+	@param {real} y			The y position
+	@param {real} xscale	The xscale of the sprite
+	@param {real} yscale	The yscale of the sprite
+	@param {real} angle		The angle fo the sprite
 	@param {color} blend	The image blend of the sprite
-	@param {real} alpha				The alpha of the sprite
-	@param {real} length			The	length of the blur
-	@param {real} direction			The direction of the blur
+	@param {real} alpha		The alpha of the sprite
+	@param {real} length	The	length of the blur
+	@param {real} direction	The direction of the blur
 */
 function motion_blur_ext(sprite, subimg, xx, yy, xscale, yscale, angle, blend, alpha, length, direction) {
     if (length > 0) {
-		var step, dir, px, py, a;
-        step = 3;
-        px = dcos(direction);
-        py = -dsin(direction);
+		var step = 3, dir, px = dcos(direction), py = -dsin(direction), a;
  
         a = image_alpha / (length / step);
         if (a >= 1) {

@@ -1,8 +1,7 @@
-var i = 0;
-repeat(array_length(edge_list))
+var i = 0, n = array_length(edge_list);
+repeat n
 {
-	var _prop = edge_list[i],
-		_bone = _prop[2];
+	var _prop = edge_list[i], _bone = _prop[2];
 	if instance_exists(_bone) instance_destroy();
 	i++;
 }

@@ -1,3 +1,4 @@
+///Board data
 function __Board() constructor {
 	/**
 		Gets the x position of the board
