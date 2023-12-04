@@ -32,6 +32,9 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 **You are on the Stable branch. Although The features that we consider them to be completly done on programming, There could be still some unexpected problems. If you found it, Let us know in our Discord server. The invitation link is at the bottom.**
 
+# Read Before Downloading:
+Note that branches may contain code that conflict each other, so if you want to change branches, i.e. changing from Stable to Bleeding Edge, you must either remove the current folder on your PC completely or download the BE branch in a seperate folder to prevent such code conflicts.
+
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
 ## Project Founder:
