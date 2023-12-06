@@ -1,5 +1,19 @@
 Update Logs (This is the beta builds)
 
+v5.2.2 (Eden)
+Fixed bugs:
+Len of bullets are not functioning properly
+Blaster won't create properly
+Enemy_NameUpdate() is called but the script doesn't exist
+Bone collision is a 1 pixel line instead of a 5 pixel line
+Menu text is not reset properly after acting/using an item
+Battle controller detects the incorrect amonut of enemies on menu
+Bone wall on the left and right side has incorrect drawing size
+Enemy sprites are not reset to default after slamming animation ended
+New features:
+New script for creating blaster circles
+New error logging function for some commonly encountered errors
+
 v5.2.1 (Eden)
 added more comments on codes for better understanding
 converted camera functions into static functions

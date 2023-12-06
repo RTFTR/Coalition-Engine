@@ -24,7 +24,11 @@ if battle_state == BATTLE_STATE.MENU {
 		if menu_text_typist.get_state() == 1 and __text_writer.get_page() < (__text_writer.get_page_count() - 1)
 			__text_writer.page(__text_writer.get_page() + 1)
 		if menu_state == -1 and menu_text_typist.get_state() == 1 {
-			if input_confirm begin_turn();
+			if input_confirm
+			{
+				BattleData.SetMenuDialog(default_menu_text);
+				begin_turn();
+			}
 		}
 	}
 

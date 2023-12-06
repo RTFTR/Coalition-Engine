@@ -28,8 +28,7 @@ function end_turn()
 	//Armor healing
 	if (turn % 2) == 1
 	{
-		if global.data.DefenseItem == "Temmie Armor" or
-			global.data.DefenseItem == "Stained Apron"
+		if is_val(global.data.DefenseItem, "Temmie Armor", "Stained Apron")
 		{
 			global.hp++;
 			audio_play(snd_item_heal);
@@ -47,7 +46,7 @@ function end_turn()
 			at_turn_end = true;
 			destroy_on_turn_end = false;
 			can_hurt = 0;
-			TweenFire(id, EaseLinear, TWEEN_MODE_ONCE, false, 0, 25, "length", length, 10);
+			TweenFire(id, "", 0, false, 0, 25, "length>", 10);
 			alarm[1] = 25;
 		}
 	with oBulletParents
@@ -55,7 +54,6 @@ function end_turn()
 	state = 0;
 	draw_damage = false;
 	time = -1;
-	Enemy_NameUpdate();
 	//Code to prevent crash
 	array_push(dialog_text, "");
 	dialog_init(dialog_text[turn + 1]);

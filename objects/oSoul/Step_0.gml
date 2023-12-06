@@ -56,8 +56,7 @@ if STATE == 2 {
 
 		case SOUL_MODE.BLUE : {
 			dir %= 360;
-			image_angle = dir + 90;
-			image_angle %= 360;
+			image_angle = (dir + 90) % 360;
 
 			var _on_ground = false,
 				_on_ceil = false,
@@ -99,7 +98,7 @@ if STATE == 2 {
 					_on_ceil = r_y >= board_bottom_limit - 0.1;
 				}
 
-				platform_check[1] = [y_offset - 1, -y_offset];
+				platform_check[1] = [-10, -y_offset];
 				
 
 				jump_input = input_check("down");
@@ -111,18 +110,18 @@ if STATE == 2 {
 					_on_ceil = r_x <= board_left_limit + 0.1;
 				}
 
-				platform_check[0] = [x_offset - 1, -x_offset];
+				platform_check[0] = [x_offset + 1, -x_offset];
 
 				jump_input = input_check("left");
 				move_input = v_spd * -move_spd;
 			}
-			if _angle == 270 or _angle == -90 {
+			if _angle == 270 {
 				if check_board {
 					_on_ground = r_x <= board_left_limit + 0.1;
 					_on_ceil = r_x >= board_right_limit - 0.1;
 				}
 
-				platform_check[0] = [x_offset + 1, x_offset];
+				platform_check[0] = [-10, x_offset];
 
 				jump_input = input_check("right");
 				move_input = v_spd * move_spd;

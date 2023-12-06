@@ -34,8 +34,8 @@ function len_step()
 			y += vspeed;
 		    dir += dir_move;
 		    len += speed;
-		    x = x + len * dcos(dir);  
-		    y = y + len * -dsin(dir);
+		    other.x = x + len * dcos(dir);  
+		    other.y = y + len * -dsin(dir);
 		    if angle other.image_angle += dir_move;
 		}
 	}

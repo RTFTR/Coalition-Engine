@@ -100,10 +100,10 @@ if active
 		
 		if _dir == DIR.LEFT or _dir == DIR.RIGHT
 		{
-			pos[0] = dir == DIR.LEFT ? _x - _height / 14 + 6 : _x - _height + 6;
-			pos[1] = dir != DIR.LEFT ? _x + _height / 14 - 6 : _x + _height - 6;
+			pos[0] = dir == DIR.LEFT ? _x - _height / 14 + 10 : _x - _height + 10;
+			pos[1] = dir != DIR.LEFT ? _x + _height / 14 - 10 : _x + _height - 10;
 			_angle = dir == DIR.LEFT ? 0 : 180;
-			var tar_x = mean(pos[0], pos[1]), tar_scale = (_height + 12) / 14;
+			var tar_x = mean(pos[0], pos[1]), tar_scale = (_height + 20) / 14;
 			for (var i = board_u - spacing; i < board_d + spacing; i += spacing)
 			{
 				draw_sprite_ext(sprite, index, tar_x, i, tar_scale, 1, _angle, color, _alpha);

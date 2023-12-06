@@ -1,11 +1,13 @@
+var _button_len = array_length(Button.Sprites);
 #region Errors
-if array_length(Button.Sprites) != array_length(Button.Position) / 2 show_error(string("Coalition Engine: Amount of buttons sprites contradict with number of positions. There are {0} sprites but only {1} valid positions", array_length(Button.Sprites), floor(array_length(Button.Position) / 2)), true)
+__CoalitionEngineError(_button_len != array_length(Button.Position) / 2 , string("Amount of buttons sprites contradict with number of positions. There are {0} sprites but only {1} valid positions", _button_len, floor(array_length(Button.Position) / 2)));
+__CoalitionEngineError(!is_struct(menu_text_typist), "'menu_text_typist' is not a scribble typist. Check if you accidentally set it to something else")
 #endregion
 if !audio_group_is_loaded(audgrpbattle) audio_group_load(audgrpbattle);
 Button.Update();
 var DefaultFontNB = lexicon_text("Font"),
-	DefaultFont = "[" + DefaultFontNB + "]";	
-var input_horizontal = PRESS_HORIZONTAL,
+	DefaultFont = "[" + DefaultFontNB + "]",
+	input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
 	input_confirm = PRESS_CONFIRM,
 	input_cancel = PRESS_CANCEL;
@@ -19,8 +21,7 @@ switch battle_state {
 	case BATTLE_STATE.MENU:
 		switch menu_state {
 			case MENU_STATE.BUTTON_SELECTION:
-				var _button_len = array_length(Button.Sprites),
-					_button_pos = Button.Position,
+				var _button_pos = Button.Position,
 					_button_slot = menu_button_choice;
 
 				if input_horizontal != 0 {
@@ -33,7 +34,7 @@ switch battle_state {
 				with oSoul
 				{
 					visible = true;
-					x += ((_button_pos[_button_slot * 2] - 47) - x) / 3;
+					x += (_button_pos[_button_slot * 2] - sprite_get_width(other.Button.Sprites[_button_slot]) * other.Button.Scale[_button_slot] / 2 + 20 - x) / 3;
 					y += ((_button_pos[_button_slot * 2 + 1] + 1) - y) / 3;
 				}
 				//If input is detected, change state to button state
@@ -55,7 +56,7 @@ switch battle_state {
 			case MENU_STATE.MERCY:
 				var coord = menu_choice[0], len = 1,
 					FightOrAct = is_val(menu_state, MENU_STATE.FIGHT, MENU_STATE.ACT);
-				if FightOrAct len = 3 - no_enemy_pos[0];
+				if FightOrAct len = instance_number(oEnemyParent);
 				else {
 					coord = menu_choice[3];
 					len = 1 + allow_run;

@@ -38,13 +38,17 @@ if global.show_hitbox
 }
 
 //Collision
-if collision_line(x + LengthX, y + LengthY, x - LengthX,y - LengthY, oSoul, 0, 0) and image_alpha >= 1
+for(var i = -2.5; i < 2.5; i++)
 {
-	var collision = true;
-	if type != 0 and type != 3
+	if image_alpha < 1 continue;
+	if collision_line(x + LengthX + lengthdir_x(i, image_angle + 90), y + LengthY + lengthdir_y(i, image_angle + 90), x - LengthX + lengthdir_x(i, image_angle + 90), y - LengthY + lengthdir_y(i, image_angle + 90), oSoul, 0, 0)
 	{
-		collision = IsSoulMoving();
-		collision = (type == 1 ? collision : !collision);
+		var collision = true;
+		if type != 0 and type != 3
+		{
+			collision = IsSoulMoving();
+			collision = (type == 1 ? collision : !collision);
+		}
+		if collision Soul_Hurt(damage);
 	}
-	if collision Soul_Hurt(damage);
 }

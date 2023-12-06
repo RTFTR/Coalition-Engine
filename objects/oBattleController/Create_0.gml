@@ -191,7 +191,6 @@ hp_predict = 0;
 board_cover_hp_bar = false;
 board_cover_button = false;
 board_full_cover = false;
-item_scroll_type = ITEM_SCROLL.VERTICAL;
 item_scroll_type = ITEM_SCROLL.DEFAULT;
 item_scroll_alpha = array_create(3, 0.5);
 item_lerp_x = array_create(8, 0);
@@ -349,10 +348,10 @@ function end_battle() {
 		battle_end_text = lexicon_text("Battle.Win", string(Result.Exp), string(Result.Gold));
 		if global.data.lv < 20 and global.data.Exp + Result.Exp >= Player.GetExpNext() {
 			global.data.lv++;
-			var maxhp = (global.hp == global.hp_max);
+			var is_maxhp = (global.hp == global.hp_max);
 			global.hp_max = (global.data.lv = 20 ? 99 : global.data.lv * 4 + 16);
-			if maxhp global.hp = global.hp_max
-				battle_end_text += lexicon_text("Battle.LoveInc");
+			if is_maxhp global.hp = global.hp_max;
+			battle_end_text += lexicon_text("Battle.LoveInc");
 			audio_play(snd_level_up);
 		}
 		battle_end_text_writer = scribble("* " + battle_end_text);
@@ -383,7 +382,7 @@ ncontains_enemy = 0;
 function check_contain_enemy() {
 	ncontains_enemy = 0;
 	for (var i = 0; i < 2; i++) {
-		if enemy[i] == noone {
+		if !instance_exists(enemy[i]) {
 			ncontains_enemy++;
 			array_push(no_enemy_pos, i);
 		}

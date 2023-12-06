@@ -84,3 +84,14 @@ function DrawDebugUI()
 	draw_set_alpha(1);
 	draw_set_color(c_white);
 }
+
+/**
+	Engine internal error log function to let you see what went wrong
+	@param {bool} check		The statement to check whether there is an error or not
+	@param {string} text	The return string of the error
+*/
+function __CoalitionEngineError(check, text)
+{
+	if !ERROR_LOG exit;
+	if check show_error("Coalition Engine: " + text, true);
+}

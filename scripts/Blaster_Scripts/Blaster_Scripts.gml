@@ -1,6 +1,6 @@
 //feather ignore all
 /**
-	Creates a Blaster with given parameters
+	@desc Creates a Blaster with given parameters
 	@param {real} x				The x position of the blaster when created
 	@param {real} y				The y position of the blaster when created
 	@param {real} target_x		The target x position of the blaster
@@ -17,7 +17,8 @@
 	@param {bool} create_sound	Whether the creation sound plays (Default true)
 	@param {bool} release_sound	Whether the firing sound plays (Default true)
 */
-function CreateBlaster(x, y, t_x, t_y, i_angle = t_angle + choose(180, -180), t_angle, s_x, s_y, move, pause, dur, col = 0, blur = false, c_sound = true, r_sound = true) {
+function CreateBlaster(x, y, t_x, t_y, i_angle = undefined, t_angle, s_x, s_y, move, pause, dur, col = 0, blur = false, c_sound = true, r_sound = true) {
+	i_angle ??= t_angle + choose(180, -180);
 	var blaster = instance_create_depth(x, y, -1000, oGB);
 	with blaster
 	{
@@ -40,3 +41,24 @@ function CreateBlaster(x, y, t_x, t_y, i_angle = t_angle + choose(180, -180), t_
 	return blaster;
 }
 
+
+/**
+	Creates a blaster in a blaster circle
+	@param {real} x				The x position of the center of the circle
+	@param {real} y				The y position of the center of the circle
+	@param {real} len_start		The beginning distance between the blaster to the center
+	@param {real} len_end		The target distance between the blaster and the center
+	@param {real} dir_start		The intial direction of the blaster
+	@param {real} dir			The target direction of the blaster
+	@param {real} scale_x		The x scale of the blaster
+	@param {real} scale_y		The y scale of the blaster
+	@param {real} move			The move time of the blaster
+	@param {real} pause			The pause time of the blaster before it shoots after it finished moving
+	@param {real} duration		The duration of the blast
+*/
+function CreateBlasterCircle(x, y, len_start, len_end, dir_start = undefined, dir, scale_x, scale_y, move, pause, dur) {
+	var xs = x + lengthdir_x(len_start, dir), ys = y + lengthdir_y(len_start, dir),
+		xe = x + lengthdir_x(len_end, dir),   ye = y + lengthdir_y(len_end, dir),
+		ang = point_direction(xe, ye, x, y);
+	CreateBlaster(xs, ys, xe, ye, dir_start, ang, scale_x, scale_y, move, pause, dur);
+}

@@ -1,8 +1,9 @@
 #region Engine
-//Here are the macros for the engine
-#macro ENGINE_VERSION "Beta v5.2.1"
+//Here are the macros for the en2ine
+#macro ENGINE_VERSION "Beta v5.2.2"
 #macro ALLOW_DEBUG  true
 #macro DEBUG (ALLOW_DEBUG ? true : false)
+#macro ERROR_LOG true
 #endregion
 #region Input
 //Here are the macros for handy input code
