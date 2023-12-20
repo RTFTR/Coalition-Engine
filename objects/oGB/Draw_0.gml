@@ -35,17 +35,17 @@ if state = 4
 		sinx = -dsin(image_angle);
 	draw_set_color(color);
 	//Thickest line (Further)
-	var xs = 35 * _xscale * cosx,
-		ys = 35 * _xscale * sinx,
-		xe = (1200 + _end_point) * cosx,
-		ye = (1200 + _end_point) * sinx;
+	var xs = lengthdir_x(35 * _xscale, image_angle),
+		ys = lengthdir_y(35 * _xscale, image_angle),
+		xe = lengthdir_x(1200 + _end_point, image_angle),
+		ye = lengthdir_y(1200 + _end_point, image_angle);
 	
 	draw_line_width(x + xs + rx, y + ys + ry, x + xe + rx, y + ye + ry, _size + beam_siner);
 	//Thinner lines (Closer)
-	var xa = 25 * _xscale * cosx,
-		ya = 25 * _xscale * sinx,
-		xb = 30 * _xscale * cosx,
-		yb = 30 * _xscale * sinx;
+	var xa = lengthdir_x(25 * _xscale, image_angle),
+		ya = lengthdir_y(25 * _xscale, image_angle),
+		xb = lengthdir_x(30 * _xscale, image_angle),
+		yb = lengthdir_y(30 * _xscale, image_angle);
 	
 	draw_line_width(x + xs + rx, y + ys + ry, x + xa + rx, y + ya + ry, (_size / 2) + beam_siner);
 	draw_line_width(x + xs + rx, y + ys + ry, x + xb + rx, y + yb + ry, (_size / 1.25) + beam_siner);

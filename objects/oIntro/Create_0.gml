@@ -1,6 +1,6 @@
 audio_play(snd_logo);
 hint = 0;
-TweenFire(self, EaseLinear, TWEEN_MODE_ONCE, false, 119, 1, "hint", 0, 1);
+TweenFire(self, "", 0, 0, 119, 1, "hint>", 1);
 y = 0;
 
 //instance_create_depth(0,0,1,RainbowFuture);

@@ -42,7 +42,7 @@ function AddGPUExt(obj = oGPUDrawer, event = event_number, blendmode_src, blendm
 ///@param {real} ID			The ID of the function to remove (Get from .Add*())
 function GPURemove(ID)
 {
-	with oGPUDrawer GPU.Remove(ID);
+	oGPUDrawer.GPU.Remove(ID);
 }
 #endregion
 
@@ -111,6 +111,7 @@ function GPU_DRAW() : __GPU_EVENT_BASE() constructor
 	///@param {Constant.EventType} event	The draw event to execute in
 	static Execute = function(event = event_number)
 	{
+		//var t0 = get_timer();
 		gpu_push_state();
 		//Basically I looped through all possible combinations for blendmode_ext
 		//And there are 121 combinations in ext so here we are at 250 loops in total...
@@ -207,6 +208,7 @@ function GPU_DRAW() : __GPU_EVENT_BASE() constructor
 			++i;
 		}
 		gpu_pop_state();
+		//show_debug_message("QuickGPU: Draw time: " + string((get_timer() - t0) / 1000) + "ms in.");
 	}
 }
 #endregion

@@ -24,28 +24,28 @@ if mode = SOUL_MODE.GREEN
 		for(var i = 0; i < ShieldAmount; i++)
 		{
 			var ShieldAng = ShieldDrawAngle[i],
-				ShieldDistance = lengthdir_xy(ShieldLen[i], ShieldAng);
-			draw_sprite_ext(sprGreenShield, 0, ShieldDistance.x + x, ShieldDistance.y + y, 1, 1, ShieldAng - 90, ShieldColor[i], 1);
+				ShieldDistanceX = lengthdir_x(ShieldLen[i], ShieldAng),
+				ShieldDistanceY = lengthdir_y(ShieldLen[i], ShieldAng);
+			draw_sprite_ext(sprGreenShield, 0, ShieldDistanceX + x, ShieldDistanceY + y, 1, 1, ShieldAng - 90, ShieldColor[i], 1);
 			if ShieldAlpha[i] > 0
 			{
 				gpu_set_blendmode(bm_normal);
-				draw_sprite_ext(sprGreenShield, 1, ShieldDistance.x + x, ShieldDistance.y + y, 1, 1, ShieldAng - 90, ShieldHitCol[i], ShieldAlpha[i]);
+				draw_sprite_ext(sprGreenShield, 1, ShieldDistanceX + x, ShieldDistanceY + y, 1, 1, ShieldAng - 90, ShieldHitCol[i], ShieldAlpha[i]);
 				gpu_set_blendmode(bm_add);
 			}
 			
-			var ShieldWidthX = 30 * dcos(ShieldAng + 90);
-			var ShieldWidthY =	30 * -dsin(ShieldAng + 90);
-			var ShieldDistX = (ShieldLen[i] + 16) * dcos(ShieldAng);
-			var ShieldDistY = (ShieldLen[i] + 16) * -dsin(ShieldAng);
-				 _x = ShieldDistX + x + ShieldWidthX;
-				 _y = ShieldDistY + y + ShieldWidthY;
-			var __x = ShieldDistX + x - ShieldWidthX,
+			var ShieldWidthX = lengthdir_x(30, ShieldAng + 90),
+				ShieldWidthY = lengthdir_y(30, ShieldAng + 90),
+				ShieldDistX = lengthdir_x(ShieldLen[i] + 16, ShieldAng),
+				ShieldDistY = lengthdir_y(ShieldLen[i] + 16, ShieldAng),
+				 _x = ShieldDistX + x + ShieldWidthX,
+				 _y = ShieldDistY + y + ShieldWidthY,
+				__x = ShieldDistX + x - ShieldWidthX,
 				__y = ShieldDistY + y - ShieldWidthY;
 			with oBulletParents
 				with other
 				{
-					var XChange = dcos(ShieldAng);
-					var YChange = dsin(ShieldAng);
+					var XChange = dcos(ShieldAng), YChange = dsin(ShieldAng);
 					for(var i = 0; i < 5; ++i)
 					{
 						if global.show_hitbox

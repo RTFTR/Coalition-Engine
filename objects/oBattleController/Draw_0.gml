@@ -412,8 +412,8 @@ if battle_state == BATTLE_STATE.MENU {
 								var _star_speed = _star_data[4] - _star_data[5] * _time;
 								//Position changing
 								_star_data[3] += _star_speed;
-								var _star_x = 320 + dcos(i * 45) * _star_data[3],
-									_star_y = Aim.Attack.EnemyY - dsin(i * 45) * _star_data[3];
+								var _star_x = 320 + lengthdir_x(_star_data[3], i * 45),
+									_star_y = Aim.Attack.EnemyY + lengthdir_y(_star_data[3], i * 45);
 								//Fading
 								if _star_speed < 5
 								{

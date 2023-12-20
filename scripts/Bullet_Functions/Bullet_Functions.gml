@@ -34,8 +34,8 @@ function len_step()
 			y += vspeed;
 		    dir += dir_move;
 		    len += speed;
-		    other.x = x + len * dcos(dir);  
-		    other.y = y + len * -dsin(dir);
+		    other.x = x + lengthdir_x(len, dir);
+		    other.y = y + lengthdir_y(len, dir);
 		    if angle other.image_angle += dir_move;
 		}
 	}
@@ -70,8 +70,8 @@ function axis_step()
 			Y += vspeed;
 			var dis = point_distance(board.x, board.y, X, Y),
 				dir = point_direction(board.x, board.y, X, Y);
-			other.x = dis * dcos(dir + _ang) + board.x;
-			other.y = dis * -dsin(dir + _ang) + board.y;
+			other.x = lengthdir_x(dis, dir + _ang) + board.x;
+			other.y = lengthdir_y(dis, dir + _ang) + board.y;
 			angle = _ang;
 		}
 	}

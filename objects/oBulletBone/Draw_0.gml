@@ -12,8 +12,8 @@ var _x = x,
 	_angle = image_angle + Axis.angle + Len.angle_extra,
 	_alpha = image_alpha,
 	_length = length / 14,
-	LengthX = length / 2 * dcos(_angle),
-	LengthY = length / 2 * -dsin(_angle);
+	LengthX = lengthdir_x(length / 2, _angle),
+	LengthY = lengthdir_y(length / 2, _angle);
 
 image_xscale = _length;
 

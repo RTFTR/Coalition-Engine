@@ -18,11 +18,13 @@ if SlammingEnabled
 			FinalSprites[SlamSpriteNumber] = SlamSprites[_slam_dir, SlamSpriteIndex];
 		if SlamTimer and SlamTimer < 25
 			FinalIndex[SlamSpriteNumber] = SlamSpriteTargetIndex[_slam_dir, SlamTimer / 5];
-		if SlamTimer >= 30 Slamming = false;
 	}
-	else
+	if SlamTimer == 25 Slamming = false;
+	if !Slamming
 	{
 		SlamTimer = 0;
+		array_copy(FinalSprites, 0, enemy_sprites, 0, E_Sprites);
+		array_copy(FinalIndex, 0, enemy_sprite_index, 0, E_Sprites);
 	}
 }
 

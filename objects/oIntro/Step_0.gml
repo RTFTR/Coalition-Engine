@@ -1,7 +1,7 @@
 var input_horizontal = PRESS_HORIZONTAL,
 	input_vertical = PRESS_VERTICAL,
-	input_confirm = input_check_pressed("confirm"),
-	input_cancel = input_check_pressed("cancel");
+	input_confirm = PRESS_CONFIRM,
+	input_cancel = PRESS_CANCEL;
 	
 var state = (menu_state == INTRO_MENU_STATE.NAME_CHECKING or menu_state == INTRO_MENU_STATE.NAME_CONFIRM);
 naming_alpha[0] += (real(!state) - naming_alpha[0]) * 0.15;

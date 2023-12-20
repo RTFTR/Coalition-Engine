@@ -11,7 +11,7 @@ if mode == 1 or mode == 3
 {
 	if len <= spd * 30 and !flipped
 	{
-		TweenFire(id, spd > 7 ? EaseOutBack : EaseOutSine, TWEEN_MODE_ONCE, false, 0, 105 / spd, "dir", dir, dir - 180)
+		TweenFire(id, spd > 7 ? "oBack" : "o", 0, false, 0, 105 / spd, "dir>", dir - 180);
 		flipped = 1;
 	}
 }
@@ -20,18 +20,17 @@ if global.Autoplay
 	if len < 60
 		if IsNearest()
 		{
-			do dir += 360; until dir > 0;
 			dir %= 360;
 			for(var i = 0; i < oSoul.ShieldAmount; ++i)
 			{
-				var DrawAngle = round(soul.ShieldDrawAngle[i]/90)*90;
-				soul.ShieldTargetAngle[i] = dir;
+				var DrawAngle = round(soul.ShieldDrawAngle[Color] / 90) * 90;
+				soul.ShieldTargetAngle[Color] = dir;
 				
-				if DrawAngle == 270 and dir == 0	soul.ShieldDrawAngle[i] -= 360;
-				if DrawAngle == 0 and dir == 270	soul.ShieldDrawAngle[i] = 360;
-				if soul.ShieldTargetAngle[i] < 0		soul.ShieldTargetAngle[i] += 360;
+				if DrawAngle == 270 and dir == 0	soul.ShieldDrawAngle[Color] -= 360;
+				if DrawAngle == 0 and dir == 270	soul.ShieldDrawAngle[Color] = 360;
+				if soul.ShieldTargetAngle[Color] < 0	soul.ShieldTargetAngle[Color] += 360;
 			
-				soul.ShieldTargetAngle[i] %= 360;
+				soul.ShieldTargetAngle[Color] %= 360;
 			
 				//if JudgeMode == "Lenient"
 				//{
@@ -41,6 +40,6 @@ if global.Autoplay
 			}
 		}
 
-x = len * dcos(dir + dir_e + dir_a) + soul.x;
-y = len * -dsin(dir + dir_e + dir_a) + soul.y;
+x = lengthdir_x(len, dir + dir_e + dir_a) + soul.x;
+y = lengthdir_y(len, dir + dir_e + dir_a) + soul.y;
 

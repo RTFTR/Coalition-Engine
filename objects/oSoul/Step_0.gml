@@ -141,8 +141,8 @@ if STATE == 2 {
 				_on_platform = true;
 				while position_meeting(x + platform_check[0, 1], y + platform_check[1, 1], oPlatform) {
 					with RespecitvePlatform {
-						other.x += dsin(image_angle) / 10;
-						other.y -= dcos(image_angle) / 10;
+						other.x -= lengthdir_y(0.1, image_angle);
+						other.y -= lengthdir_x(0.1, image_angle);
 					}
 				}
 			}
@@ -169,8 +169,8 @@ if STATE == 2 {
 			else if !jump_input and _fall_spd < -0.5
 				_fall_spd = -0.5;
 
-			move_x = move_input * dcos(_angle) +  _fall_spd * dsin(_angle);
-			move_y = move_input * -dsin(_angle) + _fall_spd * dcos(_angle);
+			move_x = lengthdir_x(move_input, _angle) - lengthdir_y(_fall_spd, _angle);
+			move_y = lengthdir_y(move_input, _angle) + lengthdir_x(_fall_spd, _angle);
 
 			on_ground = _on_ground;
 			on_ceil = _on_ceil;
@@ -195,8 +195,8 @@ if STATE == 2 {
 				//Movement
 				dir = input_direction(dir, "left", "right", "up", "down",, true);
 				var FinalAngle = dir + image_angle + draw_angle;
-				x += move_spd * dcos(FinalAngle);
-				y -= move_spd * dsin(FinalAngle);
+				x += lengthdir_x(move_spd, FinalAngle);
+				y += lengthdir_y(move_spd, FinalAngle);
 			}
 		break
 		}
@@ -222,7 +222,7 @@ if STATE == 2 {
 		case SOUL_MODE.GREEN : {
 			function DestroyArrow(obj) {
 				audio_play(snd_ding);
-				ShieldAlpha[obj.mode] = 1;
+				ShieldAlpha[obj.Color] = 1;
 				instance_destroy(obj);
 			}
 			///@param {Array} Input		The input keys of the shield

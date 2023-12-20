@@ -41,7 +41,7 @@ function CreateArrows(delay, beat, spd, tags, func_name = -1, functions = -1)
 		nn = array_length(tags);
 		var First = string_char_at(tags[0], 1);
 		
-		if (tags[0] == "/") fire = false;
+		if (tags[0] == "/" || tags[0] == "") fire = false;
 		else if (First == "R")
 		{
 			dir = irandom(3);

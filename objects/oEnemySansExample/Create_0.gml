@@ -90,9 +90,9 @@ event_user(1);
 //	draw_gradient_ext(640, 0, 640, 240, 180, c_yellow);
 //});
 //GPURemove(tmp);
-////AddGPUExt(id, ev_draw_normal, bm_inv_dest_color, bm_zero, function() {
-////	draw_circle(mouse_x, mouse_y, 50, false);
-////});
+//AddGPUExt(id, ev_draw_normal, bm_inv_dest_color, bm_zero, function() {
+//	draw_circle(mouse_x, mouse_y, 50, false);
+//});
 //draw_set_circle_precision(64);
 //AddGPU(id, ev_draw_normal, bm_add, function() {
 //	draw_circle_color(mouse_x, mouse_y, 120, c_purple, c_black, false);

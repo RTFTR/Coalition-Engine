@@ -16,8 +16,8 @@ function point_xy(p_x, p_y)
 {
 	var angle = image_angle;
 	
-	point_x = (p_x - x) * dcos(angle) - (p_y - y) * dsin(-angle) + x;
-	point_y = (p_y - y) * dcos(angle) + (p_x - x) * dsin(-angle) + y;
+	point_x = lengthdir_x(p_x - x, angle) + lengthdir_y(p_y - y, -angle) + x;
+	point_y = lengthdir_x(p_y - y, angle) - lengthdir_y(p_x - x, -angle) + y;
 }
 
 ///Calculating the legnthdir_xy position of the points
@@ -25,8 +25,8 @@ function point_xy_array(p_x, p_y)
 {
 	var angle = image_angle;
 	
-	return [(p_x - x) * dcos(angle) - (p_y - y) * dsin(-angle) + x,
-	(p_y - y) * dcos(angle) + (p_x - x) * dsin(-angle) + y];
+	return [lengthdir_x(p_x - x, angle) + lengthdir_y(p_y - y, -angle) + x,
+	lengthdir_x(p_y - y, angle) - lengthdir_y(p_x - x, -angle) + y];
 }
 
 ///Returns the lengthdir_x/y values in a Vector2 (stupidly useless)

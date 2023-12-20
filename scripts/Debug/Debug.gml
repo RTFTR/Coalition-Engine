@@ -34,10 +34,10 @@ function DrawDebugUI()
 		gpu_set_blendmode(bm_add);
 		if !global.CompatibilityMode
 		{
-			var ca = global.timer, dis = dcos(global.timer * 3) * 20;
+			var ca = global.timer, dis = lengthdir_x(20, global.timer * 3);
 			static color = [c_red, c_lime, c_blue];
 			for (var i = 0; i < 3; ++i)
-				draw_text_ext_transformed_color(ui_x - 245 - dsin(ca - i * 120) * dis, ui_y + dcos(ca - i * 120) * dis, "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
+				draw_text_ext_transformed_color(ui_x - 245 + lengthdir_y(dis, ca - i * 120), ui_y + lengthdir_x(dis, ca - i * 120), "DEBUG", -1, -1, 1.25, 1.25, 0, color[0], color[2 - i], color[2 - i], color[2 - i], debug_alpha);
 		}
 		
 		draw_debug_color_text(5, 10, string("SPEED: {0}x ({1} FPS)", room_speed / 60, room_speed));

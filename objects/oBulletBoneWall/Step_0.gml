@@ -24,21 +24,21 @@ if state == 2
 		{
 			var spd = floor((height) / time_move);
 			
-			x -= spd * dir_ang_y;
-			y -= spd * dir_ang_x;
+			x -= lengthdir_x(spd, dir);
+			y -= lengthdir_y(spd, dir);
 		}
 		if (timer >= time_move and timer <= time_move + time_stay)
 		{
-			x = target_x - height * dir_ang_y;
-			y = target_y - height * dir_ang_x;
+			x = target_x - lengthdir_x(height, dir);
+			y = target_y - lengthdir_y(height, dir);
 		}
 		if timer > time_move + time_stay
 		{
 			var spd = floor(height / time_move),
 				kill_check = false;
 			
-			x += spd * dir_ang_y;
-			y += spd * dir_ang_x;
+			x += lengthdir_x(spd, dir);
+			y += lengthdir_y(spd, dir);
 			switch dir
 			{
 				case DIR.UP:

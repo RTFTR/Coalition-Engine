@@ -1,5 +1,5 @@
-x = mouse_x + rad * dcos(angle);
-y = mouse_y - rad * dsin(angle);
+x = mouse_x + lengthdir_x(rad, angle);
+y = mouse_y + lengthdir_y(rad, angle);
 angle += rot_spd;
 if !global.CompatibilityMode
 	with(instance_create_depth(x, y, depth, oTrail))

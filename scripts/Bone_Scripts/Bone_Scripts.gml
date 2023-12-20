@@ -151,8 +151,8 @@ function Bullet_BoneFullH(y, spd, type = 0, out = 0, rotate = 0, destroyable = t
 */
 function Bullet_BoneGapH(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
 {
-	Bullet_BoneLeft(y, x - Board.GetLeftPos() - gap / 2, vspd, type, out,, destroyable, duration);
-	Bullet_BoneRight(y, Board.GetRightPos()- gap / 2 - x, vspd, type, out,, destroyable, duration);
+	left_bone = Bullet_BoneLeft(y, x - Board.GetLeftPos() - gap / 2, vspd, type, out,, destroyable, duration);
+	right_bone = Bullet_BoneRight(y, Board.GetRightPos()- gap / 2 - x, vspd, type, out,, destroyable, duration);
 }
 
 /**
@@ -168,12 +168,12 @@ function Bullet_BoneGapH(x, y, vspd, gap, type = 0, out = 0, destroyable = 0, du
 */
 function Bullet_BoneGapV(x, y, hspd, gap, type = 0, out = 0, destroyable = 0, duration = -1)
 {
-	Bullet_BoneTop(x, y - Board.GetUpPos() - gap / 2, hspd, type, out,, destroyable, duration);
-	Bullet_BoneBottom(x, Board.GetDownPos()- gap / 2 - y, hspd, type, out,, destroyable, duration);
+	up_bone = Bullet_BoneTop(x, y - Board.GetUpPos() - gap / 2, hspd, type, out,, destroyable, duration);
+	down_bone = Bullet_BoneBottom(x, Board.GetDownPos()- gap / 2 - y, hspd, type, out,, destroyable, duration);
 }
 
 /**
-	Creates a bone wall on a chosen side of the board
+	Creates a bone wall on a chosen side of the board (Recommended for beginners)
 	@param {real} direction		The direction of the bone wall (Macros supported, i.e. DIR.UP)
 	@param {real} height		The height of the bone wall (In pixels)
 	@param {real} delay			The Warning duration
@@ -183,10 +183,10 @@ function Bullet_BoneGapV(x, y, hspd, gap, type = 0, out = 0, destroyable = 0, du
 	@param {bool} warn_sound	Whether the warning sound plays (Default True)
 	@param {bool} create_sound	Whether the create sound plays (Default True)
 */
-function Bullet_BoneWall(dir, height, delay, duration, type = 0, move = 5, warn_sound = true, cre_sound = true){
+function Bullet_BoneWall(dir, height, delay, duration, type = 0, move = 5, warn_sound = true, cre_sound = true) {
 	var DEPTH = -10;
 	if instance_exists(oBoard)  DEPTH = oBoard.depth + 1;
-	dir = posmod(dir, 360);
+	dir %= 360;
 	var wall = instance_create_depth(0, 0, DEPTH, oBulletBoneWall);
 	with wall
 	{
@@ -197,66 +197,104 @@ function Bullet_BoneWall(dir, height, delay, duration, type = 0, move = 5, warn_
 		time_stay = duration;
 		time_move = move;
 		id.type = type;
-		sound_warn = warn_sound;
 		sound_create = cre_sound;
 	}
+	if warn_sound audio_play(snd_warning, true);
 	return wall;
 }
 
 /**
-	Creates a Vertical Bone Wave
-	@param {real} y			The y position of the first bone
-	@param {real} length	The length of the first bone
-	@param {real} hspeed	The hspeed of the bones
-	@param {real} space		The space between bones
-	@param {real} amount	The amount of bones
-	@param {real} gap		The size of the bone gap
-	@param {real} udf		Sine wave multiplier
-	@param {real} uds		Sine wave intensity
-	@param {real} type		Color of the bones (Default White)
-	@param {real} out		Whether the bones are outside the board (Default 0)
+	Creates a bone wall on any angle (Recommended for advanced users)
+	@param {real} direction			The direction of the bone wall
+	@param {real} height			The length of the bones in the bonewall (140 if the desired height is 70)
+	@param {Array<real>} distance	The distances of the bonewall in an array (inital and final)
+	@param {real} delay				The Warning duration
+	@param {real} duration			The duration that the bone wall exists
+	@param {real} color				The color of the bones (Default White)
+	@param {real} move				The time taken for the bonewall to move in and out of the board (Default 5)
+	@param {bool} warn_sound		Whether the warning sound plays (Default True)
+	@param {bool} create_sound		Whether the create sound plays (Default True)
+	@param {function,string} ease	The easing of the creation and destruction of the bonewall
+	@param {real} width				The width of the bones, default full
+	@param {Asset.GMObject} object	The object to use as the wall (Default bones)
 */
-function Bullet_BoneWaveH(yy, length, hspd, space, amount, gap, udf, uds, type = 0, out = 0)
-{
-	var SIN = 0, LENGTH = (length - Board.GetLeftPos() - 14), i = 0;
-	for (; i < amount; ++i)
+function Bullet_CustomBoneWall(dir, height, distance, delay, duration, type = 0, move = 5, warn_sound = true, cre_sound = true, ease = ["", ""], width = -1, obj = oBulletBone) {
+	var DEPTH = -10;
+	if instance_exists(oBoard)  DEPTH = oBoard.depth + 1;
+	dir %= 360;
+	var board = BattleBoardList[TargetBoard],
+		X = lengthdir_x(distance[0], dir) + board.x,
+		Y = lengthdir_y(distance[0], dir) + board.y,
+		wall = instance_create_depth(X, Y, DEPTH, oBulletCustomBoneWall);
+	with wall
 	{
-		SIN += uds * 0.3;
-		LENGTH += cos(SIN) * udf * 4;
-		yy += space * hspd * sign(-hspd) / 4;
-		
-		var DURATION = ((640 + space * i) / abs(hspd)) * 2;
-		Bullet_BoneLeft(yy, LENGTH, hspd, type, out, 0, false, DURATION);
-		Bullet_BoneRight(yy, Board.GetWidth() - LENGTH - gap, hspd, type, out, 0, false, DURATION);
+		target_board = BattleBoardList[TargetBoard];
+		image_angle = dir;
+		id.height = height;
+		time_warn = delay;
+		time_stay = duration;
+		time_move = move;
+		id.type = type;
+		sound_create = cre_sound;
+		id.ease = ease;
+		id.width = width;
+		id.distance = distance;
+		object = obj;
 	}
+	if warn_sound audio_play(snd_warning, true);
+	return wall;
 }
 
 /**
-	Creates a Horizontal Bone Wave
-	@param {real} x			The x position of the first bone
-	@param {real} length	The length of the first bone
-	@param {real} hspeed	The hspeed of the bones
-	@param {real} space		The space between bones
-	@param {real} amount	The amount of bones
-	@param {real} gap		The size of the bone gap
-	@param {real} udf		Sine wave multiplier
-	@param {real} uds		Sine wave intensity
-	@param {real} type		Color of the bones (Default White)
-	@param {real} out		Whether the bones are outside the board (Default 0)
+	Creates a Vertical Bone Wave, returns the array of bones with [left1, right1, left2...]
+	@param {real} x				The x position of the bonewave
+	@param {real} y				The inital y position of the gap of the wave
+	@param {real} amount		The amount of bones
+	@param {function} function	The function to apply the bonewall sining to (i.e. sin, cos)
+	@param {real} multiplier	The multiplier for the sine function (sin(value * multiplier))
+	@param {real} intensity		The intensity of the wave (Go up and down for how many pixels)
+	@param {real} speed			The speed of the bonewave
+	@param {real} distance		The distance between each bone
+	@param {real} gap			The size of the gap
+	@param {real} color			The color of the bones (Default White)
+	@param {bool} out			Whether the bones are outside the board
+	@param {bool} auto_destroy	Whether it auto destroys based on the timer
 */
-function Bullet_BoneWaveV(xx, length, vspd, space, amount, gap, udf, uds, type = 0, out = 0)
+function Bullet_BoneWaveH(x, y, amount, func, multiply, xdisplace, spd, ydisplace, gap, col = 0, out = false, auto_dest = false)
 {
-	var SIN = 0, LENGTH = (length - Board.GetUpPos() - 14), i = 0;
-	for (; i < amount; ++i)
-	{
-		SIN += uds * 0.3;
-		LENGTH += cos(SIN) * udf * 4;
-		xx += space * vspd * sign(-vspd) / 4;
-		
-		var DURATION = ((480 + space * i) / abs(vspd)) * 2;
-		Bullet_BoneTop(xx, LENGTH, vspd, type, out, 0, false, DURATION);
-		Bullet_BoneBottom(xx, Board.GetHeight() - LENGTH - gap, vspd, type, out, 0, false, DURATION);
+	var arr = array_create(amount * 2);
+	for (var i = 0; i < amount; ++i) {
+		Bullet_BoneGapH(x + func(i * multiply) * xdisplace, y + i * ydisplace, spd, gap, col, out, false, auto_dest ? -1 : abs((y + i * ydisplace) / speed));
+		arr[i * 2] = left_bone;
+		arr[i * 2 + 1] = right_bone;
 	}
+	return arr;
+}
+
+/**
+	Creates a Horizontal Bone Wave, returns the array of bones with [up1, down1, up2...]
+	@param {real} x				The x position of the bonewave
+	@param {real} y				The inital y position of the gap of the wave
+	@param {real} amount		The amount of bones
+	@param {function} function	The function to apply the bonewall sining to (i.e. sin, cos)
+	@param {real} multiplier	The multiplier for the sine function (sin(value * multiplier))
+	@param {real} intensity		The intensity of the wave (Go up and down for how many pixels)
+	@param {real} speed			The speed of the bonewave
+	@param {real} distance		The distance between each bone
+	@param {real} gap			The size of the gap
+	@param {real} color			The color of the bones (Default White)
+	@param {bool} out			Whether the bones are outside the board
+	@param {bool} auto_destroy	Whether it auto destroys based on the timer
+*/
+function Bullet_BoneWaveV(x, y, amount, func, multiply, ydisplace, spd, xdisplace, gap, col = 0, out = false, auto_dest = false)
+{
+	var arr = array_create(amount * 2);
+	for (var i = 0; i < amount; ++i) {
+		Bullet_BoneGapV(x + i * xdisplace, y + func(i * multiply) * ydisplace, spd, gap, col, out, false, auto_dest ? -1 : abs((x + i * xdisplace) / speed));
+		arr[i * 2] = up_bone;
+		arr[i * 2 + 1] = down_bone;
+	}
+	return arr;
 }
 
 /**
@@ -282,13 +320,13 @@ function Battle_BoneCube(x, y, angle_x, angle_y, angle_z, rot_x, rot_y, rot_z, s
 	{
 		angles = [angle_x, angle_y, angle_z];
 		angleAdd = [rot_x, rot_y, rot_z];
-		scalex = scale_x;
-		scaley = scale_y;
-		scalez = scale_z;
 		if anim_time
+			TweenFire(id, ease, 0, false, 0, anim_time, "scalex>", scale_x , "scaley>", scale_y, "scalez>", scale_z);
+		else
 		{
-			TweenFire(id, ease, 0, false, 0, anim_time, "scalex", 0, scale_x
-			, "scaley", 0, scale_y, "scalez", 0, scale_z);
+			scalex = scale_x;
+			scaley = scale_y;
+			scalez = scale_z;
 		}
 	}
 	return inst;

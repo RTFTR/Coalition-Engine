@@ -18,8 +18,8 @@ if global.timer >= 1
 		shader_reset();
 		_list[0].Finish();
 		var dir = is_odd(i) ? 180 : 0,
-			_x = _list[1] * dcos(_list[2] + dir),
-			_y = _list[1] * -dsin(_list[2] + dir);
+			_x = lengthdir_x(_list[1], _list[2] + dir),
+			_y = lengthdir_y(_list[1], _list[2] + dir);
 		_list[0].Draw(_x, _y);
 		if is_odd(i)
 		{

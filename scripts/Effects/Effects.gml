@@ -155,10 +155,10 @@ function TrailEffect(Duration, Sprite = sprite_index, Subimg = image_index, X = 
 	@param Easing			The easing method of the splice (TweenGMX Format)
 */
 function SpliceScreen(x, y, dir, idur, dur, edur, dis, ease = "oQuad") {
-	var _xs = x + 1000 * dcos(dir),
-		_ys = y - 1000 * dsin(dir),
-		_xe = x - 1000 * dcos(dir),
-		_ye = y + 1000 * dsin(dir);
+	var _xs = x + lengthdir_x(1000, dir),
+		_ys = y - lengthdir_y(1000, dir),
+		_xe = x - lengthdir_x(1000, dir),
+		_ye = y + lengthdir_y(1000, dir);
 	with instance_create_depth(x, y, 0, oCutScreen, 
 	{
 		TEMPID : __cut_screen(_xs, _ys, _xe, _ye, 0)

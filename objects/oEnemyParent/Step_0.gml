@@ -2,8 +2,8 @@
 function end_turn()
 {
 	var turn = BattleData.Turn();
-	if array_length(PostAttackFunctions) > turn
-		PostAttackFunctions[turn]();
+	if array_length(PostAttackFunctions) > DetermineTurn()
+		PostAttackFunctions[DetermineTurn()]();
 	with oBattleController
 	{
 		//Set menu dialog
@@ -114,8 +114,8 @@ if enemy_total_height == 0 or enemy_max_width == 0
 		{
 			var dust_speed = random_range(1, 3),
 				dust_direction = random_range(55, 125);
-			return [dust_speed * dcos(dust_direction),
-					dust_speed * -dsin(dust_direction)];
+			return [lengthdir_x(dust_speed, dust_direction),
+					lengthdir_y(dust_speed, dust_direction),];
 		}
 		dust_displace = array_create_ext(dust_amount, _f);
 		_f = function()

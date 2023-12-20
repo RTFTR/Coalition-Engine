@@ -103,9 +103,8 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 
 	var sinX = sin(_point_h), cosX = cos(_point_h),
 		sinY = sin(_point_v), cosY = cos(_point_v),
-		number_of_nodes = array_length(nodes),
 		i = 0;
-	repeat number_of_nodes
+	repeat 8
 	{
 		var node = nodes[i],
 			_x = node[0],
@@ -127,9 +126,8 @@ function draw_cube_width(_draw_x, _draw_y, _size, _point_h, _point_v, _colour, _
 	var prev_col = draw_get_color();
 	draw_set_colour(_colour);
 
-	var number_of_edges = array_length(edges);
 	i = 0;
-	repeat number_of_edges
+	repeat 12
 	{
 		var edge = edges[i],
 			p1 = nodes[edge[0]],

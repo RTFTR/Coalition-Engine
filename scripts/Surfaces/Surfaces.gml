@@ -12,8 +12,8 @@
 function draw_surface_rotated_ext(_surf, _x, _y, _xscale, _yscale, _rot, _col, _alpha) {
 	var _halfW = surface_get_width(_surf) / 2 * _xscale,
 		_halfH = surface_get_height(_surf) / 2 * _yscale,
-		_rotX = -_halfW * dcos(_rot) - _halfH * dsin(_rot),
-		_rotY = -_halfW * -dsin(_rot) - _halfH * dcos(_rot),
+		_rotX = -lengthdir_x(_halfW, _rot) + lengthdir_y(_halfH, _rot),
+		_rotY = -lengthdir_y(_halfW, _rot) - lengthdir_x(_halfH, _rot),
 		//If you want to *always* draw from center origin, remove `_half`s below
 		_surfX = _x + _halfW + _rotX,
 		_surfY = _y + _halfH + _rotY;

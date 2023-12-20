@@ -73,8 +73,8 @@ function draw_circular_bar(x, y, value, max, colour, radius, transparency, width
 			draw_vertex(radius, radius);
 			for (i = 0; i <= val; i++) {
 				len = i * sizeofsection + 90; // the 90 here is the starting angle
-				tx = radius * dcos(len);
-				ty = radius * -dsin(len);
+				tx = lengthdir_x(radius, len);
+				ty = lengthdir_y(radius, len);
 				draw_vertex(radius + tx, radius + ty);
 			}
 			draw_primitive_end();
@@ -107,7 +107,7 @@ function draw_gradient_ext(x = 0, y = 480, width = 640, height = 40, angle = 0, 
 	time++;
 	displace = move(time * rate) * intensity;
 	height += displace;
-	oGlobal.GradientSurf.DrawExt(x - height / 2 * dcos(angle - 90), y - height / 2 * -dsin(angle - 90), width / 640, height / 480, angle, color, 1);
+	oGlobal.GradientSurf.DrawExt(x - lengthdir_x(height / 2, angle - 90), y - lengthdir_y(height / 2 ,angle - 90), width / 640, height / 480, angle, color, 1);
 }
 ///Sets the noise sprite to use for a noise fade
 function SpriteNoiseSet(sprite = sprNoiseRect) constructor {
@@ -199,8 +199,8 @@ function draw_invert_rect(x1, y1, x2, y2) {
 	Draws an triangle with the colors inverted inside of it
 	@param {real} x1	The x coordinate of the triangle's first corner
 	@param {real} y1	The y coordinate of the triangle's first corner
-	@param {real} x2	The x coordinate of the triangle's secpnd corner
-	@param {real} y2	The y coordinate of the triangle's secpnd corner
+	@param {real} x2	The x coordinate of the triangle's second corner
+	@param {real} y2	The y coordinate of the triangle's second corner
 	@param {real} x3	The x coordinate of the triangle's third corner
 	@param {real} y3	The y coordinate of the triangle's third corner
 */

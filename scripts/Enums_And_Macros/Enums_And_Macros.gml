@@ -1,8 +1,9 @@
 #region Engine
 //Here are the macros for the en2ine
-#macro ENGINE_VERSION "Beta v5.2.2"
+#macro ENGINE_VERSION "Beta v5.2.3"
 #macro ALLOW_DEBUG  true
-#macro DEBUG (ALLOW_DEBUG ? true : false)
+#macro DEBUG (game_is_standalone() ? false : true)
+#macro RELEASE !DEBUG
 #macro ERROR_LOG true
 #endregion
 #region Input
@@ -27,6 +28,8 @@
 #macro c_dkgreen make_color_rgb(0, 255, 0)
 #macro this self
 #macro is ==
+//Handy GMLive macro for users who have GMlive
+#macro live if asset_get_index("obj_gmlive") != -1 && live_call() return live_result
 #endregion
 
 enum FONTS {

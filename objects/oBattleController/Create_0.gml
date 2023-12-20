@@ -370,8 +370,8 @@ function end_battle() {
 function dialog_start() {
 	with oEnemyParent
 	{
-		if array_length(PreAttackFunctions) > BattleData.Turn()
-			PreAttackFunctions[BattleData.Turn()]();
+		if array_length(PreAttackFunctions) > DetermineTurn()
+			PreAttackFunctions[max(0, DetermineTurn())]();
 		state = 1;
 	}
 	battle_state = 1;
