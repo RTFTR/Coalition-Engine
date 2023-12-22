@@ -1,3 +1,4 @@
+live;
 event_inherited();
 EnemyData.SetName(self, "Sans");
 EnemyData.SetAct(self, 0, "Check", "funny skeleton man[delay,1000] 1 ATK 1 DEF");
@@ -97,3 +98,6 @@ event_user(1);
 //AddGPU(id, ev_draw_normal, bm_add, function() {
 //	draw_circle_color(mouse_x, mouse_y, 120, c_purple, c_black, false);
 //});
+
+global.lerp_speed = 1;
+global.battle_lerp_speed = 1;

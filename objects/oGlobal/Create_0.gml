@@ -21,6 +21,7 @@ with Song
 	Name = "";
 	Dist = -20;
 	Time = 0;
+	Lerp = 0.21;
 };
 
 Fade = {};

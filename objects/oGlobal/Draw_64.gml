@@ -29,9 +29,7 @@ if RGBShake
 
 //Fader
 if fader_alpha > 0
-{
 	draw_sprite_ext(sprPixel, 0, 0, 0, 640, 480, 0, fader_color, fader_alpha);
-}
 
 //Song Name
 with Song
@@ -46,8 +44,8 @@ with Song
 		draw_triangle_color(dist - 11, 10, dist + 20, (35 + Height) / 2, dist - 11, 30 + Height,
 							c_purple, c_purple, c_purple, false);
 		draw_text_scribble(dist - Length + 10, 10, "[fnt_dt_sans][c_white]" + Text);
-		if Time < 60 Dist = lerp(dist, Length, 0.21);
-		if Time > 180 Dist = lerp(dist, -20, 0.21);
+		if Time < 60 Dist = lerp(dist, Length, Lerp);
+		if Time > 180 Dist = lerp(dist, -20, Lerp);
 		if Time > 240
 		{
 			Activate = false;
@@ -61,7 +59,7 @@ with Song
 if room == rRestart
 {
 	var text = "[fa_center][c_white][fnt_dt_mono]Restarting",
-		num = (restart_timer div 10) mod 4;
+		num = (restart_timer div 10) % 4;
 	repeat num text += ".";
 	draw_text_scribble(320, 240, text);
 	draw_text_scribble(320, 420, "[fa_center][c_ltgray][fnt_dotum]" + restart_tip);

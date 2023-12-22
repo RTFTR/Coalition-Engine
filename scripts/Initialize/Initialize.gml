@@ -2,8 +2,12 @@ function Initialize()
 {
 	show_debug_message("Coalition Engine: This is version " + ENGINE_VERSION);
 	//Set to true when releasing your game
-	gml_release_mode(false);
+	gml_release_mode(RELEASE);
 	randomize();
+	
+	//Some users may not want a lerp animation to be played, you may set this to 1
+	global.lerp_speed = 0.16;
+	global.battle_lerp_speed = 1/3;
 	
 	//Soul position (Gameover usage)
 	global.soul_x = 320;

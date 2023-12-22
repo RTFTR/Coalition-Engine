@@ -1,3 +1,4 @@
+live;
 event_inherited();
 
 hit_destroy = 1;

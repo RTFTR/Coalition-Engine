@@ -38,7 +38,7 @@ for (var i = 0; i < E_Sprites; ++i) {
 			0, c_white, image_alpha);
 		break;
 	}
-	__CoalitionEngineError(array_length(temp[i]) < 5, string("Amount of arguments supplied in the array 'enemy_sprite_wiggle' on the {0}th dimension is incorrect, expected 5 got {1}", i, array_length(enemy_sprite_pos[i])));
+	__CoalitionEngineError(array_length(temp[i]) < 5, "Amount of arguments supplied in the array 'enemy_sprite_wiggle' on the ", i, "th dimension is incorrect, expected 5 got ", array_length(enemy_sprite_pos[i]));
 	if temp[i][0] == "sin"
 		FinalPosition = [
 				sin(wiggle_timer * temp[i][1]) * temp[i][3],
@@ -57,7 +57,7 @@ for (var i = 0; i < E_Sprites; ++i) {
 			0, c_white, image_alpha);
 	if enemy_sprite_draw_method[i] == "pos"
 	{
-		__CoalitionEngineError(array_length(enemy_sprite_pos[i]) < 8, string("Amount of arguments supplied in the array 'enemy_sprite_pos' on the {0}th dimension is incorrect, expected 8 got {1}", i, array_length(enemy_sprite_pos[i])));
+		__CoalitionEngineError(array_length(enemy_sprite_pos[i]) < 8, "Amount of arguments supplied in the array 'enemy_sprite_pos' on the ", i, "th dimension is incorrect, expected 8 got ", array_length(enemy_sprite_pos[i]));
 		draw_sprite_pos(FinalSprites[i], FinalIndex[i],
 			x + enemy_sprite_pos[i][0] + FinalPosition[0],
 			y + enemy_sprite_pos[i][1] + FinalPosition[1],

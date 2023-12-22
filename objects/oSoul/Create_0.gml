@@ -78,26 +78,45 @@ allow_outside = false;
 timer = 0;
 
 //Green soul variables
-ShieldDrawAngle = [0, 0];
-ShieldTargetAngle = [0, 0];
-ShieldLen = [18, 18];
-ShieldAlpha = [0, 0];
-ShieldInput = 
-[
-	[vk_right, vk_up, vk_left, vk_down],
-	[ord("D"), ord("W"), ord("A"), ord("S")]
-];
-ShieldColor = [c_blue, c_red];
-ShieldHitCol = [c_red, c_yellow];
-ShieldAmount = 2;
-global.Autoplay = true;
-ShieldParticleSystem = part_system_create();
-ShieldParticleType = part_type_create();
-part_type_life(ShieldParticleType, 10, 30);
-part_type_direction(ShieldParticleType, 0, 360, 0, 0);
-part_type_speed(ShieldParticleType, 2, 4, 0, 0);
-part_type_alpha2(ShieldParticleType, 1, 0);
-part_type_sprite(ShieldParticleType, sprPixel, 0, 0, 0);
+GreenCircle = true;
+globalvar Shield;
+Shield = new __Shield();
+GreenShield = {};
+with GreenShield
+{
+	Angle = ds_list_create();
+	TargetAngle = ds_list_create();
+	Distance = ds_list_create();
+	Alpha = ds_list_create();
+	Input = ds_grid_create(1, 4);
+	Color = ds_list_create();
+	HitColor = ds_list_create();
+	RotateDirection = ds_list_create();
+	Amount = 0;
+	Auto = true;
+	ParticleSystem = part_system_create();
+	ParticleType = part_type_create();
+	part_type_life(ParticleType, 10, 30);
+	part_type_direction(ParticleType, 0, 360, 0, 0);
+	part_type_speed(ParticleType, 2, 4, 0, 0);
+	part_type_alpha2(ParticleType, 1, 0);
+	part_type_sprite(ParticleType, sprPixel, 0, 0, 0);
+	ResetAngleOnTurnEnd = false;
+	//List of shields
+	List = ds_list_create();
+}
+Shield.Add(c_blue, c_red, [
+	vk_right,
+	vk_up,
+	vk_left,
+	vk_down
+]);
+Shield.Add(c_red, c_yellow, [
+	ord("D"),
+	ord("W"),
+	ord("A"),
+	ord("S")
+]);
 
 //Purple soul variables
 Purple = {};
@@ -111,6 +130,8 @@ with Purple
 	ForceAlpha = 0;
 	XTarget = 320;
 	YTarget = 320;
+	LerpSpeed = 0.3;
+	BoxLerpSpeed = 0.08;
 }
 
 //Grazing

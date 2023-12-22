@@ -81,3 +81,4 @@ WaitTime = 0;
 debug = false;
 debug_alpha = 0;
 #endregion
+global.lerp_speed = 1;	

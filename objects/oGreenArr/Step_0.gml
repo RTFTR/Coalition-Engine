@@ -1,3 +1,4 @@
+live;
 event_inherited();
 
 var soul = oSoul,
@@ -16,9 +17,11 @@ if mode == 1 or mode == 3
 	}
 }
 
-if global.Autoplay
+//if global.Autoplay
+if false
 	if len < 60
 		if IsNearest()
+		if false
 		{
 			dir %= 360;
 			for(var i = 0; i < oSoul.ShieldAmount; ++i)
@@ -39,6 +42,10 @@ if global.Autoplay
 				//}
 			}
 		}
+
+if len < 60
+	if oSoul.GreenShield.Angle[| Color] != dir
+		oSoul.GreenShield.TargetAngle[| Color] = dir;
 
 x = lengthdir_x(len, dir + dir_e + dir_a) + soul.x;
 y = lengthdir_y(len, dir + dir_e + dir_a) + soul.y;

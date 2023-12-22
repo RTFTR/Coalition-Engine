@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__input_gm_runtime_version",
+  "name": "__input_clear_all",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

@@ -1,3 +1,4 @@
+live;
 var STATE = oBattleController.battle_state,
 	MENU = oBattleController.menu_state;
 image_angle += draw_angle;
@@ -18,50 +19,14 @@ if mode = SOUL_MODE.GREEN
 {
 	if STATE == 2
 	{
-		draw_set_circle_precision(16);
-		draw_circle_colour(x - 0.5, y - 0.5, 30, c_green, c_green, 1);
-		gpu_set_blendmode(bm_add);
-		for(var i = 0; i < ShieldAmount; i++)
+		if GreenCircle
 		{
-			var ShieldAng = ShieldDrawAngle[i],
-				ShieldDistanceX = lengthdir_x(ShieldLen[i], ShieldAng),
-				ShieldDistanceY = lengthdir_y(ShieldLen[i], ShieldAng);
-			draw_sprite_ext(sprGreenShield, 0, ShieldDistanceX + x, ShieldDistanceY + y, 1, 1, ShieldAng - 90, ShieldColor[i], 1);
-			if ShieldAlpha[i] > 0
-			{
-				gpu_set_blendmode(bm_normal);
-				draw_sprite_ext(sprGreenShield, 1, ShieldDistanceX + x, ShieldDistanceY + y, 1, 1, ShieldAng - 90, ShieldHitCol[i], ShieldAlpha[i]);
-				gpu_set_blendmode(bm_add);
-			}
-			
-			var ShieldWidthX = lengthdir_x(30, ShieldAng + 90),
-				ShieldWidthY = lengthdir_y(30, ShieldAng + 90),
-				ShieldDistX = lengthdir_x(ShieldLen[i] + 16, ShieldAng),
-				ShieldDistY = lengthdir_y(ShieldLen[i] + 16, ShieldAng),
-				 _x = ShieldDistX + x + ShieldWidthX,
-				 _y = ShieldDistY + y + ShieldWidthY,
-				__x = ShieldDistX + x - ShieldWidthX,
-				__y = ShieldDistY + y - ShieldWidthY;
-			with oBulletParents
-				with other
-				{
-					var XChange = dcos(ShieldAng), YChange = dsin(ShieldAng);
-					for(var i = 0; i < 5; ++i)
-					{
-						if global.show_hitbox
-						{
-							draw_set_color(c_white)
-							draw_line(_x, _y, __x, __y)
-						}
-						if collision_line(_x, _y, __x, __y, other, false, false)
-							DestroyArrow(other);
-						 _x -= XChange;
-						__x -= XChange;
-						 _y += YChange;
-						__y += YChange;
-					}
-				}
+			draw_set_circle_precision(16);
+			draw_circle_colour(x - 0.5, y - 0.5, 30, c_green, c_green, 1);
 		}
+		gpu_set_blendmode(bm_add);
+		with oGreenShield draw_sprite_ext(sprite_index, 0, x, y, 1, 1, image_angle, image_blend, image_alpha);
+		with oGreenArr draw_self();
 		gpu_set_blendmode(bm_normal);
 	}
 }
@@ -88,7 +53,7 @@ if mode == SOUL_MODE.PURPLE and STATE == 2
 		draw_line(i, TopLine, i, BottomLine);
 		draw_set_color(c_white);
 	}
-	Purple.ForceAlpha = lerp(Purple.ForceAlpha, 0, 0.08);
+	Purple.ForceAlpha = lerp(Purple.ForceAlpha, 0, Purple.BoxLerpSpeed);
 	draw_set_alpha(Purple.ForceAlpha);
 	draw_set_color(c_purple);
 	Battle_Masking_Start();

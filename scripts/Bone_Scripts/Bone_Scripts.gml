@@ -14,7 +14,7 @@
 	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 	@param {color} Base_Color	The color of the bone
 */
-function Bullet_Bone(x, y, length, hspd, vspd, type = 0, out = 0, mode = 0, angle = 90, rotate = 0, destroyable = true, duration = -1, base_col = oEnemyParent.base_bone_col){
+function Bullet_Bone(x, y, length, hspd, vspd, type = 0, out = 0, mode = 0, angle = 90, rotate = 0, destroyable = true, duration = -1, base_col = oEnemyParent.base_bone_col) {
 	var DEPTH = -10;
 	if instance_exists(oBoard)
 	{
@@ -72,7 +72,7 @@ function Bullet_BoneTop(x, length, hspd, type = 0, out = 0, rotate = 0, destroya
 	@param {bool} destroy	Whether the bullets destroys when offscreen (Default True)
 	@param {real} duration	The amount of time the bone exists before destroying itself (Default -1)
 */
-function Bullet_BoneBottom(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1){
+function Bullet_BoneBottom(x, length, hspd, type = 0, out = 0, rotate = 0, destroyable = true, duration = -1) {
 	return Bullet_Bone(x, Board.GetDownPos() - length / 2, length, hspd, 0, type, out,, 90, rotate, destroyable, duration);
 }
 

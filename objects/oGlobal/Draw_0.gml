@@ -21,10 +21,7 @@ if global.timer >= 1
 			_x = lengthdir_x(_list[1], _list[2] + dir),
 			_y = lengthdir_y(_list[1], _list[2] + dir);
 		_list[0].Draw(_x, _y);
-		if is_odd(i)
-		{
-			CutScreenSurface = CanvasGetAppSurf(true);
-		}
+		if is_odd(i) CutScreenSurface = CanvasGetAppSurf(true);
 		++i;
 	}
 }

@@ -1,3 +1,4 @@
+// Feather disable all
 /// This function should be called in the scope of a gamepad class
 function __input_gamepad_set_type()
 {
@@ -106,10 +107,14 @@ function __input_gamepad_set_type()
                 }
                 
                 var _desc = string_lower(description);
-                if (__input_string_contains(_desc, "8bitdo"))
+                if (__input_string_contains(_desc, "neogeo"))
+                {
+                    raw_type = "CommunityNeoGeo";
+                }
+                else if (__input_string_contains(_desc, "8bitdo"))
                 {
                     raw_type = "Community8BitDo";
-                    if (__input_string_contains(_desc, "ultimate", "zero") && !__input_string_contains(_desc, "zero 2"))
+                    if (__input_string_contains(_desc, "xbox", "ultimate", "zero") && !__input_string_contains(_desc, "zero 2"))
                     {
                         raw_type = "CommunityLikeXBox";
                     }
@@ -166,7 +171,11 @@ function __input_gamepad_set_type()
                 {
                     raw_type = "CommunityPSX"; //Catch all remaining PlayStation gamepads as PSX
                 }
-                else if (__input_string_contains(_desc, "for switch", "for nintendo switch", "switch controller", "switch pro controller", "lic pro controller", "wii"))
+                else if (__input_string_contains(_desc, "gamecube", "wired fight pad pro for nintendo", "core (plus) wired"))
+                {
+                    raw_type = "CommunityGameCube";
+                }
+                else if (__input_string_contains(_desc, "for switch", "for nintendo switch", "switch controller", "switch pro", "lic pro", "mobapad", "wii"))
                 {
                     raw_type = "CommunityLikeSwitch";
                 }
@@ -181,10 +190,6 @@ function __input_gamepad_set_type()
                 else if (__input_string_contains(_desc, "joy-con (r)", "right joy-con"))
                 {
                     raw_type = "SwitchJoyConRight";
-                }
-                else if (__input_string_contains(_desc, "gamecube"))
-                {
-                    raw_type = "CommunityGameCube";
                 }
                 else if (__input_string_contains(_desc, "xbox elite", "xbox wireless", "xbox one", "xbox bluetooth"))
                 {
@@ -202,9 +207,42 @@ function __input_gamepad_set_type()
                 {
                     raw_type = "AppleController";
                 }
+                else if (__input_string_contains(_desc, "throttle", "flight quadrant"))
+                {
+                    raw_type = "SDLThrottle";
+                }
+                else if (__input_string_contains(_desc, "flightstick", "hotas") || (__input_string_contains(_desc, "flight", "sim", "eclipse") && __input_string_contains(_desc, "stick", "yoke", "rudder")))
+                {
+                    raw_type = "SDLFlightstick";
+                }
+                else if (__input_string_contains(_desc, "driving force", "momo force", "openffboard") || (__input_string_contains(_desc, "wheel") && __input_string_contains(_desc, "racing", "steering", "base", "feedback")))
+                {
+                    raw_type = "SDLWheel";
+                }
                 else
                 {
                     raw_type = "Unknown";
+                }
+
+                if not (INPUT_SDL2_ALLOW_NONGAMEPAD_JOYSTICKS)
+                {
+                    //Append joystick subtype
+                    if (__input_string_contains(_desc, "drum"))
+                    {
+                        raw_type += "Drumkit";
+                    }
+                    else if (__input_string_contains(_desc, "guitar", " fender "))
+                    {
+                        raw_type += "Guitar";
+                    }
+                    else if (__input_string_contains(_desc, "skateboard"))
+                    {
+                        raw_type += "Skateboard";
+                    }
+                    else if (__input_string_contains(_desc, "ddr", "dance") && !__input_string_contains(_desc, "hyperkin"))
+                    {
+                        raw_type += "Dancepad";
+                    }
                 }
             }
             
@@ -293,6 +331,11 @@ function __input_gamepad_set_type()
                     guessed_type = true;
                 }
             }
+            else if ((string_pos("4a4a000000000000", guid) == 1) && __INPUT_ON_ANDROID)
+            {
+                raw_type = "CommunityNeoGeo";
+                guessed_type = true;
+            }
             else if (__input_string_contains(description, "Classic Controller") && (axis_count == 10) && (hat_count == 1) && __INPUT_ON_ANDROID)
             {
                 raw_type = "CommunityVCSClassic";
@@ -375,7 +418,7 @@ function __input_gamepad_set_type()
                                 //Found IMU                                
                                 var _imu_index = _g;
                                 if (!__INPUT_SILENT) __input_trace("Overriding controller ", _imu_index ," type to \"HIDWiiRemoteIMU\"");
-                                with (_global.__gamepads[@ _imu_index])
+                                with(_global.__gamepads[@ _imu_index])
                                 {
                                     raw_type = "HIDWiiRemoteIMU";
                                     guessed_type = true;
@@ -384,7 +427,7 @@ function __input_gamepad_set_type()
                                 }
                             
                                 if (!__INPUT_SILENT) __input_trace("Overriding controller ", _ir_index ," type to \"HIDWiiRemoteIRSensor\"");
-                                with (_global.__gamepads[@ _ir_index])
+                                with(_global.__gamepads[@ _ir_index])
                                 {
                                     raw_type = "HIDWiiRemoteIRSensor";
                                     guessed_type = true;

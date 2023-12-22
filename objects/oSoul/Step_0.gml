@@ -1,3 +1,4 @@
+live;
 // Invincibility
 if global.inv > 0 {
 	global.inv--;
@@ -207,10 +208,7 @@ if STATE == 2 {
 			//Shooting the bullet
 			if !timer {
 				if input_check_pressed("confirm") {
-					instance_create_depth(x, y, 0, oYellowBullet,
-					{
-						image_angle : other.image_angle
-					});
+					with instance_create_depth(x, y, 0, oYellowBullet) image_angle = other.image_angle;
 					//The delay until you can shoot the next bullet
 					timer = 15;
 				}
@@ -220,60 +218,32 @@ if STATE == 2 {
 		}
 
 		case SOUL_MODE.GREEN : {
-			function DestroyArrow(obj) {
-				audio_play(snd_ding);
-				ShieldAlpha[obj.Color] = 1;
-				instance_destroy(obj);
-			}
-			///@param {Array} Input		The input keys of the shield
-			function AddShield(Input = [])
-			{
-				with oSoul
-				{
-					array_push(ShieldAlpha, 0);
-					array_push(ShieldDrawAngle, 0);
-					array_push(ShieldTargetAngle, 0);
-					array_push(ShieldLen, 18);
-					if Input != -1
-						array_push(ShieldInput, Input);
-					ShieldAmount++;
-				}
-			}
-			function RemoveShield(num)
-			{
-				with oSoul
-				{
-					array_delete(ShieldAlpha, num, 1);
-					array_delete(ShieldDrawAngle, num, 1);
-					array_delete(ShieldTargetAngle, num, 1);
-					array_delete(ShieldLen, num, 1);
-					ShieldAmount--;
-				}
-			}
+			if !(global.timer % 60) Bullet_Arrow(60, 6, 0);
 			x = board.x;
 			y = board.y;
-			for(var i = 0; i < ShieldAmount; i++)
+			with GreenShield
 			{
-				var input = [
-					keyboard_check_pressed(ShieldInput[i, 0]), keyboard_check_pressed(ShieldInput[i, 1]),
-					keyboard_check_pressed(ShieldInput[i, 2]), keyboard_check_pressed(ShieldInput[i, 3])
-				],
-					LastTarget = ShieldTargetAngle[i];
-				for (var ii = 0; ii < 4; ++ii)
-					if input[ii] ShieldTargetAngle[i] = ii * 90;
-		
-				//Smooth shield angle animation
-				if LastTarget > 180 and ShieldTargetAngle[i] == 0	ShieldDrawAngle[i] -= 360;
-				if LastTarget == 180 and ShieldTargetAngle[i] == 0	ShieldDrawAngle[i] = 180;
-				if LastTarget < -5 and ShieldTargetAngle[i] == 90	ShieldDrawAngle[i] += 360;
-				if LastTarget < 90 and ShieldTargetAngle[i] == 270  ShieldDrawAngle[i] += 360;
-		
-				//Shield angle lerping
-				ShieldDrawAngle[i] = lerp(ShieldDrawAngle[i], ShieldTargetAngle[i], 0.2);
-				if abs(ShieldTargetAngle[i] - ShieldDrawAngle[i]) <= 0.1
-					ShieldDrawAngle[i] = ShieldTargetAngle[i];
-				if ShieldAlpha[i] > 0 ShieldAlpha[i] -= 1 / 30;
-				
+				for (var i = 0, shield; i < Amount; ++i) {
+					shield = List[| i];
+					shield.Auto = Auto[| i];
+					shield.image_angle = Angle[| i] - 90;
+					shield.image_alpha = Alpha[| i];
+					shield.image_blend = Color[| i];
+					shield.HitColor = HitColor[| i];
+					shield.x = other.x + lengthdir_x(Distance[| i], Angle[| i]);
+					shield.y = other.y + lengthdir_y(Distance[| i], Angle[| i]);
+					//Rotation
+					for (var ii = 0; ii < 4; ++ii) {
+						if is_bool(Input[# i, ii])
+						{
+							if Input[# i, ii] Shield.__ApplyRotate(i, ii);
+						}
+						else if is_real(Input[# i, ii])
+							if keyboard_check_pressed(Input[# i, ii]) Shield.__ApplyRotate(i, ii);
+					}
+					Angle[| i] += Shield.__RemainingRotateAngle(i) * (RotateDirection[| i] ? -0.16 : 0.16);
+					Angle[| i] = posmod(Angle[| i], 360);
+				}
 			}
 		break
 		}
@@ -296,7 +266,7 @@ if STATE == 2 {
 				Purple.CurrentVLine += PRESS_VERTICAL;
 				Purple.CurrentVLine = clamp(Purple.CurrentVLine, 0, Purple.VLineAmount - 1);
 				Purple.YTarget = TopLine + Purple.CurrentVLine * YDifference;
-				y = lerp(y, Purple.YTarget, 0.3);
+				y = lerp(y, Purple.YTarget, LerpSpeed);
 			}
 			else
 			{
@@ -308,7 +278,7 @@ if STATE == 2 {
 				Purple.CurrentHLine += PRESS_HORIZONTAL;
 				Purple.CurrentHLine = clamp(Purple.CurrentHLine, 0, Purple.HLineAmount - 1);
 				Purple.XTarget = LeftLine + Purple.CurrentHLine * XDifference;
-				x = lerp(x, Purple.XTarget, 0.3);
+				x = lerp(x, Purple.XTarget, LerpSpeed);
 			}
 		break
 		}

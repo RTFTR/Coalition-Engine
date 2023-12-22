@@ -1,6 +1,7 @@
+lerp_speed = global.battle_lerp_speed;
 var _button_len = array_length(Button.Sprites);
 #region Errors
-__CoalitionEngineError(_button_len != array_length(Button.Position) / 2 , string("Amount of buttons sprites contradict with number of positions. There are {0} sprites but only {1} valid positions", _button_len, floor(array_length(Button.Position) / 2)));
+__CoalitionEngineError(_button_len != array_length(Button.Position) / 2 , "Amount of buttons sprites contradict with number of positions. There are ", _button_len, "sprites but only ", floor(array_length(Button.Position) / 2),  "valid positions");
 __CoalitionEngineError(!is_struct(menu_text_typist), "'menu_text_typist' is not a scribble typist. Check if you accidentally set it to something else")
 #endregion
 if !audio_group_is_loaded(audgrpbattle) audio_group_load(audgrpbattle);
@@ -34,8 +35,8 @@ switch battle_state {
 				with oSoul
 				{
 					visible = true;
-					x += (_button_pos[_button_slot * 2] - sprite_get_width(other.Button.Sprites[_button_slot]) * other.Button.Scale[_button_slot] / 2 + 20 - x) / 3;
-					y += ((_button_pos[_button_slot * 2 + 1] + 1) - y) / 3;
+					x = lerp(x, _button_pos[_button_slot * 2] - sprite_get_width(other.Button.Sprites[_button_slot]) * other.Button.Scale[_button_slot] / 2 + 20, other.lerp_speed);
+					y = lerp(y, _button_pos[_button_slot * 2 + 1] + 1, other.lerp_speed);
 				}
 				//If input is detected, change state to button state
 				if input_confirm {
@@ -90,8 +91,8 @@ switch battle_state {
 						menu_state = MENU_STATE.MERCY_END + coord; // Spare or Flee
 				}
 				//Soul lerping
-				oSoul.x += (72 - oSoul.x) / 3;
-				oSoul.y += (288 + floor(coord) * 32 - oSoul.y) / 3;
+				oSoul.x = lerp(oSoul.x, 72, lerp_speed);
+				oSoul.y = lerp(oSoul.y, 288 + floor(coord) * 32, lerp_speed);
 			break
 			case MENU_STATE.ITEM:
 			case MENU_STATE.ACT_SELECT:
@@ -164,25 +165,25 @@ switch battle_state {
 				if menu_state == MENU_STATE.ITEM {
 					switch item_scroll_type {
 						case ITEM_SCROLL.DEFAULT:
-							oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
-							oSoul.y += ((288 + ((floor(choice / 2) % 2) * 32)) - oSoul.y) / 3;
+							oSoul.x = lerp(oSoul.x, 72 + 256 * (choice % 2), lerp_speed);
+							oSoul.y = lerp(oSoul.y, 288 + (floor(choice / 2) % 2) * 32, lerp_speed);
 						break
 
-						case ITEM_SCROLL.VERTICAL:							
-							oSoul.x += (72 - oSoul.x) / 3;
-							oSoul.y += (320 - oSoul.y) / 3;
-							item_lerp_y[0] = lerp(item_lerp_y[0], 304 - (32 * choice), 1/3);
-							item_desc_alpha = lerp(item_desc_alpha, 1, 1/3);
+						case ITEM_SCROLL.VERTICAL:
+							oSoul.x = lerp(oSoul.x, 72, lerp_speed);
+							oSoul.y = lerp(oSoul.y, 320, lerp_speed);
+							item_lerp_y[0] = lerp(item_lerp_y[0], 304 - (32 * choice), lerp_speed);
+							item_desc_alpha = lerp(tem_desc_alpha, 1, lerp_speed);
 							for (var i = 0, n = item_space; i < n; ++i)
 							{
 								item_lerp_x_target = 96 + 10 * (abs(choice - i));
-								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, 1/3);
+								item_lerp_x[i] = lerp(item_lerp_x[i], item_lerp_x_target, lerp_speed);
 								if i == choice
 									item_lerp_color_amount_target[i] = 1;
 								else if abs(i - choice) == 1
 									item_lerp_color_amount_target[i] = 0.5;
 								else item_lerp_color_amount_target[i] = 16 / 255;
-								item_lerp_color_amount[i] = lerp(item_lerp_color_amount[i], item_lerp_color_amount_target[i], 0.12);
+								item_lerp_color_amount[i] = lerp(item_lerp_color_amount[i], item_lerp_color_amount_target[i], global.lerp_speed);
 							}
 							
 						break
@@ -194,9 +195,9 @@ switch battle_state {
 
 					}
 				} else {
-					item_desc_alpha = lerp(item_desc_alpha, 0, 1 / 3);
-					oSoul.x += ((72 + (256 * (choice % 2))) - oSoul.x) / 3;
-					oSoul.y += ((288 + ((floor(choice / 2)) * 32)) - oSoul.y) / 3;
+					item_desc_alpha = lerp(item_desc_alpha, 0, lerp_speed);
+					oSoul.x = lerp(oSoul.x, 72 + 256 * (choice % 2), lerp_speed);
+					oSoul.y = lerp(oSoul.y, 288 + 32 * floor(choice / 2), lerp_speed);
 				}
 				//Confirm state
 				if input_confirm {
@@ -262,7 +263,7 @@ switch battle_state {
 								and item_scroll_type != ITEM_SCROLL.HORIZONTAL) or
 			menu_state == MENU_STATE.MERCY or menu_state == MENU_STATE.ACT_SELECT)
 			target_soul_angle = 90;
-		oSoul.image_angle += (target_soul_angle - oSoul.image_angle) / 9;
+		oSoul.image_angle = lerp(oSoul.image_angle, target_soul_angle, lerp_speed == 1 ? 1 : lerp_speed / 3);
 	break
 	//Reset menu text typer
 	case BATTLE_STATE.DIALOG:

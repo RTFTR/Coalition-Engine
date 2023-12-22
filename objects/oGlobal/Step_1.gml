@@ -1,6 +1,5 @@
 /// @description Global
-
-if keyboard_check(vk_escape)
+if input_check("pause") or input_check_double("pause")
 {
 	quit_timer++;
 	if quit_timer >= 60 game_end();
@@ -15,7 +14,6 @@ global.timer++;
 if keyboard_check_pressed(vk_f2)
 {
 	audio_stop_all();
-	instance_destroy(oBulletParents);
 	//room_goto(rRestart);
 	game_restart();
 }
@@ -39,8 +37,7 @@ if ALLOW_DEBUG
 
 if room == rRestart
 {
-	restart_timer++;
-	if restart_timer == restart_ender game_restart();
+	if restart_timer++ == restart_ender game_restart();
 }
 
 if RGBShake > 0

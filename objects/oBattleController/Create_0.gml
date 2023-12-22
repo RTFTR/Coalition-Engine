@@ -11,6 +11,7 @@ action_trigger_turn = array_create(6, 0);
 action_trigger_turn[2] = 1;
 begin_at_turn = false;
 last_choice = 0;
+lerp_speed = global.battle_lerp_speed;
 
 global.kr_activation = true;
 global.hp = global.hp_max;
@@ -149,7 +150,7 @@ with Button
 	}
 	ResetTimer();
 }
-Button.Update = function(duration = 30) {
+Button.Update = function(duration = global.battle_lerp_speed == 1 ? 1 : 30) {
 	static UpdateData = function(i, duration)
 	{
 		Button.ColorLerpScale[i] = EaseOutQuad(Button.ColorLerpTimer[i], 0, 1, duration);

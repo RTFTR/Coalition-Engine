@@ -1,6 +1,6 @@
 ///@desc Set attacks
 live;
-SetAttack(2, function() {
+SetAttack(0, function() {
 	if time == 1
 	{
 		with oBoard
@@ -13,11 +13,11 @@ SetAttack(2, function() {
 		Board.SetSize(42, 42, 42, 42);
 		Board.SetPos(, 240);
 		SoulSetMode(SOUL_MODE.GREEN);
-		Bullet_Arrow(60, 7, 0);
-		Bullet_Arrow(90, 7, 0,, 1);
-		Bullet_Arrow(120, 7, 0, 1);
-		Bullet_Arrow(150, 7, 0, 2);
-		Bullet_Arrow(180, 7, 0, 3);
+		//Bullet_Arrow(60, 7, 0);
+		//Bullet_Arrow(90, 7, 0,, 1);
+		//Bullet_Arrow(120, 7, 0, 1);
+		//Bullet_Arrow(150, 7, 0, 2);
+		//Bullet_Arrow(180, 7, 0, 3);
 	}
 	BattleData.EnemyDialog(self, BattleData.Turn() + 1, "override")
 	//if time == 160 end_turn();
@@ -27,7 +27,7 @@ SetAttack(1, function() {
 	if time == 60 Board.SetSize(8, 8, 8, 8);
 	if time == 120 end_turn();
 });
-SetAttack(0, function() {
+SetAttack(2, function() {
 	if time == 1 Board.SetSize(70, 70, 150, 150, 0);
 	if time == 20
 	{
@@ -37,6 +37,6 @@ SetAttack(0, function() {
 		//Bullet_CustomBoneWall(45, 140, [250, 150], 90, 90);
 		//Bullet_CustomBoneWall(135, 140, [250, 150], 90, 90);
 		repeat 4 
-		Bullet_CustomBoneWall(random(360), 140, [250, 100], 90, 90,,,,,, 80);
+			Bullet_CustomBoneWall(random(360), 140, [250, 100], 90, 90,,,,,, 80);
 	}
 });

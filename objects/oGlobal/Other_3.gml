@@ -16,8 +16,8 @@ part_type_destroy(global.TrailP);
 
 time_source_destroy(all);
 
-sprite_delete(Border.Sprite);
-sprite_delete(Border.SpritePrevious);
+if sprite_exists(Border.Sprite) sprite_delete(Border.Sprite);
+if sprite_exists(Border.SpritePrevious) sprite_delete(Border.SpritePrevious);
 
 delete Song;
 delete Fade;

@@ -67,20 +67,20 @@ if instance_exists(oOWPlayer)
 		menu_at_top = oOWPlayer.y < CamPos[1] + camera_get_view_height(view_camera[0]) / 2 + 10;
 }
 
-menu_ui_x = lerp(menu_ui_x, menu ? 32 : -640, 0.16);
+menu_ui_x = lerp(menu_ui_x, menu ? 32 : -640, global.lerp_speed);
 
 var is_iteming = false;
 if (menu_state == MENU_MODE.ITEM) or (menu_state == MENU_MODE.ITEM_INTERACTING)
 {
 	is_iteming = true;
-	menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, 0.16);
+	menu_ui_y[MENU_MODE.ITEM] = lerp(menu_ui_y[MENU_MODE.ITEM], 52, global.lerp_speed);
 }
 for (var i = is_iteming ? 2 : 1; i < 4; ++i)
 {
 	if menu_state == i
-		menu_ui_y[menu_state] = lerp(menu_ui_y[menu_state], 52, 0.16);
+		menu_ui_y[menu_state] = lerp(menu_ui_y[menu_state], 52, global.lerp_speed);
 	else
-		menu_ui_y[i] = lerp(menu_ui_y[i], -480, 0.16);
+		menu_ui_y[i] = lerp(menu_ui_y[i], -480, global.lerp_speed);
 }
 #endregion
 
@@ -299,9 +299,9 @@ if menu and global.interact_state == INTERACT_STATE.MENU // If menu is open
 
 
 
-menu_soul_pos[0] = lerp(menu_soul_pos[0], menu_soul_target[0], 0.16);
-menu_soul_pos[1] = lerp(menu_soul_pos[1], menu_soul_target[1], 0.16);
-menu_soul_alpha = lerp(menu_soul_alpha, menu_soul_alpha_target, 0.2);
+menu_soul_pos[0] = lerp(menu_soul_pos[0], menu_soul_target[0], global.lerp_speed);
+menu_soul_pos[1] = lerp(menu_soul_pos[1], menu_soul_target[1], global.lerp_speed);
+menu_soul_alpha = lerp(menu_soul_alpha, menu_soul_alpha_target, global.lerp_speed);
 #endregion
 
 
