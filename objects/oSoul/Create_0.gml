@@ -88,10 +88,10 @@ with GreenShield
 	TargetAngle = ds_list_create();
 	Distance = ds_list_create();
 	Alpha = ds_list_create();
-	Input = ds_grid_create(1, 4);
 	Color = ds_list_create();
 	HitColor = ds_list_create();
 	RotateDirection = ds_list_create();
+	Input = ds_grid_create(1, 4);
 	Amount = 0;
 	Auto = true;
 	ParticleSystem = part_system_create();
@@ -117,6 +117,7 @@ Shield.Add(c_red, c_yellow, [
 	ord("A"),
 	ord("S")
 ]);
+Shield.Remove(1);
 
 //Purple soul variables
 Purple = {};

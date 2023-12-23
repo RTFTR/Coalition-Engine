@@ -1,5 +1,12 @@
 Update Logs (This is the beta builds)
 
+v5.3.1 (Eden)
+Fixed bugs:
+I untangled the corruption manually so the green soul functions now re-exist
+Updated:
+New checker to check for compatibility of engine to your GM version
+Green soul is basically done, you now have the basic things you need for green soul attacks
+
 v5.3.0 (Eden)
 Updated:
 Added options for disabling lerping

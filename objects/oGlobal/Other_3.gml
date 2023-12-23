@@ -1,7 +1,7 @@
 /// @description Uninitialization
 if CutScreenSurface != undefined && CutScreenSurface.IsAvailable() CutScreenSurface.Free();
-if GradientSurf.IsAvailable() GradientSurf.Free();
 if RGBSurf.IsAvailable() RGBSurf.Free();
+if GradientSurf.IsAvailable() GradientSurf.Free();
 instance_destroy(oBulletParents);
 global.Settings[? "Volume"] = global.Volume;
 Save_Settings();

@@ -43,6 +43,5 @@ if room == rRestart
 if RGBShake > 0
 {
 	RGBShake -= RGBDecrease;
-	if RGBShake <= 0 RGBSurf.Free();
 }
 else if !RGBSurf.IsAvailable() RGBSurf = new Canvas(640, 480);

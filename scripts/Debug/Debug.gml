@@ -95,3 +95,48 @@ function __CoalitionEngineError(check, text)
 	if !ERROR_LOG exit;
 	if check show_error("Coalition Engine: " + text, true);
 }
+
+function __CoalitionGMVersion() {
+	static _version = undefined;
+	if _version != undefined return _version;
+	
+	var _pos = 1,
+		_version_str = GM_runtime_version,
+		_number_str = undefined;
+	_version = {
+		major: 0,
+		minor: 0,
+		bug_fix: 0,
+		build_number: 0
+	};
+	
+	//Using the most appropriate methods in order to maximize compatibility down to 2.3.0
+	_pos = string_pos(".", _version_str);
+	_number_str = string_copy(_version_str, 1, _pos-1);
+	if string_length(string_digits(_number_str)) > 0 _version.major = real(_number_str);
+	_version_str = string_delete(_version_str, 1, _pos);
+	
+	_pos = string_pos(".", _version_str);
+	_number_str = string_copy(_version_str, 1, _pos-1);
+	if string_length(string_digits(_number_str)) > 0 _version.minor = real(_number_str);
+	_version_str = string_delete(_version_str, 1, _pos);
+	
+	_pos = string_pos(".", _version_str);
+	_number_str = string_copy(_version_str, 1, _pos-1);
+	if string_length(string_digits(_number_str)) > 0 _version.bug_fix = real(_number_str);
+	_version_str = string_delete(_version_str, 1, _pos);
+	 
+	_number_str = string_copy(_version_str, 1, _pos-1);
+	if string_length(string_digits(_number_str)) > 0 _version.build_number = real(_number_str);
+
+	return _version;
+}
+
+function __CoalitionCheckCompatibilty()
+{
+	var version = __CoalitionGMVersion();
+	if version.major >= 2024 or (version.major == 2023 && version.minor > 2)
+		print("Coalition Engine ", ENGINE_VERSION, "was designed for Game Maker versions 2023.2 to 2023.8, you are in ", GM_runtime_version);
+	if version.major < 2023
+		print("Coalition Engine ", ENGINE_VERSION, "may be unstable for Game Maker versions earlier than 2023.2, you are in ", GM_runtime_version);
+}

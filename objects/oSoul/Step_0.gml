@@ -218,20 +218,36 @@ if STATE == 2 {
 		}
 
 		case SOUL_MODE.GREEN : {
-			if !(global.timer % 60) Bullet_Arrow(60, 6, 0);
+			if !(global.timer % 60)
+			{
+				var a = Bullet_Arrow(60, 6, irandom(3), irandom(3));
+				TweenFire(a, "io", 0, 0, 45, 90, "spd", -6, 6);
+			}
 			x = board.x;
 			y = board.y;
 			with GreenShield
 			{
 				for (var i = 0, shield; i < Amount; ++i) {
 					shield = List[| i];
-					shield.Auto = Auto[| i];
+					shield.Auto = Auto;
 					shield.image_angle = Angle[| i] - 90;
 					shield.image_alpha = Alpha[| i];
 					shield.image_blend = Color[| i];
 					shield.HitColor = HitColor[| i];
 					shield.x = other.x + lengthdir_x(Distance[| i], Angle[| i]);
 					shield.y = other.y + lengthdir_y(Distance[| i], Angle[| i]);
+					//Auto rotate
+					if Auto
+					{
+						var min_len = infinity, nearest_arr = noone;
+						with oGreenArr
+						{
+							min_len = min(min_len, len);
+							if min_len == len nearest_arr = id;
+						}
+						if nearest_arr != noone
+							Shield.__ApplyRotate(nearest_arr.Color, round(nearest_arr.target_dir / 90));
+					}
 					//Rotation
 					for (var ii = 0; ii < 4; ++ii) {
 						if is_bool(Input[# i, ii])
@@ -241,7 +257,7 @@ if STATE == 2 {
 						else if is_real(Input[# i, ii])
 							if keyboard_check_pressed(Input[# i, ii]) Shield.__ApplyRotate(i, ii);
 					}
-					Angle[| i] += Shield.__RemainingRotateAngle(i) * (RotateDirection[| i] ? -0.16 : 0.16);
+					Angle[| i] += Shield.__RemainingRotateAngle(i) * (RotateDirection[| i] ? 0.16 : -0.16);
 					Angle[| i] = posmod(Angle[| i], 360);
 				}
 			}

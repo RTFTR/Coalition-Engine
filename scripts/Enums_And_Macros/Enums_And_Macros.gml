@@ -29,7 +29,12 @@
 #macro this self
 #macro is ==
 //Handy GMLive macro for users who have GMlive
-#macro live if asset_get_index("obj_gmlive") != -1 && live_call() return live_result
+#macro COALITION_ENABLE_GMLIVE false
+#macro live if COALITION_ENABLE_GMLIVE && asset_get_index("obj_gmlive") != -1\
+			{\
+				if !instance_exists(obj_gmlive) instance_create_depth(0, 0, 0, obj_gmlive);\
+				if live_call() return live_result\
+			}
 #endregion
 
 enum FONTS {

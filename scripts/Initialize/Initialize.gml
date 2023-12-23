@@ -1,6 +1,7 @@
 function Initialize()
 {
 	show_debug_message("Coalition Engine: This is version " + ENGINE_VERSION);
+	__CoalitionCheckCompatibilty();
 	//Set to true when releasing your game
 	gml_release_mode(RELEASE);
 	randomize();
