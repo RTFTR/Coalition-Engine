@@ -49,4 +49,4 @@ Panthervention, Supereden, RTF
 
 [We have our Discord Server. You can ask what you don't know, or your code optimization. But we don't answer the dumb questions.](https://discord.gg/X8N5jkbeZs)
 
-[Wanna see this engine document? Well, Here may be what you're looking for.](https://docs.google.com/document/d/1PxeJxLadrUCBvG7DbQhDqAS7m8n5o21E8o8JhcnuDWI/edit#)
+[Wanna see this engine's wiki? Well, Here may be what you're looking for.](https://github.com/RTFTR/Coalition-Engine/wiki)
