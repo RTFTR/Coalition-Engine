@@ -24,15 +24,28 @@ Fear not, the anti-export and save corruption is already a built-in feature of t
 
 > Canary : This will be getting the cutting edge updates, which means most likely it will cause unexpected errors or crashes.
 
-> Stable : When the feature is **completly** done and stable, It will move to the Stable branch.
+> Stable : When the feature is **completly** done and stable, It will move to the Stable branch. This branch is basically deprecated, you should not use this branch.
 
-> Long-Term Support : Specified for GameMaker LTS users! This branch will barely get updates. Its purposes are to maintain stability.
+> Long-Term Support : Specified for GameMaker LTS users! This branch is also basically deprecated.
 
 You are on the Canary branch, This branch will have very unstable, unreliable builds. Yeah, most likely.
 
 If you're lucky, you may get at least an useful build.
 
 But the builds here will have the most updated features.
+
+ ## Version List
+
+It is best to use Game Maker 2.3+ (Non-LTS) builds.
+
+These are the versions of the external libraries that are packaged with the newest version of the engine.
+
+> [!IMPORTANT]
+> You should not remove these libraries from the engine.
+
+| Scribble | Input | Clean Shapes| Lexicon | Canvas | TurboGML | TweenGMX |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 8.5.0 | 6.1.5 | 1.1.1 | 3.0.2 | 2.1.0 | 3.0.0 | 1.0.3 |
 
 ![Credits](https://user-images.githubusercontent.com/83257329/226114492-749f7f25-9780-4a28-80b2-1bb4bad86e22.png)
 
